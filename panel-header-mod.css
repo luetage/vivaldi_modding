@@ -1,7 +1,7 @@
 /*
 Panel Header mod
 https://forum.vivaldi.net/topic/18030/panel-header-modification
-Show panel headers on hover.
+Hides search and toolbar icons in panel, shows them when hovering header.
 */
 
 .panel header {

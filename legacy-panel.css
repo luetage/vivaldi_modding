@@ -1,7 +1,7 @@
 /*
 Legacy Panel
 https://forum.vivaldi.net/topic/14723/legacy-panel
-Run a panelcontainer colored like in the prerelease versions of Vivaldi (dark panel on light theme).
+Panel container themed like in the prerelease versions of Vivaldi (dark panel on light theme).
 */
 
 .theme-light #switch, .theme-light #panels-container::after {

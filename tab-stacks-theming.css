@@ -1,0 +1,15 @@
+/*
+Tab Stacks Theming
+https://forum.vivaldi.net/topic/16594/tab-stacks-theming
+Lets you theme the indicators in tab stacks.
+*/
+
+.tab-group-indicator .tab-indicator.active {
+	background-color: #fd3563 !important;
+}
+.tab-group-indicator .tab-indicator {
+	background-color: #fff !important;
+}
+.tab-group-indicator .tab-indicator:hover:not(.active) {
+	background-color: #000 !important;
+}

@@ -1,0 +1,12 @@
+/*
+Toggle Site Info
+https://forum.vivaldi.net/topic/15044/remove-site-info-text/2
+Hides site info text in address field, displays it on hover.
+*/
+
+.siteinfo-symbol:hover + .siteinfo-text {
+	display: block;
+}
+.siteinfo-text {
+	display: none;
+}
