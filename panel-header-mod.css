@@ -1,0 +1,26 @@
+/*
+Panel Header mod
+https://forum.vivaldi.net/topic/18030/panel-header-modification
+Show panel headers on hover.
+*/
+
+.panel header {
+	padding-top: 9px;
+}
+.panel header h1 {
+	margin-bottom: 5px;
+}
+.panel.panel-bookmarks header:hover > .toolbar.icons, #notes-panel.panel header:hover > .toolbar.icons {
+	max-height: 68px;
+	margin-bottom: 0px;
+	opacity: 1;
+}
+.panel.panel-bookmarks header:hover h1, #notes-panel.panel header:hover > h1 {
+	color: #fd3563;
+}
+.panel.panel-bookmarks .toolbar.icons, #notes-panel.panel .toolbar.icons {
+	max-height: 0px;
+	margin-bottom: -6px;
+	opacity: 0;
+	transition: max-height 0.5s ease-out, margin 0.5s ease-out, opacity 0.5s ease-out;
+}

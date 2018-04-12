@@ -1,0 +1,28 @@
+/*
+Legacy Panel
+https://forum.vivaldi.net/topic/14723/legacy-panel
+Run a panelcontainer colored like in the prerelease versions of Vivaldi (dark panel on light theme).
+*/
+
+.theme-light #switch, .theme-light #panels-container::after {
+    background: #2d2d2d;
+    box-shadow: none !important;
+}
+.theme-light #switch button:hover, .theme-light #switch button:focus {
+	box-shadow: none !important;
+}
+.theme-light #switch button svg {
+	fill: #9c9c9c;
+}
+.theme-light #switch button.active svg {
+	fill: #484848;
+}
+.theme-light #switch button.active, .theme-light #switch button.active:hover {
+	background: #fff !important;
+}
+.theme-light #switch button:hover {
+	background: #474747 !important;
+}
+.theme-light #switch button, .theme-dark #switch .webviewbtn img {
+    background: transparent !important;
+}
