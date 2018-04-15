@@ -1,0 +1,15 @@
+/*
+Changing Buttons
+https://forum.vivaldi.net/topic/20227/changing-icons-with-css-part-ii
+An example for changing buttons with simple css. In this case home and trash button, but any image depending on an svg path can be changed this way.
+*/
+
+button.button-toolbar.home svg path {
+	d: path('M 4 6 h 18 v 2.5 h -3.5 v 11.5 h -2.5 v -9.5 h -6 v 9.5 h -2.5 v -11.5 h -3.5 Z');
+}
+.button-tabbar.toggle-trash svg g path {
+	d: path('M 6.5 8 h13 v2 h-13 Z M 6.5 12 h13 v2 h-13 Z M 9 16 h8 v2 h-8 Z');
+}
+.button-tabbar.toggle-trash svg g {
+	transform: translate(0px, 0px) !important;
+}
