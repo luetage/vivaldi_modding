@@ -1,0 +1,29 @@
+/* Audio Tab Animation
+https://forum.vivaldi.net/topic/18439/audio-tab-animation
+Animates tabs playing sound.
+*/
+
+@keyframes greenwave {
+	from {background: var(--colorAccentBgFaded);}
+	to {background: #bbffff;}
+}
+
+@keyframes greenactive {
+	from {background: var(--colorBg);}
+	to {background: #bbffff;}
+}
+
+.tab.audio-on {
+	animation-name: greenwave;
+}
+
+.tab.active.audio-on {
+	animation-name: greenactive;
+}
+
+.tab.audio-on, .tab.active.audio-on {
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in;
+}

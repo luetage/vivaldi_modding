@@ -1,0 +1,58 @@
+/*
+Extensions to Status-Bar
+https://forum.vivaldi.net/topic/20643/showing-extension-icons-on-the-bottom-of-the-browser/6
+Moves the extension action buttons to the status bar. Dependent on extensions-to-status.js
+*/
+
+/* extensions-wrapper configurations */
+#footer .extensions-wrapper {
+	-webkit-app-region: no-drag;
+}
+#footer .extensions-wrapper img {
+	height: 19px;
+	width: 19px;
+	margin-top: 2px;
+}
+#footer .extensions-wrapper .button-badge {
+	max-height: 10px;
+	max-width: 10px;
+	min-width: 5px;
+}
+#footer .toggle-extensions-group svg {
+	vertical-align: middle;
+}
+#footer .extensions-wrapper .dragging-cancelled, #footer .toggle-extensions-group {
+	border-right: none;
+}
+
+/* background colors */
+#footer .extensions-wrapper .dragging-cancelled, #footer .toggle-extensions-group {
+	background-color: transparent;
+}
+#footer .extensions-wrapper span:hover, #footer .toggle-extensions-group:hover {
+	background-color: var(--colorBgDark);
+}
+
+/* popup */
+#footer .extensionaction .popup.top::before, #footer .extensionaction .popup.top::after {
+	display: none !important;
+}
+#footer .extensionaction {
+	position: absolute;
+	top: unset !important;
+	bottom: 35px;
+}
+
+/* footer button alignment */
+#footer button.button-toolbar-small {
+	height: 27px;
+}
+#footer input.button-toolbar-small:last-of-type {
+	margin-right: 6px;
+}
+#footer button.button-toolbar-small svg {
+	padding-top: 4px;
+}
+#footer .tilingtoggle {
+	padding-top: 1px;
+}

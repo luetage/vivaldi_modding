@@ -1,0 +1,20 @@
+/*
+Tabs Below Address-Bar
+https://forum.vivaldi.net/topic/15834/tabs-on-bottom-for-1-8/19
+Displays tab bar below the address bar. Simple CSS only solution. Set tab bar to bottom in vivaldi://settings, or this mod won't work. Change CSS-selector to either .view-thumbs or .no-thumbs depending on your current settings!!!
+*/
+
+#tabs-container.view-thumbs.bottom {
+	order: -1;
+	padding-top: 4px;
+	padding-bottom: 0px;
+}
+.toolbar.toolbar-addressbar {
+	order: -2;
+}
+.stacks-on.tabs-bottom .tab-strip .tab-group-indicator {
+	bottom: 28px;
+}
+.stacks-on.tabs-bottom .tab-strip .tab-group-indicator .tab-indicator.active {
+	padding-top: 2px;
+}

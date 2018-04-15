@@ -9,31 +9,31 @@ function toolsMenu() {
 	var spanT = document.createElement('span');
 	var divT = document.createElement('div');
 	var btnT = document.createElement('button');
-	var svgT = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-	var pathT = document.createElementNS("http://www.w3.org/2000/svg", "path");
+	var svgT = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	var pathT = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 	var infstat = document.getElementById('status_info');
 	var infdiv = document.createElement('div');
 	var infbtn = document.createElement('button');
-	var infsvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-	var infpath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+	var infsvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	var infpath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
 	divT.id = 'droptool';
 	btnT.id = 'tools';
 	btnT.classList.add('button-toolbar');
-	btnT.setAttribute("tabindex", "-1");
-	btnT.setAttribute("title", "Tools");
-	svgT.setAttributeNS(null, "width", "26");
-	svgT.setAttributeNS(null, "height", "26");
-	svgT.setAttributeNS(null, "viewBox", "-150 -150 812 812");
+	btnT.setAttribute('tabindex', '-1');
+	btnT.setAttribute('title', 'Tools');
+	svgT.setAttributeNS(null, 'width', '26');
+	svgT.setAttributeNS(null, 'height', '26');
+	svgT.setAttributeNS(null, 'viewBox', '-150 -150 812 812');
 	infdiv.id = 'divID';
 	infbtn.id = 'toggle-links';
 	infbtn.classList.add('button-toolbar-small');
-	infbtn.setAttribute("tabindex", "-1");
-	infbtn.setAttribute("title", "Show Status Info");
-	infsvg.setAttributeNS(null, "width", "16");
-	infsvg.setAttributeNS(null, "height", "16");
-	infsvg.setAttributeNS(null, "viewBox", "0 0 26 26");
-	adr.insertBefore(spanT,document.querySelector(".searchfield").nextSibling);
+	infbtn.setAttribute('tabindex', '-1');
+	infbtn.setAttribute('title', 'Show Status Info');
+	infsvg.setAttributeNS(null, 'width', '16');
+	infsvg.setAttributeNS(null, 'height', '16');
+	infsvg.setAttributeNS(null, 'viewBox', '0 0 26 26');
+	adr.insertBefore(spanT,document.querySelector('.searchfield').nextSibling);
 	spanT.appendChild(btnT);
 	btnT.appendChild(svgT);
 	svgT.appendChild(pathT);
@@ -58,12 +58,12 @@ function toolsMenu() {
 		if (footer.classList.contains('zeig')) {
 			footer.classList.remove('zeig');
 			infpath.style.fill = 'var(--colorFg)';
-			infbtn.setAttribute("title", "Show Status Info");
+			infbtn.setAttribute('title', 'Show Status Info');
 		}
 		else {
 			footer.classList.add('zeig');
 			infpath.style.fill = 'var(--colorHighlightBg)';
-			infbtn.setAttribute("title", "Hide Status Info");
+			infbtn.setAttribute('title', 'Hide Status Info');
 		}
 	});
 };
@@ -72,9 +72,9 @@ function toolsMenu() {
 
 let adr = {};
 setTimeout(function wait() {
-	adr = document.querySelector(".toolbar-addressbar.toolbar");
+	adr = document.querySelector('.toolbar-addressbar.toolbar');
 	if (adr) {
-		extensionToggle();
+		toolsMenu();
 	}
 	else {
 		setTimeout(wait, 300);
