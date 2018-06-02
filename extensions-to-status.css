@@ -9,9 +9,8 @@ Moves the extension action buttons to the status bar. Dependent on extensions-to
 	-webkit-app-region: no-drag;
 }
 #footer .extensions-wrapper img {
-	height: 19px;
-	width: 19px;
-	margin-top: 2px;
+	height: 16px;
+	width: 16px;
 }
 #footer .extensions-wrapper .button-badge {
 	max-height: 10px;
@@ -25,12 +24,16 @@ Moves the extension action buttons to the status bar. Dependent on extensions-to
 	border-right: none;
 }
 
-/* background colors */
+/* colors */
 #footer .extensions-wrapper .dragging-cancelled, #footer .toggle-extensions-group {
 	background-color: transparent;
 }
 #footer .extensions-wrapper span:hover, #footer .toggle-extensions-group:hover {
 	background-color: var(--colorBgDark);
+}
+#footer .extensions-wrapper button:focus:not([tabindex='-1']) {
+	box-shadow: none;
+	border-color: var(--colorBorder);
 }
 
 /* popup */
@@ -40,19 +43,10 @@ Moves the extension action buttons to the status bar. Dependent on extensions-to
 #footer .extensionaction {
 	position: absolute;
 	top: unset !important;
-	bottom: 35px;
+	bottom: 22px;
 }
 
 /* footer button alignment */
-#footer button.button-toolbar-small {
-	height: 27px;
-}
 #footer input.button-toolbar-small:last-of-type {
 	margin-right: 6px;
-}
-#footer button.button-toolbar-small svg {
-	padding-top: 4px;
-}
-#footer .tilingtoggle {
-	padding-top: 1px;
 }

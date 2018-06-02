@@ -7,7 +7,6 @@ Moves the extension action buttons to the status bar. Dependent on extensions-to
 function extStatus() {
 	const wrapper = document.querySelector('.toolbar-addressbar.toolbar > .extensions-wrapper');
 	const footer = document.getElementById('footer');
-	footer.style = "height: 27px";
 	footer.appendChild(wrapper);
 };
 
