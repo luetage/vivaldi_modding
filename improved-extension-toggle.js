@@ -15,19 +15,12 @@ function extensionToggle() {
 
 	// create the button
 	var button = document.createElement('button');
-	var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 	button.classList.add('button-toolbar', 'toggle-extensions-group');
 	button.id = 'togglemod';
 	button.setAttribute('title', 'Toggle mod');
 	button.setAttribute('tabindex', '-1');
-	svg.setAttributeNS(null, 'width', '4');
-	svg.setAttributeNS(null, 'height', '16');
-	svg.setAttributeNS(null, 'viewBox', '0 0 4 16');
-	path.style = 'd: path("M2 4c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z")';
+	button.innerHTML = '<svg width="4" height="16" viewBox="0 0 4 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 4c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z"></path></svg>';
 	adr.appendChild(button);
-	button.appendChild(svg);
-	svg.appendChild(path);
 
 	// startup setting
 	const startup = document.querySelectorAll('button.button-toolbar.browserAction-button');

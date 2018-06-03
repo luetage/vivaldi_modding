@@ -5,23 +5,21 @@ A custom button to toggle css code right from the user interface. In this case i
 */
 
 function overlayToggle() {
-	var switchS = document.getElementById('switch');
+
+	// panel overlay css
+	const csso = '#main .inner{position:relative}#panels-container{position:absolute;z-index:2;top:0;bottom:0}#browser:not(.minimal-ui) .toolbar-addressbar.toolbar{z-index:3}#panels-container.right{right:0}#panels-container.left + #webview-container,#panels-container.left ~ #tabs-container.left{margin-left:34px}#panels-container.right ~ #webview-container,#panels-container.right ~ #tabs-container.right{margin-right:34px}#browser.tabs-right #webview-container{margin-right:0}#panels-container.left.switcher + #webview-container,#panels-container.left.switcher ~ #tabs-container.left{margin-left:0}#panels-container.right.switcher ~ #webview-container,#panels-container.right.switcher ~ #tabs-container.right{margin-right:0}#browser.tabs-right #webview-container{margin-right:0}#browser.fullscreen #webview-container,#browser.fullscreen #tabs-container{margin-left:0 !important;margin-right:0 !important}#browser.fullscreen #panels-container{position:relative}';
+
+	// create button
+	const circE = 'M 13 13m -6, 0a 6,6 0 1,0 12,0a 6,6 0 1,0 -12,0 M 13 13m -4, 0a 4,4 0 1,0 8,0a 4,4 0 1,0 -8,0 M 13 13m -2, 0a 2,2 0 1,0 4,0a 2,2 0 1,0 -4,0';
+	const circD = 'M 13 13m -5.5, 0a 5.5,5.5 0 1,0 11,0a 5.5,5.5 0 1,0 -11,0 M 13 13m -2, 0a 2,2 0 1,0 4,0a 2,2 0 1,0 -4,0';
+	const switchS = document.getElementById('switch');
 	var btnS = document.createElement('button');
-	var svgS = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	var pathS = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-	var circE = 'd: path("M 13 13m -6, 0a 6,6 0 1,0 12,0a 6,6 0 1,0 -12,0 M 13 13m -4, 0a 4,4 0 1,0 8,0a 4,4 0 1,0 -8,0 M 13 13m -2, 0a 2,2 0 1,0 4,0a 2,2 0 1,0 -4,0"); fill-rule: evenodd';
-	var circD = 'd: path("M 13 13m -5.5, 0a 5.5,5.5 0 1,0 11,0a 5.5,5.5 0 1,0 -11,0 M 13 13m -2, 0a 2,2 0 1,0 4,0a 2,2 0 1,0 -4,0"); fill-rule: evenodd';
-	var csso = '#main .inner{position:relative}#panels-container{position:absolute;z-index:2;top:0;bottom:0}#browser:not(.minimal-ui) .toolbar-addressbar.toolbar{z-index:3}#panels-container.right{right:0}#panels-container.left + #webview-container,#panels-container.left ~ #tabs-container.left{margin-left:34px}#panels-container.right ~ #webview-container,#panels-container.right ~ #tabs-container.right{margin-right:34px}#browser.tabs-right #webview-container{margin-right:0}#panels-container.left.switcher + #webview-container,#panels-container.left.switcher ~ #tabs-container.left{margin-left:0}#panels-container.right.switcher ~ #webview-container,#panels-container.right.switcher ~ #tabs-container.right{margin-right:0}#browser.tabs-right #webview-container{margin-right:0}#browser.fullscreen #webview-container,#browser.fullscreen #tabs-container{margin-left:0 !important;margin-right:0 !important}#browser.fullscreen #panels-container{position:relative}';
 	btnS.classList.add('preferences');
 	btnS.id = 'overlay';
 	btnS.setAttribute('tabindex', '-1');
-	svgS.setAttributeNS(null, 'width', '26');
-	svgS.setAttributeNS(null, 'height', '26');
-	svgS.setAttributeNS(null, 'viewBox', '0 0 26 26');
+	btnS.innerHTML = '<svg width="26" height="26" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd"></path></svg>';
 	switchS.lastChild.style = 'margin-top: 0px';
 	switchS.insertBefore(btnS,switchS.lastChild);
-	btnS.appendChild(svgS);
-	svgS.appendChild(pathS);
 
 	// startup setting
 	var styleS = document.createElement('style');
@@ -29,21 +27,22 @@ function overlayToggle() {
 	styleS.innerHTML = csso;
 	document.getElementsByTagName('head')[0].appendChild(styleS);
 	btnS.setAttribute('title', 'Disable Overlay');
-	pathS.style = circE;
+	const pathS = document.querySelector('#overlay svg path');
+	pathS.setAttribute('d', circE);
 	var mode = 1;
 
 	// toggle logic
 	document.getElementById('overlay').addEventListener('click', function() {
-		if (mode == 0) {
+		if (mode === 0) {
 			styleS.innerHTML = csso;
 			btnS.setAttribute('title', 'Disable Overlay');
-			pathS.style = circE;
+			pathS.setAttribute('d', circE);
 			mode = 1;
 		}
 		else {
 			styleS.innerHTML = '';
 			btnS.setAttribute('title', 'Enable Overlay');
-			pathS.style = circD;
+			pathS.setAttribute('d', circD);
 			mode = 0;
 		}
 	});
