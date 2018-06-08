@@ -8,19 +8,18 @@ function tabScroll(event) {
     const target = event.target;
     if (target.classList.contains('title')) {
         const par = target.parentNode;
-        if (par.classList.contains('tab-header') && target.hasAttribute('id') === true) {
+        if (par.classList.contains('tab-header') && target.hasAttribute('id')) {
             const id = target.getAttribute('id');
             if (id === 'scrollTop') {
-                chrome.tabs.executeScript({code:'window.pageYOffset'}, msg);
-                chrome.tabs.executeScript({code:'window.scrollTo(0,0)'});
+                chrome.tabs.executeScript({code:'function pos(){var position=window.pageYOffset;window.scrollTo(0,0);return position;};pos();'}, msg);
                 target.id = 'scrollPre';
             }
             if (id === 'scrollPre') {
-                chrome.tabs.executeScript({code:'chrome.storage.local.get({"offset": ""},function(local){var offset = local.offset; window.scrollTo(0,offset)})'});
+                chrome.tabs.executeScript({code:'chrome.storage.local.get({"offset":""},function(local){var offset=local.offset;window.scrollTo(0,offset);});'});
                 target.id = 'scrollTop';
             }
         }
-        if (par.classList.contains('tab-header') && target.hasAttribute('id') === false) {
+        if (par.classList.contains('tab-header') && !target.hasAttribute('id')) {
             rmID();
             target.id = 'scrollTop';
         }
@@ -28,7 +27,7 @@ function tabScroll(event) {
 };
 
 function msg(position) {
-    offset = position[0];
+    var offset = position[0];
     chrome.storage.local.set({'offset': offset});
 };
 
@@ -45,7 +44,6 @@ function rmID() {
 
 // Below code is a loop waiting for the browser to load the UI. Something like it has to be used in all similar javascript mods to ensure the interface has loaded before running dependent functions. You can call all functions you might use from just one instance.
 
-var offset = 1;
 let adr = {};
 setTimeout(function wait() {
     adr = document.querySelector('.toolbar-addressbar.toolbar');
