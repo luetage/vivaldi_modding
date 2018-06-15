@@ -16,7 +16,7 @@ Hides search and toolbar icons in panel, shows them when hovering header.
 	opacity: 1;
 }
 .panel.panel-bookmarks header:hover h1, #notes-panel.panel header:hover > h1 {
-	color: #fd3563;
+	color: var(--colorHighlightBg);
 }
 .panel.panel-bookmarks .toolbar.icons, #notes-panel.panel .toolbar.icons {
 	max-height: 0px;
