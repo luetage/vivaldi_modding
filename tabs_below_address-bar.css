@@ -5,21 +5,21 @@ Displays tab bar below the address bar. Simple CSS only solution. Set tab bar to
 */
 
 #tabs-container.view-thumbs.bottom, #tabs-container.no-thumbs.bottom {
-	order: -1;
-	padding-top: 4px;
-	padding-bottom: 0px;
+    order: -1;
+    padding-top: 4px;
+    padding-bottom: 0px;
 }
 /* uncomment if you want the bookmarks bar above tabs
 .bookmark-bar {
-	order: -2;
+    order: -2;
 }
 */
 .toolbar.toolbar-addressbar {
-	order: -3;
+    order: -3;
 }
 .stacks-on.tabs-bottom .tab-strip .tab-group-indicator {
-	bottom: 28px;
+    bottom: 28px;
 }
 .stacks-on.tabs-bottom .tab-strip .tab-group-indicator .tab-indicator.active {
-	padding-top: 2px;
+    padding-top: 2px;
 }

@@ -1,15 +1,15 @@
 /*
 Tab Stacks Theming
 https://forum.vivaldi.net/topic/16594/tab-stacks-theming
-Lets you theme the indicators in tab stacks.
+Lets you theme the indicators in tab stacks. Colors are just examples, use whatever works for you. Would probably make sense to implement calculated colors provided by Vivaldi instead, to ensure theme compatibility.
 */
 
 .tab-group-indicator .tab-indicator.active {
-	background-color: #fd3563 !important;
+    background-color: #fd3563 !important;
 }
 .tab-group-indicator .tab-indicator {
-	background-color: #fff !important;
+    background-color: #fff !important;
 }
 .tab-group-indicator .tab-indicator:hover:not(.active) {
-	background-color: #000 !important;
+    background-color: #000 !important;
 }

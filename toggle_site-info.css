@@ -5,8 +5,8 @@ Hides site info text in address field, displays it on hover.
 */
 
 .siteinfo-symbol:hover + .siteinfo-text {
-	display: block;
+    display: block;
 }
 .siteinfo-text {
-	display: none;
+    display: none;
 }

@@ -68,11 +68,11 @@ function toolsMenu() {
 
 let adr = {};
 setTimeout(function wait() {
-	adr = document.querySelector('.toolbar-addressbar.toolbar');
-	if (adr) {
-		toolsMenu();
-	}
-	else {
-		setTimeout(wait, 300);
-	}
+    adr = document.querySelector('.toolbar-addressbar.toolbar');
+    if (adr) {
+        toolsMenu();
+    }
+    else {
+        setTimeout(wait, 300);
+    }
 }, 300);

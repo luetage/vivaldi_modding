@@ -9,19 +9,19 @@ Panel container themed like in the prerelease versions of Vivaldi (dark panel on
     box-shadow: none !important;
 }
 .theme-light #switch button:hover, .theme-light #switch button:focus {
-	box-shadow: none !important;
+    box-shadow: none !important;
 }
 .theme-light #switch button svg {
-	fill: #9c9c9c;
+    fill: #9c9c9c;
 }
 .theme-light #switch button.active svg {
-	fill: #484848;
+    fill: #484848;
 }
 .theme-light #switch button.active, .theme-light #switch button.active:hover {
-	background: #fff !important;
+    background: #fff !important;
 }
 .theme-light #switch button:hover {
-	background: #474747 !important;
+    background: #474747 !important;
 }
 .theme-light #switch button, .theme-dark #switch .webviewbtn img {
     background: transparent !important;
