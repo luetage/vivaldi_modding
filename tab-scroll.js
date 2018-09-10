@@ -1,28 +1,25 @@
 /*
 Tab Scroll
 https://forum.vivaldi.net/topic/27856/tab-scroll
-Clicking the tab title scrolls page to top, clicking it again returns to previous scroll position.
+Clicking a tab scrolls page to top, clicking it again returns to previous scroll position.
 */
 
 function tabScroll(event) {
     const target = event.target;
-    if (target.classList.contains('title')) {
-        const par = target.parentNode;
-        if (par.classList.contains('tab-header') && target.hasAttribute('id')) {
-            const id = target.getAttribute('id');
-            if (id === 'scrollTop') {
-                chrome.tabs.executeScript({code:'function pos(){var position=window.pageYOffset;window.scrollTo(0,0);return position;};pos();'}, msg);
-                target.id = 'scrollPre';
-            }
-            if (id === 'scrollPre') {
-                chrome.tabs.executeScript({code:'chrome.storage.local.get({"offset":""},function(local){var offset=local.offset;window.scrollTo(0,offset);});'});
-                target.id = 'scrollTop';
-            }
+    if (target.classList.contains('tab-header') && target.hasAttribute('id')) {
+        const id = target.getAttribute('id');
+        if (id === 'scrollTop') {
+            chrome.tabs.executeScript({code:'function pos(){var position=window.pageYOffset;window.scrollTo(0,0);return position;};pos();'}, msg);
+            target.id = 'scrollPre';
         }
-        if (par.classList.contains('tab-header') && !target.hasAttribute('id')) {
-            rmID();
+        if (id === 'scrollPre') {
+            chrome.tabs.executeScript({code:'chrome.storage.local.get({"offset":""},function(local){var offset=local.offset;window.scrollTo(0,offset);});'});
             target.id = 'scrollTop';
         }
+    }
+    if (target.classList.contains('tab-header') && !target.hasAttribute('id')) {
+        rmID();
+        target.id = 'scrollTop';
     }
 };
 
