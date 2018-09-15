@@ -4,12 +4,13 @@ https://forum.vivaldi.net/topic/15834/tabs-on-bottom-for-1-8/19
 Displays tab bar below the address bar. Simple CSS only solution. Set tab bar to bottom in vivaldi://settings, or this mod won't work!!!
 */
 
-#tabs-container.view-thumbs.bottom, #tabs-container.no-thumbs.bottom {
+#tabs-container.bottom {
     order: -1;
     padding-top: 4px;
     padding-bottom: 0px;
 }
-/* uncomment if you want the bookmarks bar above tabs
+/* bookmarks bar above tabs */
+/*
 .bookmark-bar {
     order: -2;
 }
@@ -17,9 +18,16 @@ Displays tab bar below the address bar. Simple CSS only solution. Set tab bar to
 .toolbar.toolbar-addressbar {
     order: -3;
 }
-.stacks-on.tabs-bottom .tab-strip .tab-group-indicator {
+.tabs-bottom .tab-strip .tab-group-indicator {
     bottom: 28px;
 }
-.stacks-on.tabs-bottom .tab-strip .tab-group-indicator .tab-indicator.active {
+.tabs-bottom .tab-strip .tab-group-indicator .tab-indicator.active {
     padding-top: 2px;
 }
+/* turn off corner rounding */
+/*
+.tabs-bottom .tab-position .tab {
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+}
+/*
