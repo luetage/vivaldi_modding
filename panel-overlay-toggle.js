@@ -24,8 +24,8 @@ function overlayToggle() {
             view: window,
             altKey: true
         });
-        toggle.dispatchEvent(evt);
         icn();
+        toggle.dispatchEvent(evt);
     };
 
     var exec = 0;
