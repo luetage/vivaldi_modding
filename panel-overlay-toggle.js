@@ -4,7 +4,7 @@ https://forum.vivaldi.net/topic/10590/overlay-panels/151
 A custom button to toggle the panel overlay mode right from the panels container A previous version toggled css code to enable an independent overlay and can be found here: https://forum.vivaldi.net/topic/10590/overlay-panels/36
 */
 
-unction overlayToggle() {
+function overlayToggle() {
 
     function icn() {
         if (cont.classList.contains('overlay') && exec === 0 || !cont.classList.contains('overlay') && exec === 1) {
