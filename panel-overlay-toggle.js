@@ -13,7 +13,7 @@ unction overlayToggle() {
         else {
             pathS.setAttribute('d', circD);
         }
-        exec = 1
+        exec = 1;
     };
 
     function simulateClick() {
