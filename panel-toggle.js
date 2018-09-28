@@ -34,12 +34,14 @@ function panelToggle() {
         panelpath.style = pon;
     }
 
-    paneltog.addEventListener('click', function() {
-        if (panel.classList.contains('switcher')) {
-            panelpath.style = pon;
-        }
-        else {
-            panelpath.style = pof;
+    paneltog.addEventListener('click', function(event) {
+        if (!event.altKey) {
+            if (panel.classList.contains('switcher')) {
+                panelpath.style = pon;
+            }
+            else {
+                panelpath.style = pof;
+            }
         }
     });
 };
