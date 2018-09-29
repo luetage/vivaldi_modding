@@ -5,7 +5,8 @@ Replaces the status bar with a tool button in the address bar, which loads the s
 */
 
 function create() {
-    const footer = document.getElementById('footer')
+    const footer = document.getElementById('footer');
+    const adr = document.querySelector('.toolbar-addressbar.toolbar');
     footer.classList.add('disabled','zeig');
     var spanT = document.createElement('span');
     var divT = document.createElement('div');
@@ -66,10 +67,9 @@ function toolsMenu() {
 
 // The code below is a loop waiting for the browser to load the UI. Something like this has to be used in all similar javascript mods, to ensure the interface has loaded before running dependent functions. You can call all functions you might use from just one instance.
 
-let adr = {};
 setTimeout(function wait() {
-    adr = document.querySelector('.toolbar-addressbar.toolbar');
-    if (adr) {
+    const browser = document.getElementById('browser');
+    if (browser) {
         toolsMenu();
     }
     else {

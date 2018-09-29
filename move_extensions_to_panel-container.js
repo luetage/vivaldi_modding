@@ -29,7 +29,7 @@ function csse() {
     #switch .extensions-wrapper span:hover, #switch .toggle-extensions-group:hover {
         background-color: var(--colorBgDarker) !important;
     }
-    
+
     /* popup */
     #switch {
         contain: initial;
@@ -47,7 +47,7 @@ function csse() {
         top: 1px !important;
             left: unset !important;
         right: 35px;
-    }    
+    }
     `;
     document.getElementsByTagName('head')[0].appendChild(style);
 };
@@ -62,10 +62,9 @@ function extPanel() {
 
 // The code below is a loop waiting for the browser to load the UI. Something like this has to be used in all similar javascript mods, to ensure the interface has loaded before running dependent functions. You can call all functions you might use from just one instance.
 
-let adr = {};
-setTimeout(function wait() {
-    adr = document.querySelector('.toolbar-addressbar.toolbar');
-    if (adr) {
+lsetTimeout(function wait() {
+    const browser = document.getElementById('browser');
+    if (browser) {
         extPanel();
     }
     else {

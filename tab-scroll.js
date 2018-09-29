@@ -41,10 +41,9 @@ function rmID() {
 
 // The code below is a loop waiting for the browser to load the UI. Something like this has to be used in all similar javascript mods, to ensure the interface has loaded before running dependent functions. You can call all functions you might use from just one instance.
 
-let adr = {};
 setTimeout(function wait() {
-    adr = document.querySelector('.toolbar-addressbar.toolbar');
-    if (adr) {
+    const browser = document.getElementById('browser');
+    if (browser) {
         document.body.addEventListener('click', tabScroll);
     }
     else {

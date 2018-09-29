@@ -5,6 +5,7 @@ Moves the panel toggle from status to address bar and gives it two states (on/of
 */
 
 function panelToggle() {
+    const adr = document.querySelector('.toolbar-addressbar.toolbar');
     var panel = document.getElementById('panels-container');
     var paneltog = document.querySelector('.paneltogglefooter');
     var panelsvg = document.querySelector('.paneltogglefooter svg');
@@ -48,10 +49,9 @@ function panelToggle() {
 
 // The code below is a loop waiting for the browser to load the UI. Something like this has to be used in all similar javascript mods, to ensure the interface has loaded before running dependent functions. You can call all functions you might use from just one instance.
 
-let adr = {};
 setTimeout(function wait() {
-    adr = document.querySelector('.toolbar-addressbar.toolbar');
-    if (adr) {
+    const browser = document.getElementById('browser');
+    if (browser) {
         panelToggle();
     }
     else {
