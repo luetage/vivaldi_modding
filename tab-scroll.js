@@ -39,7 +39,7 @@ function rmID() {
     }
 };
 
-// The code below is a loop waiting for the browser to load the UI. Something like this has to be used in all similar javascript mods, to ensure the interface has loaded before running dependent functions. You can call all functions you might use from just one instance.
+// Loop waiting for the browser to load the UI. You can call all functions from just one instance.
 
 setTimeout(function wait() {
     const browser = document.getElementById('browser');
