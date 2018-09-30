@@ -62,7 +62,7 @@ function extPanel() {
 
 // The code below is a loop waiting for the browser to load the UI. Something like this has to be used in all similar javascript mods, to ensure the interface has loaded before running dependent functions. You can call all functions you might use from just one instance.
 
-lsetTimeout(function wait() {
+setTimeout(function wait() {
     const browser = document.getElementById('browser');
     if (browser) {
         extPanel();
