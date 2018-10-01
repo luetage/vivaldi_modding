@@ -1,33 +1,36 @@
 /*
 Tabs Below Address-Bar
-https://forum.vivaldi.net/topic/15834/tabs-on-bottom-for-1-8/19
+https://forum.vivaldi.net/topic/15834/tabs-on-bottom-for-1-8/41?page=3
 Displays tab bar below the address bar. Simple CSS only solution. Set tab bar to bottom in vivaldi://settings, or this mod won't work!!!
 */
 
 #tabs-container.bottom {
     order: -1;
-    padding-top: 4px;
-    padding-bottom: 0px;
+    border-top: none;
+    padding-top: var(--padding);
+    padding-bottom: 0px !important;
 }
+
 /* bookmarks bar above tabs */
 /*
 .bookmark-bar {
     order: -2;
 }
 */
+
 .toolbar.toolbar-addressbar {
     order: -3;
 }
-.tabs-bottom .tab-strip .tab-group-indicator {
-    bottom: 28px;
-}
-.tabs-bottom .tab-strip .tab-group-indicator .tab-indicator.active {
-    padding-top: 2px;
-}
-/* turn off corner rounding */
-/*
+
+/* corner rounding */
 .tabs-bottom .tab-position .tab {
+    border-top-left-radius: var(--radiusHalf);
+    border-top-right-radius: var(--radiusHalf);
     border-bottom-left-radius: unset;
     border-bottom-right-radius: unset;
 }
-/*
+
+/* tab group indicators*/
+.tabs-bottom .tab-strip .tab-group-indicator {
+    bottom: 28px !important;
+};
