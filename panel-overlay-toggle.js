@@ -18,7 +18,7 @@ function overlayToggle() {
 
     function simulateClick() {
         const toggle = document.querySelector('.paneltogglefooter');
-        var evt = new MouseEvent("click", {
+        var evt = new MouseEvent('click', {
             bubbles: true,
             cancelable: true,
             view: window,
