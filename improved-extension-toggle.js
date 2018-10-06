@@ -15,13 +15,10 @@ function extensionToggle() {
 
     // create the button
     const adr = document.querySelector('.toolbar-addressbar.toolbar');
-    var button = document.createElement('button');
-    button.classList.add('button-toolbar', 'toggle-extensions-group');
-    button.id = 'togglemod';
-    button.setAttribute('title', 'Toggle mod');
-    button.setAttribute('tabindex', '-1');
-    button.innerHTML = '<svg width="4" height="16" viewBox="0 0 4 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 4c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z"></path></svg>';
-    adr.appendChild(button);
+    var div = document.createElement('div');
+    div.classList.add('button-group');
+    div.innerHTML = '<button id="togglemod" class="button-toolbar toggle-extensions-group" title="Toggle mod" tabindex="0" style="margin-left:0px"><svg width="4" height="16" viewBox="0 0 4 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 4c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z"></path></svg></button>';
+    adr.appendChild(div);
 
     // startup setting
     const startup = document.querySelectorAll('button.button-toolbar.browserAction-button');
