@@ -26,8 +26,6 @@ function csse() {
     #footer .extensions-wrapper .dragging-cancelled, #footer .toggle-extensions-group {
         border-right: none;
     }
-
-    /* colors */
     #footer .extensions-wrapper .dragging-cancelled, #footer .toggle-extensions-group {
         background-color: transparent;
     }
@@ -38,18 +36,14 @@ function csse() {
         box-shadow: none;
         border-color: var(--colorBorder);
     }
-
-    /* popup */
-    #footer .extensionaction .popup.top::before, #footer .extensionaction .popup.top::after {
+    #footer .extension-popup.top::before, #footer .extension-popup.top::after {
         display: none !important;
     }
-    #footer .extensionaction {
+    #footer .extension-popup {
         position: absolute;
         top: unset !important;
         bottom: 22px;
     }
-
-    /* footer button alignment */
     #footer input.button-toolbar-small:last-of-type {
         margin-right: 6px;
     }

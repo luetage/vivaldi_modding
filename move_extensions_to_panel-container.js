@@ -29,15 +29,13 @@ function csse() {
     #switch .extensions-wrapper span:hover, #switch .toggle-extensions-group:hover {
         background-color: var(--colorBgDarker) !important;
     }
-
-    /* popup */
     #switch {
         contain: initial;
     }
-    #switch .extensionaction .popup.top::before, #switch .extensionaction .popup.top::after {
+    #switch .extension-popup.top::before, #switch .extension-popup.top::after {
         display: none !important;
     }
-    #panels-container.left #switch .extensionaction {
+    #panels-container.left #switch .extension-popup {
         position: absolute !important;
         top: 1px !important;
         left: 35px !important;
