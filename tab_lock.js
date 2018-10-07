@@ -1,7 +1,7 @@
 /*
 Tab Lock
 https://forum.vivaldi.net/topic/30957/tab-lock
-Download this file and add it to Vivaldi's user_files folder within the application. This will make the mod available as page action in the status bar.
+Disables all links on a page, or forces them to load in a new tab. Download this file and add it to Vivaldi's user_files folder within the application. This will make the mod available as page action in the status bar.
 */
 
 document.body.addEventListener('click', function(event) {
