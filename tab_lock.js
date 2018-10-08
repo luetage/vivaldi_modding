@@ -5,11 +5,11 @@ Disables all links on a page, or forces them to load in a new tab. Download this
 */
 
 document.body.addEventListener('click', function(event) {
-    const target = event.target;
+    var target = event.target;
     do {
         if (target.nodeName.toUpperCase() === 'A' && target.href) {
             target.href = 'javascript:'; //disables all links
-            // target.target = '_blank'; //opens links in new tab
+            //target.target = '_blank'; //opens links in new tab
             break;
         }
     } while (target = target.parentElement);
