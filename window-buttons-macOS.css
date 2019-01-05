@@ -1,0 +1,36 @@
+/*
+Window buttons mod for macOS
+https://forum.vivaldi.net/topic/33606/window-buttons-mod-for-macos
+Changes the shape of unhovered window buttons on macOS.
+*/
+
+#browser.mac .window-buttongroup:not(:hover) button{
+    margin-top: 5px;
+    height: 6px;
+    width: 12px;
+    border: 1px solid;
+    border-color: rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+}
+#browser.mac .window-buttongroup:not(:hover) button svg {
+    display: none;
+}
+#browser.mac .window-buttongroup:not(.graphite) button svg g {
+    opacity: 0 !important;
+}
+#browser.mac .window-buttongroup.graphite:not(:hover) button {
+    background-color: #8e8e93;
+    border-color: #727277;
+}
+:not(.fullscreen)#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-minimize {
+    background-color: #f7bb3f;
+    border-color: #dc9e34;
+}
+#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-maximize {
+    background-color: #34c749;
+    border-color: #1fa42d;
+}
+#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-close {
+    background-color: #f8625e;
+    border-color: #de4947;
+}
