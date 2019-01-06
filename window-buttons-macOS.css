@@ -8,6 +8,8 @@ Changes the shape of unhovered window buttons on macOS.
     margin-top: 5px;
     height: 6px;
     width: 12px;
+    opacity: 0.2;
+    background-color: var(--colorFg);
     border: 1px solid;
     border-color: rgba(0, 0, 0, 0.15);
     border-radius: 2px;
@@ -18,19 +20,23 @@ Changes the shape of unhovered window buttons on macOS.
 #browser.mac .window-buttongroup:not(.graphite) button svg g {
     opacity: 0 !important;
 }
-#browser.mac .window-buttongroup.graphite:not(:hover) button {
+.hasfocus#browser.mac .window-buttongroup.graphite:not(:hover) button {
+    opacity: 1;
     background-color: #8e8e93;
     border-color: #727277;
 }
-:not(.fullscreen)#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-minimize {
+:not(.fullscreen).hasfocus#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-minimize {
+    opacity: 1;
     background-color: #f7bb3f;
     border-color: #dc9e34;
 }
-#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-maximize {
+.hasfocus#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-maximize {
+    opacity: 1;
     background-color: #34c749;
     border-color: #1fa42d;
 }
-#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-close {
+.hasfocus#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-close {
+    opacity: 1;
     background-color: #f8625e;
     border-color: #de4947;
 }
