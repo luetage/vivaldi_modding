@@ -1,11 +1,20 @@
 /*
 Window buttons mod for macOS
 https://forum.vivaldi.net/topic/33606/window-buttons-mod-for-macos
-Changes the shape of unhovered window buttons on macOS.
+Changes the shape of unhovered window buttons on macOS. A version for Windows is available in the topic.
 */
 
-#browser.mac .window-buttongroup:not(:hover) button{
+#browser.mac .window-buttongroup button svg {
+    display: none;
+}
+#browser.mac .window-buttongroup {
+    margin-top: 14px;
+}
+#browser.mac #titlebar.tabless .window-buttongroup {
     margin-top: 5px;
+}
+#browser.mac .window-buttongroup button {
+    margin-top: 3px;
     height: 6px;
     width: 12px;
     opacity: 0.2;
@@ -13,29 +22,30 @@ Changes the shape of unhovered window buttons on macOS.
     border: 1px solid;
     border-color: rgba(0, 0, 0, 0.15);
     border-radius: 2px;
+    transition-duration: 150ms;
+    transition-property: margin, height, border-radius;
 }
-#browser.mac .window-buttongroup:not(:hover) button svg {
-    display: none;
+#browser.mac .window-buttongroup:hover button {
+    margin-top: 0px;
+    height: 12px;
+    border-radius: 50%;
 }
-#browser.mac .window-buttongroup:not(.graphite) button svg g {
-    opacity: 0 !important;
-}
-.hasfocus#browser.mac .window-buttongroup.graphite:not(:hover) button {
+.hasfocus#browser.mac .window-buttongroup.graphite button {
     opacity: 1;
     background-color: #8e8e93;
     border-color: #727277;
 }
-:not(.fullscreen).hasfocus#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-minimize {
+:not(.fullscreen).hasfocus#browser.mac .window-buttongroup:not(.graphite) button.window-minimize {
     opacity: 1;
     background-color: #f7bb3f;
     border-color: #dc9e34;
 }
-.hasfocus#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-maximize {
+.hasfocus#browser.mac .window-buttongroup:not(.graphite) button.window-maximize {
     opacity: 1;
     background-color: #34c749;
     border-color: #1fa42d;
 }
-.hasfocus#browser.mac .window-buttongroup:not(.graphite):not(:hover) button.window-close {
+.hasfocus#browser.mac .window-buttongroup:not(.graphite) button.window-close {
     opacity: 1;
     background-color: #f8625e;
     border-color: #de4947;
