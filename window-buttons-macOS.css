@@ -4,14 +4,23 @@ https://forum.vivaldi.net/topic/33606/window-buttons-mod-for-macos
 Changes the shape of unhovered window buttons on macOS. A version for Windows is available in the topic.
 */
 
+/* window buttons */
+
 #browser.mac .window-buttongroup button svg {
     display: none;
 }
 #browser.mac .window-buttongroup {
-    margin-top: 14px;
+    height: 100%;
+    margin-top: 0px;
+    padding-top: 14px;
 }
 #browser.mac #titlebar.tabless .window-buttongroup {
-    margin-top: 5px;
+    margin-top: 0px;
+    padding-top: 5px;
+}
+.stacks-off.fullscreen#browser.mac .window-buttongroup, .tabs-at-edge#browser.mac .window-buttongroup {
+    margin-top: 0px;
+    padding-top: 9px;
 }
 #browser.mac .window-buttongroup button {
     margin-top: 3px;
@@ -30,7 +39,7 @@ Changes the shape of unhovered window buttons on macOS. A version for Windows is
     height: 12px;
     border-radius: 50%;
 }
-.hasfocus#browser.mac .window-buttongroup.graphite button {
+:not(.fullscreen).hasfocus#browser.mac .window-buttongroup.graphite button.window-minimize, .hasfocus#browser.mac .window-buttongroup.graphite button.window-maximize, .hasfocus#browser.mac .window-buttongroup.graphite button.window-close {
     opacity: 1;
     background-color: #8e8e93;
     border-color: #727277;
