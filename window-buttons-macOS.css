@@ -9,10 +9,13 @@ Changes the shape of unhovered window buttons on macOS. A version for Windows is
 #browser.mac .window-buttongroup button svg {
     display: none;
 }
+#titlebar {
+    height: 100%;
+}
 #browser.mac .window-buttongroup {
     height: 100%;
-    margin-top: 0px;
-    padding-top: 14px;
+    margin: 0;
+    padding: 14px 8px 0;
 }
 #browser.mac #titlebar.tabless .window-buttongroup {
     margin-top: 0px;
