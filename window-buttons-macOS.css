@@ -7,7 +7,7 @@ Changes the shape of unhovered window buttons on macOS. A version for Windows is
 #browser.mac .window-buttongroup button svg {
     display: none;
 }
-#titlebar {
+#browser.mac #titlebar {
     height: 100%;
 }
 #browser.mac .window-buttongroup {
