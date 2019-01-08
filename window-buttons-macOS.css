@@ -4,8 +4,6 @@ https://forum.vivaldi.net/topic/33606/window-buttons-mod-for-macos
 Changes the shape of unhovered window buttons on macOS. A version for Windows is available in the topic.
 */
 
-/* window buttons */
-
 #browser.mac .window-buttongroup button svg {
     display: none;
 }
