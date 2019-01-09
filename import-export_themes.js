@@ -92,8 +92,8 @@ function _exportTheme() {
     const confirmExport = document.getElementById('confirmExport');
     if (!confirmExport) {
         _cont.appendChild(confirm);
-        setTimeout( function() {
-        _cont.removeChild(confirm);
+        setTimeout(function() {
+            _cont.removeChild(confirm);
         }, 3500);
     }
 };
