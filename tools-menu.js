@@ -6,6 +6,7 @@ Replaces the status bar with a tool button in the address bar, which loads the s
 
 function create() {
     const footer = document.getElementById('footer');
+    const statusToolbar = document.querySelector('.status-toolbar');
     const adr = document.querySelector('.toolbar-addressbar.toolbar');
     footer.classList.add('disabled','zeig');
     var spanT = document.createElement('span');
@@ -24,7 +25,7 @@ function create() {
     spanT.appendChild(btnT);
     spanT.appendChild(divT);
     divT.appendChild(footer);
-    footer.appendChild(infdiv);
+    statusToolbar.appendChild(infdiv);
 };
 
 function cssT() {
