@@ -21,7 +21,7 @@ function create() {
     var infdiv = document.createElement('div');
     infdiv.id = 'divID';
     infdiv.innerHTML = '<button id="toggle-links" title="Hide Status Info" class="button-toolbar-small" tabindex="-1"><svg width="16" height="16" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg"><path d="M17.6 20.4l-1.6 1.6-9-9 9-9 1.6 1.6-7.2 7.4 7.2 7.4z" fill="var(--colorHighlightBg)"></path></svg></button>';
-    adr.insertBefore(spanT,document.querySelector('.searchfield').nextSibling);
+    adr.insertBefore(spanT,document.querySelector('.toolbar-addressbar.toolbar > .extensions-wrapper'));
     spanT.appendChild(btnT);
     spanT.appendChild(divT);
     divT.appendChild(footer);
