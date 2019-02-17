@@ -1,7 +1,7 @@
 /*
 Theme Import and Export
 https://forum.vivaldi.net/topic/33154/import-and-export-themes
-Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Saves themes in .json format (version 1) or exports theme code directly (version 2). Enables backing up and sharing themes. This here is version 2. Version 1 is available through the link above.
+Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Exports theme by copying the theme code as json string to clipboard. Enables backing up and sharing themes.
 */
 
 /* Theme Import and Export */
@@ -62,7 +62,20 @@ function _importTheme() {
             disp.innerText = set.themeRound + 'px';
         }
         _themeRound.value = set.themeRound;
-        _themeRound.focus();
+        chrome.storage.local.get({'THEMES_USER': ''}, function(round) {
+            var userThemes = round.THEMES_USER;
+            for (i=0; i<userThemes.length; i++) {
+                if (userThemes[i].name === _themeName.value) {
+                    userThemes[i].settings.borderRadius = set.themeRound;
+                    chrome.storage.local.set({
+                        'THEMES_USER': userThemes,
+                        'BORDER_RADIUS': set.themeRound
+                    });
+                    _themeName.focus();
+                    break;
+                }
+            }
+        });
     }, 1600);
 };
 
