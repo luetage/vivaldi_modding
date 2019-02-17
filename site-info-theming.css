@@ -1,0 +1,44 @@
+/*
+Site Info Theming
+https://forum.vivaldi.net/topic/34184/simplified-https-lock/4
+Themes the site info. In non private windows this mod uses the highlight color, in private windows it uses the address bar button colors. It also themes the private window indicator button (key symbol), which has a fixed color too in default Vivaldi.
+*/
+
+.addressfield .addressfield-siteinfo.secure, .addressfield .addressfield-siteinfo.certified {
+    fill: var(--colorHighlightBg);
+    background-color: var(--colorHighlightBgAlpha);
+}
+.addressfield .addressfield-siteinfo.secure:hover, .addressfield .addressfield-siteinfo.certified:hover, .addressfield .addressfield-siteinfo.secure:focus:not([tabindex='-1']), .addressfield .addressfield-siteinfo.certified:focus:not([tabindex='-1']) {
+    border-color: var(--colorBorderHighlight);
+    background-color: var(--colorHighlightBgAlpha);
+}
+.addressfield .addressfield-siteinfo.certified {
+    color: var(--colorHighlightBg);
+}
+.addressfield .addressfield-siteinfo.certified .siteinfo-symbol {
+    background-color: var(--colorHighlightBg);
+    fill: var(--colorHighlightFg);
+}
+.private .addressfield .addressfield-siteinfo.secure, .private .addressfield .addressfield-siteinfo.certified {
+    fill: var(--colorBg);
+    background-color: var(--colorFgFaded);
+}
+.private .addressfield .addressfield-siteinfo.secure:hover, .private .addressfield .addressfield-siteinfo.certified:hover, .private .addressfield .addressfield-siteinfo.secure:focus:not([tabindex='-1']), .private .addressfield .addressfield-siteinfo.certified:focus:not([tabindex='-1']) {
+    border-color: var(--colorBg) !important;
+    background-color: var(--colorFgFaded);
+}
+.private .addressfield .addressfield-siteinfo.certified, .private .addressfield .addressfield-siteinfo.warning {
+    color: var(--colorBg);
+}
+.private .addressfield .addressfield-siteinfo.certified .siteinfo-symbol, .addressfield .private-window-indicator {
+    background-color: var(--colorBg);
+}
+.private .addressfield .addressfield-siteinfo.certified .siteinfo-symbol, .private .addressfield .addressfield-siteinfo.certified:hover .siteinfo-symbol > svg, .addressfield .private-window-indicator > svg {
+    fill: var(--colorFgFaded);
+}
+.addressfield .addressfield-siteinfo.insecure:hover {
+    background-color: #e62e00 !important;
+}
+.addressfield-siteinfo.insecure:hover .siteinfo-symbol > svg {
+    fill: #fff !important;
+}

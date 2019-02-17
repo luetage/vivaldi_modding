@@ -4,8 +4,6 @@ https://forum.vivaldi.net/topic/33154/import-and-export-themes
 Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Exports theme by copying the theme code as json string to clipboard. Enables backing up and sharing themes.
 */
 
-/* Theme Import and Export */
-
 function _importTheme() {
     event.stopPropagation();
     event.preventDefault();
@@ -172,6 +170,8 @@ function portThemes() {
         }
     }
 };
+
+// Loop waiting for the browser to load the UI. You can call all functions from just one instance.
 
 setTimeout(function wait() {
     const browser = document.getElementById('browser');
