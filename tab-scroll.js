@@ -5,21 +5,26 @@ Clicking a tab scrolls page to top, clicking it again returns to previous scroll
 */
 
 function tabScroll(event) {
-    const target = event.target;
-    if (target.classList.contains('tab-header') && target.hasAttribute('id')) {
-        const id = target.getAttribute('id');
-        if (id === 'scrollTop') {
-            chrome.tabs.executeScript({code:'function pos(){var position=window.pageYOffset;window.scrollTo(0,0);return position;};pos();'}, msg);
-            target.id = 'scrollPre';
+    var target = event.target;
+    if (target.parentNode.classList.contains('tab-header')) {
+        target = target.parentNode;
+    }
+    if (target.classList.contains('tab-header')) {
+        if (target.hasAttribute('id')) {
+            const id = target.getAttribute('id');
+            if (id === 'scrollTop') {
+                chrome.tabs.executeScript({code:'function pos(){var position=window.pageYOffset;window.scrollTo(0,0);return position;};pos();'}, msg);
+                target.id = 'scrollPre';
+            }
+            else {
+                chrome.tabs.executeScript({code:'chrome.storage.local.get({"offset":""},function(local){var offset=local.offset;window.scrollTo(0,offset);});'});
+                target.id = 'scrollTop';
+            }
         }
-        if (id === 'scrollPre') {
-            chrome.tabs.executeScript({code:'chrome.storage.local.get({"offset":""},function(local){var offset=local.offset;window.scrollTo(0,offset);});'});
+        else {
+            rmID();
             target.id = 'scrollTop';
         }
-    }
-    if (target.classList.contains('tab-header') && !target.hasAttribute('id')) {
-        rmID();
-        target.id = 'scrollTop';
     }
 };
 
