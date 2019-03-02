@@ -1,46 +1,31 @@
 /*
 Tab Scroll
 https://forum.vivaldi.net/topic/27856/tab-scroll
-Clicking a tab scrolls page to top, clicking it again returns to previous scroll position.
+Clicking on an active tab scrolls page to top, clicking it again returns to previous scroll position. Credits to tam710562 from Vivaldi Forum for coming up with the sessionStorage solution, which made this possible. More info in the linked thread.
 */
 
+function tabScrollExit() {
+    tsTarget.removeEventListener('mousemove', tabScrollExit);
+    tsTarget.removeEventListener('click', tabScrollTrigger);
+};
+
+function tabScrollTrigger() {
+    chrome.tabs.executeScript({
+        code: 'var offset=window.pageYOffset;if(offset>0){window.sessionStorage.setItem("tabOffset",offset);window.scrollTo(0,0);}else{window.scrollTo(0,window.sessionStorage.getItem("tabOffset")||0);}'
+    });
+    tabScrollExit();
+};
+
 function tabScroll(event) {
-    var target = event.target;
-    if (target.parentNode.classList.contains('tab-header')) {
-        target = target.parentNode;
-    }
-    if (target.classList.contains('tab-header')) {
-        if (target.hasAttribute('id')) {
-            const id = target.getAttribute('id');
-            if (id === 'scrollTop') {
-                chrome.tabs.executeScript({code:'function pos(){var position=window.pageYOffset;window.scrollTo(0,0);return position;};pos();'}, msg);
-                target.id = 'scrollPre';
-            }
-            else {
-                chrome.tabs.executeScript({code:'chrome.storage.local.get({"offset":""},function(local){var offset=local.offset;window.scrollTo(0,offset);});'});
-                target.id = 'scrollTop';
-            }
+    if (event.which == 1 && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
+        tsTarget = event.target;
+        if (tsTarget.parentNode.classList.contains('tab-header')) {
+            tsTarget = tsTarget.parentNode;
         }
-        else {
-            rmID();
-            target.id = 'scrollTop';
+        if (tsTarget.classList.contains('tab-header') && tsTarget.parentNode.classList.contains('active')) {
+            tsTarget.addEventListener('mousemove', tabScrollExit);
+            tsTarget.addEventListener('click', tabScrollTrigger);
         }
-    }
-};
-
-function msg(position) {
-    var offset = position[0];
-    chrome.storage.local.set({'offset': offset});
-};
-
-function rmID() {
-    const top = document.getElementById('scrollTop');
-    const pre = document.getElementById('scrollPre');
-    if (top) {
-        top.removeAttribute('id');
-    }
-    if (pre) {
-        pre.removeAttribute('id');
     }
 };
 
@@ -49,7 +34,7 @@ function rmID() {
 setTimeout(function wait() {
     const browser = document.getElementById('browser');
     if (browser) {
-        document.body.addEventListener('click', tabScroll);
+        document.body.addEventListener('mousedown', tabScroll);
     }
     else {
         setTimeout(wait, 300);
