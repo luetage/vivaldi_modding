@@ -1,7 +1,7 @@
 /*
 Status Bar Dropdown
 https://forum.vivaldi.net/topic/22766/attack-on-the-status-bar
-Replaces the status bar with a tool button in the address bar, which loads the status bar as overlay. Also introduces a button in the bar to toggle the status-info (link address).
+Replaces the status bar with a button in the address bar, which loads the status bar as overlay. Also introduces a button in the bar to toggle the status-info (link address).
 */
 
 function create() {
