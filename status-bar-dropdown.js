@@ -31,7 +31,7 @@ function create() {
 function cssT() {
     var styleS = document.createElement('style');
     styleS.type = 'text/css';
-    styleS.innerHTML = '#droptool {position: absolute;z-index: 1;right: 0;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);}.callout {bottom: unset;margin-top: 1px;}.callout::before, .callout::after {display: none;}#divID {order: 1;}.statusbar-left {order: 2;}.statusbar-right {order: 3;}#footer {border-right: none;}#status_info {display: none;}#footer.zeig #status_info.visible {display: flex;max-width: 500px;}.paneltogglefooter {display: none !important;}';
+    styleS.innerHTML = '#droptool {position: absolute;z-index: 1;right: 0;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);}.callout {bottom: unset;margin-top: 1px;}.callout::before, .callout::after {display: none;}#divID {order: 1;}.statusbar-left {order: 2;}.statusbar-right {order: 3;}#footer {border-right: none;}#status_info {display: none;}#footer.zeig #status_info.visible {display: flex;max-width: 500px;}.paneltogglefooter {display: none !important;}#browser.address-off #tools {display: none;}';
     document.getElementsByTagName('head')[0].appendChild(styleS);
 };
 
