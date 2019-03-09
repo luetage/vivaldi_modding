@@ -109,10 +109,11 @@ function _exportTheme() {
     }
 };
 
-function _buttons() {
+function portThemes() {
+    const edit = document.querySelector('.themes-edit');
     const check = document.getElementById('importTheme');
-    _cont = document.querySelector('.theme-metadata');
-    if (_cont && !check) {
+    if (edit && !check) {
+        _cont = document.querySelector('.theme-metadata');
         _themeName = document.querySelector('.theme-name');
         _themeBg = document.querySelector('.theme-colors div:nth-of-type(1) input');
         _themeFg = document.querySelector('.theme-colors div:nth-of-type(2) input');
@@ -122,7 +123,7 @@ function _buttons() {
         _themeWin = document.querySelector('.theme-settings div div:nth-of-type(2) label input');
         _themeTabs = document.querySelector('.theme-settings div div:nth-of-type(3) label input');
         _themeRound = document.querySelector('.border-radius label input');
-        var importBtn = document.createElement('input');
+        const importBtn = document.createElement('input');
         importBtn.setAttribute('type', 'text');
         importBtn.setAttribute('placeholder', 'Import');
         importBtn.style = 'margin-left: 6px;  ';
@@ -132,7 +133,7 @@ function _buttons() {
         style.type = 'text/css';
         style.innerHTML = '#importTheme {width: 80px;} #importTheme::-webkit-input-placeholder {opacity: 1; color: var(--colorHighlightBg); text-align: center;}';
         document.getElementsByTagName('head')[0].appendChild(style);
-        var exportBtn = document.createElement('input');
+        const exportBtn = document.createElement('input');
         exportBtn.setAttribute('type', 'submit');
         exportBtn.classList.add('primary');
         exportBtn.setAttribute('value', 'Export');
@@ -149,25 +150,6 @@ function _buttons() {
             _eventType = 'drop';
             _importTheme(event);
         });
-    }
-};
-
-function portThemes() {
-    var edit = document.querySelector('.button-toolbar.edit');
-    if (edit) {
-        var add = document.querySelector('.button-toolbar.add');
-        if (!edit.hasAttribute('id')) {
-            edit.id = "eventOn";
-            edit.addEventListener('click', function() {
-                setTimeout(_buttons, 50);
-            });
-        }
-        if (!add.hasAttribute('id')) {
-            add.id = "eventOn2";
-            add.addEventListener('click', function() {
-                setTimeout(_buttons, 50);
-            });
-        }
     }
 };
 
