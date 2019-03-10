@@ -83,7 +83,8 @@ function _message(pnt) {
         _msg.innerText = 'Overwrite all user themes and restore backup?';
     }
     else if (pnt === 'restore') {
-        _msg.innterText = 'Backup restored.';
+        console.log('restore');
+        _msg.innerText = 'Backup restored.';
     }
     else {
         _msg.innerText = 'Theme code error.';
@@ -100,7 +101,7 @@ function _restoreThemes() {
         _test = _set[i];
         var test = _checkImport;
         if (test()) {
-            console.log(_set[i].name + ' passed check.')
+            console.log(_set[i].name + ' passed');
         }
         else {
             _message('error');
@@ -229,17 +230,18 @@ function portThemes() {
         _cont.appendChild(importBtn);
         const style = document.createElement('style');
         style.type = 'text/css';
-        style.innerHTML = '#importTheme {width: 80px;}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}';
+        style.innerHTML = '#importTheme, #exportTheme {width: 80px;}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}';
         document.getElementsByTagName('head')[0].appendChild(style);
         const exportBtn = document.createElement('input');
         exportBtn.setAttribute('type', 'submit');
         exportBtn.classList.add('primary');
         exportBtn.setAttribute('value', 'Export');
+        exportBtn.setAttribute('title', 'Alt-Click to Backup');
         exportBtn.style.marginLeft = '6px';
         exportBtn.id = 'exportTheme';
         _cont.appendChild(exportBtn);
         _msg = document.createElement('span');
-        _msg.style = 'color: var(--colorFg); margin-left: 6px; margin-top: 6px;)';
+        _msg.style = 'color: var(--colorFg); margin-left: 12px; margin-top: 6px;)';
         _cont.appendChild(_msg);
         _exportBtn = document.getElementById('exportTheme');
         _exportBtn.addEventListener('click', _exportTheme);
