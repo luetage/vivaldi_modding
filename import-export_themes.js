@@ -121,7 +121,7 @@ function _confirmRestore() {
         _exportBtn.removeEventListener('click', _restoreThemes);
         _exportBtn.addEventListener('click', _exportTheme);
         _exportBtn.value = 'Export';
-    }, 4000);
+    }, 5000);
 };
 
 function _importTheme() {
