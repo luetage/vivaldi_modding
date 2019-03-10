@@ -1,8 +1,130 @@
 /*
 Theme Import and Export
 https://forum.vivaldi.net/topic/33154/import-and-export-themes
-Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Exports theme by copying the theme code as json string to clipboard. Enables backing up and sharing themes.
+Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Exports theme by copying the theme code as json string to clipboard. Enables backing up and sharing themes. New ersion also allows backing up all themes by alt-click and importing such a backup by pasting it.
 */
+
+/* Theme Import and Export */
+
+function _compmode() {
+    if (_set.themePage == 0) {
+        _set.themePage = false;
+    }
+    else {
+        _set.themePage = true;
+    }
+    if (_set.themeWin == 0) {
+        _set.themeWin = false;
+    }
+    else {
+        _set.themeWin = true;
+    }
+    if (_set.themeTabs == 0) {
+        _set.themeTabs = false;
+    }
+    else {
+        _set.themeTabs = true;
+    }
+    var adapt = {
+        'colors': {
+            'accentBg': '#' + _set.themeAc,
+            'baseBg': '#' + _set.themeBg,
+            'baseFg': '#' + _set.themeFg,
+            'highlightBg': '#' + _set.themeHi,
+        },
+        'name': _set.themeName,
+        'settings': {
+            'accentFromPage': _set.themePage,
+            'accentOnWindow': _set.themeWin,
+            'borderRadius': _set.themeRound,
+            'tabsTransparent': _set.themeTabs
+        },
+        'version': 0.1
+    };
+    _set = adapt;
+};
+
+function _checkImport() {// written by tam710562
+    if (
+        typeof _test.colors !== 'object' ||
+        typeof _test.colors.accentBg !== 'string' ||
+        !/^#(?:[0-9a-f]{3}){1,2}$/i.test(_test.colors.accentBg) ||
+        typeof _test.colors.baseBg !== 'string' ||
+        !/^#(?:[0-9a-f]{3}){1,2}$/i.test(_test.colors.baseBg) ||
+        typeof _test.colors.baseFg !== 'string' ||
+        !/^#(?:[0-9a-f]{3}){1,2}$/i.test(_test.colors.baseFg) ||
+        typeof _test.colors.highlightBg !== 'string' ||
+        !/^#(?:[0-9a-f]{3}){1,2}$/i.test(_test.colors.highlightBg) ||
+        typeof _test.name !== 'string' ||
+        typeof _test.settings !== 'object' ||
+        typeof _test.settings.accentFromPage !== 'boolean' ||
+        typeof _test.settings.accentOnWindow !== 'boolean' ||
+        (typeof _test.settings.borderRadius !== 'number' && typeof _test.settings.borderRadius !== 'string') ||
+        typeof _test.settings.tabsTransparent !== 'boolean' ||
+        typeof _test.version !== 'number'
+    ) {
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+
+function _message(pnt) {
+    clearTimeout(removeMsg);
+    if (pnt === 'export') {
+        _msg.innerText = 'Theme code copied to clipboard.';
+    }
+    else if (pnt === 'backup') {
+        _msg.innerText = 'Backup copied to clipboard';
+    }
+    else if (pnt === 'import') {
+        _msg.innerText = 'Theme imported.';
+    }
+    else if (pnt === 'warning') {
+        _msg.innerText = 'Overwrite all user themes and restore backup?';
+    }
+    else if (pnt === 'restore') {
+        _msg.innterText = 'Backup restored.';
+    }
+    else {
+        _msg.innerText = 'Theme code error.';
+    }
+    var removeMsg = setTimeout(function() {
+        _msg.innerText = '';
+    }, 4000);
+};
+
+function _restoreThemes() {
+    _msg.innerText = '';
+    _exportBtn.value = 'Export';
+    for (i=0; i<_set.length; i++) {
+        _test = _set[i];
+        var test = _checkImport;
+        if (test()) {
+            console.log(_set[i].name + ' passed check.')
+        }
+        else {
+            _message('error');
+            return;
+        }
+    }
+    chrome.storage.local.set({'THEMES_USER': _set}, function() {
+        _message('restore');
+    });
+};
+
+function _confirmRestore() {
+    _exportBtn.removeEventListener('click', _exportTheme);
+    _exportBtn.addEventListener('click', _restoreThemes);
+    _exportBtn.value = 'Confirm';
+    _message('warning');
+    setTimeout(function() {
+        _exportBtn.removeEventListener('click', _restoreThemes);
+        _exportBtn.addEventListener('click', _exportTheme);
+        _exportBtn.value = 'Export';
+    }, 4000);
+};
 
 function _importTheme() {
     event.stopPropagation();
@@ -14,99 +136,86 @@ function _importTheme() {
     else {
         var themeCode = event.dataTransfer.getData('text');
     }
-    var set = JSON.parse(themeCode);
-    _themeName.select();
-    document.execCommand('insertText', false, set.themeName);
-    setTimeout(function() {
-        _themeBg.select();
-        document.execCommand('insertText', false, set.themeBg);
-    }, 200);
-    setTimeout(function() {
-        _themeFg.select();
-        document.execCommand('insertText', false, set.themeFg);
-    }, 400);
-    setTimeout(function() {
-        _themeHi.select();
-        document.execCommand('insertText', false, set.themeHi);
-    }, 600);
-    setTimeout(function() {
-        _themeAc.select();
-        document.execCommand('insertText', false, set.themeAc);
-    }, 800);
-    if ((set.themePage === 1 && !_themePage.checked) || (set.themePage === 0 && _themePage.checked)) {
-        setTimeout(function() {
-            _themePage.click();
-        }, 1000);
+    try {
+        _set = JSON.parse(themeCode);
     }
-    if ((set.themeWin === 1 && !_themeWin.checked) || (set.themeWin === 0 && _themeWin.checked)) {
-        setTimeout(function() {
-            _themeWin.click();
-        }, 1200);
+    catch(err) {
+        _message('error');
+        return;
     }
-    if ((set.themeTabs === 1 && !_themeTabs.checked) || (set.themeTabs === 0 && _themeTabs.checked)) {
-        setTimeout(function() {
-            _themeTabs.click();
-        }, 1400);
+    if (Object.keys(_set)[0] === 'themeName') {
+        _compmode();
     }
-    setTimeout(function () {
-        const disp = document.querySelector('.border-radius label span');
-        if (set.themeRound === '-1') {
-            disp.innerText = 'Disabled';
-        }
-        else if (set.themeRound === '0') {
-            disp.innerText = 'Default';
-        }
-        else {
-            disp.innerText = set.themeRound + 'px';
-        }
-        _themeRound.value = set.themeRound;
-        chrome.storage.local.get({'THEMES_USER': ''}, function(round) {
-            var userThemes = round.THEMES_USER;
+    if (Object.keys(_set)[0] === 'colors') {
+        const nameField = document.querySelector('.theme-name');
+        nameField.select();
+        document.execCommand('insertText', false, _set.name);
+        chrome.storage.local.get({'THEMES_USER': ''}, function(imp) {
+            var userThemes = imp.THEMES_USER;
             for (i=0; i<userThemes.length; i++) {
-                if (userThemes[i].name === _themeName.value) {
-                    userThemes[i].settings.borderRadius = set.themeRound;
-                    chrome.storage.local.set({
-                        'THEMES_USER': userThemes,
-                        'BORDER_RADIUS': set.themeRound
-                    });
-                    _themeName.focus();
-                    break;
+                if (userThemes[i].name === nameField.value) {
+                    _test = _set;
+                    var test = _checkImport;
+                    if (test()) {
+                        _set.name = nameField.value;
+                        userThemes[i] = _set;
+                        chrome.storage.local.set({
+                            'THEMES_USER': userThemes,
+                            'BROWSER_COLOR_ACCENT_BG': _set.colors.accentBg,
+                            'BROWSER_COLOR_BG': _set.colors.baseBg,
+                            'BROWSER_COLOR_FG': _set.colors.baseFg,
+                            'BROWSER_COLOR_HIGHLIGHT_BG': _set.colors.highlightBg,
+                            'TABCOLOR_BEHIND_TABS': _set.settings.accentOnWindow,
+                            'USE_TABCOLOR': _set.settings.accentFromPage,
+                            'BORDER_RADIUS': _set.settings.borderRadius,
+                            'USE_TAB_TRANSPARENT_TABS': _set.settings.tabsTransparent,
+                            'THEME_CURRENT': _set.name
+                        });
+                        _message('import');
+                        break;
+                    }
+                    else {
+                        _message('error');
+                        break;
+                    }
                 }
             }
         });
-    }, 1600);
+    }
+    else if (Object.keys(_set)[0] === '0') {
+        _confirmRestore();
+    }
+    else {
+        _message('error');
+    }
 };
 
-function _exportTheme() {
-    if (_themePage.checked === true) {
-        var checkPage = 1;
+function _exportTheme(event) {
+    if (event.altKey) {
+        var backup = true;
     }
-    else {
-        var checkPage = 0;    }
-    if (_themeWin.checked === true) {
-        var checkWin = 1;    }
-    else {
-        var checkWin = 0;    }
-    if (_themeTabs.checked === true) {
-        var checkTabs = 1;
-    }
-    else {
-        var checkTabs = 0;
-    }
-    const share = {'themeName': _themeName.value, 'themeBg': _themeBg.value, 'themeFg': _themeFg.value, 'themeHi': _themeHi.value, 'themeAc': _themeAc.value, 'themePage': checkPage, 'themeWin': checkWin, 'themeTabs': checkTabs, 'themeRound': _themeRound.value};
-    const themeCode = JSON.stringify(share);
-    navigator.clipboard.writeText(themeCode);
-    const confirm = document.createElement('span');
-    confirm.innerText = 'Theme code copied to clipboard.';
-    confirm.style = 'color: var(--colorHighlightBg); margin-left: 6px; margin-top: 6px;)';
-    confirm.id = 'confirmExport';
-    const confirmExport = document.getElementById('confirmExport');
-    if (!confirmExport) {
-        _cont.appendChild(confirm);
-        setTimeout(function() {
-            _cont.removeChild(confirm);
-        }, 3500);
-    }
+    chrome.storage.local.get({
+        'THEME_CURRENT': '',
+        'THEMES_USER': ''
+    }, function(exp) {
+        const themeName = exp.THEME_CURRENT;
+        const userThemes = exp.THEMES_USER;
+        if (backup === true) {
+            const themeCode = JSON.stringify(userThemes);
+            navigator.clipboard.writeText(themeCode);
+            _message('backup');
+        }
+        else {
+            for (i=0; i<userThemes.length; i++) {
+                if (userThemes[i].name === themeName) {
+                    const themeCode = JSON.stringify(userThemes[i]);
+                    navigator.clipboard.writeText(themeCode);
+                    _message('export');
+                    break;
+                }
+            }
+        }
+    });
 };
 
 function portThemes() {
@@ -114,15 +223,6 @@ function portThemes() {
     const check = document.getElementById('importTheme');
     if (edit && !check) {
         _cont = document.querySelector('.theme-metadata');
-        _themeName = document.querySelector('.theme-name');
-        _themeBg = document.querySelector('.theme-colors div:nth-of-type(1) input');
-        _themeFg = document.querySelector('.theme-colors div:nth-of-type(2) input');
-        _themeHi = document.querySelector('.theme-colors div:nth-of-type(3) input');
-        _themeAc = document.querySelector('.theme-colors div:nth-of-type(4) input');
-        _themePage = document.querySelector('.theme-settings div div:nth-of-type(1) label input');
-        _themeWin = document.querySelector('.theme-settings div div:nth-of-type(2) label input');
-        _themeTabs = document.querySelector('.theme-settings div div:nth-of-type(3) label input');
-        _themeRound = document.querySelector('.border-radius label input');
         const importBtn = document.createElement('input');
         importBtn.setAttribute('type', 'text');
         importBtn.setAttribute('placeholder', 'Import');
@@ -131,7 +231,7 @@ function portThemes() {
         _cont.appendChild(importBtn);
         const style = document.createElement('style');
         style.type = 'text/css';
-        style.innerHTML = '#importTheme {width: 80px;} #importTheme::-webkit-input-placeholder {opacity: 1; color: var(--colorHighlightBg); text-align: center;}';
+        style.innerHTML = '#importTheme {width: 80px;}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}';
         document.getElementsByTagName('head')[0].appendChild(style);
         const exportBtn = document.createElement('input');
         exportBtn.setAttribute('type', 'submit');
@@ -140,7 +240,11 @@ function portThemes() {
         exportBtn.style.marginLeft = '6px';
         exportBtn.id = 'exportTheme';
         _cont.appendChild(exportBtn);
-        document.getElementById('exportTheme').addEventListener('click', _exportTheme);
+        _msg = document.createElement('span');
+        _msg.style = 'color: var(--colorHighlightBg); margin-left: 6px; margin-top: 6px;)';
+        _cont.appendChild(_msg);
+        _exportBtn = document.getElementById('exportTheme');
+        _exportBtn.addEventListener('click', _exportTheme);
         const importInput = document.getElementById('importTheme');
         importInput.addEventListener('paste', function() {
             _eventType = 'paste';
@@ -159,7 +263,7 @@ setTimeout(function wait() {
     const browser = document.getElementById('browser');
     if (browser) {
         document.body.addEventListener('click', function() {
-            setTimeout(portThemes, 500);
+            setTimeout(portThemes, 50);
         });
     }
     else {
