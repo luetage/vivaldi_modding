@@ -4,8 +4,6 @@ https://forum.vivaldi.net/topic/33154/import-and-export-themes
 Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Exports theme by copying the theme code as json string to clipboard. Enables backing up and sharing themes. New ersion also allows backing up all themes by alt-click and importing such a backup by pasting it.
 */
 
-/* Theme Import and Export */
-
 function _compmode() {
     if (_set.themePage == 0) {
         _set.themePage = false;
@@ -71,12 +69,12 @@ function _checkImport() {// written by tam710562
 };
 
 function _message(pnt) {
-    clearTimeout(removeMsg);
+    clearTimeout(_timeout);
     if (pnt === 'export') {
         _msg.innerText = 'Theme code copied to clipboard.';
     }
     else if (pnt === 'backup') {
-        _msg.innerText = 'Backup copied to clipboard';
+        _msg.innerText = 'Backup copied to clipboard.';
     }
     else if (pnt === 'import') {
         _msg.innerText = 'Theme imported.';
@@ -90,9 +88,9 @@ function _message(pnt) {
     else {
         _msg.innerText = 'Theme code error.';
     }
-    var removeMsg = setTimeout(function() {
+    _timeout = setTimeout(function(){
         _msg.innerText = '';
-    }, 4000);
+    }, 5000);
 };
 
 function _restoreThemes() {
@@ -241,7 +239,7 @@ function portThemes() {
         exportBtn.id = 'exportTheme';
         _cont.appendChild(exportBtn);
         _msg = document.createElement('span');
-        _msg.style = 'color: var(--colorHighlightBg); margin-left: 6px; margin-top: 6px;)';
+        _msg.style = 'color: var(--colorFg); margin-left: 6px; margin-top: 6px;)';
         _cont.appendChild(_msg);
         _exportBtn = document.getElementById('exportTheme');
         _exportBtn.addEventListener('click', _exportTheme);
@@ -254,6 +252,7 @@ function portThemes() {
             _eventType = 'drop';
             _importTheme(event);
         });
+        _timeout = {};
     }
 };
 
