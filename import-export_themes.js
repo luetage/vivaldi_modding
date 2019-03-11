@@ -4,7 +4,7 @@ https://forum.vivaldi.net/topic/33154/import-and-export-themes
 Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Exports theme by copying the theme code as json string to clipboard. Enables backing up and sharing themes. New version also allows backing up all themes by alt-click and importing such a backup by pasting it.
 */
 
-function _compmode() {
+function _compMode() {
     if (_set.themePage == 0) {
         _set.themePage = false;
     }
@@ -79,51 +79,54 @@ function _message(pnt) {
     else if (pnt === 'import') {
         _msg.innerText = 'Theme imported.';
     }
-    else if (pnt === 'warning') {
-        _msg.innerText = 'Overwrite all user themes and restore backup?';
-    }
     else if (pnt === 'restore') {
-        _msg.innerText = 'Backup restored.';
+        _msg.innerText = 'Backup imported.';
+    }
+    else if (pnt === 'notice') {
+        _msg.innerText = 'Nothing to import. Check console.log';
+    }
+    else if (pnt === 'sort') {
+        _msg.innerText = 'User themes sorted alphabetically.'
     }
     else {
         _msg.innerText = 'Theme code error.';
     }
-    _timeout = setTimeout(function(){
+    _timeout = setTimeout(function() {
         _msg.innerText = '';
     }, 5000);
 };
 
-function _restoreThemes() {
-    _msg.innerText = '';
-    _exportBtn.value = 'Export';
-    console.log('Testing backup for errors...')
-    for (i=0; i<_set.length; i++) {
-        _test = _set[i];
-        var test = _checkImport;
-        if (test()) {
-            console.log(_set[i].name + ' passed');
+function _importBackup() {
+    chrome.storage.local.get({'THEMES_USER': ''}, function(res) {
+        var userThemes = res.THEMES_USER;
+        console.log('Importing themes...')
+        for (i=0; i<_set.length; i++) {
+            _test = _set[i];
+            var test = _checkImport;
+            if (test()) {
+                var compare = userThemes.findIndex(x => x.name == _set[i].name);
+                if (compare === -1) {
+                    var ok = true;
+                    userThemes.push(_set[i]);
+                    console.log(_set[i].name + ' imported');
+                }
+                else {
+                    console.log(_set[i].name + ' is a duplicate');
+                }
+            }
+            else {
+                console.log(_set[i].name + ' failed');
+            }
+        }
+        if (ok === true) {
+            chrome.storage.local.set({'THEMES_USER': userThemes}, function() {
+                _message('restore');
+            });
         }
         else {
-            console.log(_set[i].name + ' failed')
-            _message('error');
-            return;
+            _message('notice');
         }
-    }
-    chrome.storage.local.set({'THEMES_USER': _set}, function() {
-        _message('restore');
     });
-};
-
-function _confirmRestore() {
-    _exportBtn.removeEventListener('click', _exportTheme);
-    _exportBtn.addEventListener('click', _restoreThemes);
-    _exportBtn.value = 'Confirm';
-    _message('warning');
-    setTimeout(function() {
-        _exportBtn.removeEventListener('click', _restoreThemes);
-        _exportBtn.addEventListener('click', _exportTheme);
-        _exportBtn.value = 'Export';
-    }, 5000);
 };
 
 function _importTheme() {
@@ -144,19 +147,19 @@ function _importTheme() {
         return;
     }
     if (Object.keys(_set)[0] === 'themeName') {
-        _compmode();
+        _compMode();
     }
     if (Object.keys(_set)[0] === 'colors') {
-        const nameField = document.querySelector('.theme-name');
-        nameField.select();
-        document.execCommand('insertText', false, _set.name);
-        chrome.storage.local.get({'THEMES_USER': ''}, function(imp) {
-            var userThemes = imp.THEMES_USER;
-            for (i=0; i<userThemes.length; i++) {
-                if (userThemes[i].name === nameField.value) {
-                    _test = _set;
-                    var test = _checkImport;
-                    if (test()) {
+        _test = _set;
+        var test = _checkImport;
+        if (test()) {
+            const nameField = document.querySelector('.theme-name');
+            nameField.select();
+            document.execCommand('insertText', false, _set.name);
+            chrome.storage.local.get({'THEMES_USER': ''}, function(imp) {
+                var userThemes = imp.THEMES_USER;
+                for (i=0; i<userThemes.length; i++) {
+                    if (userThemes[i].name === nameField.value) {
                         _set.name = nameField.value;
                         userThemes[i] = _set;
                         chrome.storage.local.set({
@@ -174,16 +177,15 @@ function _importTheme() {
                         _message('import');
                         break;
                     }
-                    else {
-                        _message('error');
-                        break;
-                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+            _message('error');
+        }
     }
     else if (Object.keys(_set)[0] === '0') {
-        _confirmRestore();
+        _importBackup();
     }
     else {
         _message('error');
@@ -193,6 +195,9 @@ function _importTheme() {
 function _exportTheme(event) {
     if (event.altKey) {
         var backup = true;
+    }
+    if (event.shiftKey) {
+        var order = true;
     }
     chrome.storage.local.get({
         'THEME_CURRENT': '',
@@ -204,6 +209,14 @@ function _exportTheme(event) {
             const themeCode = JSON.stringify(userThemes);
             navigator.clipboard.writeText(themeCode);
             _message('backup');
+        }
+        else if (order === true) {
+            userThemes.sort(function (a,b) {
+                return a.name.localeCompare(b.name);
+            });
+            chrome.storage.local.set({'THEMES_USER': userThemes}, function() {
+                _message('sort');
+            });
         }
         else {
             for (i=0; i<userThemes.length; i++) {
@@ -226,26 +239,23 @@ function portThemes() {
         const importBtn = document.createElement('input');
         importBtn.setAttribute('type', 'text');
         importBtn.setAttribute('placeholder', 'Import');
-        importBtn.style = 'margin-left: 6px;  ';
         importBtn.id = 'importTheme';
         _cont.appendChild(importBtn);
-        const style = document.createElement('style');
-        style.type = 'text/css';
-        style.innerHTML = '#importTheme, #exportTheme {width: 80px;}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}';
-        document.getElementsByTagName('head')[0].appendChild(style);
         const exportBtn = document.createElement('input');
         exportBtn.setAttribute('type', 'submit');
         exportBtn.classList.add('primary');
         exportBtn.setAttribute('value', 'Export');
-        exportBtn.setAttribute('title', 'Alt-Click to Backup');
-        exportBtn.style.marginLeft = '6px';
+        exportBtn.setAttribute('title', 'Click to export theme\nAlt-click to backup all themes\nShift-click to sort themes');
         exportBtn.id = 'exportTheme';
         _cont.appendChild(exportBtn);
         _msg = document.createElement('span');
-        _msg.style = 'color: var(--colorFg); margin-left: 12px; margin-top: 6px;)';
+        _msg.id = 'modInfo';
         _cont.appendChild(_msg);
-        _exportBtn = document.getElementById('exportTheme');
-        _exportBtn.addEventListener('click', _exportTheme);
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = '#importTheme, #exportTheme {width: 80px;margin-left: 6px;}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#modInfo {color: var(--colorFg);margin-left: 12px;margin-top: 6px;}';
+        document.getElementsByTagName('head')[0].appendChild(style);
+        document.getElementById('exportTheme').addEventListener('click', _exportTheme);
         const importInput = document.getElementById('importTheme');
         importInput.addEventListener('paste', function() {
             _eventType = 'paste';
@@ -258,17 +268,3 @@ function portThemes() {
         _timeout = {};
     }
 };
-
-// Loop waiting for the browser to load the UI. You can call all functions from just one instance.
-
-setTimeout(function wait() {
-    const browser = document.getElementById('browser');
-    if (browser) {
-        document.body.addEventListener('click', function() {
-            setTimeout(portThemes, 50);
-        });
-    }
-    else {
-        setTimeout(wait, 300);
-    }
-}, 300);
