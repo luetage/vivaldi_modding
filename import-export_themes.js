@@ -268,3 +268,17 @@ function portThemes() {
         _timeout = {};
     }
 };
+
+// Loop waiting for the browser to load the UI. You can call all functions from just one instance.
+
+setTimeout(function wait() {
+    const browser = document.getElementById('browser');
+    if (browser) {
+        document.body.addEventListener('click', function() {
+            setTimeout(portThemes, 50);
+        });
+    }
+    else {
+        setTimeout(wait, 300);
+    }
+}, 300);
