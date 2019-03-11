@@ -1,7 +1,7 @@
 /*
 Theme Import and Export
 https://forum.vivaldi.net/topic/33154/import-and-export-themes
-Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Exports theme by copying the theme code as json string to clipboard. Enables backing up and sharing themes. New ersion also allows backing up all themes by alt-click and importing such a backup by pasting it.
+Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Exports theme by copying the theme code as json string to clipboard. Enables backing up and sharing themes. New version also allows backing up all themes by alt-click and importing such a backup by pasting it.
 */
 
 function _compmode() {
@@ -83,7 +83,6 @@ function _message(pnt) {
         _msg.innerText = 'Overwrite all user themes and restore backup?';
     }
     else if (pnt === 'restore') {
-        console.log('restore');
         _msg.innerText = 'Backup restored.';
     }
     else {
@@ -97,6 +96,7 @@ function _message(pnt) {
 function _restoreThemes() {
     _msg.innerText = '';
     _exportBtn.value = 'Export';
+    console.log('Testing backup for errors...')
     for (i=0; i<_set.length; i++) {
         _test = _set[i];
         var test = _checkImport;
@@ -104,6 +104,7 @@ function _restoreThemes() {
             console.log(_set[i].name + ' passed');
         }
         else {
+            console.log(_set[i].name + ' failed')
             _message('error');
             return;
         }
