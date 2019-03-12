@@ -1,7 +1,7 @@
 /*
 Theme Import and Export
 https://forum.vivaldi.net/topic/33154/import-and-export-themes
-Adds Import and Export button to Vivaldi's theme page when clicking the +/add or pencil/edit button. Exports theme by copying the theme code as json string to clipboard. Enables backing up and sharing themes. New version also allows backing up all themes by alt-click and importing such a backup by pasting it.
+Adds functionality to import, export, backup, sort and move themes to Vivaldi's settings page. Read more about it in the linked topic.
 */
 
 function _compMode() {
@@ -231,7 +231,64 @@ function _exportTheme(event) {
     });
 };
 
+function _moveTheme() {
+    chrome.storage.local.get({
+        'THEME_CURRENT': '',
+        'THEMES_USER': ''
+    }, function(mv) {
+        const themeName = mv.THEME_CURRENT;
+        const userThemes = mv.THEMES_USER;
+        var index = userThemes.findIndex(x => x.name == themeName);
+        if (index !== -1) {
+            if (_toMove === 'left') {
+                if (index !== 0) {
+                    var fromI = userThemes[index];
+                    var toI = userThemes[index-1];
+                    userThemes[index-1] = fromI;
+                    userThemes[index] = toI;
+                }
+                else {
+                    return;
+                }
+            }
+            else {
+                var last = userThemes.length - 1;
+                if (index < last) {
+                    var fromI = userThemes[index];
+                    var toI = userThemes[index+1];
+                    userThemes[index+1] = fromI;
+                    userThemes[index] = toI;
+                }
+                else {
+                    return;
+                }
+            }
+            chrome.storage.local.set({'THEMES_USER': userThemes});
+        }
+    });
+};
+
 function portThemes() {
+    const btn = document.querySelector('button[title="Edit Theme"]');
+    const move = document.querySelector('.move-left');
+    if (btn && !move) {
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = '.move-left button:focus, .move-right button:focus {border-color: var(--colorBorder) !important;box-shadow: none !important;}#importTheme, #exportTheme {width: 80px;margin-left: var(--padding);}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#exportTheme {margin-right: var(--padding)}#modInfo {color: var(--colorFg);margin-left: var(--padding);margin-top: 6px;}';
+        document.getElementsByTagName('head')[0].appendChild(style);
+        const group = document.createElement('div');
+        group.classList.add('toolbar', 'toolbar-group');
+        group.innerHTML = '<div class="button-toolbar move-left"><button draggable="false" tabindex="auto" title="Move Theme Left" class=""><svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1216 448v896q0 26-19 45t-45 19-45-19l-448-448q-19-19-19-45t19-45l448-448q19-19 45-19t45 19 19 45z"/></svg></button></div><hr><div class="button-toolbar move-right"><button draggable="false" tabindex="auto" title="Move Theme Right" class=""><svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1152 896q0 26-19 45l-448 448q-19 19-45 19t-45-19-19-45v-896q0-26 19-45t45-19 45 19l448 448q19 19 19 45z"/></svg></button></div>';
+        btn.parentNode.parentNode.appendChild(group);
+        document.querySelector('.move-left').addEventListener('click', function() {
+            _toMove = 'left';
+            _moveTheme();
+        });
+        document.querySelector('.move-right').addEventListener('click', function() {
+            _toMove = 'right';
+            _moveTheme();
+        });
+    }
     const edit = document.querySelector('.themes-edit');
     const check = document.getElementById('importTheme');
     if (edit && !check) {
@@ -251,10 +308,6 @@ function portThemes() {
         _msg = document.createElement('span');
         _msg.id = 'modInfo';
         _cont.appendChild(_msg);
-        const style = document.createElement('style');
-        style.type = 'text/css';
-        style.innerHTML = '#importTheme, #exportTheme {width: 80px;margin-left: 6px;}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#modInfo {color: var(--colorFg);margin-left: 12px;margin-top: 6px;}';
-        document.getElementsByTagName('head')[0].appendChild(style);
         document.getElementById('exportTheme').addEventListener('click', _exportTheme);
         const importInput = document.getElementById('importTheme');
         importInput.addEventListener('paste', function() {
