@@ -17,7 +17,7 @@ function _msgSearch(pnt) {
     }
     _msgTimeout = setTimeout(function() {
         _infoSearch.innerText = '';
-    }, 50000);
+    }, 5000);
 };
 
 
@@ -40,6 +40,7 @@ function _restoreSearch() {
     }
     if (Object.keys(engines)[0] === 'context') {
         chrome.storage.local.set({'SEARCH_ENGINE_COLLECTION': engines}, function() {
+            document.querySelector('.setting-search-engine .detail-toolbar input.primary').click();
             _msgSearch('restore');
         });
     }
