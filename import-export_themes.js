@@ -274,7 +274,7 @@ function portThemes() {
     if (btn && !move) {
         const style = document.createElement('style');
         style.type = 'text/css';
-        style.innerHTML = '.move-left button:focus, .move-right button:focus {border-color: var(--colorBorder) !important;box-shadow: none !important;}#importTheme, #exportTheme {width: 80px;margin-left: var(--padding);}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#exportTheme {margin-right: var(--padding)}#modInfo {color: var(--colorFg);margin-left: var(--padding);margin-top: 6px;}';
+        style.innerHTML = '.move-left button:focus, .move-right button:focus {border-color: var(--colorBorder) !important;box-shadow: none !important;}#importTheme, #exportTheme {width: 80px;margin-left: var(--padding);}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#modInfo {margin-top: var(--padding);}';
         document.getElementsByTagName('head')[0].appendChild(style);
         const group = document.createElement('div');
         group.classList.add('toolbar', 'toolbar-group');
@@ -292,22 +292,22 @@ function portThemes() {
     const edit = document.querySelector('.themes-edit');
     const check = document.getElementById('importTheme');
     if (edit && !check) {
-        _cont = document.querySelector('.theme-metadata');
+        const cont = document.querySelector('.theme-metadata');
         const importBtn = document.createElement('input');
         importBtn.setAttribute('type', 'text');
         importBtn.setAttribute('placeholder', 'Import');
         importBtn.id = 'importTheme';
-        _cont.appendChild(importBtn);
+        cont.appendChild(importBtn);
         const exportBtn = document.createElement('input');
         exportBtn.setAttribute('type', 'submit');
         exportBtn.classList.add('primary');
         exportBtn.setAttribute('value', 'Export');
         exportBtn.setAttribute('title', 'Click to export theme\nAlt-click to backup all themes\nShift-click to sort themes');
         exportBtn.id = 'exportTheme';
-        _cont.appendChild(exportBtn);
+        cont.appendChild(exportBtn);
         _msg = document.createElement('span');
         _msg.id = 'modInfo';
-        _cont.appendChild(_msg);
+        cont.appendChild(_msg);
         document.getElementById('exportTheme').addEventListener('click', _exportTheme);
         const importInput = document.getElementById('importTheme');
         importInput.addEventListener('paste', function() {
