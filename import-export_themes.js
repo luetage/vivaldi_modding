@@ -269,7 +269,7 @@ function _moveTheme() {
 };
 
 function portThemes() {
-    const btn = document.querySelector('button[title="Edit Theme"]');
+    const btn = document.querySelector('.setting-group.unlimited button.selectbox + .toolbar-default .toolbar-group + .button-toolbar button');
     const move = document.querySelector('.move-left');
     if (btn && !move) {
         const style = document.createElement('style');

@@ -1,6 +1,6 @@
 /*
 Backup Search Engines
-https://forum.vivaldi.net/topic/33154/import-and-export-themes
+https://forum.vivaldi.net/topic/35443/backup-search-engines
 Adds functionality to backup and restore search engines in vivaldi://settings/search.
 */
 
@@ -20,7 +20,6 @@ function _msgSearch(pnt) {
     }, 5000);
 };
 
-
 function _restoreSearch() {
     event.preventDefault();
     event.stopPropagation();
@@ -32,7 +31,7 @@ function _restoreSearch() {
         var engineCode = event.dataTransfer.getData('text');
     }
     try {
-        engines = JSON.parse(engineCode);
+        var engines = JSON.parse(engineCode);
     }
     catch(err) {
         _msgSearch('error');
