@@ -272,10 +272,14 @@ function portThemes() {
     const btn = document.querySelector('.setting-group.unlimited button.selectbox + .toolbar-default .toolbar-group + .button-toolbar button');
     const move = document.querySelector('.move-left');
     if (btn && !move) {
-        const style = document.createElement('style');
-        style.type = 'text/css';
-        style.innerHTML = '.move-left button:focus, .move-right button:focus {border-color: var(--colorBorder) !important;box-shadow: none !important;}#importTheme, #exportTheme {width: 80px;margin-left: var(--padding);}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#modInfo {margin-top: var(--padding);}';
-        document.getElementsByTagName('head')[0].appendChild(style);
+        const styleCheck = document.getElementById('portThemes');
+        if (!styleCheck) {
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.id = 'portThemes';
+            style.innerHTML = '.move-left button:focus, .move-right button:focus {border-color: var(--colorBorder) !important;box-shadow: none !important;}#importTheme, #exportTheme {width: 80px;margin-left: var(--padding);}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#modInfo {margin-top: var(--padding);}';
+            document.getElementsByTagName('head')[0].appendChild(style);
+        }
         const group = document.createElement('div');
         group.classList.add('toolbar', 'toolbar-group');
         group.innerHTML = '<div class="button-toolbar move-left"><button draggable="false" tabindex="auto" title="Move Theme Left" class=""><svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1216 448v896q0 26-19 45t-45 19-45-19l-448-448q-19-19-19-45t19-45l448-448q19-19 45-19t45 19 19 45z"/></svg></button></div><hr><div class="button-toolbar move-right"><button draggable="false" tabindex="auto" title="Move Theme Right" class=""><svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1152 896q0 26-19 45l-448 448q-19 19-45 19t-45-19-19-45v-896q0-26 19-45t45-19 45 19l448 448q19 19 19 45z"/></svg></button></div>';

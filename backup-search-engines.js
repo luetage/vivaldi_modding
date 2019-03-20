@@ -61,11 +61,15 @@ function searchEngines() {
     const search = document.querySelector('.setting-search-engine');
     const check = document.getElementById('backupSearch');
     if (search && !check) {
+        const styleCheck = document.getElementById('searchEngines');
+        if (!styleCheck) {
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.id = 'searchEngines';
+            style.innerHTML = '#backupSearch, #restoreSearch {margin-left: var(--padding);}#restoreSearch{width: 130px;margin-top: var(--padding);}#restoreSearch::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}';
+            document.getElementsByTagName('head')[0].appendChild(style);
+        }
         const place = document.querySelector('.setting-section .setting-group.unlimited .setting-single');
-        const style = document.createElement('style');
-        style.type = 'text/css';
-        style.innerHTML = '#backupSearch, #restoreSearch {margin-left: var(--padding);}#restoreSearch{width: 130px;margin-top: var(--padding);}#restoreSearch::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}';
-        document.getElementsByTagName('head')[0].appendChild(style);
         const backupBtn = document.createElement('input');
         backupBtn.setAttribute('type', 'button');
         backupBtn.setAttribute('value', 'Backup');
