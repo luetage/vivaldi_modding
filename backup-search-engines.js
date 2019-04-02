@@ -37,7 +37,7 @@ function _restoreSearch() {
         _msgSearch('error');
         return;
     }
-    if (Object.keys(engines)[0] === 'context') {
+    if ('engines' in engines && `default` in engines && 'defaultPrivate' in engines) {
         chrome.storage.local.set({'SEARCH_ENGINE_COLLECTION': engines}, function() {
             document.querySelector('.setting-search-engine .detail-toolbar input.primary').click();
             _msgSearch('restore');
