@@ -114,6 +114,17 @@ function statusDropdown() {
 
 var appendChild = Element.prototype.appendChild;
 Element.prototype.appendChild = function () {
+    if (arguments[0].tagName === 'BUTTON') {
+        setTimeout(function() {
+            if (this.classList.contains('profile-popup')) {
+                const statusButton = document.getElementById('statusButton');
+                const adr = document.querySelector('.toolbar-addressbar')
+                if (statusButton) {
+                    adr.insertBefore(this, statusButton);
+                }
+            }
+        }.bind(this, arguments[0]));
+    }
     if (arguments[0].tagName === 'DIV') {
         setTimeout(function() {
             if (this.classList.contains('toolbar-statusbar')) {
