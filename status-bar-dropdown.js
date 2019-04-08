@@ -68,12 +68,16 @@ function statusMod() {
         const statusInfo = document.querySelector('.status-info');
         statusInfo.style.display = 'none';
         if (browser.classList.contains('biscuit-mode')) {
+            const version = document.querySelector('.biscuit-string').value;
             const divB = document.createElement('div');
             divB.classList.add('button-toolbar');
             divB.id = 'biscuitButton';
-            divB.setAttribute('title', document.querySelector('.biscuit-string').value);
+            divB.setAttribute('title', version);
             divB.innerHTML = '<button draggable="false" tabindex="-1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M 12 24 C 17.26 24 20.18 24 22.09 22.09 C 24 20.18 24 17.29 24 12 C 24 6.71 24 3.82 22.09 1.91 C 20.18 0 17.26 0 12 0 C 6.74 0 3.82 0 1.9 1.94 C -0.02 3.88 0 6.77 0 12 C 0 17.23 0 20.21 1.9 22.12 C 3.8 24.03 6.74 24 12 24 Z  M 18.9 8.6 Q 16.11 13.42 13.34 18.24 C 13.042 18.82 12.461 19.199 11.81 19.24 C 11.088 19.323 10.388 18.954 10.05 18.31 Q 8.3 15.31 6.56 12.31 L 4.46 8.58 C 4.12 8.017 4.103 7.315 4.415 6.736 C 4.727 6.157 5.322 5.786 5.98 5.76 C 6.704 5.709 7.386 6.105 7.7 6.76 L 9.25 9.4 C 9.63 10.05 9.99 10.7 10.37 11.34 C 10.868 12.24 11.802 12.813 12.83 12.85 C 14.416 12.94 15.797 11.778 15.98 10.2 C 15.988 10.097 15.988 9.993 15.98 9.89 C 15.981 9.408 15.871 8.933 15.66 8.5 C 15.298 7.843 15.364 7.033 15.827 6.443 C 16.29 5.853 17.061 5.597 17.785 5.792 C 18.509 5.988 19.047 6.597 19.15 7.34 C 19.207 7.776 19.12 8.219 18.9 8.6 Z "></path></svg></button>';
             statusBar.insertBefore(divB, document.querySelector('.status-info'));
+            document.getElementById('biscuitButton').addEventListener('click', function() {
+                navigator.clipboard.writeText(version);
+            });
         }
         const divL = document.createElement('divL');
         divL.classList.add('button-toolbar');
