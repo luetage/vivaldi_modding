@@ -83,13 +83,13 @@ function statusMod() {
         statusBar.insertBefore(divL, document.querySelector('.status-info'));
         const statusInfoToggle = document.getElementById('statusInfoToggle');
         statusInfoToggle.addEventListener('click', function() {
-                if (statusInfo.style.display === 'flex') {
+                if (statusInfo.style.display === 'inline-block') {
                     statusInfoToggle.classList.remove('zeig');
                     statusInfo.style.display = 'none';
                 }
                 else {
                     statusInfoToggle.classList.add('zeig');
-                    statusInfo.style.display = 'flex';
+                    statusInfo.style.display = 'inline-block';
                 }
         });
     }
