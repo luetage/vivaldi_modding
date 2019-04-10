@@ -8,10 +8,13 @@ Replaces the status bar with a button in the address bar, which loads the status
 
 function statusToggle() {
     const statusContainer = document.getElementById('statusContainer');
+    const statusBar = document.querySelector('.toolbar-statusbar');
     if (statusContainer.style.display === 'block') {
         statusContainer.style.display = 'none';
+        statusBar.classList.remove('zeig');
     }
     else {
+        statusBar.classList.add('zeig');
         statusContainer.style.display = 'block';
     }
 };
@@ -50,8 +53,12 @@ function statusStyle() {
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
         }
         .toolbar-statusbar {
+            display: none;
             border-top: none;
             border-bottom: 1px solid var(--colorBorder);
+        }
+        .toolbar-statusbar.zeig {
+            display: flex;
         }
         .toolbar-statusbar .button-popup.button-popup-above {
             bottom: unset;
