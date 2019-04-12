@@ -135,9 +135,8 @@ Element.prototype.appendChild = function () {
         setTimeout(function() {
             if (this.classList.contains('profile-popup')) {
                 const statusButton = document.getElementById('statusButton');
-                const adr = document.querySelector('.toolbar-addressbar')
                 if (statusButton) {
-                    adr.insertBefore(this, statusButton);
+                    document.querySelector('.toolbar-addressbar').insertBefore(this, statusButton);
                 }
             }
         }.bind(this, arguments[0]));
@@ -162,10 +161,8 @@ Element.prototype.appendChild = function () {
 var removeChild = Element.prototype.removeChild;
 Element.prototype.removeChild = function () {
     if (arguments[0].tagName === 'DIV' && arguments[0].classList.contains('toolbar-statusbar')) {
-        const statusButton = document.getElementById('statusButton');
-        const statusContainer = document.getElementById('statusContainer');
-        statusButton.remove();
-        statusContainer.remove();
+        document.getElementById('statusButton').remove();
+        document.getElementById('statusContainer').remove();
     }
     else {
         return removeChild.apply(this, arguments);
