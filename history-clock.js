@@ -5,31 +5,27 @@ Sets the time on the history clock panel icon, an easter egg featured by Vivaldi
  */
 
 function historyClock() {
-    const history = document.querySelector('#switch button.history');
-    document.querySelector('#switch button.history svg rect:nth-of-type(1)').style = 'transform-origin: center; transform: var(--timeHourRotation)';
-    document.querySelector('#switch button.history svg rect:nth-of-type(2)').style = 'transform-origin: center; transform: var(--timeMinuteRotation)';
     var setInt = true;
     var relax = -1;
     function updateClock() {
+        const clock = document.querySelector('#switch button.history');
         var time = new Date();
         var hours = time.getHours();
         var minutes = time.getMinutes();
         if (setInt === true) {
             if (relax !== -1 && relax !== minutes) {
-                clearInterval(timer);
+                clearInterval(timer)
                 setInterval(updateClock, 60000);
                 setInt = false;
             }
             relax = minutes;
         }
-        var setHours = '--timeHourRotation: rotate(' + Math.floor(hours*30+minutes/2) + 'deg)';
-        var setMinutes = '--timeMinuteRotation: rotate(' + minutes*6 + 'deg)';
-        history.style = setHours + ';' + setMinutes;
+        if (clock) {
+            clock.style = '--timeHourRotation: rotate(' + Math.floor(hours*30+minutes/2) + 'deg)' + '; ' + '--timeMinuteRotation: rotate(' + minutes*6 + 'deg)';
+        }
     };
     var timer = setInterval(updateClock, 1000);
 };
-
-// Loop waiting for the browser to load the UI. You can call all functions from just one instance.
 
 setTimeout(function wait() {
     const browser = document.getElementById('browser');
