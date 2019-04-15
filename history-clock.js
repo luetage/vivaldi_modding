@@ -18,7 +18,7 @@ function historyClock() {
         clockRelax = minutes;
     }
     if (clock) {
-        clock.style = '--timeHourRotation: rotate(' + Math.floor(hours*30+minutes/2) + 'deg)' + '; ' + '--timeMinuteRotation: rotate(' + minutes*6 + 'deg)';
+        clock.style = '--timeHourRotation: rotate(' + Math.floor(hours*30+minutes/2) + 'deg); --timeMinuteRotation: rotate(' + minutes*6 + 'deg)';
     }
 };
 
