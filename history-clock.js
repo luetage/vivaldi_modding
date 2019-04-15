@@ -5,34 +5,23 @@ Sets the time on the history clock panel icon, an easter egg featured by Vivaldi
  */
 
 function historyClock() {
-    var setInt = true;
-    var relax = -1;
-    function updateClock() {
-        const clock = document.querySelector('#switch button.history');
-        var time = new Date();
-        var hours = time.getHours();
-        var minutes = time.getMinutes();
-        if (setInt === true) {
-            if (relax !== -1 && relax !== minutes) {
-                clearInterval(timer)
-                setInterval(updateClock, 60000);
-                setInt = false;
-            }
-            relax = minutes;
+    const clock = document.querySelector('#switch button.history');
+    var time = new Date();
+    var hours = time.getHours();
+    var minutes = time.getMinutes();
+    if (clockSetInt === true) {
+        if (clockRelax !== -1 && clockRelax !== minutes) {
+            clearInterval(clockTimer)
+            setInterval(historyClock, 60000);
+            clockSetInt = false;
         }
-        if (clock) {
-            clock.style = '--timeHourRotation: rotate(' + Math.floor(hours*30+minutes/2) + 'deg)' + '; ' + '--timeMinuteRotation: rotate(' + minutes*6 + 'deg)';
-        }
-    };
-    var timer = setInterval(updateClock, 1000);
+        clockRelax = minutes;
+    }
+    if (clock) {
+        clock.style = '--timeHourRotation: rotate(' + Math.floor(hours*30+minutes/2) + 'deg)' + '; ' + '--timeMinuteRotation: rotate(' + minutes*6 + 'deg)';
+    }
 };
 
-setTimeout(function wait() {
-    const browser = document.getElementById('browser');
-    if (browser) {
-        historyClock();
-    }
-    else {
-        setTimeout(wait, 300);
-    }
-}, 300);
+var clockSetInt = true;
+var clockRelax = -1;
+var clockTimer = setInterval(historyClock, 1000);
