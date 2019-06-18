@@ -11,6 +11,7 @@ Changes the shape of unhovered window buttons on macOS. A version for Windows is
     height: 100%;
 }
 #browser.mac .window-buttongroup {
+    -webkit-app-region: no-drag;
     height: 100%;
     margin: 0;
     padding: 14px 8px 0;
