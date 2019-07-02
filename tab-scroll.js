@@ -8,30 +8,14 @@ Clicking on an active tab scrolls page to top, clicking it again returns to prev
     function tabScrollExit() {
         tsTarget.removeEventListener('mousemove', tabScrollExit);
         tsTarget.removeEventListener('click', tabScrollTrigger);
-    }
-
-    const tabScrollScript = '!' + function () {
-        var tabOffset = JSON.parse(window.sessionStorage.getItem('tabOffset')) || {};
-        var offset = window.pageYOffset;
-        var urlWithoutHash = document.URL.replace(/#.*$/, '');
-        if (offset > 0) {
-            window.scrollTo(0, 0);
-            tabOffset = {
-                offset: offset,
-                url: urlWithoutHash
-            };
-            window.sessionStorage.setItem('tabOffset', JSON.stringify(tabOffset));
-        } else if (urlWithoutHash === tabOffset.url) {
-            window.scrollTo(0, tabOffset.offset);
-        }
-    } + '();';
+    };
 
     function tabScrollTrigger() {
         chrome.tabs.executeScript({
             code: tabScrollScript
         });
         tabScrollExit();
-    }
+    };
 
     function tabScroll(event) {
         if (event.which == 1 && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
@@ -44,7 +28,18 @@ Clicking on an active tab scrolls page to top, clicking it again returns to prev
                 tsTarget.addEventListener('click', tabScrollTrigger);
             }
         }
-    }
+    };
+
+    const tabScrollScript = '!' + function () {
+        var offset = window.pageYOffset;
+        if (offset > 0) {
+            window.sessionStorage.setItem('tabOffset',offset);
+            window.scrollTo(0,0);
+        }
+        else {
+            window.scrollTo(0,window.sessionStorage.getItem('tabOffset')||0);
+        }
+    } + '();';
 
     // Loop waiting for the browser to load the UI. You can call all functions from just one instance.
 
