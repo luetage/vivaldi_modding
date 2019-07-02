@@ -49,7 +49,7 @@ function statusStyle() {
             z-index: 1;
             max-width: 100vw;
             right: 0;
-            top: var(--toolbarHeight);
+            top: 34px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
         }
         .toolbar-statusbar {
