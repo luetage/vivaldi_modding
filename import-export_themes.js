@@ -277,7 +277,7 @@ function portThemes() {
             const style = document.createElement('style');
             style.type = 'text/css';
             style.id = 'portThemes';
-            style.innerHTML = '.move-left button:focus, .move-right button:focus {border-color: var(--colorBorder) !important;box-shadow: none !important;}#importTheme, #exportTheme {width: 80px;margin-left: var(--padding);}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#modInfo {margin-top: var(--padding);}';
+            style.innerHTML = '.move-left button:focus, .move-right button:focus {border-color: var(--colorBorder) !important;box-shadow: none !important;}#importTheme, #exportTheme {width: 80px;margin-left: 6px;}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#modInfo {margin-top: 6px;}';
             document.getElementsByTagName('head')[0].appendChild(style);
         }
         const group = document.createElement('div');

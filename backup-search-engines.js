@@ -66,7 +66,7 @@ function searchEngines() {
             const style = document.createElement('style');
             style.type = 'text/css';
             style.id = 'searchEngines';
-            style.innerHTML = '#backupSearch, #restoreSearch {margin-left: var(--padding);}#restoreSearch{width: 130px;margin-top: var(--padding);}#restoreSearch::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}';
+            style.innerHTML = '#backupSearch, #restoreSearch {margin-left: 6px;}#restoreSearch{width: 130px;margin-top: 6px;}#restoreSearch::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}';
             document.getElementsByTagName('head')[0].appendChild(style);
         }
         const place = document.querySelector('.setting-section .setting-group.unlimited .setting-single');
