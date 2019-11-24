@@ -1,71 +1,66 @@
 /*
 Improved Extension Toggle
 https://forum.vivaldi.net/topic/20373/improved-extension-toggle
-Keep selected extension buttons visible, hide/show others as normal. The linked topic contains additional variants, especially one that lets you toggle multiple sets of extension icons.
+Keep selected extension buttons visible, show/hide others in extension container. Compatibel with Vivaldi's extension dropdown.
 */
 
 function extensionToggle() {
 
-// Add extension IDs of buttons you want to keep permanently visible to the array. Remove example IDs.
-
+    // Add extension IDs of buttons you want to keep permanently visible to the array. Remove example ID.
     var selectIDs =
         [
-        'ffhafkagcdhnhamiaecajogjcfgienom'
+        'extensionPopupIcons',
+        'toggleMod',
+        'himccccaelhgphommckogopgpddngimf'
         ];
 
     // create the button
-    const adr = document.querySelector('.toolbar-addressbar.toolbar');
+    const ext = document.querySelector('.toolbar-extensions');
     var div = document.createElement('div');
-    div.classList.add('button-group');
-    div.innerHTML = '<button id="togglemod" class="button-toolbar toggle-extensions-group" title="Toggle mod" tabindex="0" style="margin-left:0px"><svg width="4" height="16" viewBox="0 0 4 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 4c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z"></path></svg></button>';
-    adr.appendChild(div);
-
-    // startup setting
-    const startup = document.querySelectorAll('button.button-toolbar.browserAction-button');
-    const togstat = document.getElementById('togglemod');
-    for (var i=0; i < startup.length; i++) {
-        if (startup[i].classList.contains('actionVisibility-hidden')) {
-            startup[i].style.display = 'none';
-        }
-        else if (selectIDs.indexOf(startup[i].id) != -1) {
-            startup[i].style.display = 'flex';
-        }
-        else {
-            startup[i].style.display = 'none';
-        }
-    }
-
-    // toggle logic
+    div.classList.add('button-toolbar', 'toggleMod');
+    div.innerHTML = '<button title="Toggle extensions" tabindex="-1"><svg width="14" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z"></path></svg></button>';
+    ext.appendChild(div);
+    const togstat = document.querySelector('.toggleMod');
+    togstat.style.order = '1';
+    const togstatSVG = document.querySelector('.toggleMod button svg');
+    togstatSVG.style.height = '14px';
+    togstatSVG.style.width = '14px';
+    toggleLogic();
     togstat.addEventListener('click', function() {
-        const buttons = document.querySelectorAll('button.button-toolbar.browserAction-button');
         if (togstat.classList.contains('expanded')) {
             togstat.classList.remove('expanded');
         }
         else {
             togstat.classList.add('expanded');
         }
+        toggleLogic();
+    });
+
+    // toggle it!
+    function toggleLogic() {
+        const buttons = document.querySelectorAll('.toolbar-extensions .button-toolbar');
         for (var i=0; i < buttons.length; i++) {
-            if (buttons[i].classList.contains('actionVisibility-hidden')) {
-                buttons[i].style.display = 'none';
-            }
-            else if (selectIDs.indexOf(buttons[i].id) != -1 || togstat.classList.contains('expanded')) {
+            if (selectIDs.indexOf(buttons[i].classList.item(1)) != -1 || togstat.classList.contains('expanded')) {
                 buttons[i].style.display = 'flex';
             }
             else {
                 buttons[i].style.display = 'none';
             }
         }
-    });
+    };
 };
 
-// Loop waiting for the browser to load the UI. You can call all functions from just one instance.
-
-setTimeout(function wait() {
-    const browser = document.getElementById('browser');
-    if (browser) {
-        extensionToggle();
+var appendChild = Element.prototype.appendChild;
+Element.prototype.appendChild = function () {
+    if (arguments[0].tagName === 'DIV') {
+        setTimeout(function() {
+            if (this.classList.contains('toolbar-extensions')) {
+                const extToggle = document.querySelector('.toggleMod');
+                if (!extToggle) {
+                    extensionToggle();
+                }
+            }
+        }.bind(this, arguments[0]));
     }
-    else {
-        setTimeout(wait, 300);
-    }
-}, 300);
+    return appendChild.apply(this, arguments);
+};
