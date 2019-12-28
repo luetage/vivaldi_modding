@@ -60,11 +60,11 @@ function statusStyle() {
         .toolbar-statusbar.zeig {
             display: flex;
         }
-        .toolbar-statusbar .button-popup.button-popup--above {
+        .toolbar-statusbar .button-popup.button-popup-arrow.button-popup-arrow--light--above {
             bottom: unset;
             top: 22px;
         }
-        .toolbar-statusbar .button-popup.button-popup--above:before, .toolbar-statusbar .button-popup.button-popup--above:after {
+        .toolbar-statusbar .button-popup.button-popup-arrow:before, .toolbar-statusbar .button-popup.button-popup-arrow:after {
             opacity: 0;
         }
         .biscuit-setting-version {
