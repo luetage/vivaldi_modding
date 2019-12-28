@@ -60,7 +60,7 @@ function statusStyle() {
         .toolbar-statusbar.zeig {
             display: flex;
         }
-        .toolbar-statusbar .button-popup.button-popup-arrow.button-popup-arrow--light--above {
+        .toolbar-statusbar .button-popup.button-popup-arrow.button-popup-arrow--light--above, .toolbar-statusbar .button-popup.button-popup-arrow.button-popup-arrow--dark--above {
             bottom: unset;
             top: 22px;
         }
