@@ -9,7 +9,7 @@ Changes the color of the certified siteinfo button, the icons for blocked conten
     fill: var(--colorHighlightBgDark);
     color: var(--colorHighlightBg);
 }
-.SiteInfoButton.certified:hover {
+.SiteInfoButton.certified:hover, .SiteInfoButton.certified:focus:not([tabindex='-1']), .SiteInfoButton.certified:active {
     fill: var(--colorHighlightBg);
 }
 .bookmark-animated-fill, .theme-dark .bookmark-animated-fill {
