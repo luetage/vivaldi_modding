@@ -1,0 +1,22 @@
+/*
+Addressbar Theming
+
+Changes the color of the certified siteinfo button, the icons for blocked content and the bookmark button on non-private windows. The idea is to get rid of fixed colors (green/red) and instead use theme colors only in the main UI.
+*/
+
+#browser:not(.private) .SiteInfoButton.certified {
+    fill: var(--colorHighlightBgDark);
+    color: var(--colorHighlightBg);
+}
+#browser:not(.private) .SiteInfoButton.certified:hover {
+    fill: var(--colorHighlightBg);
+}
+#browser:not(.private ) .bookmark-animated-fill, #browser:not(.private) .theme-dark .bookmark-animated-fill {
+    fill: var(--colorFg);
+}
+.permission-denied circle {
+    fill: var(--colorHighlightBg);
+}
+.permission-denied path {
+    fill: var(--colorHighlightFg);
+}

@@ -6,7 +6,9 @@ This repository is a collection of mods I have written for the [**Vivaldi web br
 
 ## Actively maintained mods
 
+* `addressbar-theming.css`
 * `backup-search-engines.js`
+* `changing-buttons.css`
 * `history-clock.js`
 * `import-export_themes.js`
 * `status-bar-dropdown.js`
