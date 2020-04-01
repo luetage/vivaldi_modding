@@ -41,7 +41,7 @@ Changes the color of the certified siteinfo button, the icons for blocked conten
 .private .toolbar-addressbar .searchfield button:not(.fullheight):hover {
     border-color: var(--colorBorder);
     background-color: var(--colorBgIntenser);
-    fill: inherit;
+    fill: var(--colorFgFaded);
 }
 .private .addressfield .pageload.progressing .pageload-ticker {
     color: inherit;
