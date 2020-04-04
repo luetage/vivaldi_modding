@@ -5,11 +5,11 @@ Changes the color of the certified siteinfo button, the icons for blocked conten
 */
 
 
-.SiteInfoButton.certified {
+.SiteInfoButton.certified, .SiteInfoButton.secure {
     fill: var(--colorHighlightBgDark);
     color: var(--colorHighlightBg);
 }
-.SiteInfoButton.certified:hover, .SiteInfoButton.certified:focus:not([tabindex='-1']), .SiteInfoButton.certified:active {
+.SiteInfoButton.certified:hover, .SiteInfoButton.certified:focus:not([tabindex='-1']), .SiteInfoButton.certified:active, .SiteInfoButton.secure:hover, .SiteInfoButton.secure:focus:not([tabindex='-1']), .SiteInfoButton.secure:active {
     fill: var(--colorHighlightBg);
 }
 .bookmark-animated-fill, .theme-dark .bookmark-animated-fill {
@@ -44,10 +44,10 @@ Changes the color of the certified siteinfo button, the icons for blocked conten
     fill: unset;
 }
 .private .SiteInfoButton.secure {
-    fill: var(--colorFgFadedMore);
+    fill: var(--colorHighlightBgDark);
 }
 .private .SiteInfoButton.secure:hover {
-    fill: var(--colorFgFaded) !important;
+    fill: var(--colorHighlightBg) !important;
 }
 .private .addressfield .pageload.progressing .pageload-ticker {
     color: inherit;
