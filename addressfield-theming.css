@@ -49,6 +49,11 @@ Changes the color of the certified siteinfo button, the icons for blocked conten
 .private .SiteInfoButton.secure:hover {
     fill: var(--colorHighlightBg) !important;
 }
+.private .toolbar-insideinput.toolbar-insideinput.toolbar-insideinput > .button-toolbar button.button-pressed, .private .toolbar-insideinput.toolbar-insideinput.toolbar-insideinput > .toolbar-group > .button-toolbar button.button-pressed {
+    background-color: var(--colorBg);
+    border-color: var(--colorBgDarker);
+    color: var(--colorFg);
+}
 .private .addressfield .pageload.progressing .pageload-ticker {
     color: inherit;
 }
