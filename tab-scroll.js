@@ -46,7 +46,7 @@ Clicking on an active tab scrolls page to top, clicking it again returns to prev
     setTimeout(function wait() {
         const browser = document.getElementById('browser');
         if (browser) {
-            document.body.addEventListener('mousedown', tabScroll);
+            document.querySelector('.resize').addEventListener('mousedown',tabScroll);
         } else {
             setTimeout(wait, 300);
         }
