@@ -1,62 +1,62 @@
 /*
-Addressfield theming
+addressfield theming
 https://forum.vivaldi.net/topic/45260/addressfield-theming
-Changes the color of the certified siteinfo button, the icons for blocked content and the bookmark button on non-private windows. Reverts desing of private windows to standard window.
+changes the color of the certified siteinfo button, the icons for blocked content and the bookmark button on non-private windows. reverts desing of private windows to standard window.
 */
 
 
-.SiteInfoButton.certified, .SiteInfoButton.secure {
-    fill: var(--colorHighlightBgDark);
-    color: var(--colorHighlightBg);
+.siteinfobutton.certified, .siteinfobutton.secure {
+    fill: var(--colorhighlightbgdark);
+    color: var(--colorhighlightbg);
 }
-.SiteInfoButton.certified:hover, .SiteInfoButton.certified:focus:not([tabindex='-1']), .SiteInfoButton.certified:active, .SiteInfoButton.secure:hover, .SiteInfoButton.secure:focus:not([tabindex='-1']), .SiteInfoButton.secure:active {
-    fill: var(--colorHighlightBg);
+.siteinfobutton.certified:hover, .siteinfobutton.certified:focus:not([tabindex='-1']), .siteinfobutton.certified:active, .siteinfobutton.secure:hover, .siteinfobutton.secure:focus:not([tabindex='-1']), .siteinfobutton.secure:active {
+    fill: var(--colorhighlightbg);
 }
 .bookmark-animated-fill, .theme-dark .bookmark-animated-fill {
-    fill: var(--colorFg);
+    fill: var(--colorfg);
 }
 .permission-denied circle {
-    fill: var(--colorHighlightBg);
+    fill: var(--colorhighlightbg);
 }
 .permission-denied path {
-    fill: var(--colorHighlightFg);
+    fill: var(--colorhighlightfg);
 }
-.UrlFragment-Wrapper, #browser.private .UrlFragment-Wrapper {
-  --HighlightColor: var(--colorFgIntense);
-  --LowlightColor: var(--colorFgFaded);
+.Urlfragment-wrapper, #browser.private .Urlfragment-wrapper {
+  --highlightcolor: var(--colorfgintense);
+  --lowlightcolor: var(--colorfgfaded);
 }
 .private .toolbar-addressbar .addressfield,
 .private .toolbar-addressbar .searchfield {
-    background-color: var(--colorBgIntenser);
-    border-color: var(--colorBgIntenser);
-    color: var(--colorFg);
+    background-color: var(--colorbgintenser);
+    border-color: var(--colorbgintenser);
+    color: var(--colorfg);
 }
 .private.color-behind-tabs-on .addressfield, .private.color-behind-tabs-on .searchfield {
-    border-color: var(--colorBorder)
+    border-color: var(--colorborder)
 }
 .private .addressfield:focus-within, .private .searchfield:focus-within {
-    border-color: var(--colorAccentBgFadedMost);
+    border-color: var(--coloraccentbgfadedmost);
 }
 .private.color-behind-tabs-on .addressfield:focus-within, .private.color-behind-tabs-on .searchfield:focus-within {
-    box-shadow: 0 0 0 1px var(--colorBorderHighlight) inset;
-    border-color: var(--colorBorderHighlight);
+    box-shadow: 0 0 0 1px var(--colorborderhighlight) inset;
+    border-color: var(--colorborderhighlight);
 }
 .private .toolbar-addressbar .addressfield button:not(.fullheight):hover,
 .private .toolbar-addressbar .searchfield button:not(.fullheight):hover {
-    border-color: var(--colorBorder);
-    background-color: var(--colorBgIntenser);
+    border-color: var(--colorborder);
+    background-color: var(--colorbgintenser);
     fill: unset;
 }
-.private .SiteInfoButton.secure {
-    fill: var(--colorHighlightBgDark);
+.private .siteinfobutton.secure {
+    fill: var(--colorhighlightbgdark);
 }
-.private .SiteInfoButton.secure:hover {
-    fill: var(--colorHighlightBg) !important;
+.private .siteinfobutton.secure:hover {
+    fill: var(--colorhighlightbg) !important;
 }
 .private .toolbar-insideinput.toolbar-insideinput.toolbar-insideinput > .button-toolbar button.button-pressed, .private .toolbar-insideinput.toolbar-insideinput.toolbar-insideinput > .toolbar-group > .button-toolbar button.button-pressed {
-    background-color: var(--colorBg);
-    border-color: var(--colorBgDarker);
-    color: var(--colorFg);
+    background-color: var(--colorbg);
+    border-color: var(--colorbgdarker);
+    color: var(--colorfg);
 }
 .private .addressfield .pageload.progressing .pageload-ticker {
     color: inherit;
@@ -65,11 +65,11 @@ Changes the color of the certified siteinfo button, the icons for blocked conten
     opacity: 0.25;
 }
 .private .addressfield .pageload .pageload-indicator::-webkit-progress-value {
-    background-color: var(--colorBgIntenser);
+    background-color: var(--colorbgintenser);
 }
 .addressfield .private-window-indicator {
-    background-color: var(--colorFg);
+    background-color: var(--colorfg);
 }
 .addressfield .private-window-indicator > svg {
-    fill: var(--colorBg);
+    fill: var(--colorbg);
 }
