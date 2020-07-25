@@ -21,7 +21,7 @@ changes the color of the certified siteinfo button, the icons for blocked conten
 .permission-denied path {
     fill: var(--colorhighlightfg);
 }
-.Urlfragment-wrapper, #browser.private .Urlfragment-wrapper {
+.Urlfragment-Wrapper, #browser.private .Urlfragment-Wrapper {
   --highlightcolor: var(--colorfgintense);
   --lowlightcolor: var(--colorfgfaded);
 }
