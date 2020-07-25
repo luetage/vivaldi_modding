@@ -21,6 +21,10 @@ Changes the color of the certified siteinfo button, the icons for blocked conten
 .permission-denied path {
     fill: var(--colorHighlightFg);
 }
+.UrlFragment-Wrapper, #browser.private .UrlFragment-Wrapper {
+  --HighlightColor: var(--colorFgIntense);
+  --LowlightColor: var(--colorFgFaded);
+}
 .private .toolbar-addressbar .addressfield,
 .private .toolbar-addressbar .searchfield {
     background-color: var(--colorBgIntenser);
