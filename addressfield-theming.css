@@ -1,6 +1,6 @@
 /*
 addressfield theming
-https://forum.vivaldi.net/topic/45260/addressfield-theming
+https://forum.vivaldi.net/topic/45260UrlBar-AddressField-theming
 changes the color of the certified siteinfo button, the icons for blocked content and the bookmark button on non-private windows. reverts desing of private windows to standard window.
 */
 
@@ -25,24 +25,24 @@ changes the color of the certified siteinfo button, the icons for blocked conten
   --highlightcolor: var(--colorfgintense);
   --lowlightcolor: var(--colorfgfaded);
 }
-.private .toolbar-addressbar .addressfield,
-.private .toolbar-addressbar .searchfield {
+.private UrlBar UrlBar-AddressField,
+.private UrlBar UrlBar-SearchField {
     background-color: var(--colorbgintenser);
     border-color: var(--colorbgintenser);
     color: var(--colorfg);
 }
-.private.color-behind-tabs-on .addressfield, .private.color-behind-tabs-on .searchfield {
+.private.color-behind-tabs-on UrlBar-AddressField, .private.color-behind-tabs-on UrlBar-SearchField {
     border-color: var(--colorborder)
 }
-.private .addressfield:focus-within, .private .searchfield:focus-within {
+.private UrlBar-AddressField:focus-within, .private UrlBar-SearchField:focus-within {
     border-color: var(--coloraccentbgfadedmost);
 }
-.private.color-behind-tabs-on .addressfield:focus-within, .private.color-behind-tabs-on .searchfield:focus-within {
+.private.color-behind-tabs-on UrlBar-AddressField:focus-within, .private.color-behind-tabs-on UrlBar-SearchField:focus-within {
     box-shadow: 0 0 0 1px var(--colorborderhighlight) inset;
     border-color: var(--colorborderhighlight);
 }
-.private .toolbar-addressbar .addressfield button:not(.fullheight):hover,
-.private .toolbar-addressbar .searchfield button:not(.fullheight):hover {
+.private UrlBar UrlBar-AddressField button:not(.fullheight):hover,
+.private UrlBar UrlBar-SearchField button:not(.fullheight):hover {
     border-color: var(--colorborder);
     background-color: var(--colorbgintenser);
     fill: unset;
@@ -58,18 +58,18 @@ changes the color of the certified siteinfo button, the icons for blocked conten
     border-color: var(--colorbgdarker);
     color: var(--colorfg);
 }
-.private .addressfield .pageload.progressing .pageload-ticker {
+.private UrlBar-AddressField .pageload.progressing .pageload-ticker {
     color: inherit;
 }
-.private .addressfield .pageload .pageload-indicator {
+.private UrlBar-AddressField .pageload .pageload-indicator {
     opacity: 0.25;
 }
-.private .addressfield .pageload .pageload-indicator::-webkit-progress-value {
+.private UrlBar-AddressField .pageload .pageload-indicator::-webkit-progress-value {
     background-color: var(--colorbgintenser);
 }
-.addressfield .private-window-indicator {
+UrlBar-AddressField .private-window-indicator {
     background-color: var(--colorfg);
 }
-.addressfield .private-window-indicator > svg {
+UrlBar-AddressField .private-window-indicator > svg {
     fill: var(--colorbg);
 }

@@ -13,7 +13,7 @@ function cssm() {
         padding-top: 4px;
         padding-bottom: 0px;
     }
-    .toolbar.toolbar-addressbar {
+    .toolbarUrlBar {
         display: flex;
         order: -2;
     }
@@ -46,7 +46,7 @@ function cssm() {
     #browser.mac .window-buttongroup button.window-maximize {
         order: 2;
     }
-    .addressfield {
+    UrlBar-AddressField {
         max-width: 600px;
     }
     `;
@@ -55,12 +55,12 @@ function cssm() {
 
 function safariStyle() {
     cssm();
-    const adr = document.querySelector('.toolbar-addressbar.toolbar');
+    const adr = document.querySelector('UrlBar.toolbar');
     var windowbuttons = document.querySelector('.window-buttongroup');
     var container = document.createElement('div');
-    var extwrapper = document.querySelector('.toolbar-addressbar.toolbar > .extensions-wrapper');
-    var tools = document.querySelector('.toolbar-addressbar.toolbar .toolbar');
-    var adfield = document.querySelector('.addressfield');
+    var extwrapper = document.querySelector('UrlBar.toolbar > .extensions-wrapper');
+    var tools = document.querySelector('UrlBar.toolbar .toolbar');
+    var adfield = document.querySelector('UrlBar-AddressField');
     container.classList.add('container')
     adr.insertBefore(windowbuttons,adr.firstChild);
     adr.insertBefore(container,adr.lastChild);

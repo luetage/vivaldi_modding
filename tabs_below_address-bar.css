@@ -18,7 +18,7 @@ Displays tab bar below the address bar. Simple CSS only solution. Set tab bar to
 }
 */
 
-.toolbar.toolbar-addressbar {
+.toolbarUrlBar {
     order: -3;
 }
 

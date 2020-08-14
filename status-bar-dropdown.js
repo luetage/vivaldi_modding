@@ -44,8 +44,8 @@ function statusMod() {
     const statusBar = document.querySelector('.toolbar-statusbar');
     const statusInfo = document.querySelector('.StatusInfo');
     statusInfo.id = 'zeig';
-    if (browser.classList.contains('biscuit-mode')) {
-        const version = document.querySelector('.biscuit-string').value
+    if (document.querySelector('.biscuit-string')) {
+        const version = document.querySelector('.biscuit-string').innerText;
         const divB = document.createElement('div');
         divB.classList.add('button-toolbar');
         divB.id = 'biscuitButton';
@@ -70,7 +70,7 @@ function statusDropdown() {
     if (!document.getElementById('statusDropdown')) {
         statusStyle();
     }
-    const adr = document.querySelector('.toolbar-addressbar');
+    const adr = document.querySelector('UrlBar');
     const btn = document.createElement('div');
     btn.id = 'statusButton';
     btn.classList.add('button-toolbar');
@@ -91,7 +91,7 @@ Element.prototype.appendChild = function () {
             if (this.classList.contains('profile-popup')) {
                 const statusButton = document.getElementById('statusButton');
                 if (statusButton) {
-                    document.querySelector('.toolbar-addressbar').insertBefore(this, statusButton);
+                    document.querySelector('UrlBar').insertBefore(this, statusButton);
                 }
             }
         }.bind(this, arguments[0]));
