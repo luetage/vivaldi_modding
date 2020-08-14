@@ -38,7 +38,7 @@ function overlayToggle() {
     var exec = 0;
     const style = document.createElement('style');
     style.type = 'text/css';
-    style.innerHTML = 'UrlBar .panel-clickoutside-ignore.button-toolbar {width: 0px !important;visibility: hidden;}';
+    style.innerHTML = '.UrlBar .panel-clickoutside-ignore.button-toolbar {width: 0px !important;visibility: hidden;}';
     document.getElementsByTagName('head')[0].appendChild(style);
     const circE = 'M 13 13m -6, 0a 6,6 0 1,0 12,0a 6,6 0 1,0 -12,0 M 13 13m -4, 0a 4,4 0 1,0 8,0a 4,4 0 1,0 -8,0 M 13 13m -2, 0a 2,2 0 1,0 4,0a 2,2 0 1,0 -4,0';
     const circD = 'M 13 13m -5.5, 0a 5.5,5.5 0 1,0 11,0a 5.5,5.5 0 1,0 -11,0 M 13 13m -2, 0a 2,2 0 1,0 4,0a 2,2 0 1,0 -4,0';

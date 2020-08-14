@@ -53,7 +53,7 @@ function csse() {
 
 function extStatus() {
     csse();
-    const wrapper = document.querySelector('UrlBar.toolbar > .extensions-wrapper');
+    const wrapper = document.querySelector('.UrlBar > .extensions-wrapper');
     const footer = document.getElementById('footer');
     footer.appendChild(wrapper);
 };

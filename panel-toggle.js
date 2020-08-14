@@ -5,7 +5,7 @@ Moves the panel toggle from status to address bar and gives it two states (on/of
 */
 
 function panelToggle() {
-    const adr = document.querySelector('UrlBar.toolbar');
+    const adr = document.querySelector('.UrlBar');
     var panel = document.getElementById('panels-container');
     var paneltog = document.querySelector('.paneltogglefooter');
     var panelsvg = document.querySelector('.paneltogglefooter svg');

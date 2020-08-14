@@ -21,28 +21,24 @@ changes the color of the certified siteinfo button, the icons for blocked conten
 .permission-denied path {
     fill: var(--colorhighlightfg);
 }
-.Urlfragment-Wrapper, #browser.private .Urlfragment-Wrapper {
-  --highlightcolor: var(--colorfgintense);
-  --lowlightcolor: var(--colorfgfaded);
-}
-.private UrlBar UrlBar-AddressField,
-.private UrlBar UrlBar-SearchField {
+.private .UrlBar .UrlBar-AddressField,
+.private .UrlBar .UrlBar-SearchField {
     background-color: var(--colorbgintenser);
     border-color: var(--colorbgintenser);
     color: var(--colorfg);
 }
-.private.color-behind-tabs-on UrlBar-AddressField, .private.color-behind-tabs-on UrlBar-SearchField {
+.private.color-behind-tabs-on .UrlBar-AddressField, .private.color-behind-tabs-on .UrlBar-SearchField {
     border-color: var(--colorborder)
 }
-.private UrlBar-AddressField:focus-within, .private UrlBar-SearchField:focus-within {
+.private .UrlBar-AddressField:focus-within, .private .UrlBar-SearchField:focus-within {
     border-color: var(--coloraccentbgfadedmost);
 }
-.private.color-behind-tabs-on UrlBar-AddressField:focus-within, .private.color-behind-tabs-on UrlBar-SearchField:focus-within {
+.private.color-behind-tabs-on .UrlBar-AddressField:focus-within, .private.color-behind-tabs-on .UrlBar-SearchField:focus-within {
     box-shadow: 0 0 0 1px var(--colorborderhighlight) inset;
     border-color: var(--colorborderhighlight);
 }
-.private UrlBar UrlBar-AddressField button:not(.fullheight):hover,
-.private UrlBar UrlBar-SearchField button:not(.fullheight):hover {
+.private .UrlBar .UrlBar-AddressField button:not(.fullheight):hover,
+.private .UrlBar .UrlBar-SearchField button:not(.fullheight):hover {
     border-color: var(--colorborder);
     background-color: var(--colorbgintenser);
     fill: unset;
@@ -58,18 +54,18 @@ changes the color of the certified siteinfo button, the icons for blocked conten
     border-color: var(--colorbgdarker);
     color: var(--colorfg);
 }
-.private UrlBar-AddressField .pageload.progressing .pageload-ticker {
+.private .UrlBar-AddressField .pageload.progressing .pageload-ticker {
     color: inherit;
 }
-.private UrlBar-AddressField .pageload .pageload-indicator {
+.private .UrlBar-AddressField .pageload .pageload-indicator {
     opacity: 0.25;
 }
-.private UrlBar-AddressField .pageload .pageload-indicator::-webkit-progress-value {
+.private .UrlBar-AddressField .pageload .pageload-indicator::-webkit-progress-value {
     background-color: var(--colorbgintenser);
 }
-UrlBar-AddressField .private-window-indicator {
+.UrlBar-AddressField .private-window-indicator {
     background-color: var(--colorfg);
 }
-UrlBar-AddressField .private-window-indicator > svg {
+.UrlBar-AddressField .private-window-indicator > svg {
     fill: var(--colorbg);
 }

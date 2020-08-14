@@ -52,7 +52,7 @@ function csse() {
 
 function extPanel() {
     csse();
-    const wrapper = document.querySelector('UrlBar.toolbar > .extensions-wrapper');
+    const wrapper = document.querySelector('.UrlBar > .extensions-wrapper');
     const pref = document.getElementById('overlay');
     const panel = document.getElementById('switch');
     panel.insertBefore(wrapper, pref);

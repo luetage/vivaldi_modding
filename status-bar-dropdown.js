@@ -70,7 +70,7 @@ function statusDropdown() {
     if (!document.getElementById('statusDropdown')) {
         statusStyle();
     }
-    const adr = document.querySelector('UrlBar');
+    const adr = document.querySelector('.UrlBar');
     const btn = document.createElement('div');
     btn.id = 'statusButton';
     btn.classList.add('button-toolbar');
@@ -91,7 +91,7 @@ Element.prototype.appendChild = function () {
             if (this.classList.contains('profile-popup')) {
                 const statusButton = document.getElementById('statusButton');
                 if (statusButton) {
-                    document.querySelector('UrlBar').insertBefore(this, statusButton);
+                    document.querySelector('.UrlBar').insertBefore(this, statusButton);
                 }
             }
         }.bind(this, arguments[0]));
