@@ -1,71 +1,23 @@
 /*
 addressfield theming
 https://forum.vivaldi.net/topic/45260/addressfield-theming
-changes the color of the certified siteinfo button, the icons for blocked content and the bookmark button on non-private windows. reverts desing of private windows to standard window.
+Changes the color of the certified siteinfo button, the icons for blocked content and the bookmark button in the addressfield.
 */
 
-
-.siteinfobutton.certified, .siteinfobutton.secure {
-    fill: var(--colorhighlightbgdark);
-    color: var(--colorhighlightbg);
+.SiteInfoButton.certified, .SiteInfoButton.secure {
+    fill: var(--colorHighlightBgDark);
+    color: var(--colorHighlightBg);
 }
-.siteinfobutton.certified:hover, .siteinfobutton.certified:focus:not([tabindex='-1']), .siteinfobutton.certified:active, .siteinfobutton.secure:hover, .siteinfobutton.secure:focus:not([tabindex='-1']), .siteinfobutton.secure:active {
-    fill: var(--colorhighlightbg);
+.SiteInfoButton.certified:hover, .SiteInfoButton.certified:focus:not([tabindex='-1']), .SiteInfoButton.certified:active, .SiteInfoButton.secure:hover, .SiteInfoButton.secure:focus:not([tabindex='-1']), .SiteInfoButton.secure:active {
+    fill: var(--colorHighlightBg);
 }
 .bookmark-animated-fill, .theme-dark .bookmark-animated-fill {
-    fill: var(--colorfg);
+    fill: var(--colorFg);
 }
 .permission-denied circle {
-    fill: var(--colorhighlightbg);
+    fill: var(--colorHighlightBg);
 }
 .permission-denied path {
-    fill: var(--colorhighlightfg);
+    fill: var(--colorHighlightFg);
 }
-.private .UrlBar .UrlBar-AddressField,
-.private .UrlBar .UrlBar-SearchField {
-    background-color: var(--colorbgintenser);
-    border-color: var(--colorbgintenser);
-    color: var(--colorfg);
-}
-.private.color-behind-tabs-on .UrlBar-AddressField, .private.color-behind-tabs-on .UrlBar-SearchField {
-    border-color: var(--colorborder)
-}
-.private .UrlBar-AddressField:focus-within, .private .UrlBar-SearchField:focus-within {
-    border-color: var(--coloraccentbgfadedmost);
-}
-.private.color-behind-tabs-on .UrlBar-AddressField:focus-within, .private.color-behind-tabs-on .UrlBar-SearchField:focus-within {
-    box-shadow: 0 0 0 1px var(--colorborderhighlight) inset;
-    border-color: var(--colorborderhighlight);
-}
-.private .UrlBar .UrlBar-AddressField button:not(.fullheight):hover,
-.private .UrlBar .UrlBar-SearchField button:not(.fullheight):hover {
-    border-color: var(--colorborder);
-    background-color: var(--colorbgintenser);
-    fill: unset;
-}
-.private .siteinfobutton.secure {
-    fill: var(--colorhighlightbgdark);
-}
-.private .siteinfobutton.secure:hover {
-    fill: var(--colorhighlightbg) !important;
-}
-.private .toolbar-insideinput.toolbar-insideinput.toolbar-insideinput > .button-toolbar button.button-pressed, .private .toolbar-insideinput.toolbar-insideinput.toolbar-insideinput > .toolbar-group > .button-toolbar button.button-pressed {
-    background-color: var(--colorbg);
-    border-color: var(--colorbgdarker);
-    color: var(--colorfg);
-}
-.private .UrlBar-AddressField .pageload.progressing .pageload-ticker {
-    color: inherit;
-}
-.private .UrlBar-AddressField .pageload .pageload-indicator {
-    opacity: 0.25;
-}
-.private .UrlBar-AddressField .pageload .pageload-indicator::-webkit-progress-value {
-    background-color: var(--colorbgintenser);
-}
-.UrlBar-AddressField .private-window-indicator {
-    background-color: var(--colorfg);
-}
-.UrlBar-AddressField .private-window-indicator > svg {
-    fill: var(--colorbg);
-}
+
