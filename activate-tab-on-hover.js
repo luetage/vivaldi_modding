@@ -4,14 +4,16 @@
 
 {
     function activateTab(tab) {
-        tab.addEventListener('mouseleave', function () {
-            clearTimeout(wait);
-            tab.removeEventListener('mouseleave', tab);
-        })
-        wait = setTimeout(function () {
-            const id = Number(tab.parentNode.id.replace( /^\D+/g, ''));
-            chrome.tabs.update(id,{active: true, highlighted: true});
-        }, delay)
+        if (!tab.parentNode.classList.contains('active')) {
+            tab.addEventListener('mouseleave', function () {
+                clearTimeout(wait);
+                tab.removeEventListener('mouseleave', tab);
+            })
+            wait = setTimeout(function () {
+                const id = Number(tab.parentNode.id.replace( /^\D+/g, ''));
+                chrome.tabs.update(id, {active: true, highlighted: true});
+            }, delay)
+        }
     }
 
     var wait;
