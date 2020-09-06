@@ -1,16 +1,15 @@
-/* Select Tab On Hover
+/* Activate Tab On Hover
  * https://forum.vivaldi.net/topic/50354/create-a-new-mod-mouseover-tab-select/4
  * Activates tab on hover. */
 
 {
-    function selectTab(tab) {
+    function activateTab(tab) {
         tab.addEventListener('mouseleave', function () {
             clearTimeout(wait);
-            tab.removeEventListener('mouseleave');
+            tab.removeEventListener('mouseleave', tab);
         })
         wait = setTimeout(function () {
-            const tid = tab.parentNode.id;
-            const id = Number(tid.replace( /^\D+/g, ''));
+            const id = Number(tab.parentNode.id.replace( /^\D+/g, ''));
             chrome.tabs.update(id,{active: true, highlighted: true});
         }, delay)
     }
@@ -19,11 +18,9 @@
     const delay = 300; //pick a time in milliseconds
     var appendChild = Element.prototype.appendChild;
     Element.prototype.appendChild = function () {
-        if (arguments[0].tagName === 'DIV') {
-            setTimeout(function() {
-                if (arguments[0].classList.contains('tab-header')) {
-                    arguments[0].addEventListener('mouseenter', selectTab.bind(arguments[0], arguments[0]));
-                }
+        if (arguments[0].tagName === 'DIV' && arguments[0].classList.contains('tab-header')) {
+            setTimeout(function () {
+                arguments[0].addEventListener('mouseenter', activateTab.bind(arguments[0], arguments[0]));
             }.bind(this, arguments[0]));
         }
         return appendChild.apply(this, arguments);
