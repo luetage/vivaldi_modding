@@ -4,8 +4,7 @@ https://forum.vivaldi.net/topic/49768/done-emulate-double-click-when-left-click-
 Switches the tab or opens a bookmark, by simulating a doubleclick on a tab or a bookmark in the windows or bookmark panel.
 */
 
-(function () {
-
+{
     function doClick(event) {
         event.stopPropagation();
         event.preventDefault();
@@ -27,7 +26,7 @@ Switches the tab or opens a bookmark, by simulating a doubleclick on a tab or a 
         return null;
     }
     
-    // Set win to 0 or 1 for either triggering the doubbleclick on favicon, or window title.
+    // Set win to 0 or 1 for either triggering the doubleclick on favicon, or window title.
     // Set book to 0 or 1 for either triggering the doubleclick on favicon, or bookmark title.
     const win = 1;
     const book = 1;
@@ -40,10 +39,8 @@ Switches the tab or opens a bookmark, by simulating a doubleclick on a tab or a 
                 if (check === 0 || check === 1) {
                     this.childNodes[check].addEventListener('click', doClick);
                 }
-            }.bind(this, arguments[0]));
+            }.bind(this, arguments[0]))
         }
         return appendChild.apply(this, arguments);
     }
-
-})();
-
+}
