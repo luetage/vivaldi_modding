@@ -23,7 +23,7 @@
         if (arguments[0].tagName === 'DIV' && arguments[0].classList.contains('tab-header')) {
             setTimeout(function () {
                 arguments[0].addEventListener('mouseenter', activateTab.bind(arguments[0], arguments[0]));
-            }.bind(this, arguments[0]));
+            }.bind(this, arguments[0]))
         }
         return appendChild.apply(this, arguments);
     }
