@@ -1,0 +1,81 @@
+
+
+/* startpage */
+.startpage {
+    background-color: var(--colorBgDark) !important;
+}
+.startpage .startpage-content {
+    background-image: linear-gradient(to bottom right, var(--colorFgAlpha), var(--colorHighlightBgAlpha)) !important;
+}
+
+/* window buttons */
+.window-buttongroup button.window-maximize, .window-buttongroup button.window-minimize {
+    display: none;
+}
+.linux #tabs-container.top {
+    padding-right: 40px;
+}
+
+/* address field theming */
+.UrlBar-AddressField .ContentBlocker-Control {
+    display: none;
+}
+.UrlFragment-Wrapper, .UrlFragment--Lowlight:first-of-type {
+    color: var(--colorFgFaded);
+}
+.UrlFragment-HostFragment-Basedomain, .UrlFragment-HostFragment-TLD {
+    color: var(--colorFgIntense) !important;
+    font-weight: bold;
+}
+.UrlFragment-HostFragment-Subdomain {
+    color: var(--colorHighlightBg) !important;
+    font-weight: bold;
+}
+.SiteInfoButton.certified, .SiteInfoButton.secure {
+    fill: var(--colorHighlightBgDark);
+    color: var(--colorHighlightBg);
+}
+.SiteInfoButton.certified:hover, .SiteInfoButton.certified:focus:not([tabindex='-1']), .SiteInfoButton.certified:active, .SiteInfoButton.secure:hover, .SiteInfoButton.secure:focus:not([tabindex='-1']), .SiteInfoButton.secure:active {
+    fill: var(--colorHighlightBg);
+}
+.bookmark-animated-fill {
+    fill: var(--colorFg) !important;
+}
+.permission-denied circle {
+    fill: var(--colorHighlightBg);
+}
+.permission-denied path {
+    fill: var(--colorHighlightFg);
+}
+
+/* clock */
+.ClockGraphic-Second-Hand {
+    fill: var(--colorHighlightBg);
+}
+
+/* profile image mod */
+.profile-popup {
+    display: none;
+}
+.profile-popup.sichtbar {
+    display: block;
+}
+
+/* exchanging icons */
+.UrlBar button[title="Go to homepage"] svg path {
+    d: path("M 4 6 h 18 v 2.5 h -3.5 v 11.5 h -2.5 v -9.5 h -6 v 9.5 h -2.5 v -11.5 h -3.5 Z");
+}
+.toggle-trash.button-toolbar button svg path {
+    d: path("M 6.5 8 h13 v2 h-13 Z M 6.5 12 h13 v2 h-13 Z M 9 16 h8 v2 h-8 Z");
+}
+.tab[title="Start Page"] .favicon.jstest-favicon-image.svg svg path {
+    d: path("M7,12h9v2h-9Z");
+}
+.tab[title="Start Page"] .title {
+    text-indent: -9999px;
+}
+.tab[title="Start Page"] .title::after {
+    display: block;
+    text-indent: 0px;
+    content: "startpage";
+}
