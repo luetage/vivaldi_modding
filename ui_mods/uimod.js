@@ -422,20 +422,7 @@
     }
 
 
-    /* Status Bar as Dropdown */
-
-    function statusToggle() {
-        const statusContainer = document.getElementById('statusContainer');
-        const statusBar = document.querySelector('.toolbar-statusbar');
-        if (statusContainer.style.display === 'block') {
-            statusContainer.style.display = 'none';
-            statusBar.classList.remove('zeig');
-        }
-        else {
-            statusBar.classList.add('zeig');
-            statusContainer.style.display = 'block';
-        }
-    }
+    /* Attack on the status bar */
 
     function statusInfoLogic() {
         const statusInfoToggle = document.getElementById('statusInfoToggle');
@@ -453,15 +440,22 @@
     function statusStyle() {
         const style = document.createElement('style');
         style.type = 'text/css';
-        style.id = 'statusDropdown';
-        style.innerHTML = `#browser.address-off #statusButton {display: none;}#statusToggle svg {width: 14px;height: 14px;}#statusContainer {position: absolute;z-index: 1;max-width: 100vw;right: 0;top: 34px;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);}.toolbar-statusbar {display: none;border-top: none;border-bottom: 1px solid var(--colorBorder);}.toolbar-statusbar.zeig {display: flex;}.toolbar-statusbar .button-popup.button-popup-above {bottom: unset;top: 22px;}.toolbar-statusbar .button-popup.button-popup-above:before, .toolbar-statusbar .button-popup.button-popup-above:after {opacity: 0;}.biscuit-setting-version {display: none !important;}#biscuitButton button svg, #statusInfoToggle button svg {width: 14px;height: 14px;}#statusInfoToggle.zeig button svg {fill: var(--colorHighlightBg);}.StatusInfo {display: none;}#zeig.StatusInfo.StatusInfo--Visible {display: inline-block;}`;
+        style.id = 'statusMod';
+        style.innerHTML = `#statusContainer {position: absolute;z-index: 1;max-width: 100vw;right: 0;top: 0;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);}.toolbar-statusbar {display: none;border-top: none;border-bottom: 1px solid var(--colorBorder);}#statusContainer .toolbar-statusbar {display: flex}.toolbar-statusbar .button-popup.button-popup-above {bottom: unset;top: 22px;}.toolbar-statusbar .button-popup.button-popup-above:before, .toolbar-statusbar .button-popup.button-popup-above:after {opacity: 0;}.biscuit-setting-version {display: none !important;}#biscuitButton button svg, #statusInfoToggle button svg {width: 14px;height: 14px;}#statusInfoToggle.zeig button svg {fill: var(--colorHighlightBg);}.StatusInfo {display: none;}#zeig.StatusInfo.StatusInfo--Visible {display: inline-block;}`;
         document.getElementsByTagName('head')[0].appendChild(style);
     }
 
     function statusMod() {
+        if (!document.getElementById('statusMod')) {
+            statusStyle();
+        }
+        const cont = document.createElement('div');
         const statusBar = document.querySelector('.toolbar-statusbar');
         const statusInfo = document.querySelector('.StatusInfo');
         statusInfo.id = 'zeig';
+        cont.id = 'statusContainer';
+        document.querySelector('.inner').appendChild(cont);
+        cont.appendChild(statusBar);
         if (document.querySelector('.biscuit-string')) {
             const version = document.querySelector('.biscuit-string').innerText;
             const divB = document.createElement('div');
@@ -474,7 +468,7 @@
                 navigator.clipboard.writeText(version);
             })
         }
-        const divL = document.createElement('div');
+        const divL = document.createElement('divL');
         divL.classList.add('button-toolbar');
         divL.id = 'statusInfoToggle';
         divL.classList.add('zeig');
@@ -482,24 +476,6 @@
         divL.innerHTML = '<button draggable="false" tabindex="-1"><svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1520 1216q0-40-28-68l-208-208q-28-28-68-28-42 0-72 32 3 3 19 18.5t21.5 21.5 15 19 13 25.5 3.5 27.5q0 40-28 68t-68 28q-15 0-27.5-3.5t-25.5-13-19-15-21.5-21.5-18.5-19q-33 31-33 73 0 40 28 68l206 207q27 27 68 27 40 0 68-26l147-146q28-28 28-67zm-703-705q0-40-28-68l-206-207q-28-28-68-28-39 0-68 27l-147 146q-28 28-28 67 0 40 28 68l208 208q27 27 68 27 42 0 72-31-3-3-19-18.5t-21.5-21.5-15-19-13-25.5-3.5-27.5q0-40 28-68t68-28q15 0 27.5 3.5t25.5 13 19 15 21.5 21.5 18.5 19q33-31 33-73zm895 705q0 120-85 203l-147 146q-83 83-203 83-121 0-204-85l-206-207q-83-83-83-203 0-123 88-209l-88-88q-86 88-208 88-120 0-204-84l-208-208q-84-84-84-204t85-203l147-146q83-83 203-83 121 0 204 85l206 207q83 83 83 203 0 123-88 209l88 88q86-88 208-88 120 0 204 84l208 208q84 84 84 204z"/></svg></button>';
         statusBar.insertBefore(divL, statusInfo);
         document.getElementById('statusInfoToggle').addEventListener('click', statusInfoLogic);
-    }
-
-    function statusDropdown() {
-        if (!document.getElementById('statusDropdown')) {
-            statusStyle();
-        }
-        const adr = document.querySelector('.UrlBar');
-        const btn = document.createElement('div');
-        btn.id = 'statusButton';
-        btn.classList.add('button-toolbar');
-        btn.setAttribute('title', 'Toggle status bar');
-        btn.innerHTML = '<button id="statusToggle" tabindex="-1"><svg width="14" height="14" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 808l-742 741q-19 19-45 19t-45-19l-742-741q-19-19-19-45.5t19-45.5l166-165q19-19 45-19t45 19l531 531 531-531q19-19 45-19t45 19l166 165q19 19 19 45.5t-19 45.5z"></path></button>';
-        adr.insertBefore(btn, document.querySelector('.toolbar-extensions'));
-        const cont = document.createElement('div');
-        cont.id = 'statusContainer';
-        cont.style.display = 'none';
-        adr.appendChild(cont);
-        document.getElementById('statusToggle').addEventListener('click', statusToggle);
     }
 
 
@@ -531,28 +507,31 @@
     var clockRelax = -1;
     var clockTimer = setInterval(historyClock, 1000);
 
+    const tabScrollScript = '!' + function () {
+        var offset = window.pageYOffset;
+        if (offset > 0) {
+            window.sessionStorage.setItem('tabOffset', offset);
+            window.scrollTo(0, 0);
+        }
+        else {
+            window.scrollTo(0, window.sessionStorage.getItem('tabOffset') || 0);
+        }
+    } + '();';
+
     var appendChild = Element.prototype.appendChild;
     Element.prototype.appendChild = function () {
-        if (arguments[0].tagName === 'BUTTON') {
-            setTimeout(function () {
+        if (arguments[0].tagName === 'BUTTON'){
+            setTimeout(function() {
                 if (this.classList.contains('profile-popup')) {
                     profileImage(arguments[0]);
-                    const statusButton = document.getElementById('statusButton');
-                    if (statusButton) {
-                        document.querySelector('.UrlBar').insertBefore(this, statusButton);
-                    }
                 }
-            }.bind(this, arguments[0]))
+            }.bind(this, arguments[0]));
         }
         if (arguments[0].tagName === 'DIV') {
-            setTimeout(function () {
+            setTimeout(function() {
                 if (this.classList.contains('toolbar-statusbar')) {
                     const statusContainer = document.getElementById('statusContainer');
                     if (!statusContainer) {
-                        statusDropdown();
-                    }
-                    if (statusContainer && !document.getElementById('statusInfoToggle')) {
-                        statusContainer.appendChild(document.querySelector('.toolbar-statusbar'));
                         statusMod();
                     }
                 }
@@ -564,24 +543,12 @@
     var removeChild = Element.prototype.removeChild;
     Element.prototype.removeChild = function () {
         if (arguments[0].tagName === 'DIV' && arguments[0].classList.contains('toolbar-statusbar')) {
-            document.getElementById('statusButton').remove();
             document.getElementById('statusContainer').remove();
         }
         else {
             return removeChild.apply(this, arguments);
         }
     }
-
-    const tabScrollScript = '!' + function () {
-        var offset = window.pageYOffset;
-        if (offset > 0) {
-            window.sessionStorage.setItem('tabOffset', offset);
-            window.scrollTo(0, 0);
-        }
-        else {
-            window.scrollTo(0, window.sessionStorage.getItem('tabOffset') || 0);
-        }
-    } + '();';
 
     setTimeout(function wait() {
         const browser = document.getElementById('browser');
@@ -604,3 +571,4 @@
         }
     })
 }
+
