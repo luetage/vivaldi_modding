@@ -438,17 +438,16 @@
     }
 
     function statusStyle() {
-        const style = document.createElement('style');
-        style.type = 'text/css';
-        style.id = 'statusMod';
-        style.innerHTML = `#statusContainer {position: absolute;z-index: 1;max-width: 100vw;right: 0;top: 0;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);}.toolbar-statusbar {display: none;border-top: none;border-bottom: 1px solid var(--colorBorder);}#statusContainer .toolbar-statusbar {display: flex}.toolbar-statusbar .button-popup.button-popup-above {bottom: unset;top: 22px;}.toolbar-statusbar .button-popup.button-popup-above:before, .toolbar-statusbar .button-popup.button-popup-above:after {opacity: 0;}.biscuit-setting-version {display: none !important;}#biscuitButton button svg, #statusInfoToggle button svg {width: 14px;height: 14px;}#statusInfoToggle.zeig button svg {fill: var(--colorHighlightBg);}.StatusInfo {display: none;}#zeig.StatusInfo.StatusInfo--Visible {display: inline-block;}`;
-        document.getElementsByTagName('head')[0].appendChild(style);
+        if (!document.getElementById('statusMod')) {
+            const style = document.createElement('style');
+            style.type = 'text/css';
+            style.id = 'statusMod';
+            style.innerHTML = `#statusContainer {position: absolute;z-index: 1;max-width: 100vw;right: 0;top: 0;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);}.toolbar-statusbar {display: none;border-top: none;border-bottom: 1px solid var(--colorBorder);}#statusContainer .toolbar-statusbar {display: flex}.toolbar-statusbar .button-popup.button-popup-above {bottom: unset;top: 22px;}.toolbar-statusbar .button-popup.button-popup-above:before, .toolbar-statusbar .button-popup.button-popup-above:after {opacity: 0;}.biscuit-setting-version {display: none !important;}#biscuitButton button svg, #statusInfoToggle button svg {width: 14px;height: 14px;}#statusInfoToggle.zeig button svg {fill: var(--colorHighlightBg);}.StatusInfo {display: none;}#zeig.StatusInfo.StatusInfo--Visible {display: inline-block;}`;
+            document.getElementsByTagName('head')[0].appendChild(style);
+        }
     }
 
     function statusMod() {
-        if (!document.getElementById('statusMod')) {
-            statusStyle();
-        }
         const cont = document.createElement('div');
         const statusBar = document.querySelector('.toolbar-statusbar');
         const statusInfo = document.querySelector('.StatusInfo');
@@ -553,6 +552,7 @@
     setTimeout(function wait() {
         const browser = document.getElementById('browser');
         if (browser) {
+            statusStyle()
             document.querySelector('.resize').addEventListener('mousedown', tabScroll);
         }
         else {
