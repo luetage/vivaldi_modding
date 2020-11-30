@@ -468,7 +468,6 @@
         document.getElementById('statusInfoToggle').addEventListener('click', statusInfoLogic);
         chrome.storage.local.get({'statusInfo': 'on'}, function(check) {
             const info = check.statusInfo;
-            console.log(info)
             if (info === 'on') {
                 document.querySelector('.StatusInfo').id = 'zeig';
                 document.getElementById('statusInfoToggle').classList.add('zeig');
