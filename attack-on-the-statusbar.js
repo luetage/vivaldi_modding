@@ -18,7 +18,7 @@
             statusInfo.id = 'zeig';
             var info = 'on';
         }
-        chrome.storage.local.set ({'statusInfo': info});
+        chrome.storage.local.set({'statusInfo': info});
     }
 
     function statusMod() {
