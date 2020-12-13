@@ -11,7 +11,7 @@
 .window-buttongroup button.window-maximize, .window-buttongroup button.window-minimize {
     display: none;
 }
-.linux #tabs-container.top {
+.linux #tabs-container:not(.none).top {
     padding-right: 40px;
 }
 
