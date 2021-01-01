@@ -7,12 +7,12 @@ This repository is a collection of mods I have written for the [**Vivaldi web br
 ## Actively maintained mods
 
 * `addressbar-theming.css`
+* `attack-on-the-statusbar.js`
 * `backup-search-engines.js`
 * `changing-buttons.css`
 * `history-clock.js`
 * `import-export_themes.js`
 * `profile-image.js`
-* `attack-on-the-statusbar.js`
 * `tab-scroll.js`
 
 ## How to
