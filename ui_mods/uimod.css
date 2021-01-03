@@ -1,11 +1,9 @@
+
 /* startpage */
-.startpage {
-    /* background-color: var(--colorBgDark) !important; */
-    background-color: var(--colorBg) !important;
+.startpage .startpage-content {
+    background-image: linear-gradient(to bottom, transparent 50%, var(--colorBg) 50%), linear-gradient(to right, var(--colorBgDark) 50%, var(--colorBg) 50%);
+    background-size: 10px 10px, 10px 10px;
 }
-/* .startpage .startpage-content { */
-    /* background-image: linear-gradient(to bottom right, var(--colorFgAlpha), var(--colorHighlightBgAlpha)) !important; */
-/* } */
 
 /* window buttons */
 .window-buttongroup button.window-maximize, .window-buttongroup button.window-minimize {
@@ -87,6 +85,3 @@
     text-indent: 0px;
     content: "M3";
 }
-/* #notes-panel h1::after { */
-    /* content: " 📔"; */
-/* } */
