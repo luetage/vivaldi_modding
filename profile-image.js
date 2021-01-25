@@ -1,7 +1,8 @@
 /*
 Profile Image
 https://forum.vivaldi.net/topic/34952/choose-a-custom-profile-image/13
-Exchanges the profile image in address bar for a regular svg using Vivaldi's theme colors. Credits to tam710562 for coming up with a solution to reinstate the svg when the address bar is being toggled.
+Exchanges the profile image in address bar for a regular svg using Vivaldi's theme colors.
+Credits to tam710562 for coming up with a solution to reinstate the svg when the address bar is being toggled.
 */
 
 function profileImage(image) {
@@ -13,12 +14,12 @@ function profileImage(image) {
 
 var appendChild = Element.prototype.appendChild;
 Element.prototype.appendChild = function () {
-    if(arguments[0].tagName === 'BUTTON'){
-    setTimeout(function() {
-        if (this.classList.contains('profile-popup')) {
-        profileImage(arguments[0]);
-        }
-    }.bind(this, arguments[0]));
+    if (arguments[0].tagName === 'BUTTON') {
+        setTimeout(function() {
+            if (this.classList.contains('profile-popup')) {
+                profileImage(arguments[0]);
+            }
+        }.bind(this, arguments[0]));
     }
     return appendChild.apply(this, arguments);
 };

@@ -85,3 +85,7 @@
     text-indent: 0px;
     content: "M3";
 }
+#switch button.webviewbtn img {
+    background-color: rgba(255, 255, 255, 0.33) !important;
+    filter: grayscale(1);
+}
