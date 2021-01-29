@@ -1,10 +1,10 @@
-/* Activate Tab On Hover
- * https://forum.vivaldi.net/topic/50354/create-a-new-mod-mouseover-tab-select/4
- * Activates tab on hover. */
+// Activate Tab On Hover
+// https://forum.vivaldi.net/topic/50354/create-a-new-mod-mouseover-tab-select/4
+// Activates tab on hover.
 
 {
-    function activateTab(tab) {
-        if (!tab.parentNode.classList.contains('active')) {
+    function activateTab(e, tab) {
+        if (!tab.parentNode.classList.contains('active') && !e.shiftKey && !e.ctrlKey) {
             tab.addEventListener('mouseleave', function () {
                 clearTimeout(wait);
                 tab.removeEventListener('mouseleave', tab);
@@ -22,8 +22,9 @@
     Element.prototype.appendChild = function () {
         if (arguments[0].tagName === 'DIV' && arguments[0].classList.contains('tab-header')) {
             setTimeout(function () {
-                arguments[0].addEventListener('mouseenter', activateTab.bind(arguments[0], arguments[0]));
-            }.bind(this, arguments[0]))
+                var trigger = (event) => activateTab(event, arguments[0]);
+                arguments[0].addEventListener('mouseenter', trigger);
+            }.bind(this, arguments[0]));
         }
         return appendChild.apply(this, arguments);
     }
