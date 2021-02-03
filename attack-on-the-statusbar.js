@@ -40,7 +40,7 @@
                 navigator.clipboard.writeText(version);
             })
         }
-        const divL = document.createElement('divL');
+        const divL = document.createElement('div');
         divL.classList.add('button-toolbar');
         divL.id = 'statusInfoToggle';
         divL.setAttribute('title', 'Toggle status info');
