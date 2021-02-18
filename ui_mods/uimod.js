@@ -15,31 +15,23 @@
 
     /* Tab Scroll */
 
-    function tabScrollExit() {
-        tsTarget.removeEventListener('mousemove', tabScrollExit);
-        tsTarget.removeEventListener('click', tabScrollTrigger);
+    function tabScrollExit(tab) {
+        tab.removeEventListener('mousemove', tabScrollExit);
+        tab.removeEventListener('click', tabScrollTrigger);
     }
 
-    function tabScrollTrigger() {
-        chrome.tabs.executeScript({
-            code: tabScrollScript
-        })
-        tabScrollExit();
+    function tabScrollTrigger(tab) {
+        chrome.tabs.executeScript({code: tabScrollScript});
+        tabScrollExit(tab);
     }
 
-    function tabScroll(event) {
-        if (event.which == 1 && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
-            tsTarget = event.target;
-            if (tsTarget.parentNode.classList.contains('tab-header')) {
-                tsTarget = tsTarget.parentNode;
-            }
-            if (tsTarget.classList.contains('tab-header') && tsTarget.parentNode.classList.contains('active')) {
-                tsTarget.addEventListener('mousemove', tabScrollExit);
-                tsTarget.addEventListener('click', tabScrollTrigger);
-            }
+    function tabScroll(e, tab) {
+        if (tab.parentNode.classList.contains('active') && e.which === 1 && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+            tab.addEventListener('mousemove', tabScrollExit(tab));
+            tab.addEventListener('click', tabScrollTrigger(tab));
         }
     }
-
+    
 
     /* Theme Import and Export */
 
@@ -496,24 +488,23 @@
         }
     }
 
-
     /*------ end of function block ------*/
 
+    
+    const tabScrollScript = '!' + function () {
+        var offset = window.pageYOffset;
+        if (offset > 0) {
+            window.sessionStorage.setItem('tabOffset',offset);
+            window.scrollTo(0,0);
+        }
+        else {
+            window.scrollTo(0,window.sessionStorage.getItem('tabOffset')||0);
+        }
+    } + '();';
 
     var clockSetInt = true;
     var clockRelax = -1;
     var clockTimer = setInterval(historyClock, 1000);
-
-    const tabScrollScript = '!' + function () {
-        var offset = window.pageYOffset;
-        if (offset > 0) {
-            window.sessionStorage.setItem('tabOffset', offset);
-            window.scrollTo(0, 0);
-        }
-        else {
-            window.scrollTo(0, window.sessionStorage.getItem('tabOffset') || 0);
-        }
-    } + '();';
 
     var appendChild = Element.prototype.appendChild;
     Element.prototype.appendChild = function () {
@@ -532,7 +523,11 @@
                         statusMod();
                     }
                 }
-            }.bind(this, arguments[0]))
+                if (arguments[0].classList.contains('tab-header')) {
+                    const trigger = (event) => tabScroll(event, arguments[0]);
+                    arguments[0].addEventListener('mousedown', trigger);
+                }
+            }.bind(this, arguments[0]));
         }
         return appendChild.apply(this, arguments);
     }
@@ -555,7 +550,6 @@
             style.id = 'statusMod';
             style.innerHTML = `#statusContainer {position: absolute;z-index: 1;max-width: 100vw;right: 0;top: 0;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);}.toolbar-statusbar {display: none;border-top: none;border-bottom: 1px solid var(--colorBorder);}#statusContainer .toolbar-statusbar {display: flex}.toolbar-statusbar .button-popup.button-popup-above {bottom: unset;top: 22px;}.toolbar-statusbar .button-popup.button-popup-above:before, .toolbar-statusbar .button-popup.button-popup-above:after {opacity: 0;}.biscuit-setting-version {display: none !important;}#biscuitButton button svg, #statusInfoToggle button svg {width: 14px;height: 14px;}#statusInfoToggle.zeig button svg {fill: var(--colorHighlightBg);}.StatusInfo {display: none;}#zeig.StatusInfo.StatusInfo--Visible {display: inline-block;}`;
             document.getElementsByTagName('head')[0].appendChild(style);
-            document.querySelector('.resize').addEventListener('mousedown', tabScroll);
         }
         else {
             setTimeout(wait, 300);
@@ -574,3 +568,162 @@
     })
 }
 
+/*
+ * Restore Methods for chrome.tabs
+ * Written by Tam710562
+ */
+
+window.gnoh = Object.assign(window.gnoh || {}, {
+  tabs: {
+    getAllInWindow: function () {
+      let windowId;
+      let callback;
+
+      Array.from(arguments).forEach(function (argument) {
+        switch (typeof argument) {
+          case 'number':
+            windowId = argument;
+            break;
+          default:
+            callback = argument;
+            break;
+        }
+      });
+
+      chrome.tabs.query({
+        windowId: windowId || vivaldiWindowId
+      }, function (tabs) {
+        callback(tabs);
+      });
+    },
+    getSelected: function () {
+      let windowId;
+      let callback;
+
+      Array.from(arguments).forEach(function (argument) {
+        switch (typeof argument) {
+          case 'number':
+            windowId = argument;
+            break;
+          default:
+            callback = argument;
+            break;
+        }
+      });
+
+      chrome.tabs.query({
+        active: true,
+        windowId: windowId || vivaldiWindowId
+      }, function (tabs) {
+        const tab = tabs[0];
+        if (tab) {
+          callback(tab);
+        }
+      });
+    },
+    executeScript: function () {
+      let tabId;
+      let details;
+      let callback;
+
+      Array.from(arguments).forEach(function (argument) {
+        switch (typeof argument) {
+          case 'number':
+            tabId = argument;
+            break;
+          case 'object':
+            details = argument;
+            break;
+          default:
+            callback = argument;
+            break;
+        }
+      });
+
+      if (tabId) {
+        gnoh.webPageView.callMethod(tabId, 'executeScript', [details, callback]);
+      } else {
+        gnoh.webPageView.callMethod('executeScript', [details, callback]);
+      }
+    },
+    insertCSS: function () {
+      let tabId;
+      let details;
+      let callback;
+
+      Array.from(arguments).forEach(function (argument) {
+        switch (typeof argument) {
+          case 'number':
+            tabId = argument;
+            break;
+          case 'object':
+            details = argument;
+            break;
+          default:
+            callback = argument;
+            break;
+        }
+      });
+
+      if (tabId) {
+        gnoh.webPageView.callMethod(tabId, 'insertCSS', [details, callback]);
+      } else {
+        gnoh.webPageView.callMethod('insertCSS', [details, callback]);
+      }
+    }
+  },
+  webPageView: {
+    getSelected(callback) {
+      gnoh.tabs.getSelected(function (tab) {
+        callback(this.get(tab.id));
+      }.bind(this));
+    },
+    get: function (tabId) {
+      return document.getElementById(tabId);
+    },
+    callMethod: function () {
+      let tabId;
+      let methodName;
+      let args;
+
+      Array.from(arguments).forEach(function (argument) {
+        switch (typeof argument) {
+          case 'number':
+            tabId = argument;
+            break;
+          case 'string':
+            methodName = argument;
+            break;
+          default:
+            args = argument;
+            break;
+        }
+      });
+
+      if (tabId) {
+        const wpw = this.get(tabId);
+        wpw[methodName].apply(wpw, args);
+      } else {
+        this.getSelected(function (wpw) {
+          wpw[methodName].apply(wpw, args);
+        });
+      }
+    }
+  }
+});
+
+if (!chrome.tabs.getAllInWindow) {
+  chrome.tabs.getAllInWindow = gnoh.tabs.getAllInWindow;
+}
+
+if (!chrome.tabs.getSelected) {
+  chrome.tabs.getSelected = gnoh.tabs.getSelected;
+}
+
+if (!chrome.tabs.executeScript) {
+  chrome.tabs.executeScript = gnoh.tabs.executeScript;
+}
+
+if (!chrome.tabs.insertCSS) {
+  chrome.tabs.insertCSS = gnoh.tabs.insertCSS;
+}

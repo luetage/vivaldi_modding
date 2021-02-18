@@ -4,26 +4,20 @@
 // Credits to tam710562 from Vivaldi Forum for coming up with the sessionStorage solution, which made this possible.
 
 {
-    function tabScrollExit() {
-        tsTarget.removeEventListener('mousemove', tabScrollExit);
-        tsTarget.removeEventListener('click', tabScrollTrigger);
+    function tabScrollExit(tab) {
+        tab.removeEventListener('mousemove', tabScrollExit);
+        tab.removeEventListener('click', tabScrollTrigger);
     }
 
-    function tabScrollTrigger() {
+    function tabScrollTrigger(tab) {
         chrome.tabs.executeScript({code: tabScrollScript});
-        tabScrollExit();
+        tabScrollExit(tab);
     }
 
-    function tabScroll(event) {
-        if (event.which == 1 && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
-            tsTarget = event.target;
-            if (tsTarget.parentNode.classList.contains('tab-header')) {
-                tsTarget = tsTarget.parentNode;
-            }
-            if (tsTarget.classList.contains('tab-header') && tsTarget.parentNode.classList.contains('active')) {
-                tsTarget.addEventListener('mousemove', tabScrollExit);
-                tsTarget.addEventListener('click', tabScrollTrigger);
-            }
+    function tabScroll(e, tab) {
+        if (tab.parentNode.classList.contains('active') && e.which === 1 && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+            tab.addEventListener('mousemove', tabScrollExit(tab));
+            tab.addEventListener('click', tabScrollTrigger(tab));
         }
     }
 
@@ -38,12 +32,14 @@
         }
     } + '();';
 
-    setTimeout(function wait() {
-        const browser = document.getElementById('browser');
-        if (browser) {
-            document.querySelector('.resize').addEventListener('mousedown',tabScroll);
-        } else {
-            setTimeout(wait, 300);
+    var appendChild = Element.prototype.appendChild;
+    Element.prototype.appendChild = function () {
+        if (arguments[0].tagName === 'DIV' && arguments[0].classList.contains('tab-header')) {
+            setTimeout(function() {
+                const trigger = (event) => tabScroll(event, arguments[0]);
+                arguments[0].addEventListener('mousedown', trigger);
+            }.bind(this, arguments[0]));
         }
-    }, 300)
+        return appendChild.apply(this, arguments);
+    }
 }
