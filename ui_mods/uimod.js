@@ -1,7 +1,7 @@
-/* Custom mods */
+// Custom mods
 
 {
-    /* Profile Image */
+    // Profile Image
 
     function profileImage(image) {
         image.innerHTML = '<svg width="18" height="18" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1523 1339q-22-155-87.5-257.5t-184.5-118.5q-67 74-159.5 115.5t-195.5 41.5-195.5-41.5-159.5-115.5q-119 16-184.5 118.5t-87.5 257.5q106 150 271 237.5t356 87.5 356-87.5 271-237.5zm-243-699q0-159-112.5-271.5t-271.5-112.5-271.5 112.5-112.5 271.5 112.5 271.5 271.5 112.5 271.5-112.5 112.5-271.5zm512 256q0 182-71 347.5t-190.5 286-285.5 191.5-349 71q-182 0-348-71t-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z"></path></svg>';
@@ -13,7 +13,7 @@
     }
 
 
-    /* Tab Scroll */
+    // Tab Scroll
 
     function tabScrollExit(tab) {
         tab.removeEventListener('mousemove', tabScrollExit);
@@ -33,7 +33,7 @@
     }
     
 
-    /* Theme Import and Export */
+    // Theme Import and Export
 
     function _checkImport() { // written by tam710562
         if (
@@ -320,7 +320,7 @@
     }
 
 
-    /* Backup search engines */
+    // Backup search engines
 
     function _msgSearch(pnt) {
         clearTimeout(_msgTimeout);
@@ -414,7 +414,7 @@
     }
 
 
-    /* Attack on the status bar */
+    // Attack on the status bar
 
     function statusInfoLogic() {
         const statusInfoToggle = document.getElementById('statusInfoToggle');
@@ -468,7 +468,7 @@
     }
 
 
-    /* History Clock */
+    // History Clock
 
     function historyClock() {
         const clock = document.querySelector('#switch button.history');
@@ -568,4 +568,7 @@
     })
 }
 
+
+// Restore Methods for chrome.tabs
+// Written by Tam710562
 window.gnoh=Object.assign(window.gnoh||{},{tabs:{getAllInWindow:function(){let e,t;Array.from(arguments).forEach(function(c){switch(typeof c){case"number":e=c;break;default:t=c}}),chrome.tabs.query({windowId:e||vivaldiWindowId},function(e){t(e)})},getSelected:function(){let e,t;Array.from(arguments).forEach(function(c){switch(typeof c){case"number":e=c;break;default:t=c}}),chrome.tabs.query({active:!0,windowId:e||vivaldiWindowId},function(e){const c=e[0];c&&t(c)})},executeScript:function(){let e,t,c;Array.from(arguments).forEach(function(n){switch(typeof n){case"number":e=n;break;case"object":t=n;break;default:c=n}}),e?gnoh.webPageView.callMethod(e,"executeScript",[t,c]):gnoh.webPageView.callMethod("executeScript",[t,c])},insertCSS:function(){let e,t,c;Array.from(arguments).forEach(function(n){switch(typeof n){case"number":e=n;break;case"object":t=n;break;default:c=n}}),e?gnoh.webPageView.callMethod(e,"insertCSS",[t,c]):gnoh.webPageView.callMethod("insertCSS",[t,c])}},webPageView:{getSelected(e){gnoh.tabs.getSelected(function(t){e(this.get(t.id))}.bind(this))},get:function(e){return document.getElementById(e)},callMethod:function(){let e,t,c;if(Array.from(arguments).forEach(function(n){switch(typeof n){case"number":e=n;break;case"string":t=n;break;default:c=n}}),e){const n=this.get(e);n[t].apply(n,c)}else this.getSelected(function(e){e[t].apply(e,c)})}}}),chrome.tabs.getAllInWindow||(chrome.tabs.getAllInWindow=gnoh.tabs.getAllInWindow),chrome.tabs.getSelected||(chrome.tabs.getSelected=gnoh.tabs.getSelected),chrome.tabs.executeScript||(chrome.tabs.executeScript=gnoh.tabs.executeScript),chrome.tabs.insertCSS||(chrome.tabs.insertCSS=gnoh.tabs.insertCSS);
