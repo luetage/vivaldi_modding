@@ -20,6 +20,9 @@
                 color: ${fg} !important;
                 font-size: 0.85em !important;
             }
+            .version, #useragent {
+                font-family: unset !important;
+            }
             #copyright {
                 font-size: 0.8em !important;
             }
@@ -32,7 +35,7 @@
 
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         if (changeInfo.url === 'chrome://version/') {
-            aboutMod();
+            aboutMod(tabId);
         }
     })
 }
