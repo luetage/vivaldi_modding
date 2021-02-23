@@ -31,7 +31,7 @@
             tab.addEventListener('click', tabScrollTrigger(tab));
         }
     }
-    
+
 
     // Theme Import and Export
 
@@ -488,9 +488,62 @@
         }
     }
 
+
+    // About‐Page Theme
+
+    // function aboutMod(id) {
+    //     chrome.storage.local.get({
+    //         'BROWSER_COLOR_BG': '',
+    //         'BROWSER_COLOR_FG': '',
+    //         'BROWSER_COLOR_HIGHLIGHT_BG': ''
+    //     }, function (pass) {
+    //         const bg = pass.BROWSER_COLOR_BG;
+    //         const fg = pass.BROWSER_COLOR_FG;
+    //         const hi = pass.BROWSER_COLOR_HIGHLIGHT_BG;
+    //         const sendit = `
+    //             const style = document.createElement('style');
+    //             style.type = 'text/css';
+    //             style.id = 'about_mod';
+    //             style.innerHTML = "html {background-color: ${bg};}body, .version {color: ${fg};}a {color: ${hi}}";
+    //             document.getElementsByTagName('head')[0].appendChild(style);
+    //         `;
+    //         chrome.tabs.executeScript(id, {code: sendit});
+    //     })
+    // }
+
+    function aboutMod(id) {
+        const bg = document.documentElement.style.getPropertyValue('--colorBg');
+        const bgdark = document.documentElement.style.getPropertyValue('--colorBgDark');
+        const fg = document.documentElement.style.getPropertyValue('--colorFg');
+        const fgintense = document.documentElement.style.getPropertyValue('--colorFgIntense');
+        const hi = document.documentElement.style.getPropertyValue('--colorHighlightBg');
+        const sendit = `
+            html {
+                background-image: linear-gradient(to bottom, transparent 50%, ${bg} 50%), linear-gradient(to right, ${bgdark} 50%, ${bg} 50%) !important;
+                background-size: 10px 10px, 10px 10px !important;
+            }
+            .label, #company {
+                color: ${fgintense};
+            }
+            .version, #slogan {
+                color: ${fg} !important;
+            }
+            .version {
+                font-size: 0.9em !important;
+            }
+            a {
+                color: ${hi};
+            }
+        `;
+        chrome.tabs.insertCSS(id, {code: sendit});
+    }
+
+
+
+
     /*------ end of function block ------*/
 
-    
+
     const tabScrollScript = '!' + function () {
         var offset = window.pageYOffset;
         if (offset > 0) {
@@ -564,6 +617,9 @@
         }
         if (changeInfo.url === `${settingsUrl}themes`) {
             setTimeout(portThemes, 100);
+        }
+        if (changeInfo.url === 'chrome://version/') {
+            setTimeout(aboutMod(tabId), 300);
         }
     })
 }

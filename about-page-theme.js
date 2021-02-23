@@ -14,12 +14,14 @@
             }
             .label, #company {
                 color: ${fgintense};
+                font-size: 0.9em !important;
             }
             .version, #slogan {
                 color: ${fg} !important;
+                font-size: 0.85em !important;
             }
-            .version {
-                font-size: 0.9em !important;
+            #copyright {
+                font-size: 0.8em !important;
             }
             a {
                 color: ${hi};
@@ -30,7 +32,7 @@
 
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         if (changeInfo.url === 'chrome://version/') {
-            setTimeout(aboutMod(tabId), 300);
+            aboutMod();
         }
     })
 }
