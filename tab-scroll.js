@@ -2,7 +2,7 @@
 // https://forum.vivaldi.net/topic/27856/tab-scroll
 // Clicking on an active tab scrolls page to top, clicking it again returns to previous scroll position.
 // Credits to tam710562 from Vivaldi Forum for coming up with the sessionStorage solution, which made this possible.
-// Relies on chrome.tabs restore method currently, please open the forum link for more information.
+// Relies on chrome.tabs restore method ☛ https://forum.vivaldi.net/topic/57191/restore-methods-for-chrome-tabs
 
 {
     function tabScrollExit(tab) {
