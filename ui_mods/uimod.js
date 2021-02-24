@@ -491,26 +491,6 @@
 
     // About‐Page Theme
 
-    // function aboutMod(id) {
-    //     chrome.storage.local.get({
-    //         'BROWSER_COLOR_BG': '',
-    //         'BROWSER_COLOR_FG': '',
-    //         'BROWSER_COLOR_HIGHLIGHT_BG': ''
-    //     }, function (pass) {
-    //         const bg = pass.BROWSER_COLOR_BG;
-    //         const fg = pass.BROWSER_COLOR_FG;
-    //         const hi = pass.BROWSER_COLOR_HIGHLIGHT_BG;
-    //         const sendit = `
-    //             const style = document.createElement('style');
-    //             style.type = 'text/css';
-    //             style.id = 'about_mod';
-    //             style.innerHTML = "html {background-color: ${bg};}body, .version {color: ${fg};}a {color: ${hi}}";
-    //             document.getElementsByTagName('head')[0].appendChild(style);
-    //         `;
-    //         chrome.tabs.executeScript(id, {code: sendit});
-    //     })
-    // }
-
     function aboutMod(id) {
         const bg = document.documentElement.style.getPropertyValue('--colorBg');
         const bgdark = document.documentElement.style.getPropertyValue('--colorBgDark');
@@ -524,12 +504,17 @@
             }
             .label, #company {
                 color: ${fgintense};
+                font-size: 0.9em !important;
             }
             .version, #slogan {
                 color: ${fg} !important;
+                font-size: 0.85em !important;
             }
-            .version {
-                font-size: 0.9em !important;
+            .version, #useragent {
+                font-family: unset !important;
+            }
+            #copyright {
+                font-size: 0.8em !important;
             }
             a {
                 color: ${hi};
@@ -537,9 +522,6 @@
         `;
         chrome.tabs.insertCSS(id, {code: sendit});
     }
-
-
-
 
     /*------ end of function block ------*/
 
@@ -612,14 +594,15 @@
     const settingsUrl = 'chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=';
     const _themeBtn = '.setting-group.unlimited > .toolbar.toolbar-default > .button-toolbar > button';
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+        console.log(changeInfo.url + ` X ` + changeInfo.title)
         if (changeInfo.url === `${settingsUrl}search`) {
             setTimeout(searchEngines, 100);
         }
         if (changeInfo.url === `${settingsUrl}themes`) {
             setTimeout(portThemes, 100);
         }
-        if (changeInfo.url === 'chrome://version/') {
-            setTimeout(aboutMod(tabId), 300);
+        if (changeInfo.url === 'chrome://version/' || changeInfo.title === 'About Version' || changeInfo.url === 'about:blank') {
+            aboutMod(tabId);
         }
     })
 }
