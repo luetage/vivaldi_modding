@@ -1,8 +1,11 @@
 
-/* startpage */
-.startpage .startpage-content {
+/* internal pages */
+.startpage .startpage-content, .Experiments {
     background-image: linear-gradient(to bottom, transparent 50%, var(--colorBg) 50%), linear-gradient(to right, var(--colorBgDark) 50%, var(--colorBg) 50%);
     background-size: 10px 10px, 10px 10px;
+}
+.Experiments.vivaldi-settings h2 {
+    border-bottom: none;
 }
 
 /* window buttons */

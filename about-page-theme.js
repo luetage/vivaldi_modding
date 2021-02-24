@@ -1,6 +1,6 @@
 // About‐Page Theme
-// https://forum.vivaldi.net/topic/57420/about-page-theme
-// Injects CSS into the internal page vivaldi://about, uses native theme colors.
+// https://forum.vivaldi.net/topic/57420/theme-internal-pages
+// Injects CSS into the internal pages vivaldi://about and about:blank, uses native theme colors.
 // Relies on chrome.tabs restore method ☛ https://forum.vivaldi.net/topic/57191/restore-methods-for-chrome-tabs
 
 {
@@ -37,7 +37,7 @@
     }
 
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-        if (changeInfo.url === 'chrome://version/') {
+        if (changeInfo.url === 'chrome://version/' || changeInfo.title === 'About Version' || changeInfo.url === 'about:blank') {
             aboutMod(tabId);
         }
     })
