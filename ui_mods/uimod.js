@@ -594,7 +594,6 @@
     const settingsUrl = 'chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=';
     const _themeBtn = '.setting-group.unlimited > .toolbar.toolbar-default > .button-toolbar > button';
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-        console.log(changeInfo.url + ` X ` + changeInfo.title)
         if (changeInfo.url === `${settingsUrl}search`) {
             setTimeout(searchEngines, 100);
         }
