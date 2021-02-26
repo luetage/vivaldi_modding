@@ -48,9 +48,6 @@
 
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         if (changeInfo.url === 'chrome://version/' || changeInfo.title === 'About Version' || changeInfo.url === 'about:blank') {
-            aboutMod(tabId);
-        }
-        else if (changeInfo.url === 'chrome://version/' || changeInfo.title === 'About Version' || changeInfo.url === 'about:blank') {
             intpages(tabId, changeInfo.url);
         }
     })
