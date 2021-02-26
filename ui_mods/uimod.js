@@ -489,37 +489,53 @@
     }
 
 
-    // About‐Page Theme
+    // Internal pages
 
-    function aboutMod(id) {
+    function intpages(id, page) {
         const bg = document.documentElement.style.getPropertyValue('--colorBg');
         const bgdark = document.documentElement.style.getPropertyValue('--colorBgDark');
+        const bglightintense = document.documentElement.style.getPropertyValue('--colorBgLightIntense');
         const fg = document.documentElement.style.getPropertyValue('--colorFg');
         const fgintense = document.documentElement.style.getPropertyValue('--colorFgIntense');
+        const fgfadedmore = document.documentElement.style.getPropertyValue('--colorFgFadedMore');
         const hi = document.documentElement.style.getPropertyValue('--colorHighlightBg');
-        const sendit = `
-            html {
-                background-image: linear-gradient(to bottom, transparent 50%, ${bg} 50%), linear-gradient(to right, ${bgdark} 50%, ${bg} 50%) !important;
-                background-size: 10px 10px, 10px 10px !important;
-            }
-            .label, #company {
-                color: ${fgintense};
-                font-size: 0.9em !important;
-            }
-            .version, #slogan {
-                color: ${fg} !important;
-                font-size: 0.85em !important;
-            }
-            .version, #useragent {
-                font-family: unset !important;
-            }
-            #copyright {
-                font-size: 0.8em !important;
-            }
-            a {
-                color: ${hi};
-            }
-        `;
+        const border = document.documentElement.style.getPropertyValue('--colorBorder');
+        const green = document.documentElement.style.getPropertyValue('--colorSuccessBg');
+        const red = document.documentElement.style.getPropertyValue('--colorErrorBg');
+        const yellow = document.documentElement.style.getPropertyValue('--colorWarningBg');
+        if (page === 'chrome://version/') {
+            var sendit = `
+                html {
+                    background-image: linear-gradient(to bottom, transparent 50%, ${bg} 50%), linear-gradient(to right, ${bgdark} 50%, ${bg} 50%) !important;
+                    background-size: 10px 10px, 10px 10px !important;
+                }
+                .label, #company {
+                    color: ${fgintense};
+                    font-size: 0.9em !important;
+                }
+                .version, #slogan {
+                    color: ${fg} !important;
+                    font-size: 0.85em !important;
+                }
+                .version, #useragent {
+                    font-family: unset !important;
+                }
+                #copyright {
+                    font-size: 0.8em !important;
+                }
+                a {
+                    color: ${hi};
+                }
+            `;
+        }
+        else if (page === 'about:blank') {
+            var sendit = `
+                body {
+                    background-image: linear-gradient(to bottom, transparent 50%, ${bg} 50%), linear-gradient(to right, ${bgdark} 50%, ${bg} 50%);
+                    background-size: 10px 10px, 10px 10pt;
+                }
+            `;
+        }
         chrome.tabs.insertCSS(id, {code: sendit});
     }
 
@@ -597,11 +613,11 @@
         if (changeInfo.url === `${settingsUrl}search`) {
             setTimeout(searchEngines, 100);
         }
-        if (changeInfo.url === `${settingsUrl}themes`) {
+        else if (changeInfo.url === `${settingsUrl}themes`) {
             setTimeout(portThemes, 100);
         }
-        if (changeInfo.url === 'chrome://version/' || changeInfo.title === 'About Version' || changeInfo.url === 'about:blank') {
-            aboutMod(tabId);
+        else if (changeInfo.url === 'chrome://version/' || changeInfo.title === 'About Version' || changeInfo.url === 'about:blank') {
+            intpages(tabId, changeInfo.url);
         }
     })
 }
