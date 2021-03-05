@@ -129,18 +129,18 @@
             setTimeout(modSettingsPage, 1000);
             return;
         }
-				if(!check){
-						const settingsHTML = document.createElement("section");
-						settingsHTML.className = "setting-section";
-						settingsHTML.id = "lonmAutosaveSessionsSettings";
-						const settingsDiv = document.createElement("div");
-						settingsDiv.insertAdjacentHTML("beforeend", "<h2>Autosave Sessions Mod</h2>");
-						MOD_SETTINGS.forEach(setting => {
-								settingsDiv.appendChild(makeSettingElement(setting));
-						});
-						settingsHTML.appendChild(settingsDiv);
-						settingSection.insertAdjacentElement("afterbegin", settingsHTML);
-				}
+        if(!check){
+            const settingsHTML = document.createElement("section");
+            settingsHTML.className = "setting-section";
+            settingsHTML.id = "lonmAutosaveSessionsSettings";
+            const settingsDiv = document.createElement("div");
+            settingsDiv.insertAdjacentHTML("beforeend", "<h2>Autosave Sessions Mod</h2>");
+            MOD_SETTINGS.forEach(setting => {
+                settingsDiv.appendChild(makeSettingElement(setting));
+            });
+            settingsHTML.appendChild(settingsDiv);
+            settingSection.insertAdjacentElement("afterbegin", settingsHTML);
+        }
     }
 
     /**
@@ -274,7 +274,7 @@
                         setInterval(triggerAutosavePrivate, CURRENT_SETTINGS["LONM_SESSION_AUTOSAVE_DELAY_MINUTES"]*60*1000);
                     });
                 }
-								chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+                chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
                     if (changeInfo.url === SETTINGSPAGE) {
                         modSettingsPage();
                     }
