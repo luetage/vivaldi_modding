@@ -124,7 +124,7 @@
     const SETTINGSPAGE = "chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=general";
     function modSettingsPage(){
         const settingSection = document.querySelector(".vivaldi-settings .settings-content section");
-				const check = document.getElementById("lonmAutosaveSessionsSettings");
+        const check = document.getElementById("lonmAutosaveSessionsSettings");
         if(!settingSection){
             setTimeout(modSettingsPage, 1000);
             return;
