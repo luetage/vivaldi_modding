@@ -1,4 +1,3 @@
-// git test change
 /*
 * Autosave Sessions (a mod for Vivaldi)
 * Written by LonM
