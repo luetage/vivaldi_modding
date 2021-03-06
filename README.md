@@ -13,6 +13,7 @@ This repository is a collection of mods I have written for the [**Vivaldi web br
 * `history-clock.js`
 * `import-export_themes.js`
 * `internal-page-theme.js`
+* `m3.css`
 * `profile-image.js`
 * `tab-scroll.js`
 

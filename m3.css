@@ -1,0 +1,14 @@
+/* M3 */
+/* https://forum.vivaldi.net/topic/54788/i-give-you-m3 */
+/* Changes the name of the mail panel ^^ */
+
+
+#mail_panel h1 {
+    text-indent: -9999px;
+}
+#mail_panel h1::after {
+    display: block;
+    margin-top: -20px;
+    text-indent: 0px;
+    content: "M3";
+}
