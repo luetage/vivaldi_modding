@@ -558,9 +558,6 @@
                 if (this.classList.contains('profile-popup')) {
                     profileImage(arguments[0]);
                 }
-                if (arguments[0].classList.contains('mail')) {
-                    arguments[0].title = 'M3';
-                }
             }.bind(this, arguments[0]));
         }
         if (this.tagName === 'BUTTON'){
