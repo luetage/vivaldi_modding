@@ -10,8 +10,18 @@
                 tab.removeEventListener('mouseleave', tab);
             })
             wait = setTimeout(function () {
-                const id = Number(tab.parentNode.id.replace( /^\D+/g, ''));
-                chrome.tabs.update(id, {active: true, highlighted: true});
+                if (tab.parentNode.parentNode.classList.contains('is-substack')) {
+                    const down = document.createEvent('MouseEvents');
+                    down.initEvent('mousedown', true, true);
+                    tab.dispatchEvent(down);
+                    const up = document.createEvent('MouseEvents');
+                    up.initEvent('mouseup',true,true);
+                    tab.dispatchEvent(up);
+                }
+                else {
+                    const id = Number(tab.parentNode.id.replace( /^\D+/g, ''));
+                    chrome.tabs.update(id, {active: true, highlighted: true});
+                }
             }, delay)
         }
     }
