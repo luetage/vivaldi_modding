@@ -1,5 +1,5 @@
 // History Moon
-//
+// https://forum.vivaldi.net/topic/58821/project-history-moon/
 // Displays the current moon phase instead of the history clock icon in the panel.
 // Depends on the installation of additional CSS code (history-moon.css).
 
@@ -56,7 +56,7 @@
 
     let historymoon = () => {
         const history = document.querySelector('#switch button.history svg');
-        history.innerHTML = `<path d="M15.491980933394752,7.711674344216877 A7.7459914508859775,7.711673374168715 0 0 1 7.74598948250877,15.423347718385598 A7.7459914508859775,7.711673374168715 0 0 1 -0.000001968377209657949,7.711674344216877 A7.7459914508859775,7.711673374168715 0 0 1 7.74598948250877,9.70048160457734e-7 A7.7459914508859775,7.711673374168715 0 0 1 15.491980933394752,7.711674344216877 z"></path><path class="history-moon-${7} history-moon-color" d=""></path>`;
+        history.innerHTML = `<path d="M15.491980933394752,7.711674344216877 A7.7459914508859775,7.711673374168715 0 0 1 7.74598948250877,15.423347718385598 A7.7459914508859775,7.711673374168715 0 0 1 -0.000001968377209657949,7.711674344216877 A7.7459914508859775,7.711673374168715 0 0 1 7.74598948250877,9.70048160457734e-7 A7.7459914508859775,7.711673374168715 0 0 1 15.491980933394752,7.711674344216877 z"></path><path class="history-moon-${_p[0]} history-moon-color" d=""></path>`;
         history.classList.add('history-moon');
     }
 
@@ -84,4 +84,3 @@
         return appendChild.apply(this, arguments);
     }
 }
-
