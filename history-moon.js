@@ -1,7 +1,8 @@
 // History Moon
 // https://forum.vivaldi.net/topic/58821/project-history-moon/
-// Displays the current moon phase instead of the history clock icon in the panel.
+// Displays the current moon phase, instead of the history clock icon, in the panel.
 // Depends on the installation of additional CSS code (history-moon.css).
+// Moon phase calculation from https://gist.github.com/endel/dfe6bb2fbe679781948c
 
 {
     let moonphase = () => {
