@@ -44,7 +44,7 @@
 
     let appendChild = Element.prototype.appendChild;
     Element.prototype.appendChild = function () {
-        if (this.tagName === 'BUTTON'){
+        if (this.tagName === 'BUTTON') {
             setTimeout(function() {
                 if (this.classList.contains('panelbtn') && this.classList.contains('history')) {
                     _p = moon.phase();

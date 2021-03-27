@@ -521,7 +521,7 @@
                 }
             }.bind(this, arguments[0]));
         }
-        if (this.tagName === 'BUTTON'){
+        if (this.tagName === 'BUTTON') {
             setTimeout(function() {
                 if (this.classList.contains('panelbtn') && this.classList.contains('mail')) {
                     this.title = 'M3';
