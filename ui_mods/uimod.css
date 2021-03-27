@@ -94,11 +94,8 @@
 }
 
 /* history moon */
-#switch button.history svg {
+#switch button.history svg:not(.history-moon) {
     display: none;
-}
-#switch button.history svg.history-moon {
-    display: block;
 }
 .history-moon-color {
     fill: var(--colorBgAlphaBlur);

@@ -573,16 +573,6 @@
         return appendChild.apply(this, arguments);
     }
 
-    var removeChild = Element.prototype.removeChild;
-    Element.prototype.removeChild = function () {
-        if (arguments[0].tagName === 'DIV' && arguments[0].classList.contains('toolbar-statusbar')) {
-            document.getElementById('statusContainer').remove();
-        }
-        else {
-            return removeChild.apply(this, arguments);
-        }
-    }
-
     const settingsUrl = 'chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=';
     const _themeBtn = '.setting-group.unlimited > .toolbar.toolbar-default > .button-toolbar > button';
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
