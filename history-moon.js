@@ -5,80 +5,53 @@
 // Moon phase calculation from https://gist.github.com/endel/dfe6bb2fbe679781948c
 
 {
-    let moonphase = () => {
-        let dateobj = new Date();
-        let day = dateobj.getUTCDate();
-        let month = dateobj.getUTCMonth() + 1;
-        let year = dateobj.getUTCFullYear();
-        let c = e = jd = b = 0;
-        if (month < 3) {
-            year--;
-            month += 12;
+    let moon = {
+        phases: ['New', 'Waxing Crescent', 'Quarter', 'Waxing Gibbous', 'Full', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent'],
+        phase: () => {
+            let date = new Date();
+            let day = date.getUTCDate();
+            let month = date.getUTCMonth() + 1;
+            let year = date.getUTCFullYear();
+            if (month < 3) {
+                year--;
+                month += 12;
+            }
+            ++month;
+            let c = 365.25 * year;
+            let e = 30.6 * month;
+            let jd = c + e + day - 694039.09;
+            jd /= 29.5305882;
+            let b = parseInt(jd);
+            jd -= b;
+            b = Math.round(jd * 8);
+            if (b >= 8) b = 0;
+            return {phase: b, name: moon.phases[b]};
         }
-        ++month;
-        c = 365.25 * year;
-        e = 30.6 * month;
-        jd = c + e + day - 694039.09;
-        jd /= 29.5305882;
-        b = parseInt(jd);
-        jd -= b;
-        b = Math.round(jd * 8);
-        if (b >= 8 ) {
-            b = 0;
-        }
-        switch(b) {
-            case 0:
-                t = 'New Moon';
-                break;
-            case 1:
-                t = 'Waxing Crescent Moon';
-                break;
-            case 2:
-                t = 'Quarter Moon';
-                break;
-            case 3:
-                t = 'Waxing Gibbous Moon';
-                break;
-            case 4:
-                t = 'Full Moon';
-                break;
-            case 5:
-                t = 'Waning Gibbous Moon';
-                break;
-            case 6:
-                t = 'Last Quarter Moon';
-                break;
-            case 7:
-                t = 'Waning Crescent Moon';
-                break;
-        }
-        return [b, t];
     }
 
     let historymoon = () => {
-        const history = document.querySelector('#switch button.history svg');
-        history.innerHTML = `<path d="M15.491980933394752,7.711674344216877 A7.7459914508859775,7.711673374168715 0 0 1 7.74598948250877,15.423347718385598 A7.7459914508859775,7.711673374168715 0 0 1 -0.000001968377209657949,7.711674344216877 A7.7459914508859775,7.711673374168715 0 0 1 7.74598948250877,9.70048160457734e-7 A7.7459914508859775,7.711673374168715 0 0 1 15.491980933394752,7.711674344216877 z"></path><path class="history-moon-${_p[0]} history-moon-color" d=""></path>`;
-        history.classList.add('history-moon');
+        const hbtn = document.querySelector('#switch button.history span');
+        hbtn.innerHTML = `<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 216.2 216.2" class="history-moon"><path class="history-moon-${_p.phase}" d="" fill-rule="evenodd"></path></svg>`;
     }
 
-    let callback = mutations => {
+    let repel = mutations => {
         mutations.forEach(mutation => {
             if (mutation.attributeName === 'class') {
-               historymoon();
+               historymoon(); 
             }
         })
     }
 
-    var appendChild = Element.prototype.appendChild;
+    let appendChild = Element.prototype.appendChild;
     Element.prototype.appendChild = function () {
         if (this.tagName === 'BUTTON'){
             setTimeout(function() {
                 if (this.classList.contains('panelbtn') && this.classList.contains('history')) {
-                    _p = moonphase();
-                    this.title += '\n' + _p[1];
+                    _p = moon.phase();
+                    this.title += '\n' + _p.name + ' Moon';
                     historymoon();
-                    const mutationObserver = new MutationObserver(callback);
-                    mutationObserver.observe(this, {attributes: true});
+                    const moonwatch = new MutationObserver(repel);
+                    moonwatch.observe(this, {attributes: true});
                 }
             }.bind(this, arguments[0]));
         }
