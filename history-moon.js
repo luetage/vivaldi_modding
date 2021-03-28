@@ -5,8 +5,6 @@
 // Moon phase calculation adapted from https://minkukel.com/en/various/calculating-moon-phase/
 
 {
-    // History Moon
-
     let moon = {
         phases: [['New', 0, 1], ['Waxing Crescent', 1, 6.38264692644], ['First Quarter', 6.38264692644, 8.38264692644], ['Waxing Gibbous', 8.38264692644, 13.76529385288], ['Full', 13.76529385288, 15.76529385288], ['Waning Gibbous', 15.76529385288, 21.14794077932], ['Last Quarter', 21.14794077932, 23.14794077932], ['Waning Crescent', 23.14794077932, 28.53058770576], ['end', 28.53058770576, 29.53058770576]],
         phase: () => {
@@ -21,7 +19,7 @@
             for (let i = 0; i < 9; i++) {
                 if (age >= moon.phases[i][1] && age <= moon.phases[i][2]) {
                     if (i === 8) i = 0;
-                    return {phase: i, name: moon.phases[i][0], progress: Math.round(100 * frac)};
+                    return {phase: i, name: moon.phases[i][0], progress: Math.trunc(100 * frac)};
                 }
             }
         }

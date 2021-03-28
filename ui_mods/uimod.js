@@ -475,7 +475,7 @@
             for (let i = 0; i < 9; i++) {
                 if (age >= moon.phases[i][1] && age <= moon.phases[i][2]) {
                     if (i === 8) i = 0;
-                    return {phase: i, name: moon.phases[i][0], progress: Math.round(100 * frac)};
+                    return {phase: i, name: moon.phases[i][0], progress: Math.trunc(100 * frac)};
                 }
             }
         }
