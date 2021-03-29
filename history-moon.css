@@ -2,7 +2,7 @@
 #switch button.history svg:not(.history-moon) {
     display: none;
 }
-#switch button.history svg {
+.history-moon {
     width: 14px !important;
     height: 14px !important;
 }
