@@ -6,7 +6,7 @@
 
 {
     let moon = {
-        phases: [['New', 0, 1], ['Waxing Crescent', 1, 6.38264692644], ['First Quarter', 6.38264692644, 8.38264692644], ['Waxing Gibbous', 8.38264692644, 13.76529385288], ['Full', 13.76529385288, 15.76529385288], ['Waning Gibbous', 15.76529385288, 21.14794077932], ['Last Quarter', 21.14794077932, 23.14794077932], ['Waning Crescent', 23.14794077932, 28.53058770576], ['end', 28.53058770576, 29.53058770576]],
+        phases: [['New', 0, 1], ['Waxing Crescent', 1, 6.38264692644], ['First Quarter', 6.38264692644, 8.38264692644], ['Waxing Gibbous', 8.38264692644, 13.76529385288], ['Full', 13.76529385288, 15.76529385288], ['Waning Gibbous', 15.76529385288, 21.14794077932], ['Last Quarter', 21.14794077932, 23.14794077932], ['Waning Crescent', 23.14794077932, 28.53058770576], ['', 28.53058770576, 29.53058770576]],
         phase: () => {
             const lunarcycle = 29.53058770576;
             const lunartime = lunarcycle * 86400;
@@ -41,12 +41,12 @@
         if (this.tagName === 'BUTTON') {
             setTimeout(function() {
                 if (this.classList.contains('panelbtn') && this.classList.contains('history')) {
-                    const p = moon.phase();
-                    historymoon(p.phase);
-                    this.title += '\n' + p.name + ' Moon ' + p.progress + '%';
-                    const mw = (mutations) => moonwatch(mutations, p.phase);
-                    const resist = new MutationObserver(mw);
-                    resist.observe(this, {attributes: true});
+                    const lc = moon.phase();
+                    historymoon(lc.phase);
+                    this.title += '\n' + lc.name + ' Moon ' + lc.progress + '%';
+                    const mw = mutations => moonwatch(mutations, lc.phase);
+                    const watch = new MutationObserver(mw);
+                    watch.observe(this, {attributes: true});
                 }
             }.bind(this, arguments[0]));
         }

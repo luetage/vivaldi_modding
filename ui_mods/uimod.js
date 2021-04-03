@@ -426,7 +426,7 @@
             var sendit = `
                 html {
                     background-image: linear-gradient(to bottom, transparent 50%, ${bg} 50%), linear-gradient(to right, ${bgdark} 50%, ${bg} 50%) !important;
-                    background-size: 10px 10px, 10px 10px !important;
+                    background-size: 10px 10px, 10px 10pt !important;
                 }
                 .label, #company {
                     color: ${fgintense};
@@ -462,12 +462,12 @@
     // History Moon
 
     let moon = {
-        phases: [['New', 0, 1], ['Waxing Crescent', 1, 6.38264692644], ['First Quarter', 6.38264692644, 8.38264692644], ['Waxing Gibbous', 8.38264692644, 13.76529385288], ['Full', 13.76529385288, 15.76529385288], ['Waning Gibbous', 15.76529385288, 21.14794077932], ['Last Quarter', 21.14794077932, 23.14794077932], ['Waning Crescent', 23.14794077932, 28.53058770576], ['end', 28.53058770576, 29.53058770576]],
+        phases: [['New', 0, 1], ['Waxing Crescent', 1, 6.38264692644], ['First Quarter', 6.38264692644, 8.38264692644], ['Waxing Gibbous', 8.38264692644, 13.76529385288], ['Full', 13.76529385288, 15.76529385288], ['Waning Gibbous', 15.76529385288, 21.14794077932], ['Last Quarter', 21.14794077932, 23.14794077932], ['Waning Crescent', 23.14794077932, 28.53058770576], ['', 28.53058770576, 29.53058770576]],
         phase: () => {
             const lunarcycle = 29.53058770576;
-            const lunartime = lunarcycle * (24 * 60 * 60);
-            const unixtime = Math.floor(Date.now()/1000);
-            const newmoon = 1610514000;
+            const lunartime = lunarcycle * 86400;
+            const unixtime = Math.round(Date.now()/1000);
+            const newmoon = 947182440;
             const diff = unixtime - newmoon;
             const mod = diff % lunartime;
             const frac = mod / lunartime;
@@ -475,28 +475,26 @@
             for (let i = 0; i < 9; i++) {
                 if (age >= moon.phases[i][1] && age <= moon.phases[i][2]) {
                     if (i === 8) i = 0;
-                    return {phase: i, name: moon.phases[i][0], progress: Math.trunc(100 * frac)};
+                    return {phase: i, name: moon.phases[i][0], progress: Math.trunc(frac * 100)};
                 }
             }
         }
     }
 
-    let historymoon = () => {
+    let historymoon = phase => {
         const hbtn = document.querySelector('#switch button.history span');
-        hbtn.innerHTML = `<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 216.2 216.2" class="history-moon"><path class="history-moon-${_p.phase}" d="" fill-rule="evenodd"></path></svg>`;
+        hbtn.innerHTML = `<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 216.2 216.2" class="history-moon"><path class="history-moon-${phase}" d="" fill-rule="evenodd"></path></svg>`;
     }
 
-    let repel = mutations => {
+    let moonwatch = (mutations, phase) => {
         mutations.forEach(mutation => {
-            if (mutation.attributeName === 'class') {
-               historymoon(); 
-            }
+            if (mutation.attributeName === 'class') historymoon(phase);
         })
     }
 
     /*------ end of function block ------*/
 
-    
+
     const tabScrollScript = '!' + function () {
         var offset = window.pageYOffset;
         if (offset > 0) {
@@ -512,29 +510,26 @@
     Element.prototype.appendChild = function () {
         if (arguments[0].tagName === 'BUTTON'){
             setTimeout(function() {
-                if (this.classList.contains('profile-popup')) {
-                    profileImage(arguments[0]);
-                }
+                if (this.classList.contains('profile-popup')) profileImage(arguments[0]);
             }.bind(this, arguments[0]));
         }
         if (this.tagName === 'BUTTON') {
             setTimeout(function() {
-                if (this.classList.contains('panelbtn') && this.classList.contains('mail')) {
-                    this.title = 'M3';
-                }
+                if (this.classList.contains('panelbtn') && this.classList.contains('mail')) this.title = 'M3';
                 if (this.classList.contains('panelbtn') && this.classList.contains('history')) {
-                    _p = moon.phase();
-                    historymoon();
-                    this.title += '\n' + _p.name + ' Moon ' + _p.progress + '%';
-                    const moonwatch = new MutationObserver(repel);
-                    moonwatch.observe(this, {attributes: true});
+                    const lc = moon.phase();
+                    historymoon(lc.phase);
+                    this.title += '\n' + lc.name + ' Moon ' + lc.progress + '%';
+                    const mw = mutations => moonwatch(mutations, lc.phase);
+                    const watch = new MutationObserver(mw);
+                    watch.observe(this, {attributes: true});
                 }
             }.bind(this, arguments[0]));
         }
         if (arguments[0].tagName === 'DIV') {
             setTimeout(function() {
                 if (arguments[0].classList.contains('tab-header')) {
-                    const trigger = (event) => tabScroll(event, arguments[0]);
+                    const trigger = event => tabScroll(event, arguments[0]);
                     arguments[0].addEventListener('mousedown', trigger);
                 }
             }.bind(this, arguments[0]));
@@ -545,12 +540,8 @@
     const settingsUrl = 'chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=';
     const _themeBtn = '.setting-group.unlimited > .toolbar.toolbar-default > .button-toolbar > button';
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-        if (changeInfo.url === `${settingsUrl}search`) {
-            setTimeout(searchEngines, 100);
-        }
-        else if (changeInfo.url === `${settingsUrl}themes`) {
-            setTimeout(portThemes, 100);
-        }
+        if (changeInfo.url === `${settingsUrl}search`) setTimeout(searchEngines, 100);
+        else if (changeInfo.url === `${settingsUrl}themes`) setTimeout(portThemes, 100);
         else if (changeInfo.url === 'chrome://version/' || changeInfo.title === 'About Version' || changeInfo.url === 'about:blank') {
             intpages(tabId, changeInfo.url);
         }
