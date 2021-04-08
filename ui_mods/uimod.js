@@ -472,6 +472,7 @@
             const mod = diff % lunartime;
             const frac = mod / lunartime;
             const age = frac * lunarcycle;
+            console.log('moon age: ' + age);
             for (let i = 0; i < 9; i++) {
                 if (age >= moon.phases[i][1] && age <= moon.phases[i][2]) {
                     if (i === 8) i = 0;
@@ -519,7 +520,7 @@
                 if (this.classList.contains('panelbtn') && this.classList.contains('history')) {
                     const lc = moon.phase();
                     historymoon(lc.phase);
-                    this.title += '\n' + lc.name + ' Moon ' + lc.progress + '%';
+                    this.title += `\n${lc.name} Moon ${lc.progress}%`;
                     const mw = mutations => moonwatch(mutations, lc.phase);
                     const watch = new MutationObserver(mw);
                     watch.observe(this, {attributes: true});

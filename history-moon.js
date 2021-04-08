@@ -43,7 +43,7 @@
                 if (this.classList.contains('panelbtn') && this.classList.contains('history')) {
                     const lc = moon.phase();
                     historymoon(lc.phase);
-                    this.title += '\n' + lc.name + ' Moon ' + lc.progress + '%';
+                    this.title += `\n${lc.name} Moon ${lc.progress}%`;
                     const mw = mutations => moonwatch(mutations, lc.phase);
                     const watch = new MutationObserver(mw);
                     watch.observe(this, {attributes: true});
