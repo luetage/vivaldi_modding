@@ -1,3 +1,7 @@
+/* bookmark dropdown */
+.BookmarkPopup-LocationSelector {
+    height: 330px;
+}
 
 /* internal pages */
 .startpage .startpage-content, .Experiments {

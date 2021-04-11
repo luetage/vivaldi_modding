@@ -45,7 +45,7 @@
             const oldestFirst = autosavesOnly.sort((a,b) => {return a.createDateJS - b.createDateJS;});
 
             /* create the new session */
-            const name = prefix + Date.now();
+            const name = prefix + Math.round(Date.now()/1000);
             /* final sanity check */
             if (!isValidName(name)){
                 throw new Error("[Autosave Sessions] Cannot name a session as " + name);
