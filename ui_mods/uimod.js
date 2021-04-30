@@ -32,6 +32,17 @@
         }
     }
 
+    const tabScrollScript = '!' + function () {
+        let offset = window.pageYOffset;
+        if (offset > 0) {
+            window.sessionStorage.setItem('tabOffset',offset);
+            window.scrollTo(0,0);
+        }
+        else {
+            window.scrollTo(0,window.sessionStorage.getItem('tabOffset')||0);
+        }
+    } + '();';
+
 
     // Theme Import and Export
 
@@ -496,17 +507,6 @@
     /*------ end of function block ------*/
 
 
-    const tabScrollScript = '!' + function () {
-        var offset = window.pageYOffset;
-        if (offset > 0) {
-            window.sessionStorage.setItem('tabOffset',offset);
-            window.scrollTo(0,0);
-        }
-        else {
-            window.scrollTo(0,window.sessionStorage.getItem('tabOffset')||0);
-        }
-    } + '();';
-
     let appendChild = Element.prototype.appendChild;
     Element.prototype.appendChild = function () {
         if (arguments[0].tagName === 'BUTTON'){
@@ -522,8 +522,7 @@
                     historymoon(lc.phase);
                     this.title += `\n${lc.name} Moon ${lc.progress}%`;
                     const mw = mutations => moonwatch(mutations, lc.phase);
-                    const watch = new MutationObserver(mw);
-                    watch.observe(this, {attributes: true});
+                    new MutationObserver(mw).observe(this, {attributes: true});
                 }
             }.bind(this, arguments[0]));
         }
@@ -556,3 +555,4 @@ window.gnoh=Object.assign(window.gnoh||{},{tabs:{getAllInWindow:function(){let e
 // Autosave sessions
 // Written by LonM
 !function(){"use strict";const e={delay:"Period (minutes)",restart:"This setting requires a restart to take full effect.",maxoldsessions:"Old Sessions Count",prefix:"Prefix",prefixdesc:"A unique prefix made up of the following characters: A-Z 0-9 _",saveprivate:"Save Private Windows"};let t={};function i(e){vivaldi.sessionsPrivate.getAll(i=>{const n=e?"PRIV":"",o=t.LONM_SESSION_AUTOSAVE_PREFIX+n,s=t.LONM_SESSION_AUTOSAVE_MAX_OLD_SESSIONS,a=i.filter(e=>0===e.name.indexOf(o)).sort((e,t)=>e.createDateJS-t.createDateJS),r=o+Math.round(Date.now()/1000);if(!function(e){return/^[^\\\/:\*\?"<>\|]+$/.test(e)&&!/^\./.test(e)&&!/^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i.test(e)}(r))throw new Error("[Autosave Sessions] Cannot name a session as "+r);vivaldi.sessionsPrivate.saveOpenTabs(r,{saveOnlyWindowId:0},()=>{});let d=a.length+1,c=0;for(;d>s;)vivaldi.sessionsPrivate.delete(a[c].name,()=>{}),c++,d--})}function n(){chrome.storage.local.get("LONM_SESSION_AUTOSAVE_LAST_WINDOW",e=>{const t=e.LONM_SESSION_AUTOSAVE_LAST_WINDOW;window.vivaldiWindowId!==t?chrome.windows.getAll(e=>{e.find(e=>e.id===t)||chrome.storage.local.set({LONM_SESSION_AUTOSAVE_LAST_WINDOW:window.vivaldiWindowId},()=>{i()})}):i()})}function o(){chrome.storage.local.get("LONM_SESSION_AUTOSAVE_LAST_PRIV_WINDOW",e=>{const t=e.LONM_SESSION_AUTOSAVE_LAST_PRIV_WINDOW;window.vivaldiWindowId!==t?chrome.windows.getAll(e=>{e.find(e=>e.id===t)||chrome.storage.local.set({LONM_SESSION_AUTOSAVE_LAST_PRIV_WINDOW:window.vivaldiWindowId},()=>{i(!0)})}):i(!0)})}const s="chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=general";function a(){const e=document.querySelector(".vivaldi-settings .settings-content section"),i=document.getElementById("lonmAutosaveSessionsSettings");if(e){if(!i){const i=document.createElement("section");i.className="setting-section",i.id="lonmAutosaveSessionsSettings";const n=document.createElement("div");n.insertAdjacentHTML("beforeend","<h2>Autosave Sessions Mod</h2>"),r.forEach(e=>{n.appendChild(function(e){const i=t[e.id],n=document.createElement("div");n.className="setting-single";const o=document.createElement("h3");if(o.innerText=e.title,n.appendChild(o),e.description){const t=document.createElement("p");t.className="info",t.innerText=e.description,n.appendChild(t)}const s=document.createElement("input");switch(s.id=e.id,s.value=i,s.autocomplete="off",s.autocapitalize="off",s.autocorrect="off",s.spellcheck="off",e.type){case Number:s.type="number";break;case String:s.type="text";break;case Boolean:s.type="checkbox",i&&(s.checked="checked");break;default:throw Error("Unknown setting type!")}e.max&&(s.max=e.max);e.min&&(s.min=e.min);e.pattern&&(s.pattern=e.pattern);return s.addEventListener("input",function(e){"checkbox"===e.target.type?t[this.id]=e.target.checked:(e.target.checkValidity(),e.target.reportValidity()&&""!==e.target.value&&(t[this.id]=e.target.value)),chrome.storage.local.set(t)}.bind(e)),n.appendChild(s),n}(e))}),i.appendChild(n),e.insertAdjacentElement("afterbegin",i)}}else setTimeout(a,1e3)}const r=[{id:"LONM_SESSION_AUTOSAVE_DELAY_MINUTES",type:Number,min:1,max:void 0,default:5,title:e.delay,description:e.restart},{id:"LONM_SESSION_AUTOSAVE_MAX_OLD_SESSIONS",type:Number,min:1,max:void 0,default:5,title:e.maxoldsessions},{id:"LONM_SESSION_AUTOSAVE_PREFIX",type:String,pattern:"[\\w_]{0,20}",default:"VSESAUTOSAVE_",title:e.prefix,description:e.prefixdesc},{id:"LONM_SESSION_SAVE_PRIVATE_WINDOWS",type:Boolean,default:!1,title:e.saveprivate,description:e.restart}];function d(){window.vivaldiWindowId?chrome.windows.getCurrent(e=>{e.incognito||chrome.storage.local.set({LONM_SESSION_AUTOSAVE_LAST_WINDOW:e.vivaldiWindowId},()=>{setInterval(n,60*t.LONM_SESSION_AUTOSAVE_DELAY_MINUTES*1e3)}),t.LONM_SESSION_SAVE_PRIVATE_WINDOWS&&e.incognito&&chrome.storage.local.set({LONM_SESSION_AUTOSAVE_LAST_PRIV_WINDOW:e.vivaldiWindowId},()=>{setInterval(o,60*t.LONM_SESSION_AUTOSAVE_DELAY_MINUTES*1e3)}),chrome.tabs.onUpdated.addListener(function(e,t,i){t.url===s&&a()})}):setTimeout(d,500)}!function(){const e=r.reduce((e,t)=>(e[t.id]=t.default,e),{});chrome.storage.local.get(e,e=>{t=e,setTimeout(d,500)})}()}();
+
