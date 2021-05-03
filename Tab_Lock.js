@@ -1,5 +1,5 @@
 // Tab Lock
-// https://forum.vivaldi.net/topic/30957/tab-lock
+// https://forum.vivaldi.net/topic/30957/tab-lock/24
 // Throws a warning when you try to navigate.
 
 window.addEventListener('beforeunload', event => {

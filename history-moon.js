@@ -16,7 +16,7 @@
             const mod = diff % lunartime;
             const frac = mod / lunartime;
             const age = frac * lunarcycle;
-            for (let i = 0; i < 9; i++) {
+            for (let i = 0; i < moon.phases.length; i++) {
                 if (age >= moon.phases[i][1] && age <= moon.phases[i][2]) {
                     if (i === 8) i = 0;
                     return {phase: i, name: moon.phases[i][0], progress: Math.trunc(frac * 100)};
