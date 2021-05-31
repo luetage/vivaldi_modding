@@ -93,8 +93,6 @@
 .history-moon {
     width: 14px !important;
     height: 14px !important;
-    transform: scale(-1,1);
-    transform-origin: center;
 }
 .history-moon-0 {
     d: path("M216.2,108.1 A108.1,108.1 0 0 1 108.1,216.2 A108.1,108.1 0 0 1 0,108.1 A108.1,108.1 0 0 1 108.1,0 A108.1,108.1 0 0 1 216.2,108.1 z");
