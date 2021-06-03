@@ -609,7 +609,7 @@
         const browser = document.getElementById('browser');
         if (browser) {
             accentmod();
-            chrome.storage.onChanged.addListener((ch) => {
+            chrome.storage.onChanged.addListener(ch => {
                 if (ch.THEME_CURRENT || ch.USE_TABCOLOR || ch.BROWSER_COLOR_ACCENT_BG ||
                     ch.BROWSER_COLOR_BG || ch.BROWSER_COLOR_FG) {
                     accentmod();
