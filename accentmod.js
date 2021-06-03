@@ -1,6 +1,6 @@
 // Accent Mod
-// https://forum.vivaldi.net/topic/58821/project-history-moon/
-// Use theme foreground or background colors instead of fixed accent foreground color.
+// https://forum.vivaldi.net/topic/61827/accent-mod
+// Use theme foreground or background color instead of fixed accent foreground color.
 // Depends on the installation of additional CSS code (accentmod.css).
 
 {
