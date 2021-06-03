@@ -6,6 +6,8 @@ This repository is a collection of mods I have written for the [**Vivaldi web br
 
 ## Actively maintained mods
 
+* `accentmod.js`
+* `accentmod.css`
 * `addressbar-theming.css`
 * `backup-search-engines.js`
 * `changing-buttons.css`
