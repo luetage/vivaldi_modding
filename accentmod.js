@@ -59,7 +59,7 @@
         })
     }
 
-    setTimeout(wait => {
+    setTimeout(function wait() {
         const browser = document.getElementById('browser');
         if (browser) {
             accentmod();
