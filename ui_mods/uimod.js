@@ -617,7 +617,7 @@
             })
         }
         else setTimeout(wait, 300);
-    },300)
+    }, 300)
 }
 
 // Restore methods for chrome.tabs
