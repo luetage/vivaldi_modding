@@ -558,9 +558,6 @@
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>{
         if (changeInfo.url === `${settingsUrl}search`) setTimeout(searchEngines, 100);
         else if (changeInfo.url === `${settingsUrl}themes`) setTimeout(portThemes, 100);
-        else if (changeInfo.url === 'chrome://version/' || changeInfo.title === 'About Version' || changeInfo.url === 'about:blank') {
-            intpages(tabId, changeInfo.url);
-        }
     })
 
     setTimeout(function wait() {

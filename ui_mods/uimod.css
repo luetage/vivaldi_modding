@@ -59,17 +59,6 @@
 .toggle-trash.button-toolbar button svg path {
     d: path("M 6.5 8 h13 v2 h-13 Z M 6.5 12 h13 v2 h-13 Z M 9 16 h8 v2 h-8 Z");
 }
-.tab[title="Start Page"] .favicon.jstest-favicon-image.svg svg path {
-    d: path("M7,12h9v2h-9Z");
-}
-.tab[title="Start Page"] .title {
-    text-indent: -9999px;
-}
-.tab[title="Start Page"] .title::after {
-    display: block;
-    text-indent: 0px;
-    content: "startpage";
-}
 #mail_panel h1 {
     text-indent: -9999px;
 }
