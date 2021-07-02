@@ -520,6 +520,14 @@
         })
     }
 
+    let version = () => {
+        setTimeout(() => {
+            vivaldi.utilities.getVersion(version => {
+                navigator.clipboard.writeText(`Linux ${version.vivaldiVersion}`);
+            })
+        }, 100)
+    }
+
     /*------ end of function block ------*/
 
 
@@ -570,6 +578,7 @@
                     accentmod();
                 }
             })
+            document.querySelector('#switch .bookmarks').addEventListener('click', version);
         }
         else setTimeout(wait, 300);
     }, 300)
