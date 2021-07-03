@@ -531,9 +531,6 @@
                 navigator.clipboard.writeText(`Linux ${version.vivaldiVersion}`);
                 foc.blur();
             })
-        },
-        'Alt+U': () => { // blur focus
-            document.activeElement.blur();
         }
     }
 
