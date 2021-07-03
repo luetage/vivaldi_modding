@@ -520,12 +520,25 @@
         })
     }
 
-    let version = () => {
-        setTimeout(() => {
+
+    // Custom Shortcuts by LonM
+
+    const SHORTCUTS = {
+        'Alt+Y': () => { // get version
+            const foc = document.querySelector('.window-close');
+            foc.focus();
             vivaldi.utilities.getVersion(version => {
                 navigator.clipboard.writeText(`Linux ${version.vivaldiVersion}`);
+                foc.blur();
             })
-        }, 100)
+        }
+    }
+
+    function keyCombo(combination, extras){
+        const customShortcut = SHORTCUTS[combination];
+        if(customShortcut){
+            customShortcut();
+        }
     }
 
     /*------ end of function block ------*/
@@ -578,7 +591,7 @@
                     accentmod();
                 }
             })
-            document.querySelector('#switch .bookmarks').addEventListener('click', version);
+            vivaldi.tabsPrivate.onKeyboardShortcut.addListener(keyCombo);
         }
         else setTimeout(wait, 300);
     }, 300)
