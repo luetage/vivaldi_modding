@@ -13,40 +13,6 @@
     }
 
 
-    // Tab Scroll
-
-    function tabScrollExit(tab) {
-        tab.removeEventListener('mousemove', tabScrollExit);
-        tab.removeEventListener('click', tabScrollTrigger);
-    }
-
-    function tabScrollTrigger(tab) {
-        chrome.scripting.executeScript({
-            target: {tabId: Number(tab.parentNode.id.replace(/\D/g, ''))},
-            function: tabScrollScript
-            })
-        tabScrollExit(tab)
-    }
-
-    function tabScroll(e, tab) {
-        if (tab.parentNode.classList.contains('active') && e.which === 1 && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
-            tab.addEventListener('mousemove', tabScrollExit(tab));
-            tab.addEventListener('click', tabScrollTrigger(tab));
-        }
-    }
-
-    const tabScrollScript = () => {
-        let offset = window.pageYOffset;
-        if (offset > 0) {
-            window.sessionStorage.setItem('tabOffset',offset);
-            window.scrollTo(0,0);
-        }
-        else {
-            window.scrollTo(0,window.sessionStorage.getItem('tabOffset')||0);
-        }
-    }
-
-
     // Theme Import and Export
 
     function _checkImport() { // written by tam710562
@@ -561,14 +527,6 @@
                     this.title += `\n${lc.name} Moon ${lc.progress}%`;
                     const mw = mutations => moonwatch(mutations, lc.phase);
                     new MutationObserver(mw).observe(this, {attributes: true});
-                }
-            }.bind(this, arguments[0]));
-        }
-        if (arguments[0].tagName === 'DIV') {
-            setTimeout(function() {
-                if (arguments[0].classList.contains('tab-header')) {
-                    const trigger = event => tabScroll(event, arguments[0]);
-                    arguments[0].addEventListener('mousedown', trigger);
                 }
             }.bind(this, arguments[0]));
         }
