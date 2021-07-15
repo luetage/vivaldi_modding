@@ -535,9 +535,10 @@
 
     const settingsUrl = 'chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=';
     const _themeBtn = '.setting-group.unlimited > .toolbar.toolbar-default > .button-toolbar > button';
-    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>{
+    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         if (changeInfo.url === `${settingsUrl}search`) setTimeout(searchEngines, 100);
         else if (changeInfo.url === `${settingsUrl}themes`) setTimeout(portThemes, 100);
+        else if (changeInfo.url === `${settingsUrl}keyboard`) setTimeout(() => document.querySelector('.category.show button').click(), 100);
     })
 
     setTimeout(function wait() {
