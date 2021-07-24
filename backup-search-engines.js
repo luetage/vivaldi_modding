@@ -48,8 +48,9 @@
 
     function _backupSearch() {
         chrome.storage.local.get({'SEARCH_ENGINE_COLLECTION': ''}, function(back) {
-            const engines = back.SEARCH_ENGINE_COLLECTION;
-            const engineCode = JSON.stringify(engines);
+            const collection = back.SEARCH_ENGINE_COLLECTION;
+            collection.engines = collection.engines.filter(engine => engine.removed === false);
+            const engineCode = JSON.stringify(collection);
             navigator.clipboard.writeText(engineCode);
             _msgSearch('backup');
         })

@@ -15,6 +15,11 @@
     padding-right: 40px;
 }
 
+/* Disable dragging for Gnome 40 */
+#tabs-tabbar-container {
+    -webkit-app-region: no-drag;
+}
+
 /* address field theming */
 .UrlBar-AddressField .ContentBlocker-Control {
     display: none;
