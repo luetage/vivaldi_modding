@@ -50,6 +50,11 @@
         chrome.storage.local.get({'SEARCH_ENGINE_COLLECTION': ''}, function(back) {
             const collection = back.SEARCH_ENGINE_COLLECTION;
             collection.engines = collection.engines.filter(engine => engine.removed === false);
+            for (let i = 0; i < collection.engines.length; i++) {
+                collection.engines[i].historyId = i + 1;
+            }
+            collection.nextHistoryId = collection.engines.length + 1;
+            console.log(collection);
             const engineCode = JSON.stringify(collection);
             navigator.clipboard.writeText(engineCode);
             _msgSearch('backup');
