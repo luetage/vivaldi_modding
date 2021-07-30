@@ -498,10 +498,9 @@
     const SHORTCUTS = {
         'Alt+Y': () => { // get version
             const active = document.activeElement;
-            const ui = document.querySelector('.window-close');
-            const vs = vivaldi.utilities.getVersion(); 
-            ui.focus();
-            navigator.clipboard.writeText(`Linux ${vs.vivaldiVersion}`);
+            const version = vivaldi.utilities.getVersion(); 
+            document.querySelector('.vivaldi').focus();
+            navigator.clipboard.writeText(version.vivaldiVersion);
             setTimeout(() => active.focus(), 100);
         }
     }
