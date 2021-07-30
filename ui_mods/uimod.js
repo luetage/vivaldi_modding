@@ -499,11 +499,10 @@
         'Alt+Y': () => { // get version
             const active = document.activeElement;
             const ui = document.querySelector('.window-close');
-            vivaldi.utilities.getVersion(version => {
-                ui.focus();
-                navigator.clipboard.writeText(`Linux ${version.vivaldiVersion}`);
-                setTimeout(() => active.focus(), 100);
-            })
+            const vs = vivaldi.utilities.getVersion(); 
+            ui.focus();
+            navigator.clipboard.writeText(`Linux ${vs.vivaldiVersion}`);
+            setTimeout(() => active.focus(), 100);
         }
     }
 
