@@ -1,4 +1,5 @@
 // Activate Tab On Hover
+// version 2021.8.0
 // https://forum.vivaldi.net/topic/50354/create-a-new-mod-mouseover-tab-select/4
 // Activates tab on hover.
 
@@ -10,18 +11,8 @@
                 tab.removeEventListener('mouseleave', tab);
             })
             wait = setTimeout(function () {
-                if (tab.parentNode.parentNode.classList.contains('is-substack')) {
-                    const down = document.createEvent('MouseEvents');
-                    down.initEvent('mousedown', true, true);
-                    tab.dispatchEvent(down);
-                    const up = document.createEvent('MouseEvents');
-                    up.initEvent('mouseup',true,true);
-                    tab.dispatchEvent(up);
-                }
-                else {
-                    const id = Number(tab.parentNode.id.replace( /^\D+/g, ''));
-                    chrome.tabs.update(id, {active: true, highlighted: true});
-                }
+                const id = Number(tab.parentNode.id.replace( /^\D+/g, ''));
+                chrome.tabs.update(id, {active: true, highlighted: true});
             }, delay)
         }
     }
