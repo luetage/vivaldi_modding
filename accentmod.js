@@ -47,7 +47,7 @@
                 const lumAc = lum(rgbAc[0], rgbAc[1], rgbAc[2]);
                 const conAc1 = contrast(lumAc, lumBg);
                 const conAc2 = contrast(lumAc, lumFg);
-                if (browser.matches('.theme-dark.acc-dark') && conAc1 > conAc2 || 
+                if (browser.matches('.theme-dark.acc-dark') && conAc1 > conAc2 ||
                     browser.matches('.theme-light.acc-light') && conAc1 > conAc2 ||
                     browser.matches('.theme-dark.acc-light') && conAc2 > conAc1 ||
                     browser.matches('.theme-light.acc-dark') && conAc2 > conAc1) {
