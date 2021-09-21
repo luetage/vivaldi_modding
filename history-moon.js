@@ -1,5 +1,5 @@
 // History Moon
-// Version 2020.9.0
+// version 2021.9.0
 // https://forum.vivaldi.net/topic/58821/project-history-moon/
 // Displays the current moon phase in the panel, instead of the history clock
 // icon. Depends on the installation of additional CSS code (history-moon.css).
