@@ -1,6 +1,7 @@
 /*
 * Autosave Sessions (a mod for Vivaldi)
 * Written by LonM
+* V4.2: Luetage always init on setting general tab
 * V4.1: Attempt to retry if settings is not ready
 * v4 : Localise to current timezone, l10n
 * v3 : Has own settings section & support private windows again
@@ -34,6 +35,16 @@
     }
 
     /**
+     * Turns a date into a string that can be used in a file name
+     * Locale string seems to be the best at getting the correct time for any given timezone
+     * @param {Date} date object
+     */
+    function dateToFileSafeString(date){
+        const badChars = /[\\/:\*\?"<>\|]/gi;
+        return date.toLocaleString().replace(badChars, '.');
+    }
+
+    /**
      * Enable Autosaving sessions
      */
     function autoSaveSession(isPrivate){
@@ -41,11 +52,12 @@
             const priv = isPrivate ? "PRIV" : "";
             const prefix = CURRENT_SETTINGS["LONM_SESSION_AUTOSAVE_PREFIX"] + priv;
             const maxOld = CURRENT_SETTINGS["LONM_SESSION_AUTOSAVE_MAX_OLD_SESSIONS"];
+            const now = new Date();
             const autosavesOnly = allSessions.filter(x => x.name.indexOf(prefix)===0);
             const oldestFirst = autosavesOnly.sort((a,b) => {return a.createDateJS - b.createDateJS;});
 
             /* create the new session */
-            const name = prefix + Math.round(Date.now()/1000);
+            const name = prefix + dateToFileSafeString(now);
             /* final sanity check */
             if (!isValidName(name)){
                 throw new Error("[Autosave Sessions] Cannot name a session as " + name);
@@ -301,4 +313,3 @@
 
     loadSettingsAndInit();
 })();
-
