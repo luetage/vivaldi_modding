@@ -18,16 +18,16 @@ according topic on Vivaldi Forum.
 
 * [accentmod.js](accentmod.js)
 * [accentmod.css](accentmod.css)
-* [addressbar-theming.css]
-* [backup-search-engines.js]
-* [changing-buttons.css]
-* [history-moon.js]
-* [history-moon.css]
-* [import-export_themes.js]
-* [m3.css]
-* [profile-image.js]
-* [tab-scroll.js]
-* [Tab_Lock.js]
+* [addressbar-theming.css](addressbar-theming.css)
+* [backup-search-engines.js](backup-searchengines.js)
+* [changing-buttons.css](changing-buttons.css)
+* [history-moon.js](history-moon.js)
+* [history-moon.css](history-moon.css)
+* [import-export-themes.js](import-export-themes.js)
+* [m3.css](m3.css)
+* [profile-image.js](profile-image.js)
+* [tab-scroll.js](tab-scroll.js)
+* [Tab_Lock.js](Tab_Lock.js)
 
 ## How to
 
