@@ -16,18 +16,18 @@ according topic on Vivaldi Forum.
 
 ## Actively maintained mods
 
-* `accentmod.js`
-* `accentmod.css`
-* `addressbar-theming.css`
-* `backup-search-engines.js`
-* `changing-buttons.css`
-* `history-moon.js`
-* `history-moon.css`
-* `import-export_themes.js`
-* `m3.css`
-* `profile-image.js`
-* `tab-scroll.js`
-* `Tab_Lock.js`
+* [accentmod.js](accentmod.js)
+* [accentmod.css](accentmod.css)
+* [addressbar-theming.css]
+* [backup-search-engines.js]
+* [changing-buttons.css]
+* [history-moon.js]
+* [history-moon.css]
+* [import-export_themes.js]
+* [m3.css]
+* [profile-image.js]
+* [tab-scroll.js]
+* [Tab_Lock.js]
 
 ## How to
 
