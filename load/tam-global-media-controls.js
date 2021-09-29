@@ -135,6 +135,7 @@
     playlistMusic: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M15,6H3V8H15V6M15,10H3V12H15V10M3,16H11V14H3V16M17,6V14.18C16.69,14.07 16.35,14 16,14A3,3 0 0,0 13,17A3,3 0 0,0 16,20A3,3 0 0,0 19,17V8H22V6H17Z" /></svg>',
     play: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>',
     pause: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg>',
+    close: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>',
     pictureInPicture: {
       off: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M19,11H11V17H19V11M23,19V5C23,3.88 22.1,3 21,3H3A2,2 0 0,0 1,5V19A2,2 0 0,0 3,21H21A2,2 0 0,0 23,19M21,19H3V4.97H21V19Z" /></svg>',
       on: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M20.41 19L22.54 21.12L21.12 22.54L19 20.41L16.88 22.54L15.47 21.12L17.59 19L15.47 16.88L16.88 15.47L19 17.59L21.12 15.47L22.54 16.88L20.41 19M19 13C20.09 13 21.12 13.3 22 13.81V6C22 4.89 21.11 4 20 4H4C2.9 4 2 4.89 2 6V18C2 19.11 2.9 20 4 20H13.09C13.04 19.67 13 19.34 13 19C13 15.69 15.69 13 19 13Z" /></svg>'
@@ -162,13 +163,28 @@
             }
             break;
           case 'picture-in-picture':
-            if (document.pictureInPictureEnabled && currentVideo && !isHidden(currentVideo)) {
+            if (document.pictureInPictureEnabled) {
               if (document.pictureInPictureElement) {
                 document.exitPictureInPicture();
-              } else {
+              } else if (currentVideo && currentVideo.webkitAudioDecodedByteCount && currentVideo.webkitVideoDecodedByteCount) {
                 currentVideo.requestPictureInPicture();
               }
             }
+            break;
+          case 'close':
+            if (document.pictureInPictureEnabled && document.pictureInPictureElement) {
+              document.exitPictureInPicture();
+            }
+            currentVideo.setAttribute('global-media-controls', '');
+            currentVideo.removeEventListener('pause', pauseVideo);
+            function waitPause() {
+              currentVideo.removeEventListener('pause', waitPause);
+              currentVideo.addEventListener('pause', pauseVideo);
+              currentVideo = null;
+            }
+            currentVideo.addEventListener('pause', waitPause);
+            currentVideo.pause();
+            sendResponse();
             break;
         }
       }
@@ -194,12 +210,15 @@
     });
 
     function isPlaying(video) {
-      return !video.paused && !video.ended && video.getAttribute('global-media-controls');
+      console.log(!video.paused && !video.ended && video.webkitAudioDecodedByteCount && video.webkitVideoDecodedByteCount && video.getAttribute('global-media-controls'))
+      return !video.paused && !video.ended && video.webkitAudioDecodedByteCount && video.webkitVideoDecodedByteCount && video.getAttribute('global-media-controls');
     }
 
-    function getImage() {
+    function getImage(video) {
       let image = '';
-      if (navigator.mediaSession.metadata && navigator.mediaSession.metadata.artwork && navigator.mediaSession.metadata.artwork[0]) {
+      if (video.poster) {
+        image = video.poster;
+      } else if (navigator.mediaSession.metadata && navigator.mediaSession.metadata.artwork && navigator.mediaSession.metadata.artwork[0]) {
         image = navigator.mediaSession.metadata.artwork[0].src;
       }
       return image;
@@ -213,15 +232,10 @@
       return title;
     }
 
-
     function hasVideoPlaying() {
-      return Array.from(document.getElementsByTagName('video')).find(function (video) {
+      return Array.from(document.querySelectorAll('video, audio')).find(function (video) {
         return isPlaying(video);
       });
-    }
-
-    function isHidden(el) {
-      return el.offsetParent === null;
     }
 
     function timeupdateVideo(event) {
@@ -231,18 +245,19 @@
         event.target.setAttribute('global-media-controls', enable);
       }
       if (enable) {
-        if (event.target.paused && isHidden(event.target)) {
+        if (event.target.paused && !event.target.webkitAudioDecodedByteCount && !event.target.webkitVideoDecodedByteCount) {
           endedVideo(event);
         } else if (!event.target.paused) {
           currentVideo = event.target;
           chrome.runtime.sendMessage({
             type: 'global-media-controls',
-            image: getImage(),
+            image: getImage(event.target),
             title: getTitle(),
             tabId: tabId,
             windowId: windowId,
             frameId: frameId,
             paused: event.target.paused,
+            audio: !currentVideo.webkitVideoDecodedByteCount,
             pictureInPicture: !!document.pictureInPictureElement
           });
         }
@@ -252,18 +267,19 @@
     function pauseVideo(event) {
       const enable = event.target.getAttribute('global-media-controls');
       if (enable) {
-        if (isHidden(event.target)) {
+        if (!event.target.webkitAudioDecodedByteCount && !event.target.webkitVideoDecodedByteCount) {
           endedVideo(event);
         } else if (!hasVideoPlaying()) {
           currentVideo = event.target;
           chrome.runtime.sendMessage({
             type: 'global-media-controls',
-            image: getImage(),
+            image: getImage(event.target),
             title: getTitle(),
             tabId: tabId,
             windowId: windowId,
             frameId: frameId,
             paused: event.target.paused,
+            audio: !currentVideo.webkitVideoDecodedByteCount,
             pictureInPicture: !!document.pictureInPictureElement
           });
         }
@@ -294,6 +310,7 @@
           frameId: frameId,
           windowId: windowId,
           paused: event.target.paused,
+          audio: !currentVideo.webkitVideoDecodedByteCount,
           pictureInPicture: true
         });
       }
@@ -307,13 +324,14 @@
           frameId: frameId,
           windowId: windowId,
           paused: event.target.paused,
+          audio: !currentVideo.webkitVideoDecodedByteCount,
           pictureInPicture: false
         });
       }
     }
 
     function injectVideo() {
-      const videos = document.querySelectorAll('video:not([global-media-controls])');
+      const videos = document.querySelectorAll('video:not([global-media-controls]), audio:not([global-media-controls])');
 
       videos.forEach(function (video) {
         video.setAttribute('global-media-controls', '');
@@ -499,12 +517,12 @@
       setPictureInPicture(pictureInPicture) {
         if (typeof pictureInPicture !== 'undefined' && itemInfo.pictureInPicture !== pictureInPicture) {
           itemInfo.pictureInPicture = pictureInPicture;
+          itemInfo.buttonPictureInPicture.innerHTML = itemInfo.pictureInPicture ? icons.pictureInPicture.on : icons.pictureInPicture.off;
           if (itemInfo.pictureInPicture) {
             itemInfo.buttonPictureInPicture.classList.add('active');
           } else {
             itemInfo.buttonPictureInPicture.classList.remove('active');
           }
-          itemInfo.buttonPictureInPicture.innerHTML = itemInfo.pictureInPicture ? icons.pictureInPicture.on : icons.pictureInPicture.off;
         }
       },
       setActive(active) {
@@ -515,6 +533,16 @@
             itemInfo.buttonTab.classList.add('active', 'disabled');
           } else {
             itemInfo.buttonTab.classList.remove('active', 'disabled');
+          }
+        }
+      },
+      setAudio(audio) {
+        if (typeof audio !== 'undefined' && itemInfo.audio !== audio) {
+          itemInfo.audio = audio;
+          if (itemInfo.audio) {
+            itemInfo.buttonPictureInPicture.style.display = 'none';
+          } else {
+            itemInfo.buttonPictureInPicture.style.display = '';
           }
         }
       }
@@ -531,6 +559,25 @@
       }
     });
     itemInfo.setImage(info.image);
+    itemInfo.buttonClose = gnoh.createElement('button', {
+      type: 'button',
+      class: 'close-button',
+      html: icons.close,
+      tabindex: -1,
+      events: {
+        click: function (event) {
+          event.preventDefault();
+          chrome.tabs.sendMessage(itemInfo.tabId, {
+            type: 'global-media-controls',
+            tabId: itemInfo.tabId,
+            frameId: itemInfo.frameId,
+            action: 'close'
+          }, function () {
+            deleteItem(itemInfo.tabId);
+          });
+        }
+      }
+    });
     itemInfo.titleItem = gnoh.createElement('div', {
       class: 'title'
     });
@@ -573,11 +620,13 @@
       }
     });
     itemInfo.setPictureInPicture(info.pictureInPicture);
+    itemInfo.setAudio(info.audio);
     itemInfo.buttonTab = gnoh.createElement('button', {
       type: 'button',
       tabindex: -1,
       events: {
-        click: function () {
+        click: function (event) {
+          event.preventDefault();
           chrome.tabs.update(itemInfo.tabId, { active: true }, function () {
             chrome.windows.update(itemInfo.windowId, { focused: true });
           });
@@ -594,7 +643,7 @@
     }, null, [itemInfo.titleItem, itemInfo.domainItem, itemInfo.actionItem]);
     itemInfo.item = gnoh.createElement('div', {
       class: 'item',
-    }, panelContent, [itemInfo.contentItem, itemInfo.imageItem]);
+    }, panelContent, [itemInfo.contentItem, itemInfo.imageItem, itemInfo.buttonClose]);
     tabs[itemInfo.tabId] = itemInfo;
 
     const index = Object.keys(tabs).indexOf(itemInfo.tabId + '');
@@ -636,6 +685,7 @@
         tabs[info.tabId].setImage(info.image);
         tabs[info.tabId].setPaused(info.paused);
         tabs[info.tabId].setPictureInPicture(info.pictureInPicture);
+        tabs[info.tabId].setAudio(info.audio);
       }
     } else if (info.ended) {
       deleteItem(info.tabId);
@@ -658,16 +708,19 @@
     '[data-global-media-controls] .webpanel-header .toolbar { display: none; }',
     '[data-global-media-controls] .webpanel-content { display: none; }',
     '.global-media-controls-content { display: flex; flex-direction: column; overflow: auto; }',
-    '.global-media-controls-content .item { display: flex; overflow: hidden; min-height: 100px; background-color: var(--colorBg); color: var(--colorFg); }',
+    '.global-media-controls-content .item { position: relative; display: flex; overflow: hidden; min-height: 100px; background-color: var(--colorBg); color: var(--colorFg); }',
     '.global-media-controls-content .item .content { display: inline-grid; grid-template-rows: auto 1fr auto; flex: 1; padding: 10px; z-index: 1; }',
     '.global-media-controls-content .item .content .title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }',
     '.global-media-controls-content .item .content .action { display: flex; align-items: center; margin-top: auto; }',
-    '.global-media-controls-content .item .content .action button { background-color: var(--colorBgLightIntense); color: var(--colorFg); padding: 0; border: 0; width: 26px; height: 26px; border-radius: 13px; margin-right: 10px; border: 0; }',
-    '.global-media-controls-content .item .content .action button:hover { background-color: var(--colorBg); }',
-    '.global-media-controls-content .item .content .action button:active { background-color: var(--colorBgDark); }',
-    '.global-media-controls-content .item .content .action button.active { background-color: var(--colorHighlightBg); color: var(--colorHighlightFg); }',
-    '.global-media-controls-content .item .content .action button.disabled { pointer-events: none; }',
-    '.global-media-controls-content .item .content .action button svg { width: 14px; height: 14px; top: 2px; position: relative; }',
+    '.global-media-controls-content .item .content .action button { margin-right: 10px; }',
+    '.global-media-controls-content .item button { background-color: var(--colorBgLightIntense); color: var(--colorFg); padding: 0; border: 0; width: 26px; height: 26px; border-radius: 13px; border: 0; }',
+    '.global-media-controls-content .item button:hover { background-color: var(--colorBg); }',
+    '.global-media-controls-content .item button:active { background-color: var(--colorBgDark); }',
+    '.global-media-controls-content .item button.active { background-color: var(--colorHighlightBg); color: var(--colorHighlightFg); }',
+    '.global-media-controls-content .item button.disabled { pointer-events: none; }',
+    '.global-media-controls-content .item button svg { width: 14px; height: 14px; top: 2px; position: relative; }',
+    '.global-media-controls-content .item button.close-button { position: absolute; top: 6px; right: 6px; display: none; z-index: 1; }',
+    '.global-media-controls-content .item:hover button.close-button { display: block; }',
   ], 'global-media-controls');
 
   function updateIcon(webviewbtn) {
