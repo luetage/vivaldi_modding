@@ -21,6 +21,7 @@ according topic on Vivaldi Forum.
 * [addressbar-theming.css](addressbar-theming.css)
 * [backup-search-engines.js](backup-searchengines.js)
 * [changing-buttons.css](changing-buttons.css)
+* [collapse-keyboard-settings.js](collapse-keyboard-settings.js)
 * [history-moon.js](history-moon.js)
 * [history-moon.css](history-moon.css)
 * [import-export-themes.js](import-export-themes.js)
