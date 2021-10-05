@@ -26,7 +26,7 @@ according topic on Vivaldi Forum.
 * [history-moon.css](history-moon.css)
 * [import-export-themes.js](import-export-themes.js)
 * [m3.css](m3.css)
-* [profile-image.js](profile-image.js)
+* [profile-icon.js](profile-icon.js)
 * [tab-scroll.js](tab-scroll.js)
 * [Tab_Lock.js](Tab_Lock.js)
 

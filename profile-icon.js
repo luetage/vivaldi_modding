@@ -1,10 +1,10 @@
 // Profile Icon
 // version 2021.9.0
-// https://forum.vivaldi.net/topic/34952/choose-a-custom-profile-image/13
-// Exchanges the profile image in url bar for a regular svg icon utilizing
-// Vivaldi's theme colors. Credits to tam710562 for coming up with a solution
-// to reinstate the svg when the address bar is being toggled. Font Awesome 6
-// Free icon.
+// https://forum.vivaldi.net/topic/67122/profile-icon-mod
+// Exchanges your account/default profile image (sync), for a proper SVG icon
+// using theme colors. Credits to tam710562 for coming up with a solution to
+// reinstate the SVG when the address bar is being toggled. Icon: Font Awesome 6
+// Free.
 
 (function () {
   function profileIcon(icon) {
