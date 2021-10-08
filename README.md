@@ -23,7 +23,6 @@ according topic on Vivaldi Forum.
 * [changing-buttons.css](changing-buttons.css)
 * [collapse-keyboard-settings.js](collapse-keyboard-settings.js)
 * [history-moon.js](history-moon.js)
-* [history-moon.css](history-moon.css)
 * [import-export-themes.js](import-export-themes.js)
 * [m3.css](m3.css)
 * [profile-icon.js](profile-icon.js)

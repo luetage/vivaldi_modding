@@ -1,9 +1,8 @@
 // History Moon
-// version 2021.9.0
+// version 2021.10.0
 // https://forum.vivaldi.net/topic/58821/project-history-moon/
-// Displays the current moon phase in the panel, instead of the history clock
-// icon. Depends on the installation of additional CSS code (history-moon.css).
-// Moon phase calculation adapted from
+// Displays the current moon phase in the panel instead of the history clock
+// icon. Moon phase calculation adapted from
 // https://minkukel.com/en/various/calculating-moon-phase/
 
 (function () {
@@ -43,7 +42,108 @@
 
   let historymoon = (phase) => {
     const hbtn = document.querySelector("#switch button.history span");
-    hbtn.innerHTML = `<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 216.2 216.2" class="history-moon"><path class="history-moon-${phase}" d="" fill-rule="evenodd"></path></svg>`;
+    if (phase === 0) {
+      // new moon
+      hbtn.innerHTML = `
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
+          <circle cx="8" cy="8" r="8"/>
+          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+        </svg>
+      `;
+    } else if (phase === 1) {
+      // waxing crescent
+      hbtn.innerHTML = `
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
+          <defs>
+            <clipPath id="cut">
+              <rect x="10" y="0" width="6" height="16"/>
+            </clipPath>
+          </defs>
+          <circle cx="8" cy="8" r="8"/>
+          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
+        </svg>
+      `;
+    } else if (phase === 2) {
+      // first quarter
+      hbtn.innerHTML = `
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
+          <defs>
+            <clipPath id="cut">
+              <rect x="8" y="0" width="8" height="16"/>
+            </clipPath>
+          </defs>
+          <circle cx="8" cy="8" r="8"/>
+          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
+        </svg>
+      `;
+    } else if (phase === 3) {
+      // waxing gibbous
+      hbtn.innerHTML = `
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
+          <defs>
+            <clipPath id="cut">
+              <rect x="6" y="0" width="10" height="16"/>
+            </clipPath>
+          </defs>
+          <circle cx="8" cy="8" r="8"/>
+          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
+        </svg>
+      `;
+    } else if (phase === 4) {
+      // full moon
+      hbtn.innerHTML = `
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
+          <circle cx="8" cy="8" r="8"/>
+          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="5"/>
+        </svg>
+      `;
+    } else if (phase === 5) {
+      // waning gibbous
+      hbtn.innerHTML = `
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
+          <defs>
+            <clipPath id="cut">
+              <rect x="0" y="0" width="10" height="16"/>
+            </clipPath>
+          </defs>
+          <circle cx="8" cy="8" r="8"/>
+          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
+        </svg>
+      `;
+    } else if (phase === 6) {
+      // last quarter
+      hbtn.innerHTML = `
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
+          <defs>
+            <clipPath id="cut">
+              <rect x="0" y="0" width="8" height="16"/>
+            </clipPath>
+          </defs>
+          <circle cx="8" cy="8" r="8"/>
+          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
+        </svg>
+      `;
+    } else {
+      // waning crescent
+      hbtn.innerHTML = `
+        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
+          <defs>
+            <clipPath id="cut">
+              <rect x="0" y="0" width="6" height="16"/>
+            </clipPath>
+          </defs>
+          <circle cx="8" cy="8" r="8"/>
+          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
+        </svg>
+      `;
+    }
   };
 
   let moonwatch = (mutations, phase) => {
@@ -74,3 +174,4 @@
     return appendChild.apply(this, arguments);
   };
 })();
+)();
