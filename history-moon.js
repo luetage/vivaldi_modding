@@ -174,4 +174,3 @@
     return appendChild.apply(this, arguments);
   };
 })();
-)();
