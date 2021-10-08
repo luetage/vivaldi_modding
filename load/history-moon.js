@@ -46,8 +46,8 @@
       // new moon
       hbtn.innerHTML = `
         <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <circle cx="8" cy="8" r="8"/>
-          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8" cy="8" r="6" fill="none"/>
         </svg>
       `;
     } else if (phase === 1) {
@@ -59,8 +59,8 @@
               <rect x="10" y="0" width="6" height="16"/>
             </clipPath>
           </defs>
-          <circle cx="8" cy="8" r="8"/>
-          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8" cy="8" r="6" fill="none"/>
           <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
         </svg>
       `;
@@ -73,8 +73,8 @@
               <rect x="8" y="0" width="8" height="16"/>
             </clipPath>
           </defs>
-          <circle cx="8" cy="8" r="8"/>
-          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8" cy="8" r="6" fill="none"/>
           <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
         </svg>
       `;
@@ -87,8 +87,8 @@
               <rect x="6" y="0" width="10" height="16"/>
             </clipPath>
           </defs>
-          <circle cx="8" cy="8" r="8"/>
-          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8" cy="8" r="6" fill="none"/>
           <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
         </svg>
       `;
@@ -96,8 +96,8 @@
       // full moon
       hbtn.innerHTML = `
         <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <circle cx="8" cy="8" r="8"/>
-          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8" cy="8" r="6" fill="none"/>
           <circle cx="8" cy="8" r="5"/>
         </svg>
       `;
@@ -110,8 +110,8 @@
               <rect x="0" y="0" width="10" height="16"/>
             </clipPath>
           </defs>
-          <circle cx="8" cy="8" r="8"/>
-          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8" cy="8" r="6" fill="none"/>
           <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
         </svg>
       `;
@@ -124,8 +124,8 @@
               <rect x="0" y="0" width="8" height="16"/>
             </clipPath>
           </defs>
-          <circle cx="8" cy="8" r="8"/>
-          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8" cy="8" r="6" fill="none"/>
           <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
         </svg>
       `;
@@ -138,8 +138,8 @@
               <rect x="0" y="0" width="6" height="16"/>
             </clipPath>
           </defs>
-          <circle cx="8" cy="8" r="8"/>
-          <circle cx="8" cy="8" r="6" fill="var(--colorBgAlphaBlur)"/>
+          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="8" cy="8" r="6" fill="none"/>
           <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
         </svg>
       `;
