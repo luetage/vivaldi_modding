@@ -1,4 +1,3 @@
-
 // History Moon
 // version 2021.10.0
 // https://forum.vivaldi.net/topic/58821/project-history-moon/
@@ -58,16 +57,18 @@
       [0, 8],
       [0, 6],
     ];
-    document.querySelector("#switch button.history svg").innerHTML = `
-      <defs>
-        <clipPath id="cut">
-          <rect x="${icon[p][0]}" y="0" width="${icon[p][1]}" height="16"/>
-        </clipPath>
-      </defs>
-      <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-      <circle cx="8" cy="8" r="6" fill="none"/>
-      <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-    ;`;
+    document.querySelector("#switch button.history span").innerHTML = `
+      <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="cut">
+            <rect x="${icon[p][0]}" y="0" width="${icon[p][1]}" height="16"/>
+          </clipPath>
+        </defs>
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8" cy="8" r="6" fill="none"/>
+        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
+      </svg>
+    `;
   };
 
   let moonwatch = (mutations, phase) => {
@@ -97,4 +98,3 @@
     return appendChild.apply(this, arguments);
   };
 })();
-)();
