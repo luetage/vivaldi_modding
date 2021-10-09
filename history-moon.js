@@ -6,6 +6,7 @@
 // https://minkukel.com/en/various/calculating-moon-phase/
 
 (function () {
+  let hemisphere = "northern"; //northern or southern
   let moon = {
     phases: [
       ["New", 0, 1],
@@ -41,107 +42,88 @@
   };
 
   let historymoon = (phase) => {
-    const hbtn = document.querySelector("#switch button.history span");
-    if (phase === 0) {
-      // new moon
+    let p = 0;
+    if (hemisphere === "southern") {
+      let pa = [0, 7, 6, 5, 4, 3, 2, 1];
+      p = pa[phase];
+    } else p = phase;
+    const hbtn = document.querySelector("#switch button.history svg");
+    if (p === 0) {
       hbtn.innerHTML = `
-        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="8" cy="8" r="6" fill="none"/>
-        </svg>
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8" cy="8" r="6" fill="none"/>
       `;
-    } else if (phase === 1) {
-      // waxing crescent
+    } else if (p === 1) {
       hbtn.innerHTML = `
-        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <defs>
-            <clipPath id="cut">
-              <rect x="10" y="0" width="6" height="16"/>
-            </clipPath>
-          </defs>
-          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="8" cy="8" r="6" fill="none"/>
-          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-        </svg>
+        <defs>
+          <clipPath id="cut">
+            <rect x="10" y="0" width="6" height="16"/>
+          </clipPath>
+        </defs>
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8" cy="8" r="6" fill="none"/>
+        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
       `;
-    } else if (phase === 2) {
-      // first quarter
+    } else if (p === 2) {
       hbtn.innerHTML = `
-        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <defs>
-            <clipPath id="cut">
-              <rect x="8" y="0" width="8" height="16"/>
-            </clipPath>
-          </defs>
-          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="8" cy="8" r="6" fill="none"/>
-          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-        </svg>
+        <defs>
+          <clipPath id="cut">
+            <rect x="8" y="0" width="8" height="16"/>
+          </clipPath>
+        </defs>
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8" cy="8" r="6" fill="none"/>
+        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
       `;
-    } else if (phase === 3) {
-      // waxing gibbous
+    } else if (p === 3) {
       hbtn.innerHTML = `
-        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <defs>
-            <clipPath id="cut">
-              <rect x="6" y="0" width="10" height="16"/>
-            </clipPath>
-          </defs>
-          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="8" cy="8" r="6" fill="none"/>
-          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-        </svg>
+        <defs>
+          <clipPath id="cut">
+            <rect x="6" y="0" width="10" height="16"/>
+          </clipPath>
+        </defs>
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8" cy="8" r="6" fill="none"/>
+        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
       `;
-    } else if (phase === 4) {
-      // full moon
+    } else if (p === 4) {
       hbtn.innerHTML = `
-        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="8" cy="8" r="6" fill="none"/>
-          <circle cx="8" cy="8" r="5"/>
-        </svg>
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8" cy="8" r="6" fill="none"/>
+        <circle cx="8" cy="8" r="5"/>
       `;
-    } else if (phase === 5) {
-      // waning gibbous
+    } else if (p === 5) {
       hbtn.innerHTML = `
-        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <defs>
-            <clipPath id="cut">
-              <rect x="0" y="0" width="10" height="16"/>
-            </clipPath>
-          </defs>
-          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="8" cy="8" r="6" fill="none"/>
-          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-        </svg>
+        <defs>
+          <clipPath id="cut">
+            <rect x="0" y="0" width="10" height="16"/>
+          </clipPath>
+        </defs>
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8" cy="8" r="6" fill="none"/>
+        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
       `;
-    } else if (phase === 6) {
-      // last quarter
+    } else if (p === 6) {
       hbtn.innerHTML = `
-        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <defs>
-            <clipPath id="cut">
-              <rect x="0" y="0" width="8" height="16"/>
-            </clipPath>
-          </defs>
-          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="8" cy="8" r="6" fill="none"/>
-          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-        </svg>
+        <defs>
+          <clipPath id="cut">
+            <rect x="0" y="0" width="8" height="16"/>
+          </clipPath>
+        </defs>
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8" cy="8" r="6" fill="none"/>
+        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
       `;
     } else {
-      // waning crescent
       hbtn.innerHTML = `
-        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 16">
-          <defs>
-            <clipPath id="cut">
-              <rect x="0" y="0" width="6" height="16"/>
-            </clipPath>
-          </defs>
-          <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-          <circle cx="8" cy="8" r="6" fill="none"/>
-          <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-        </svg>
+        <defs>
+          <clipPath id="cut">
+            <rect x="0" y="0" width="6" height="16"/>
+          </clipPath>
+        </defs>
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8" cy="8" r="6" fill="none"/>
+        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
       `;
     }
   };
@@ -165,8 +147,7 @@
             historymoon(lc.phase);
             this.title += `\n${lc.name} Moon ${lc.progress}%`;
             const mw = (mutations) => moonwatch(mutations, lc.phase);
-            const watch = new MutationObserver(mw);
-            watch.observe(this, { attributes: true });
+            new MutationObserver(mw).observe(this, { attributes: true });
           }
         }.bind(this, arguments[0])
       );
