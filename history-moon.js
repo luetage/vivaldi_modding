@@ -1,3 +1,4 @@
+
 // History Moon
 // version 2021.10.0
 // https://forum.vivaldi.net/topic/58821/project-history-moon/
@@ -44,88 +45,29 @@
   let historymoon = (phase) => {
     let p = 0;
     if (hemisphere === "southern") {
-      let pa = [0, 7, 6, 5, 4, 3, 2, 1];
+      const pa = [0, 7, 6, 5, 4, 3, 2, 1];
       p = pa[phase];
     } else p = phase;
-    const hbtn = document.querySelector("#switch button.history svg");
-    if (p === 0) {
-      hbtn.innerHTML = `
-        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="6" fill="none"/>
-      `;
-    } else if (p === 1) {
-      hbtn.innerHTML = `
-        <defs>
-          <clipPath id="cut">
-            <rect x="10" y="0" width="6" height="16"/>
-          </clipPath>
-        </defs>
-        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="6" fill="none"/>
-        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-      `;
-    } else if (p === 2) {
-      hbtn.innerHTML = `
-        <defs>
-          <clipPath id="cut">
-            <rect x="8" y="0" width="8" height="16"/>
-          </clipPath>
-        </defs>
-        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="6" fill="none"/>
-        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-      `;
-    } else if (p === 3) {
-      hbtn.innerHTML = `
-        <defs>
-          <clipPath id="cut">
-            <rect x="6" y="0" width="10" height="16"/>
-          </clipPath>
-        </defs>
-        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="6" fill="none"/>
-        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-      `;
-    } else if (p === 4) {
-      hbtn.innerHTML = `
-        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="6" fill="none"/>
-        <circle cx="8" cy="8" r="5"/>
-      `;
-    } else if (p === 5) {
-      hbtn.innerHTML = `
-        <defs>
-          <clipPath id="cut">
-            <rect x="0" y="0" width="10" height="16"/>
-          </clipPath>
-        </defs>
-        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="6" fill="none"/>
-        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-      `;
-    } else if (p === 6) {
-      hbtn.innerHTML = `
-        <defs>
-          <clipPath id="cut">
-            <rect x="0" y="0" width="8" height="16"/>
-          </clipPath>
-        </defs>
-        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="6" fill="none"/>
-        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-      `;
-    } else {
-      hbtn.innerHTML = `
-        <defs>
-          <clipPath id="cut">
-            <rect x="0" y="0" width="6" height="16"/>
-          </clipPath>
-        </defs>
-        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="6" fill="none"/>
-        <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
-      `;
-    }
+    const icon = [
+      [0, 0],
+      [10, 6],
+      [8, 8],
+      [6, 10],
+      [0, 16],
+      [0, 10],
+      [0, 8],
+      [0, 6],
+    ];
+    document.querySelector("#switch button.history svg").innerHTML = `
+      <defs>
+        <clipPath id="cut">
+          <rect x="${icon[p][0]}" y="0" width="${icon[p][1]}" height="16"/>
+        </clipPath>
+      </defs>
+      <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="8" cy="8" r="6" fill="none"/>
+      <circle cx="8" cy="8" r="5" clip-path="url(#cut)"/>
+    ;`;
   };
 
   let moonwatch = (mutations, phase) => {
@@ -155,3 +97,4 @@
     return appendChild.apply(this, arguments);
   };
 })();
+)();
