@@ -1,15 +1,15 @@
 /*
 Changing Buttons
-version 2021.9.0
+version 2021.10.0
 https://forum.vivaldi.net/topic/20227/changing-icons-with-css-part-ii
 Changes home and trash button svgs. Many more examples in linked topic.
 */
 
 .UrlBar button[title="Go to homepage"] svg path {
   d: path(
-    "M 4 6 h 18 v 2.5 h -3.5 v 11.5 h -2.5 v -9.5 h -6 v 9.5 h -2.5 v -11.5 h -3.5 Z"
+    "M4 6 h18 v2.5 h-3.5 v11.5 h-2.5 v-9.5 h-6 v9.5 h-2.5 v-11.5 h-3.5 Z"
   );
 }
 .toggle-trash.button-toolbar button svg path {
-  d: path("M 6.5 8 h13 v2 h-13 Z M 6.5 12 h13 v2 h-13 Z M 9 16 h8 v2 h-8 Z");
+  d: path("M6.5 8 h13 v2 h-13 Z M6.5 12 h13 v2 h-13 Z M9 16 h8 v2 h-8 Z");
 }
