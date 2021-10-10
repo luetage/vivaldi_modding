@@ -35,19 +35,19 @@
   function _message(pnt) {
     clearTimeout(_timeout);
     if (pnt === "export") {
-      _msg.innerText = "Theme code copied to clipboard.";
+      _msg.innerText = "Theme code copied to clipboard";
     } else if (pnt === "backup") {
-      _msg.innerText = "Backup copied to clipboard.";
+      _msg.innerText = "Backup copied to clipboard";
     } else if (pnt === "import") {
-      _msg.innerText = "Theme imported.";
+      _msg.innerText = "Theme imported";
     } else if (pnt === "restore") {
-      _msg.innerText = "Backup imported.";
+      _msg.innerText = "Backup imported";
     } else if (pnt === "notice") {
       _msg.innerText = "Nothing to import. Check console.log";
     } else if (pnt === "sort") {
-      _msg.innerText = "User themes sorted alphabetically.";
+      _msg.innerText = "User themes sorted alphabetically";
     } else {
-      _msg.innerText = "Theme code error.";
+      _msg.innerText = "Theme code error";
     }
     _timeout = setTimeout(function () {
       _msg.innerText = "";
