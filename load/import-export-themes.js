@@ -1,5 +1,5 @@
 // Theme Import and Export
-// version 2021.9.0
+// version 2021.10.0
 // https://forum.vivaldi.net/topic/33154/import-and-export-themes
 // Adds functionality to import, export, backup, sort and move themes to
 // Vivaldi's settings page.
@@ -84,14 +84,14 @@
     });
   }
 
-  function _importTheme() {
-    event.stopPropagation();
-    event.preventDefault();
-    if (_eventType === "paste") {
-      var clipboardData = event.clipboardData || window.clipboardData;
+  function _importTheme(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    if (e.type === "paste") {
+      var clipboardData = e.clipboardData;
       var themeCode = clipboardData.getData("text");
     } else {
-      var themeCode = event.dataTransfer.getData("text");
+      var themeCode = e.dataTransfer.getData("text");
     }
     try {
       _set = JSON.parse(themeCode);
@@ -243,14 +243,8 @@
         .getElementById("exportTheme")
         .addEventListener("click", _exportTheme);
       const importInput = document.getElementById("importTheme");
-      importInput.addEventListener("paste", function () {
-        _eventType = "paste";
-        _importTheme(event);
-      });
-      importInput.addEventListener("drop", function () {
-        _eventType = "drop";
-        _importTheme(event);
-      });
+      importInput.addEventListener("paste", _importTheme);
+      importInput.addEventListener("drop", _importTheme);
       _timeout = {};
     }
   }
@@ -259,7 +253,6 @@
     const styleCheck = document.getElementById("portThemes");
     if (!styleCheck) {
       const style = document.createElement("style");
-      style.type = "text/css";
       style.id = "portThemes";
       style.innerHTML =
         ".move-left button:focus, .move-right button:focus {border-color: var(--colorBorder) !important;box-shadow: none !important;}#importTheme, #exportTheme {width: 80px;margin-left: 6px;}#importTheme::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#modInfo {margin-top: 6px;margin-left: 12px;}";

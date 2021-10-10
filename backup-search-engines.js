@@ -1,5 +1,5 @@
 // Backup Search Engines
-// version 2021.9.0
+// version 2021.10.0
 // https://forum.vivaldi.net/topic/35443/backup-search-engines
 // Adds functionality to backup and restore search engines in
 // vivaldi://settings/search.
@@ -19,14 +19,14 @@
     }, 5000);
   }
 
-  function _restoreSearch() {
-    event.preventDefault();
-    event.stopPropagation();
-    if (_eventSearch === "paste") {
-      var clipboardData = event.clipboardData || window.clipboardData;
+  function _restoreSearch(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "paste") {
+      var clipboardData = e.clipboardData;
       var engineCode = clipboardData.getData("text");
     } else {
-      var engineCode = event.dataTransfer.getData("text");
+      var engineCode = e.dataTransfer.getData("text");
     }
     try {
       var engines = JSON.parse(engineCode);
@@ -71,7 +71,6 @@
     const styleCheck = document.getElementById("searchEngines");
     if (!styleCheck) {
       const style = document.createElement("style");
-      style.type = "text/css";
       style.id = "searchEngines";
       style.innerHTML =
         "#backupSearch, #restoreSearch {margin-left: 6px;}#restoreSearch{width: 130px;margin-top: 6px;}#restoreSearch::-webkit-input-placeholder {opacity: 1;color: var(--colorHighlightBg);text-align: center;}#msgConfirm{margin-left: 12px}";
@@ -99,14 +98,8 @@
         .getElementById("backupSearch")
         .addEventListener("click", _backupSearch);
       const restoreSearch = document.getElementById("restoreSearch");
-      restoreSearch.addEventListener("paste", function () {
-        _eventSearch = "paste";
-        _restoreSearch(event);
-      });
-      restoreSearch.addEventListener("drop", function () {
-        _eventSearch = "drop";
-        _restoreSearch(event);
-      });
+      restoreSearch.addEventListener("paste", _restoreSearch);
+      restoreSearch.addEventListener("drop", _restoreSearch);
       _msgTimeout = {};
     }
   }
