@@ -8,11 +8,11 @@
   function _msgSearch(pnt) {
     clearTimeout(_msgTimeout);
     if (pnt === "backup") {
-      _infoSearch.innerText = "Search engines backup copied to clipboard.";
+      _infoSearch.innerText = "Search engines backup copied to clipboard";
     } else if (pnt === "restore") {
-      _infoSearch.innerText = "Search engines restored.";
+      _infoSearch.innerText = "Search engines restored";
     } else {
-      _infoSearch.innerText = "Search engines code error.";
+      _infoSearch.innerText = "Search engines code error";
     }
     _msgTimeout = setTimeout(function () {
       _infoSearch.innerText = "";
