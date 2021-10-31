@@ -40,8 +40,3 @@ webview[src="about:blank"]::after {
 .linux #tabs-container:not(.none).top {
   padding-right: 40px;
 }
-
-/* disable dragging for Gnome 40 */
-#tabs-tabbar-container {
-  -webkit-app-region: no-drag;
-}
