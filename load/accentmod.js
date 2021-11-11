@@ -1,5 +1,5 @@
 // Accent Mod
-// version 2021.9.0
+// version 2021.11.0
 // https://forum.vivaldi.net/topic/61827/accent-mod
 // Use theme foreground or background color instead of fixed accent foreground
 // color. Depends on the installation of additional CSS code (accentmod.css).
@@ -30,21 +30,20 @@
   };
 
   let accentmod = () => {
-    chrome.storage.local.get(
-      {
-        USE_TABCOLOR: "",
-        BROWSER_COLOR_BG: "",
-        BROWSER_COLOR_FG: "",
-        BROWSER_COLOR_ACCENT_BG: "",
-      },
-      (get) => {
-        const check = get.USE_TABCOLOR;
-        const app = document.getElementById("app");
-        if (check === false) {
+    vivaldi.prefs.get("vivaldi.themes.current", (current) => {
+      let themes = "user";
+      if (current.startsWith("Vivaldi")) {
+        themes = "system";
+      }
+      vivaldi.prefs.get(`vivaldi.themes.${themes}`, (collection) => {
+        let index = collection.findIndex((x) => x.id === current);
+        const theme = collection[index];
+        if (theme.accentFromPage === false) {
+          const app = document.getElementById("app");
           app.classList.add("accentmod");
-          const bg = get.BROWSER_COLOR_BG;
-          const fg = get.BROWSER_COLOR_FG;
-          const ac = get.BROWSER_COLOR_ACCENT_BG;
+          const bg = theme.colorBg;
+          const fg = theme.colorFg;
+          const ac = theme.colorAccentBg;
           const rgbBg = RGB(bg);
           const lumBg = lum(rgbBg[0], rgbBg[1], rgbBg[2]);
           const rgbFg = RGB(fg);
@@ -64,21 +63,19 @@
           } else if (app.classList.contains("accentswitch"))
             app.classList.remove("accentswitch");
         } else app.classList = "";
-      }
-    );
+      });
+    });
   };
 
   setTimeout(function wait() {
     const browser = document.getElementById("browser");
     if (browser) {
       accentmod();
-      chrome.storage.onChanged.addListener((ch) => {
+      vivaldi.prefs.onChanged.addListener((ch) => {
         if (
-          ch.THEME_CURRENT ||
-          ch.USE_TABCOLOR ||
-          ch.BROWSER_COLOR_ACCENT_BG ||
-          ch.BROWSER_COLOR_BG ||
-          ch.BROWSER_COLOR_FG
+          ch.path === "vivaldi.themes.current" ||
+          ch.path === "vivaldi.themes.system" ||
+          ch.path === "vivaldi.themes.user"
         ) {
           accentmod();
         }
