@@ -18,6 +18,7 @@
       setTimeout(() => active.focus(), 100);
     },
     "Alt+=": () => {
+      // zoom speed dials
       vivaldi.prefs.get("vivaldi.startpage.speed_dial.width", (current) => {
         const width = [120, 170, 220, 270, 320];
         let index = width.findIndex((x) => x === current);
@@ -29,6 +30,7 @@
       });
     },
     "Alt+-": () => {
+      // zoom speed dials
       vivaldi.prefs.get("vivaldi.startpage.speed_dial.width", (current) => {
         const width = [120, 170, 220, 270, 320];
         let index = width.findIndex((x) => x === current);
