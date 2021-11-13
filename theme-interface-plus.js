@@ -1,8 +1,8 @@
 // Theme Interface plus
 // version 2021.11.0
-// https://forum.vivaldi.net/topic/33154/import-and-export-themes
-// Adds functionality to toggle system themes and sort and move user themes to
-// Vivaldi’s settings page.
+// https://forum.vivaldi.net/topic/68564/theme-interface-plus
+// Adds functionality to toggle system themes, sort user themes alphabetically
+// and move themes individually to Vivaldi’s settings page.
 
 (function () {
   let toggle = (action) => {
