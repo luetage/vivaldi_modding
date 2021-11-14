@@ -1,5 +1,5 @@
 // Theme Interface plus
-// version 2021.11.1
+// version 2021.11.2
 // https://forum.vivaldi.net/topic/68564/theme-interface-plus
 // Adds functionality to toggle system themes, sort user themes alphabetically
 // and move themes individually to Vivaldi’s settings page.
