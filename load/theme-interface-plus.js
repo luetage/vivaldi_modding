@@ -6,16 +6,18 @@
 
 (function () {
   let toggle = (action) => {
-    const check = document.querySelector(".ThemePreview:first-of-type");
-    if (action === "off" || check.style.display === "inline-flex") {
-      disp = "none";
-    } else {
-      disp = "inline-flex";
-    }
-    const themes = document.querySelectorAll(".ThemePreview");
-    for (let i = 0; i < systemNumber; i++) {
-      themes[i].style.display = disp;
-    }
+    vivaldi.prefs.get("vivaldi.themes.system", (system) => {
+      const check = document.querySelector(".ThemePreview:first-of-type");
+      if (action === "off" || check.style.display === "inline-flex") {
+        disp = "none";
+      } else {
+        disp = "inline-flex";
+      }
+      const themes = document.querySelectorAll(".ThemePreview");
+      for (let i = 0; i < system.length; i++) {
+        themes[i].style.display = disp;
+      }
+    });
   };
 
   let sort = () => {
@@ -80,7 +82,6 @@
   };
 
   const systemDefault = 0; // set to »1« to display system themes by default
-  const systemNumber = 10; // toggle all system themes (adjust amount should Vivaldi make changes)
   const settingsUrl =
     "chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=";
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
