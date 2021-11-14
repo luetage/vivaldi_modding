@@ -20,7 +20,7 @@
 
   let sort = () => {
     vivaldi.prefs.get("vivaldi.themes.user", (collection) => {
-      collection.sort(function (a, b) {
+      collection.sort((a, b) => {
         return a.name.localeCompare(b.name);
       });
       vivaldi.prefs.set({ path: "vivaldi.themes.user", value: collection });
@@ -72,7 +72,7 @@
         });
         document
           .querySelector(".TabbedView-List button:first-of-type")
-          .addEventListener("click", function () {
+          .addEventListener("click", () => {
             setTimeout(goUI.init, 100);
           });
       }
