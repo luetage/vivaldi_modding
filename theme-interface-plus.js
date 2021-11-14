@@ -1,5 +1,5 @@
 // Theme Interface plus
-// version 2021.11.0
+// version 2021.11.1
 // https://forum.vivaldi.net/topic/68564/theme-interface-plus
 // Adds functionality to toggle system themes, sort user themes alphabetically
 // and move themes individually to Vivaldi’s settings page.
@@ -61,9 +61,8 @@
       if (systemDefault === 0) toggle("off");
       const footer = document.querySelector(".TabbedView-Footer");
       const link = document.querySelector(".TabbedView-Footer a");
-      const check = document.querySelector(".ThemePreviews");
-      if (!check.classList.contains("tipbtn")) {
-        check.classList.add("tipbtn");
+      if (!footer.classList.contains("tipbtn")) {
+        footer.classList.add("tipbtn");
         goUI.buttons.forEach((button) => {
           let b = document.createElement("div");
           b.classList.add("button-toolbar");
