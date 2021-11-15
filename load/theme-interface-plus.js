@@ -1,5 +1,5 @@
 // Theme Interface plus
-// version 2021.11.2
+// version 2021.11.3
 // https://forum.vivaldi.net/topic/68564/theme-interface-plus
 // Adds functionality to toggle system themes, sort user themes alphabetically
 // and move themes individually to Vivaldi’s settings page.
@@ -8,10 +8,14 @@
   let toggle = (action) => {
     vivaldi.prefs.get("vivaldi.themes.system", (system) => {
       const check = document.querySelector(".ThemePreview:first-of-type");
-      if (action === "off" || check.style.display === "inline-flex") {
+      if (action === "hide") {
         disp = "none";
-      } else {
+      } else if (check.style.display === "none") {
         disp = "inline-flex";
+        systemDefault = 1;
+      } else {
+        disp = "none";
+        systemDefault = 0;
       }
       const themes = document.querySelectorAll(".ThemePreview");
       for (let i = 0; i < system.length; i++) {
@@ -60,7 +64,7 @@
       ["▸", "Move Theme Right", moveR],
     ],
     init: () => {
-      if (systemDefault === 0) toggle("off");
+      if (systemDefault === 0) toggle("hide");
       const footer = document.querySelector(".TabbedView-Footer");
       const link = document.querySelector(".TabbedView-Footer a");
       if (!footer.classList.contains("tipbtn")) {
@@ -72,21 +76,21 @@
           footer.insertBefore(b, link);
           b.addEventListener("click", button[2]);
         });
-        document
-          .querySelector(".TabbedView-List button:first-of-type")
-          .addEventListener("click", () => {
-            setTimeout(goUI.init, 100);
-          });
       }
     },
   };
 
-  const systemDefault = 0; // set to »1« to display system themes by default
+  let systemDefault = 0; // set to »1« to display system themes by default
   const settingsUrl =
     "chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=";
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.url === `${settingsUrl}themes`) {
       setTimeout(goUI.init, 100);
+      document
+        .querySelector(".TabbedView-List button:first-of-type")
+        .addEventListener("click", () => {
+          setTimeout(goUI.init, 100);
+        });
     }
   });
 })();
