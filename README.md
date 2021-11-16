@@ -23,11 +23,11 @@ according topic on Vivaldi Forum.
 * [changing-buttons.css](changing-buttons.css)
 * [collapse-keyboard-settings.js](collapse-keyboard-settings.js)
 * [history-moon.js](history-moon.js)
-* [import-export-themes.js](import-export-themes.js)
 * [m3.css](m3.css)
 * [profile-icon.js](profile-icon.js)
 * [tab-scroll.js](tab-scroll.js)
 * [Tab_Lock.js](Tab_Lock.js)
+* [theme-interface-plus.js](theme-interface-plus.js)
 
 ## How to
 
