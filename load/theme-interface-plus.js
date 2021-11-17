@@ -1,5 +1,5 @@
 // Theme Interface plus
-// version 2021.11.5
+// version 2021.11.6
 // https://forum.vivaldi.net/topic/68564/theme-interface-plus
 // Adds functionality to toggle system themes, sort user themes alphabetically
 // and move themes individually to Vivaldi’s settings page.
@@ -16,7 +16,7 @@
           const hide = document.createElement("style");
           hide.setAttribute("type", "text/css");
           hide.id = "tipCSS";
-          hide.innerText = `.ThemePreviews .ThemePreview:nth-child(-n+${sys.length}){display: none}`;
+          hide.innerText = `.ThemePreviews .ThemePreview:nth-child(-n+${sys.length}):not(.ThemePreview--Selected){display: none}`;
           document.getElementsByTagName("head")[0].appendChild(hide);
         });
       }
@@ -40,16 +40,24 @@
     vivaldi.prefs.get("vivaldi.themes.current", (current) => {
       vivaldi.prefs.get("vivaldi.themes.user", (collection) => {
         let index = collection.findIndex((x) => x.id === current);
-        if (index !== -1 && dir === "right" && index < collection.length - 1) {
-          let fromI = collection[index];
-          let toI = collection[index + 1];
-          collection[index + 1] = fromI;
-          collection[index] = toI;
-        } else if (index !== -1 && dir !== "right" && index > 0) {
-          let fromI = collection[index];
-          let toI = collection[index - 1];
-          collection[index - 1] = fromI;
-          collection[index] = toI;
+        if (index > -1 && dir === "right") {
+          if (index === collection.length - 1) {
+            collection.unshift(collection.splice(index, 1)[0]);
+          } else {
+            let fromI = collection[index];
+            let toI = collection[index + 1];
+            collection[index + 1] = fromI;
+            collection[index] = toI;
+          }
+        } else if (index > -1 && dir !== "right") {
+          if (index === 0) {
+            collection.push(collection.splice(index, 1)[0]);
+          } else {
+            let fromI = collection[index];
+            let toI = collection[index - 1];
+            collection[index - 1] = fromI;
+            collection[index] = toI;
+          }
         } else return;
         vivaldi.prefs.set({ path: "vivaldi.themes.user", value: collection });
       });
