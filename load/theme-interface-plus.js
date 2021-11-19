@@ -69,8 +69,8 @@
       // text, title, function (translate strings)
       ["Toggle", "Toggle System Themes", toggle],
       ["Sort", "Sort Themes Alphabetically", sort],
-      ["◂", "Move Theme Left", move],
-      ["▸", "Move Theme Right", () => move("right")],
+      ["\u{25C2}", "Move Theme Left", move],
+      ["\u{25B8}", "Move Theme Right", () => move("right")],
     ],
     load: () => {
       const footer = document.querySelector(".TabbedView-Footer");
