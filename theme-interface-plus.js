@@ -64,6 +64,19 @@
     });
   };
 
+  let expand = (opt) => {
+    const view = document.querySelector(".TabbedView");
+    if (opt === 1 || expansion === 0) {
+      view.style.maxWidth = "unset";
+      expansion = 1;
+    } else if (opt === 0) {
+      view.style.maxWidth = "660px";
+    } else {
+      view.style.maxWidth = "660px";
+      expansion = 0;
+    }
+  };
+
   let goUI = {
     buttons: [
       // text, title, function (translate strings)
@@ -71,6 +84,7 @@
       ["Sort", "Sort Themes Alphabetically", sort],
       ["\u{25C2}", "Move Theme Left", move],
       ["\u{25B8}", "Move Theme Right", () => move("right")],
+      ["<b>\u{FF3B}\u{FF3D}</b>", "Expand/Contract", expand],
     ],
     load: () => {
       const footer = document.querySelector(".TabbedView-Footer");
@@ -85,21 +99,35 @@
           b.addEventListener("click", button[2]);
         });
       }
+      if (expansion === 1) expand(1);
     },
   };
 
+  let mi5 = (mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (
+          node.classList.contains("TabbedView-Content") &&
+          document.querySelector(".ThemePreviews")
+        ) {
+          goUI.load();
+        } else {
+          if (expansion === 1) expand(0);
+        }
+      });
+    });
+  };
+
   let systemDefault = 0; // set to »1« to display system themes by default
+  let expansion = 0; // set to »1« for the maximum number of themes per row by default
   const settingsUrl =
     "chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=";
   toggle(1);
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.url === `${settingsUrl}themes`) {
-      setTimeout(goUI.load, 100);
-      document
-        .querySelector(".TabbedView-List button:first-of-type")
-        .addEventListener("click", () => {
-          setTimeout(goUI.load, 100);
-        });
+      goUI.load();
+      const view = document.querySelector(".TabbedView");
+      new MutationObserver(mi5).observe(view, { childList: true });
     }
   });
 })();
