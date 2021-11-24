@@ -1,5 +1,5 @@
 // Theme Interface plus
-// version 2021.11.7
+// version 2021.11.8
 // https://forum.vivaldi.net/topic/68564/theme-interface-plus
 // Adds functionality to toggle system themes, sort user themes alphabetically,
 // move themes individually and expand the overview, to Vivaldi’s settings page.
@@ -12,12 +12,15 @@
       (systemDefault === 1 && init !== 1)
     ) {
       if (!css) {
-        vivaldi.prefs.get("vivaldi.themes.system", (sys) => {
-          const hide = document.createElement("style");
-          hide.setAttribute("type", "text/css");
-          hide.id = "tipCSS";
-          hide.innerText = `.ThemePreviews .ThemePreview:nth-child(-n+${sys.length}):not(.ThemePreview--Selected){display: none}`;
-          document.getElementsByTagName("head")[0].appendChild(hide);
+        vivaldi.prefs.get("vivaldi.themes.current", (current) => {
+          vivaldi.prefs.get("vivaldi.themes.system", (sys) => {
+            let index = sys.findIndex((x) => x.id === current);
+            const hide = document.createElement("style");
+            hide.setAttribute("type", "text/css");
+            hide.id = "tipCSS";
+            hide.innerText = `.ThemePreviews > div:nth-child(-n+${sys.length}):not(:nth-child(${index + 1})){display: none}`;
+            document.getElementsByTagName("head")[0].appendChild(hide);
+          });
         });
       }
       systemDefault = 0;
