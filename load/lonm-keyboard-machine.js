@@ -47,7 +47,7 @@
   // @param {String} combination written in the form (CTRL+SHIFT+ALT+KEY)
   // @param {boolean} extras I don't know what this does, but it's an extra argument
 
-  function keyCombo(combination, extras) {
+  function keyCombo(code, combination, extras) {
     const customShortcut = SHORTCUTS[combination];
     if (customShortcut) {
       customShortcut();
