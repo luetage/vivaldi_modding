@@ -122,7 +122,7 @@
   };
 
   let systemDefault = 0; // set to »1« to display system themes by default
-  let expansion = 0; // set to »1« for the maximum number of themes per row by default
+  let expansion = 1; // set to »1« for the maximum number of themes per row by default
   const settingsUrl =
     "chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=";
   toggle(1);
