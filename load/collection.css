@@ -16,6 +16,11 @@ webview[src="about:blank"]::after {
   background-size: 10px 10px, 10px 10px;
 }
 
+/* hide settings cog */
+.SpeedDialView-Settings-Button {
+  display: none;
+}
+
 /* clock */
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
