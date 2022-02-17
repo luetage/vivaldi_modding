@@ -1,7 +1,7 @@
 // Random Theme Button
-// version 2021.9.0
+// version 2022.2.0
 // https://forum.vivaldi.net/topic/34767/random-theme-button
-// Adds a button in the address bar, which will load a random user created theme on click.
+// Adds a button to the UrlBar, which will load a random user created theme on click.
 
 (function () {
   let randomize = () => {
