@@ -40,7 +40,7 @@
     }
   };
 
-  var appendChild = Element.prototype.appendChild;
+  let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
     if (arguments[0].tagName === "DIV") {
       setTimeout(
