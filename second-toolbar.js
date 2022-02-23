@@ -1,7 +1,8 @@
 // Second Toolbar
 // version 2022.2.0
 // https://forum.vivaldi.net/topic/72371/put-only-reload-button-and-an-extension-button-in-between-address-field-and-search-field/6
-// Adds a second toolbar to the UrlBar and moves the first button of the original toolbar to it.
+// Adds a second toolbar to the UrlBar and moves the first button of the
+// original toolbar to it.
 
 (function () {
   let addToolbar = (adr) => {
