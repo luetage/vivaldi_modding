@@ -10,7 +10,6 @@
     const checkStyle = document.getElementById("urlBarSpacer");
     if (!checkStyle) {
       const style = document.createElement("style");
-      style.type = "text/css";
       style.id = "urlBarSpacer";
       style.innerHTML = `#urlWrapper {flex: 1 0;-webkit-app-region: drag;}#urlSpacer {display: flex;margin-left:  auto;margin-right: auto;width: ${_spacing};}`;
       document.getElementsByTagName("head")[0].appendChild(style);

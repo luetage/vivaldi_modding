@@ -16,7 +16,6 @@
           vivaldi.prefs.get("vivaldi.themes.system", (sys) => {
             let index = sys.findIndex((x) => x.id === current);
             const hide = document.createElement("style");
-            hide.setAttribute("type", "text/css");
             hide.id = "tipCSS";
             hide.innerText = `.ThemePreviews > div:nth-child(-n+${sys.length}):not(:nth-child(${index + 1})){display: none}`;
             document.getElementsByTagName("head")[0].appendChild(hide);
