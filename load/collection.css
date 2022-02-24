@@ -25,6 +25,9 @@ webview[src="about:blank"]::after {
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
 }
+.UrlBar .button-toolbar.ClockButton button svg {
+  transform: scale(.9);
+}
 
 /* window buttons */
 .window-buttongroup button.window-maximize,
