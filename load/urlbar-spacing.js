@@ -15,7 +15,7 @@
       style.innerHTML = `#urlWrapper {flex: 1 0;-webkit-app-region: drag;}#urlSpacer {display: flex;margin-left:  auto;margin-right: auto;width: ${_spacing};}`;
       document.getElementsByTagName("head")[0].appendChild(style);
     }
-    const = url.parentNode;
+    const bar = url.parentNode;
     const wrapper = document.createElement("div");
     wrapper.id = "urlWrapper";
     const spacer = document.createElement("div");
