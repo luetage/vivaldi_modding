@@ -16,19 +16,19 @@ according topic on Vivaldi Forum.
 
 ## Actively maintained mods
 
-* [accentmod.js](accentmod.js)
-* [accentmod.css](accentmod.css)
-* [addressbar-theming.css](addressbar-theming.css)
+* [addressfield-theming.css](addressfield-theming.css)
 * [backup-search-engines.js](backup-searchengines.js)
 * [changing-buttons.css](changing-buttons.css)
 * [collapse-keyboard-settings.js](collapse-keyboard-settings.js)
 * [history-moon.js](history-moon.js)
 * [m3.css](m3.css)
 * [profile-icon.js](profile-icon.js)
+* [second-toolbar.js](second-toolbar.js)
 * [random-theme-button.js](random-theme-button.js)
 * [tab-scroll.js](tab-scroll.js)
 * [Tab_Lock.js](Tab_Lock.js)
 * [theme-interface-plus.js](theme-interface-plus.js)
+* [urlbar-spacing.js](urlbar-spacing.js)
 
 ## How to
 
