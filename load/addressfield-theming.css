@@ -1,14 +1,11 @@
 /*
 Addressfield Theming
-version 2021.9.0
+version 2022.2.0
 https://forum.vivaldi.net/topic/45260/addressfield-theming
 Changes the colors of the hostfragments, the certified siteinfo button, the icons for blocked
 content and the bookmark button in the addressfield.
 */
 
-.UrlBar-AddressField .ContentBlocker-Control {
-  display: none;
-}
 .UrlFragment-Wrapper,
 .UrlFragment--Lowlight:first-of-type {
   color: var(--colorFgFaded);

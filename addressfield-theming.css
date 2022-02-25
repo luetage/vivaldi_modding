@@ -1,14 +1,11 @@
 /*
 Addressfield Theming
-version 2021.9.0
+version 2022.2.0
 https://forum.vivaldi.net/topic/45260/addressfield-theming
 Changes the colors of the hostfragments, the certified siteinfo button, the icons for blocked
 content and the bookmark button in the addressfield.
 */
 
-.UrlBar-AddressField .ContentBlocker-Control {
-  display: none;
-}
 .UrlFragment-Wrapper,
 .UrlFragment--Lowlight:first-of-type {
   color: var(--colorFgFaded);
@@ -22,17 +19,13 @@ content and the bookmark button in the addressfield.
   color: var(--colorHighlightBg) !important;
   font-weight: bold;
 }
-.SiteInfoButton.certified,
-.SiteInfoButton.secure {
+.SiteInfoButton.certified {
   fill: var(--colorHighlightBgDark);
   color: var(--colorHighlightBg);
 }
 .SiteInfoButton.certified:hover,
 .SiteInfoButton.certified:focus:not([tabindex="-1"]),
-.SiteInfoButton.certified:active,
-.SiteInfoButton.secure:hover,
-.SiteInfoButton.secure:focus:not([tabindex="-1"]),
-.SiteInfoButton.secure:active {
+.SiteInfoButton.certified:active {
   fill: var(--colorHighlightBg);
 }
 .bookmark-animated-fill {

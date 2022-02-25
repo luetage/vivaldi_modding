@@ -21,13 +21,14 @@ webview[src="about:blank"]::after {
   display: none;
 }
 
+/* hide adblock button */
+.UrlBar-AddressField .ContentBlocker-Control {
+  display: none;
+}
+
 /* clock */
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
-}
-.UrlBar .button-toolbar.ClockButton button svg {
-  height: 24px;
-  width: 24px;
 }
 
 /* window buttons */
