@@ -26,7 +26,8 @@ webview[src="about:blank"]::after {
   fill: var(--colorHighlightBg);
 }
 .UrlBar .button-toolbar.ClockButton button svg {
-  transform: scale(.9);
+  height: 24px;
+  width: 24px;
 }
 
 /* window buttons */
