@@ -16,17 +16,17 @@ webview[src="about:blank"]::after {
   background-size: 10px 10px, 10px 10px;
 }
 
-/* hide settings cog */
+/* startpage */
 .SpeedDialView-Settings-Button {
   display: none;
 }
 
-/* hide adblock button */
+/* address field */
 .UrlBar-AddressField .ContentBlocker-Control {
   display: none;
 }
 
-/* clock */
+/* clock popup */
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
 }
