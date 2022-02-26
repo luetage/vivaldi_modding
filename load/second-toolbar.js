@@ -18,7 +18,7 @@
       );
       adr.parentNode.insertBefore(div, adr.nextSibling);
       const target = document.querySelector(".vm-move");
-      const numberOfButtons = 1; // change number of buttons to be moved
+      const numberOfButtons = 2; // change number of buttons to be moved
       for (let i = 0; i < numberOfButtons; i++) {
         const btn = document.querySelector(
           ".UrlBar .toolbar-mainbar .button-toolbar button"
