@@ -4,7 +4,7 @@
 
 This repository is a collection of mods I have written for the
 [**Vivaldi web browser**][1]. Each file is a standalone modification which works
-on its own Every mod contains a link to the Vivaldi forum topic it was first
+on its own. Every mod contains a link to the Vivaldi forum topic it was first
 featured in, however the most up to date versions can be found in this github
 repo. I cannot guarantee that all of these mods function as advertised at this
 point in time, since the Vivaldi user interface is an ever changing target, but
