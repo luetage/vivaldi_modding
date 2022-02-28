@@ -21,6 +21,11 @@ webview[src="about:blank"]::after {
   display: none;
 }
 
+/* tabs */
+#header {
+  -webkit-app-region: no-drag;
+}
+
 /* address field */
 .UrlBar-AddressField .ContentBlocker-Control {
   display: none;
