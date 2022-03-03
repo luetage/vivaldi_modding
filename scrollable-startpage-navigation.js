@@ -1,17 +1,16 @@
 // Scrollable Startpage Navigation
-// version 2022.03.0
+// version 2022.03.1
 // https://forum.vivaldi.net/topic/72601/scrollable-speed-dials/14
 // Navigate startpage categories with mousewheel.
 
 (function () {
-  let scroll = (event) => {
+  let scroll = (e) => {
     const btns = Array.from(
       document.querySelectorAll(".startpage-navigation-group button")
     );
-    let index = btns.findIndex((x) => x.classList.contains("active"));
-    delta = event.wheelDelta / 60;
-    direction = delta > 0 ? "up" : "down";
-    if (direction === "up") {
+    const index = btns.findIndex((x) => x.classList.contains("active"));
+    const dir = e.wheelDelta > 0 ? "up" : "down";
+    if (dir === "up") {
       if (index > 0) {
         btns[index - 1].click();
       } else {
@@ -27,13 +26,25 @@
   };
 
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    if (changeInfo.url.startsWith("chrome://vivaldi-webui/startpage")) {
-      const check = document.querySelector(".vm-scroll");
-      if (!check) {
-        const nav = document.querySelector(".startpage-navigation");
-        nav.classList.add("vm-scroll");
-        nav.addEventListener("mousewheel", scroll);
+    try {
+      if (changeInfo.url.startsWith("chrome://vivaldi-webui/startpage")) {
+        const check = document.querySelector(".vm-scroll");
+        if (!check) {
+          const nav = document.querySelector(".startpage-navigation");
+          nav.classList.add("vm-scroll");
+          nav.addEventListener("wheel", (event) => {
+            let timeout;
+            if (timeout) {
+              window.cancelAnimationFrame(timeout);
+            }
+            timeout = window.requestAnimationFrame(() => {
+              scroll(event);
+            });
+          }, {passive: true});
+        }
       }
+    } catch (error) {
+      void 0;
     }
   });
 })();
