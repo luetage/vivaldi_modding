@@ -1,6 +1,6 @@
 // Scrollable Startpage Navigation
 // version 2022.03.1
-// https://forum.vivaldi.net/topic/72601/scrollable-speed-dials/14
+// https://forum.vivaldi.net/post/561919
 // Navigate startpage categories with mousewheel.
 
 (function () {
@@ -34,12 +34,8 @@
           nav.classList.add("vm-scroll");
           nav.addEventListener("wheel", (event) => {
             let timeout;
-            if (timeout) {
-              window.cancelAnimationFrame(timeout);
-            }
-            timeout = window.requestAnimationFrame(() => {
-              scroll(event);
-            });
+            if (timeout) window.cancelAnimationFrame(timeout);
+            timeout = window.requestAnimationFrame(() => scroll(event));
           }, {passive: true});
         }
       }
