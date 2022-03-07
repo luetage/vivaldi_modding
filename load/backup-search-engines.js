@@ -1,6 +1,6 @@
 // Backup Search Engines
 // version 2021.10.0
-// https://forum.vivaldi.net/topic/35443/backup-search-engines
+// https://forum.vivaldi.net/post/277594
 // Adds functionality to backup and restore search engines in
 // vivaldi://settings/search.
 

@@ -1,6 +1,6 @@
 // UrlBar Spacing
 // version 2022.2.0
-// https://forum.vivaldi.net/topic/51023/urlbar-spacing
+// https://forum.vivaldi.net/post/400239
 // Adds a flexible margin around the Addressfield, depending
 // on width of the window. The window can be dragged by clicking
 // the margins.

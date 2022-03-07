@@ -1,6 +1,6 @@
 // Profile Icon
 // version 2021.9.0
-// https://forum.vivaldi.net/topic/67122/profile-icon-mod
+// https://forum.vivaldi.net/post/522106
 // Exchanges your account/default profile image (sync), for a proper SVG icon
 // using theme colors. Credits to tam710562 for coming up with a solution to
 // reinstate the SVG when the address bar is being toggled. Icon: Font Awesome 6

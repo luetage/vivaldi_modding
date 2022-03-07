@@ -1,6 +1,6 @@
 // Collapse Keyboard Settings
 // version 2021.9.0
-// https://forum.vivaldi.net/topic/24543/keyboard-settings-should-default-to-collapsed/6
+// https://forum.vivaldi.net/post/501591
 // Automatically collapses the keyboard settings items in
 // vivaldi://settings/keyboard.
 

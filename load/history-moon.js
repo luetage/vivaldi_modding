@@ -1,6 +1,6 @@
 // History Moon
 // version 2021.10.0
-// https://forum.vivaldi.net/topic/58821/project-history-moon/
+// https://forum.vivaldi.net/post/461432
 // Displays the current moon phase in the panel instead of the history clock
 // icon. Moon phase calculation adapted from
 // https://minkukel.com/en/various/calculating-moon-phase/
