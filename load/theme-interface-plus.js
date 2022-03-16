@@ -1,11 +1,11 @@
 // Theme Interface plus
-// version 2021.11.8
+// version 2022.3.0
 // https://forum.vivaldi.net/post/531981
 // Adds functionality to toggle system themes, sort user themes alphabetically,
 // move themes individually and expand the overview, to Vivaldi’s settings page.
 
 (function () {
-  let toggle = (init) => {
+  const toggle = (init) => {
     const css = document.getElementById("tipCSS");
     if (
       (systemDefault === 0 && init === 1) ||
@@ -29,7 +29,7 @@
     }
   };
 
-  let sort = () => {
+  const sort = () => {
     vivaldi.prefs.get("vivaldi.themes.user", (collection) => {
       collection.sort((a, b) => {
         return a.name.localeCompare(b.name);
@@ -38,7 +38,7 @@
     });
   };
 
-  let move = (dir) => {
+  const move = (dir) => {
     vivaldi.prefs.get("vivaldi.themes.current", (current) => {
       vivaldi.prefs.get("vivaldi.themes.user", (collection) => {
         let index = collection.findIndex((x) => x.id === current);
@@ -66,7 +66,7 @@
     });
   };
 
-  let expand = (opt) => {
+  const expand = (opt) => {
     const view = document.querySelector(".TabbedView");
     if (opt === 1 || expansion === 0) {
       view.style.maxWidth = "unset";
@@ -79,7 +79,7 @@
     }
   };
 
-  let goUI = {
+  const goUI = {
     buttons: [
       // text, title, function (translate strings)
       ["Toggle", "Toggle System Themes", toggle],
@@ -91,8 +91,8 @@
     load: () => {
       const footer = document.querySelector(".TabbedView-Footer");
       const link = document.querySelector(".TabbedView-Footer a");
-      if (!footer.classList.contains("tipBtn")) {
-        footer.classList.add("tipBtn");
+      if (!footer.classList.contains("vm-int")) {
+        footer.classList.add("vm-int");
         goUI.buttons.forEach((button) => {
           let b = document.createElement("div");
           b.classList.add("button-toolbar");
@@ -105,7 +105,7 @@
     },
   };
 
-  let mi5 = (mutations) => {
+  const mi5 = (mutations) => {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
         if (
