@@ -17,12 +17,10 @@
   -webkit-app-region: no-drag;
 }
 
-/* address field */
+/* urlbar */
 .UrlBar-AddressField .ContentBlocker-Control {
   display: none;
 }
-
-/* status bar */
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
 }
@@ -42,8 +40,6 @@ webview[src="about:blank"]::after {
     linear-gradient(to right, var(--colorBgDark) 50%, var(--colorBg) 50%);
   background-size: 10px 10px, 10px 10px;
 }
-
-/* startpage */
 .SpeedDialView-Settings-Button {
   display: none;
 }
