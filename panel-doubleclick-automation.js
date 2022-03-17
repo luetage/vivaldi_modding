@@ -1,6 +1,6 @@
 /*
 Panel doubleclick automation
-https://forum.vivaldi.net/topic/49768/done-emulate-double-click-when-left-click-on-favicon-button-in-window-panel/4
+https://forum.vivaldi.net/post/391224
 Switches the tab or opens a bookmark, by simulating a doubleclick on a tab or a bookmark in the windows or bookmark panel.
 */
 
