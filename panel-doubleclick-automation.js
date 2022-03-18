@@ -1,6 +1,6 @@
 // Panel doubleclick automation
 // https://forum.vivaldi.net/post/391224
-// Switches the tab or opens a bookmark, by simulating a doubleclick on a tab or a bookmark in the windows or bookmark panel.
+// Switches the tab or opens a bookmark by simulating a doubleclick on a tab or a bookmark, in the windows or bookmark panel.
 
 {
   function doClick(event) {
