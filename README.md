@@ -23,8 +23,8 @@ creating an issue, or by posting in the according topic on Vivaldi Forum.
 * [profile-icon.js](profile-icon.js)
 * [second-toolbar.js](second-toolbar.js)
 * [random-theme-button.js](random-theme-button.js)
+* [Tab_Lock.js](page-actions/Tab_Lock.js)
 * [tab-scroll.js](tab-scroll.js)
-* [Tab_Lock.js](Tab_Lock.js)
 * [theme-interface-plus.js](theme-interface-plus.js)
 * [urlbar-spacing.js](urlbar-spacing.js)
 
