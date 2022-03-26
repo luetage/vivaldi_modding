@@ -1,4 +1,7 @@
-
+*::selection {
+  color: #fff ;
+  background: #0662d2;
+}
 
 /* header */
 #titlebar #pagetitle {
