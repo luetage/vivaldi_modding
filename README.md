@@ -15,7 +15,7 @@ creating an issue, or by posting in the according topic on Vivaldi Forum.
 ## Actively maintained mods
 
 * [addressfield-theming.css](addressfield-theming.css)
-* [backup-search-engines.js](backup-searchengines.js)
+* [backup-search-engines.js](backup-search-engines.js)
 * [changing-buttons.css](changing-buttons.css)
 * [collapse-keyboard-settings.js](collapse-keyboard-settings.js)
 * [history-moon.js](history-moon.js)
