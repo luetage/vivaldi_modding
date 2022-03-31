@@ -1,5 +1,5 @@
 // Backup Search Engines
-// version 2022.3.3
+// version 2022.3.4
 // https://forum.vivaldi.net/post/277594
 // Adds functionality to backup and restore search engines in
 // vivaldi://settings/search.
@@ -24,27 +24,12 @@
 
   function bringingItAllBackHome(remains) {
     vivaldi.searchEngines.getTemplateUrls((engines) => {
+      const getNames = engines.templateUrls.map((e) => e.name);
       for (i = 0; i < defaultsArray.length; i++) {
-        const getName = engines.templateUrls.map((e) => e.name);
-        const index = getName.lastIndexOf(defaultsArray[i][0]);
+        const index = getNames.lastIndexOf(defaultsArray[i][0]);
         const id = engines.templateUrls[index].id.toString();
-        const search = defaultsArray[i][1];
-        if (search === 0) {
-          vivaldi.searchEngines.setDefault(
-            vivaldi.searchEngines.DefaultType.DEFAULT_SEARCH,
-            id,
-          );
-        } else if (search === 1) {
-          vivaldi.searchEngines.setDefault(
-            vivaldi.searchEngines.DefaultType.DEFAULT_PRIVATE,
-            id,
-          );
-        } else {
-          vivaldi.searchEngines.setDefault(
-            vivaldi.searchEngines.DefaultType.DEFAULT_IMAGE,
-            id,
-          );
-        }
+        const ds = defaultsArray[i][1];
+        vivaldi.searchEngines.setDefault(ds, id);
       }
       remains.forEach((remove) => {
         vivaldi.searchEngines.removeTemplateUrl(remove);
@@ -70,7 +55,15 @@
               .map((e, i) => (e === collect.id ? i : ""))
               .filter(String);
             indeces.forEach((index) => {
-              const tunnel = [collect.name, index];
+              let ds;
+              if (index === 0) {
+                ds = vivaldi.searchEngines.DefaultType.DEFAULT_SEARCH;
+              } else if (index === 1) {
+                ds = vivaldi.searchEngines.DefaultType.DEFAULT_PRIVATE;
+              } else {
+                ds = vivaldi.searchEngines.DefaultType.DEFAULT_IMAGE;
+              }
+              const tunnel = [collect.name, ds];
               defaultsArray.push(tunnel);
             });
           }
