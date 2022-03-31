@@ -25,7 +25,7 @@
   function bringingItAllBackHome(remains) {
     vivaldi.searchEngines.getTemplateUrls((engines) => {
       const getNames = engines.templateUrls.map((e) => e.name);
-      for (i = 0; i < defaultsArray.length; i++) {
+      for (let i = 0; i < defaultsArray.length; i++) {
         const index = getNames.lastIndexOf(defaultsArray[i][0]);
         const id = engines.templateUrls[index].id.toString();
         const ds = defaultsArray[i][1];
