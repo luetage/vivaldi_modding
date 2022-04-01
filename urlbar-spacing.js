@@ -6,12 +6,25 @@
 // the margins.
 
 (function () {
+  const css = `
+    .vm-us-wrapper {
+      flex: 1 0;
+      -webkit-app-region: drag;
+    }
+    .vm-us-spacer {
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+      width: ${_spacing};
+    }
+  `;
+
   const urlBarSpacing = (url) => {
-    const checkStyle = document.getElementById("vm-us-css");
-    if (!checkStyle) {
+    const check = document.getElementById("vm-us-css");
+    if (!check) {
       const style = document.createElement("style");
       style.id = "vm-us-css";
-      style.innerHTML = `.vm-us-wrapper {flex: 1 0;-webkit-app-region: drag;}.vm-us-spacer {display: flex;margin-left:  auto;margin-right: auto;width: ${_spacing};}`;
+      style.innerHTML = css;
       document.getElementsByTagName("head")[0].appendChild(style);
     }
     const bar = url.parentNode;
