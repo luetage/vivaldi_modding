@@ -17,7 +17,7 @@
     msgTimeout = setTimeout(() => (info.innerText = ""), 5000);
   }
 
-  function bringingItAllBackHome(remains) {
+  function bringingItAllBackHome(remains, defaultsArray) {
     vivaldi.searchEngines.getTemplateUrls((engines) => {
       const getKeys = engines.templateUrls.map((e) => e.keyword);
       for (let i = 0; i < defaultsArray.length; i++) {
@@ -29,7 +29,6 @@
       remains.forEach((remove) => {
         vivaldi.searchEngines.removeTemplateUrl(remove);
       });
-      defaultsArray = [];
       msg("restore");
     });
   }
@@ -56,6 +55,7 @@
         }
       });
       console.info("restoring search engines...");
+      const defaultsArray = [];
       collection.templateUrls.forEach((collect) => {
         vivaldi.searchEngines.addTemplateUrl(collect, () => {
           console.info(` \u2022 ${collect.name}`);
@@ -87,7 +87,7 @@
         });
       });
       const remains = [...new Set(oldDefaults)];
-      bringingItAllBackHome(remains);
+      bringingItAllBackHome(remains, defaultsArray);
     });
   }
 
@@ -169,7 +169,6 @@
   `;
 
   let msgTimeout;
-  let defaultsArray = [];
   const settingsUrl =
     "chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=";
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
