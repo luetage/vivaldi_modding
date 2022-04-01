@@ -1,11 +1,12 @@
 // UrlBar Spacing
-// version 2022.3.0
+// version 2022.4.0
 // https://forum.vivaldi.net/post/400239
 // Adds a flexible margin around the Addressfield, depending
 // on width of the window. The window can be dragged by clicking
 // the margins.
 
 (function () {
+  // change width percentage to control spacing inside wrapper
   const css = `
     .vm-us-wrapper {
       flex: 1 0;
@@ -15,7 +16,7 @@
       display: flex;
       margin-left: auto;
       margin-right: auto;
-      width: ${_spacing};
+      width: 92%;
     }
   `;
 
@@ -27,17 +28,16 @@
       style.innerHTML = css;
       document.getElementsByTagName("head")[0].appendChild(style);
     }
-    const bar = url.parentNode;
     const wrapper = document.createElement("div");
     wrapper.classList.add("vm-us-wrapper");
     const spacer = document.createElement("div");
     spacer.classList.add("vm-us-spacer");
-    bar.replaceChild(wrapper, url);
+    url.parentNode.replaceChild(wrapper, url);
     wrapper.appendChild(spacer);
     spacer.appendChild(url);
   }
 
-  const _spacing = "92%"; //change percentage to control spacing
+  // const _spacing = "92%"; //change percentage to control spacing
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
     if (arguments[0].tagName === "DIV") {
