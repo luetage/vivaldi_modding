@@ -91,8 +91,8 @@
     load: () => {
       const footer = document.querySelector(".TabbedView-Footer");
       const link = document.querySelector(".TabbedView-Footer a");
-      if (!footer.classList.contains("vm-int")) {
-        footer.classList.add("vm-int");
+      if (!footer.classList.contains("vm-tip-footer")) {
+        footer.classList.add("vm-tip-footer");
         goUI.buttons.forEach((button) => {
           let b = document.createElement("div");
           b.classList.add("button-toolbar");

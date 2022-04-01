@@ -1,13 +1,13 @@
 // History Moon
-// version 2021.10.0
+// version 2022.3.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase in the panel instead of the history clock
 // icon. Moon phase calculation adapted from
 // https://minkukel.com/en/various/calculating-moon-phase/
 
 (function () {
-  let hemisphere = "northern"; //northern or southern
-  let moon = {
+  const hemisphere = "northern"; //northern or southern
+  const moon = {
     phases: [
       ["New", 0, 1],
       ["Waxing Crescent", 1, 6.38264692644],
@@ -41,7 +41,7 @@
     },
   };
 
-  let historymoon = (phase) => {
+  const historymoon = (phase) => {
     let p = 0;
     if (hemisphere === "southern") {
       const pa = [0, 7, 6, 5, 4, 3, 2, 1];
@@ -60,17 +60,17 @@
     document.querySelector("#switch button.history span").innerHTML = `
       <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <clipPath id="hmcut">
+          <clipPath id="vm-hm-cut">
             <rect x="${icon[p][0]}" y="0" width="${icon[p][1]}" height="16"/>
           </clipPath>
         </defs>
         <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="5" clip-path="url(#hmcut)"/>
+        <circle cx="8" cy="8" r="5" clip-path="url(#vm-hm-cut)"/>
       </svg>
     `;
   };
 
-  let moonwatch = (mutations, phase) => {
+  const moonwatch = (mutations, phase) => {
     mutations.forEach((mutation) => {
       if (mutation.attributeName === "class") historymoon(phase);
     });

@@ -60,12 +60,12 @@
     document.querySelector("#switch button.history span").innerHTML = `
       <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <clipPath id="vm-cut">
+          <clipPath id="vm-hm-cut">
             <rect x="${icon[p][0]}" y="0" width="${icon[p][1]}" height="16"/>
           </clipPath>
         </defs>
         <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="5" clip-path="url(#vm-cut)"/>
+        <circle cx="8" cy="8" r="5" clip-path="url(#vm-hm-cut)"/>
       </svg>
     `;
   };

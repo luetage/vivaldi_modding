@@ -7,18 +7,18 @@
 
 (function () {
   const urlBarSpacing = (url) => {
-    const checkStyle = document.getElementById("vm-url-spacing");
+    const checkStyle = document.getElementById("vm-us-css");
     if (!checkStyle) {
       const style = document.createElement("style");
-      style.id = "vm-url-spacing";
-      style.innerHTML = `.vm-wrapper {flex: 1 0;-webkit-app-region: drag;}.vm-spacer {display: flex;margin-left:  auto;margin-right: auto;width: ${_spacing};}`;
+      style.id = "vm-us-css";
+      style.innerHTML = `.vm-us-wrapper {flex: 1 0;-webkit-app-region: drag;}.vm-us-spacer {display: flex;margin-left:  auto;margin-right: auto;width: ${_spacing};}`;
       document.getElementsByTagName("head")[0].appendChild(style);
     }
     const bar = url.parentNode;
     const wrapper = document.createElement("div");
-    wrapper.classList.add("vm-wrapper");
+    wrapper.classList.add("vm-us-wrapper");
     const spacer = document.createElement("div");
-    spacer.classList.add("vm-spacer");
+    spacer.classList.add("vm-us-spacer");
     bar.replaceChild(wrapper, url);
     wrapper.appendChild(spacer);
     spacer.appendChild(url);
@@ -31,7 +31,7 @@
       setTimeout(
         function () {
           if (arguments[0].classList.contains("UrlBar-AddressField")) {
-            const check = document.querySelector(".vm-spacer");
+            const check = document.querySelector(".vm-us-spacer");
             if (!check) {
               urlBarSpacing(arguments[0]);
             }

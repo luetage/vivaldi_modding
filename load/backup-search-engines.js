@@ -1,5 +1,5 @@
 // Backup Search Engines
-// version 2022.3.4
+// version 2022.4.0
 // https://forum.vivaldi.net/post/277594
 // Adds functionality to backup and restore search engines in
 // vivaldi://settings/search.
@@ -17,16 +17,11 @@
     msgTimeout = setTimeout(() => (info.innerText = ""), 5000);
   }
 
-  function lookup(n) {
-    const defaults = [n.defaultSearch, n.defaultPrivate, n.defaultImage];
-    return defaults;
-  }
-
   function bringingItAllBackHome(remains) {
     vivaldi.searchEngines.getTemplateUrls((engines) => {
-      const getNames = engines.templateUrls.map((e) => e.name);
+      const getKeys = engines.templateUrls.map((e) => e.keyword);
       for (let i = 0; i < defaultsArray.length; i++) {
-        const index = getNames.lastIndexOf(defaultsArray[i][0]);
+        const index = getKeys.lastIndexOf(defaultsArray[i][0]);
         const id = engines.templateUrls[index].id.toString();
         const ds = defaultsArray[i][1];
         vivaldi.searchEngines.setDefault(ds, id);
@@ -41,15 +36,29 @@
 
   function exec(collection) {
     vivaldi.searchEngines.getTemplateUrls((engines) => {
-      const oldDefaults = lookup(engines);
-      const newDefaults = lookup(collection);
+      const oldDefaults = [
+        engines.defaultImage,
+        engines.defaultPrivate,
+        engines.defaultSearch,
+      ];
+      const newDefaults = [
+        collection.defaultImage,
+        collection.defaultPrivate,
+        collection.defaultSearch,
+        collection.defaultSearchField,
+        collection.defaultSearchFieldPrivate,
+        collection.defaultSpeeddials,
+        collection.defaultSpeeddialsPrivate,
+      ];
       engines.templateUrls.forEach((engine) => {
         if (oldDefaults.indexOf(engine.id) === -1) {
           vivaldi.searchEngines.removeTemplateUrl(engine.id);
         }
       });
+      console.info("restoring search engines...");
       collection.templateUrls.forEach((collect) => {
         vivaldi.searchEngines.addTemplateUrl(collect, () => {
+          console.info(` \u2022 ${collect.name}`);
           if (newDefaults.indexOf(collect.id) > -1) {
             const indeces = newDefaults
               .map((e, i) => (e === collect.id ? i : ""))
@@ -57,13 +66,21 @@
             indeces.forEach((index) => {
               let ds;
               if (index === 0) {
-                ds = vivaldi.searchEngines.DefaultType.DEFAULT_SEARCH;
+                ds = vivaldi.searchEngines.DefaultType.DEFAULT_IMAGE;
               } else if (index === 1) {
                 ds = vivaldi.searchEngines.DefaultType.DEFAULT_PRIVATE;
+              } else if (index === 2) {
+                ds = vivaldi.searchEngines.DefaultType.DEFAULT_SEARCH;
+              } else if (index === 3) {
+                ds = vivaldi.searchEngines.DefaultType.DEFAULT_SEARCH_FIELD;
+              } else if (index === 4) {
+                ds = vivaldi.searchEngines.DefaultType.DEFAULT_SEARCH_FIELD_PRIVATE;
+              } else if (index === 5) {
+                ds = vivaldi.searchEngines.DefaultType.DEFAULT_SPEEDDIALS;
               } else {
-                ds = vivaldi.searchEngines.DefaultType.DEFAULT_IMAGE;
+                ds = vivaldi.searchEngines.DefaultType.DEFAULT_SPEEDDIALS_PRIVATE;
               }
-              const tunnel = [collect.name, ds];
+              const tunnel = [collect.keyword, ds];
               defaultsArray.push(tunnel);
             });
           }
@@ -104,14 +121,14 @@
 
   function backup() {
     vivaldi.searchEngines.getTemplateUrls((engines) => {
-      const backupCode = JSON.stringify(engines);
+      const backupCode = JSON.stringify(engines, null, 2);
       navigator.clipboard.writeText(backupCode);
       msg("backup");
     });
   }
 
   function ui() {
-    const check = document.getElementById("vm-backup");
+    const check = document.getElementById("vm-bse-backup");
     if (!check) {
       const place = document.querySelector(
         ".setting-section > div > .setting-group.unlimited > .setting-single"
@@ -119,34 +136,34 @@
       const btn = document.createElement("input");
       btn.setAttribute("type", "button");
       btn.setAttribute("value", "Backup");
-      btn.id = "vm-backup";
+      btn.id = "vm-bse-backup";
       place.insertBefore(btn, place.lastChild);
       btn.addEventListener("click", backup);
       const input = document.createElement("input");
       input.setAttribute("type", "text");
       input.setAttribute("placeholder", "Restore Backup");
-      input.id = "vm-restore";
+      input.id = "vm-bse-restore";
       place.insertBefore(input, place.lastChild);
       input.addEventListener("paste", restore);
       input.addEventListener("drop", restore);
       info = document.createElement("span");
-      info.id = "vm-msg";
+      info.id = "vm-bse-msg";
       place.insertBefore(info, place.lastChild);
     }
   }
 
   const css = `
-    #vm-restore {
+    #vm-bse-restore {
       width: 130px;
       margin-left: 6px;
       margin-top: 6px;
     }
-    #vm-restore::-webkit-input-placeholder {
+    #vm-bse-restore::-webkit-input-placeholder {
       opacity: 1;
       color: var(--colorHighlightBg);
       text-align: center;
     }
-    #vm-msg {
+    #vm-bse-msg {
       margin-left: 12px;
     }
   `;
@@ -158,10 +175,10 @@
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.url === `${settingsUrl}search`) {
       setTimeout(ui, 100);
-      const check = document.getElementById("vm-engines");
+      const check = document.getElementById("vm-bse-css");
       if (!check) {
         const style = document.createElement("style");
-        style.id = "vm-engines";
+        style.id = "vm-bse-css";
         style.innerHTML = css;
         document.getElementsByTagName("head")[0].appendChild(style);
       }
