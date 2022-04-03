@@ -6,7 +6,7 @@
 // the margins.
 
 (function () {
-  // change width percentage to control spacing inside wrapper
+  const spacing = "92%"; // change percentage to control spacing inside wrapper
   const css = `
     .vm-us-wrapper {
       flex: 1 0;
@@ -16,7 +16,7 @@
       display: flex;
       margin-left: auto;
       margin-right: auto;
-      width: 92%;
+      width: ${spacing};
     }
   `;
 
