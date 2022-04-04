@@ -1,25 +1,25 @@
 // Tab Scroll
-// version 2021.9.0
+// version 2022.4.0
 // https://forum.vivaldi.net/topic/27856/tab-scroll
 // Clicking on an active tab scrolls page to top, clicking it again returns to
 // previous scroll position. Credits to tam710562 from Vivaldi Forum for coming
 // up with the sessionStorage solution, which made this possible.
 
-(function () {
-  function tabScrollExit(tab) {
-    tab.removeEventListener("mousemove", tabScrollExit);
-    tab.removeEventListener("click", tabScrollTrigger);
+(function tabScroll() {
+  function exit(tab) {
+    tab.removeEventListener("mousemove", exit);
+    tab.removeEventListener("click", trigger);
   }
 
-  function tabScrollTrigger(tab) {
+  function trigger(tab) {
     chrome.scripting.executeScript({
       target: { tabId: Number(tab.parentNode.id.replace(/\D/g, "")) },
-      function: tabScrollScript,
+      function: script,
     });
-    tabScrollExit(tab);
+    exit(tab);
   }
 
-  function tabScroll(e, tab) {
+  function react(e, tab) {
     if (
       tab.parentNode.classList.contains("active") &&
       e.which === 1 &&
@@ -28,12 +28,12 @@
       !e.altKey &&
       !e.metaKey
     ) {
-      tab.addEventListener("mousemove", tabScrollExit(tab));
-      tab.addEventListener("click", tabScrollTrigger(tab));
+      tab.addEventListener("mousemove", exit(tab));
+      tab.addEventListener("click", trigger(tab));
     }
   }
 
-  const tabScrollScript = () => {
+  const script = () => {
     let offset = window.pageYOffset;
     if (offset > 0) {
       window.sessionStorage.setItem("tabOffset", offset);
@@ -43,7 +43,7 @@
     }
   };
 
-  var appendChild = Element.prototype.appendChild;
+  let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
     if (
       arguments[0].tagName === "DIV" &&
@@ -51,8 +51,8 @@
     ) {
       setTimeout(
         function () {
-          const trigger = (event) => tabScroll(event, arguments[0]);
-          arguments[0].addEventListener("mousedown", trigger);
+          const ts = (event) => react(event, arguments[0]);
+          arguments[0].addEventListener("mousedown", ts);
         }.bind(this, arguments[0])
       );
     }
