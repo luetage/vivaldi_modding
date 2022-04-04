@@ -1,11 +1,11 @@
 // Theme Interface plus
-// version 2022.3.0
+// version 2022.4.0
 // https://forum.vivaldi.net/post/531981
 // Adds functionality to toggle system themes, sort user themes alphabetically,
 // move themes individually and expand the overview, to Vivaldi’s settings page.
 
-(function () {
-  const toggle = (init) => {
+(function themeInterfacePlus() {
+  function toggle(init) {
     const css = document.getElementById("vm-tip-css");
     if (
       (systemDefault === 0 && init === 1) ||
@@ -17,7 +17,11 @@
             let index = sys.findIndex((x) => x.id === current);
             const hide = document.createElement("style");
             hide.id = "vm-tip-css";
-            hide.innerText = `.ThemePreviews > div:nth-child(-n+${sys.length}):not(:nth-child(${index + 1})){display: none}`;
+            hide.innerHTML = `
+              .ThemePreviews > div:nth-child(-n + ${sys.length}):not(:nth-child(${index + 1})) {
+                display: none;
+              }
+            `;
             document.getElementsByTagName("head")[0].appendChild(hide);
           });
         });
@@ -27,18 +31,18 @@
       if (css) css.parentNode.removeChild(css);
       systemDefault = 1;
     }
-  };
+  }
 
-  const sort = () => {
+  function sort() {
     vivaldi.prefs.get("vivaldi.themes.user", (collection) => {
       collection.sort((a, b) => {
         return a.name.localeCompare(b.name);
       });
       vivaldi.prefs.set({ path: "vivaldi.themes.user", value: collection });
     });
-  };
+  }
 
-  const move = (dir) => {
+  function move(dir) {
     vivaldi.prefs.get("vivaldi.themes.current", (current) => {
       vivaldi.prefs.get("vivaldi.themes.user", (collection) => {
         let index = collection.findIndex((x) => x.id === current);
@@ -64,9 +68,9 @@
         vivaldi.prefs.set({ path: "vivaldi.themes.user", value: collection });
       });
     });
-  };
+  }
 
-  const expand = (opt) => {
+  function expand(opt) {
     const view = document.querySelector(".TabbedView");
     if (opt === 1 || expansion === 0) {
       view.style.maxWidth = "unset";
@@ -77,7 +81,7 @@
       view.style.maxWidth = "660px";
       expansion = 0;
     }
-  };
+  }
 
   const goUI = {
     buttons: [
@@ -105,7 +109,7 @@
     },
   };
 
-  const mi5 = (mutations) => {
+  function mi5(mutations) {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
         if (
@@ -118,7 +122,7 @@
         }
       });
     });
-  };
+  }
 
   let systemDefault = 0; // set to »1« to display system themes by default
   let expansion = 0; // set to »1« for the maximum number of themes per row by default

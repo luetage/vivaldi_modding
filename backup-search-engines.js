@@ -4,7 +4,7 @@
 // Adds functionality to backup and restore search engines in
 // vivaldi://settings/search.
 
-(function () {
+(function backupSearchEngines() {
   function msg(print) {
     clearTimeout(msgTimeout);
     if (print === "backup") {
@@ -136,34 +136,34 @@
       const btn = document.createElement("input");
       btn.setAttribute("type", "button");
       btn.setAttribute("value", "Backup");
-      btn.id = "vm-bse-backup";
+      btn.classList.add("vm-bse-backup");
       place.insertBefore(btn, place.lastChild);
       btn.addEventListener("click", backup);
       const input = document.createElement("input");
       input.setAttribute("type", "text");
       input.setAttribute("placeholder", "Restore Backup");
-      input.id = "vm-bse-restore";
+      input.classList.add("vm-bse-restore");
       place.insertBefore(input, place.lastChild);
       input.addEventListener("paste", restore);
       input.addEventListener("drop", restore);
       info = document.createElement("span");
-      info.id = "vm-bse-msg";
+      info.classList.add("vm-bse-msg");
       place.insertBefore(info, place.lastChild);
     }
   }
 
   const css = `
-    #vm-bse-restore {
+    .vm-bse-restore {
       width: 130px;
       margin-left: 6px;
       margin-top: 6px;
     }
-    #vm-bse-restore::-webkit-input-placeholder {
+    .vm-bse-restore::-webkit-input-placeholder {
       opacity: 1;
       color: var(--colorHighlightBg);
       text-align: center;
     }
-    #vm-bse-msg {
+    .vm-bse-msg {
       margin-left: 12px;
     }
   `;

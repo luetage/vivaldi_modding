@@ -5,7 +5,7 @@
 // on width of the window. The window can be dragged by clicking
 // the margins.
 
-(function () {
+(function urlBarSpacing() {
   const spacing = "92%"; // change percentage to control spacing inside wrapper
   const css = `
     .vm-us-wrapper {
@@ -20,7 +20,7 @@
     }
   `;
 
-  const urlBarSpacing = (url) => {
+  function space(url) {
     const check = document.getElementById("vm-us-css");
     if (!check) {
       const style = document.createElement("style");
@@ -45,7 +45,7 @@
           if (arguments[0].classList.contains("UrlBar-AddressField")) {
             const check = document.querySelector(".vm-us-spacer");
             if (!check) {
-              urlBarSpacing(arguments[0]);
+              space(arguments[0]);
             }
           }
         }.bind(this, arguments[0])

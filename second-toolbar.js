@@ -1,11 +1,11 @@
 // Second Toolbar
-// version 2022.3.0
+// version 2022.4.0
 // https://forum.vivaldi.net/post/560359
 // Adds a second toolbar to the UrlBar and moves »numberOfButtons« from the
 // original toolbar to it.
 
-(function () {
-  const addToolbar = (adr) => {
+(function secondToolbar() {
+  function addToolbar(adr) {
     const check = document.querySelector(".vm-st-move");
     if (!check) {
       const div = document.createElement("div");
@@ -26,7 +26,7 @@
         target.appendChild(btn.parentNode);
       }
     }
-  };
+  }
 
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {

@@ -1,11 +1,11 @@
 // History Moon
-// version 2022.3.0
+// version 2022.4.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase in the panel instead of the history clock
 // icon. Moon phase calculation adapted from
 // https://minkukel.com/en/various/calculating-moon-phase/
 
-(function () {
+(function historyMoon() {
   const hemisphere = "northern"; //northern or southern
   const moon = {
     phases: [
@@ -41,7 +41,7 @@
     },
   };
 
-  const historymoon = (phase) => {
+  function icon(phase) {
     let p = 0;
     if (hemisphere === "southern") {
       const pa = [0, 7, 6, 5, 4, 3, 2, 1];
@@ -68,13 +68,13 @@
         <circle cx="8" cy="8" r="5" clip-path="url(#vm-hm-cut)"/>
       </svg>
     `;
-  };
+  }
 
-  const moonwatch = (mutations, phase) => {
+  function moonwatch(mutations, phase) {
     mutations.forEach((mutation) => {
-      if (mutation.attributeName === "class") historymoon(phase);
+      if (mutation.attributeName === "class") icon(phase);
     });
-  };
+  }
 
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
@@ -86,7 +86,7 @@
             this.classList.contains("history")
           ) {
             const lc = moon.phase();
-            historymoon(lc.phase);
+            icon(lc.phase);
             this.title += `\n${lc.name} Moon ${lc.progress}%`;
             const mw = (mutations) => moonwatch(mutations, lc.phase);
             new MutationObserver(mw).observe(this, { attributes: true });
