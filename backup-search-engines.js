@@ -171,7 +171,7 @@
   let msgTimeout;
   const settingsUrl =
     "chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/settings/settings.html?path=";
-  chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.url === `${settingsUrl}search`) {
       setTimeout(ui, 100);
       const check = document.getElementById("vm-bse-css");
