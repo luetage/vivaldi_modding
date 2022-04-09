@@ -1,3 +1,4 @@
+
 *::selection {
   color: #fff ;
   background: #0662d2;
@@ -5,7 +6,7 @@
 
 /* header */
 #titlebar #pagetitle {
-  top: 3px;
+  top: 2px;
 }
 .window-buttongroup button.window-maximize,
 .window-buttongroup button.window-minimize {
