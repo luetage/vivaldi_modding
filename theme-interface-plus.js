@@ -1,5 +1,5 @@
 // Theme Interface plus
-// version 2022.4.0
+// version 2022.5.0
 // https://forum.vivaldi.net/post/531981
 // Adds functionality to toggle system themes, sort user themes alphabetically,
 // move themes individually and expand the overview, to Vivaldi’s settings page.
@@ -85,12 +85,12 @@
 
   const goUI = {
     buttons: [
-      // text, title, function (translate strings)
-      ["Toggle", "Toggle System Themes", toggle],
-      ["Sort", "Sort Themes Alphabetically", sort],
-      ["\u{25C2}", "Move Theme Left", move],
-      ["\u{25B8}", "Move Theme Right", () => move("right")],
-      ["<b>\u{FF3B}\u{FF3D}</b>", "Expand/Contract", expand],
+      // text, function
+      ["Toggle", toggle],
+      ["Sort", sort],
+      ["\u{25C2}", move],
+      ["\u{25B8}", () => move("right")],
+      ["\u{FF3B}\u{FF3D}", expand],
     ],
     load: () => {
       const footer = document.querySelector(".TabbedView-Footer");
@@ -98,11 +98,11 @@
       if (!footer.classList.contains("vm-tip-footer")) {
         footer.classList.add("vm-tip-footer");
         goUI.buttons.forEach((button) => {
-          let b = document.createElement("div");
-          b.classList.add("button-toolbar");
-          b.innerHTML = `<button title="${button[1]}" type="button" class="ToolbarButton-Button button-textonly"><span class="button-title">${button[0]}</span></button>`;
+          let b = document.createElement("input");
+          b.type = "button";
+          b.value = button[0];
           footer.insertBefore(b, link);
-          b.addEventListener("click", button[2]);
+          b.addEventListener("click", button[1]);
         });
       }
       if (expansion === 1) expand(1);
