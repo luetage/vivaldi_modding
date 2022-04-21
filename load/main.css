@@ -1,4 +1,5 @@
 
+/* selection color */
 *::selection {
   color: #fff ;
   background: #0662d2;
@@ -30,20 +31,6 @@
 }
 
 /* internal pages */
-webview[src="about:blank"]::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(
-      to bottom,
-      transparent 50%,
-      var(--colorBg) 50%
-    ),
-    linear-gradient(to right, var(--colorBgDark) 50%, var(--colorBg) 50%);
-  background-size: 10px 10px, 10px 10px;
-}
 .SpeedDialView-Settings-Button {
   display: none;
 }
