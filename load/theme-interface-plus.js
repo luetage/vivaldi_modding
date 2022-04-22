@@ -85,7 +85,6 @@
 
   const goUI = {
     buttons: [
-      // text, function
       ["Toggle", toggle],
       ["Sort", sort],
       ["\u{25C2}", move],
