@@ -6,9 +6,9 @@
 }
 
 /* header */
-#titlebar #pagetitle {
-  top: 2px;
-}
+/* #titlebar #pagetitle { */
+/*   top: 2px; */
+/* } */
 .window-buttongroup button.window-maximize,
 .window-buttongroup button.window-minimize {
   display: none;
@@ -21,6 +21,9 @@
 #header {
   -webkit-app-region: no-drag;
 }
+/* .tab-audio { */
+/*   pointer-events: none; */
+/* } */
 
 /* urlbar */
 .UrlBar-AddressField .ContentBlocker-Control {
