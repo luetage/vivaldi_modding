@@ -1,14 +1,4 @@
-#modal-bg {user-select: text;}
-/* selection color */
-/* *::selection { */
-/*   color: #fff ; */
-/*   background: #0662d2; */
-/* } */
-
 /* header */
-/* #titlebar #pagetitle { */
-/*   top: 2px; */
-/* } */
 .window-buttongroup button.window-maximize,
 .window-buttongroup button.window-minimize {
   display: none;
@@ -24,9 +14,6 @@
 .transparent-tabbar .tab-position .tab.active .tab-header .favicon:not(.svg), .theme-dark .tab-position .tab.active .tab-header .favicon:not(.svg), .acc-dark.color-behind-tabs-off .tab-position .tab.active .tab-header .favicon:not(.svg) {
   filter: unset;
 }
-/* .tab-audio { */
-/*   pointer-events: none; */
-/* } */
 
 /* urlbar */
 .UrlBar-AddressField .ContentBlocker-Control {
@@ -40,3 +27,11 @@
 .SpeedDialView-Settings-Button {
   display: none;
 }
+
+/* reading list */
+.readinglist-listing-large {
+  order: 1;
+}
+
+/* alerts */
+#modal-bg {user-select: all;}
