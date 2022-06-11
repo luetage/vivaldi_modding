@@ -6,11 +6,9 @@ Changes the name of the mail panel ^^
 */
 
 #mail_panel h1 {
-  text-indent: -9999px;
+  font-size: 0;
 }
 #mail_panel h1::after {
-  display: block;
-  margin-top: -20px;
-  text-indent: 0px;
+  font-size: 16px;
   content: "M3";
 }
