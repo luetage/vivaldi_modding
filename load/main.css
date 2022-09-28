@@ -21,10 +21,6 @@
   filter: unset;
 }
 
-/* urlbar */
-.UrlBar-AddressField .ContentBlocker-Control {
-  display: none;
-}
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
 }
