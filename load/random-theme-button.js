@@ -1,5 +1,5 @@
 // Random Theme Button
-// version 2022.10.0
+// version 2022.10.1
 // https://forum.vivaldi.net/topic/34767/random-theme-button
 // Load a random theme when clicking a command chain button.
 
