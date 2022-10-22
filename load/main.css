@@ -39,3 +39,8 @@
 #modal-bg {
   user-select: all;
 }
+
+/* trash icon */
+.toggle-trash.button-toolbar button svg path {
+  d: path("M6.5 8 h13 v2 h-13 Z M6.5 12 h13 v2 h-13 Z M9 16 h8 v2 h-8 Z");
+}
