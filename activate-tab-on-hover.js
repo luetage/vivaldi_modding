@@ -1,10 +1,10 @@
 // Activate Tab On Hover
-// version 2021.8.0
+// version 2022.10.0
 // https://forum.vivaldi.net/topic/50354/create-a-new-mod-mouseover-tab-select/4
 // Activates tab on hover.
 
-(function () {
-  function activateTab(e, tab) {
+(function activateTab() {
+  function hover(e, tab) {
     if (
       !tab.parentNode.classList.contains("active") &&
       !e.shiftKey &&
@@ -21,9 +21,9 @@
     }
   }
 
-  var wait;
+  let wait;
   const delay = 300; //pick a time in milliseconds
-  var appendChild = Element.prototype.appendChild;
+  let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
     if (
       arguments[0].tagName === "DIV" &&
@@ -31,7 +31,7 @@
     ) {
       setTimeout(
         function () {
-          var trigger = (event) => activateTab(event, arguments[0]);
+          const trigger = (event) => hover(event, arguments[0]);
           arguments[0].addEventListener("mouseenter", trigger);
         }.bind(this, arguments[0])
       );
