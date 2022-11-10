@@ -25,6 +25,7 @@ creating an issue, or by posting in the according topic on Vivaldi Forum.
 * [random-theme-button.js](random-theme-button.js)
 * [Tab_Lock.js](page-actions/Tab_Lock.js)
 * [tab-scroll.js](tab-scroll.js)
+* [toggle-keys-and-gestures](toggle-keys-and-gestures.js)
 * [theme-interface-plus.js](theme-interface-plus.js)
 
 ## How to
