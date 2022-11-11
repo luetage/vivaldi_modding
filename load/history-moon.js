@@ -1,5 +1,5 @@
 // History Moon
-// version 2022.4.0
+// version 2022.11.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase in the panel instead of the history clock
 // icon. Moon phase calculation adapted from
@@ -41,7 +41,7 @@
     },
   };
 
-  function icon(phase) {
+  function icon(phase, el) {
     let p = 0;
     if (hemisphere === "southern") {
       const pa = [0, 7, 6, 5, 4, 3, 2, 1];
@@ -57,7 +57,7 @@
       [0, 8],
       [0, 6],
     ];
-    document.querySelector("#switch button.history span").innerHTML = `
+    el.childNodes[0].innerHTML = `
       <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="vm-hm-cut">
@@ -70,26 +70,18 @@
     `;
   }
 
-  function moonwatch(mutations, phase) {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === "class") icon(phase);
-    });
-  }
-
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
     if (this.tagName === "BUTTON") {
       setTimeout(
         function () {
           if (
-            this.classList.contains("panelbtn") &&
-            this.classList.contains("history")
+            this.name === "PanelHistory" &&
+            this.classList.contains("ToolbarButton-Button")
           ) {
             const lc = moon.phase();
-            icon(lc.phase);
+            icon(lc.phase, this);
             this.title += `\n${lc.name} Moon ${lc.progress}%`;
-            const mw = (mutations) => moonwatch(mutations, lc.phase);
-            new MutationObserver(mw).observe(this, { attributes: true });
           }
         }.bind(this, arguments[0])
       );
