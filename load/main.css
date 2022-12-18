@@ -1,10 +1,9 @@
 /* header */
-.window-buttongroup button.window-maximize,
-.window-buttongroup button.window-minimize {
-  display: none;
+.window-buttongroup {
+  display: none !important;
 }
 .linux #tabs-container:not(.none).top {
-  padding-right: 40px;
+  padding-right: 10px;
 }
 
 /* tabs */
