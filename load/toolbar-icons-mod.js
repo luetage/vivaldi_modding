@@ -1,5 +1,5 @@
 // Toolbar icons mod
-// version 2022.11.0
+// version 2022.12.0
 // Icons: Font Awesome 6 Free
 
 (function toolbarIconsMod() {
