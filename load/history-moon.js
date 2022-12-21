@@ -1,5 +1,5 @@
 // History Moon
-// version 2022.11.0
+// version 2022.12.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase in the panel instead of the history clock
 // icon. Moon phase calculation adapted from
@@ -41,33 +41,25 @@
     },
   };
 
-  function icon(phase, el) {
+  function icon(phase) {
     let p = 0;
     if (hemisphere === "southern") {
       const pa = [0, 7, 6, 5, 4, 3, 2, 1];
       p = pa[phase];
     } else p = phase;
     const icon = [
-      [0, 0],
-      [10, 6],
-      [8, 8],
-      [6, 10],
-      [0, 16],
-      [0, 10],
+      [-8, 0],
+      [2, 6],
       [0, 8],
-      [0, 6],
+      [-2, 10],
+      [-8, 16],
+      [-8, 10],
+      [-8, 8],
+      [-8, 6],
     ];
-    el.childNodes[0].innerHTML = `
-      <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <clipPath id="vm-hm-cut">
-            <rect x="${icon[p][0]}" y="0" width="${icon[p][1]}" height="16"/>
-          </clipPath>
-        </defs>
-        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="8" cy="8" r="5" clip-path="url(#vm-hm-cut)"/>
-      </svg>
-    `;
+    const mod = document.getElementById("vm-hm-mod");
+    mod.setAttribute("x", icon[p][0]);
+    mod.setAttribute("width", icon[p][1]);
   }
 
   let appendChild = Element.prototype.appendChild;
@@ -80,7 +72,7 @@
             this.classList.contains("ToolbarButton-Button")
           ) {
             const lc = moon.phase();
-            icon(lc.phase, this);
+            icon(lc.phase);
             this.title += `\n${lc.name} Moon ${lc.progress}%`;
           }
         }.bind(this, arguments[0])
