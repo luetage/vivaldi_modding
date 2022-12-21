@@ -2,7 +2,8 @@
 // version 2022.12.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase in the panel instead of the history clock
-// icon. Moon phase calculation adapted from
+// icon. Download history-moon-large.svg and history-moon-small.svg files and
+// load them in theme settings. Moon phase calculation adapted from
 // https://minkukel.com/en/various/calculating-moon-phase/
 
 (function historyMoon() {
