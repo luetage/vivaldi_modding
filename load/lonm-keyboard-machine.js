@@ -9,7 +9,7 @@
   // value: A function describing what to do when the key is pressed
 
   const SHORTCUTS = {
-    "Alt+Y": () => {
+    "Ctrl+Y": () => {
       // get version
       const active = document.activeElement;
       const version = vivaldi.utilities.getVersion();
@@ -26,18 +26,6 @@
         vivaldi.prefs.set({
           path: "vivaldi.startpage.speed_dial.width",
           value: width[index + 1],
-        });
-      });
-    },
-    "Alt+-": () => {
-      // zoom speed dials
-      vivaldi.prefs.get("vivaldi.startpage.speed_dial.width", (current) => {
-        const width = [120, 170, 220, 270, 320];
-        let index = width.findIndex((x) => x === current);
-        if (index === 0) index = 5;
-        vivaldi.prefs.set({
-          path: "vivaldi.startpage.speed_dial.width",
-          value: width[index - 1],
         });
       });
     },

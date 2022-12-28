@@ -19,18 +19,6 @@ icons for blocked content and the bookmark button in the addressfield.
   color: var(--colorHighlightBg) !important;
   font-weight: bold;
 }
-.SiteInfoButton.certified {
-  fill: var(--colorHighlightBgDark);
-  color: var(--colorHighlightBg);
-}
-.SiteInfoButton.certified:hover,
-.SiteInfoButton.certified:focus:not([tabindex="-1"]),
-.SiteInfoButton.certified:active {
-  fill: var(--colorHighlightBg);
-}
-.SiteInfoButton .siteinfo-text {
-	display: none;
-}
 .bookmark-animated-fill {
   fill: var(--colorFg) !important;
 }
