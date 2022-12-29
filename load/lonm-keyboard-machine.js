@@ -9,7 +9,7 @@
   // value: A function describing what to do when the key is pressed
 
   const SHORTCUTS = {
-    "Ctrl+Y": () => {
+    "Alt+Y": () => {
       // get version
       const active = document.activeElement;
       const version = vivaldi.utilities.getVersion();
