@@ -1,10 +1,9 @@
 // History Moon
-// version 2022.12.0
+// version 2023.1.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase in the panel instead of the history clock
-// icon. Download history-moon-large.svg and history-moon-small.svg files and
-// load them in theme settings. Moon phase calculation adapted from
-// https://minkukel.com/en/various/calculating-moon-phase/
+// icon. Download the history-moon.svg file and load it in theme settings. Moon
+// phase calculation adapted from https://minkukel.com/en/various/calculating-moon-phase/
 
 (function historyMoon() {
   const hemisphere = "northern"; //northern or southern
