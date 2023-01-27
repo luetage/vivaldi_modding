@@ -86,7 +86,7 @@
               this.addEventListener("click", () => {
                 if (document.querySelector(".toolbar-editor")) {
                   document
-                    .querySelector(".toolbar-editor .dialog-footer input")
+                    .querySelector(".toolbar-editor .dialog-footer input:last-of-type")
                     .click();
                 }
               });
