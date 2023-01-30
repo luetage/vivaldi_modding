@@ -86,9 +86,20 @@
               this.addEventListener("click", () => {
                 if (document.querySelector(".toolbar-editor")) {
                   document
-                    .querySelector(".toolbar-editor .dialog-footer input:last-of-type")
+                    .querySelector(
+                      ".toolbar-editor .dialog-footer input:last-of-type"
+                    )
                     .click();
                 }
+              });
+            }
+            if (this.title === "Update Feeds") {
+              this.addEventListener("click", () => {
+                setTimeout(() => {
+                  document
+                    .querySelector("input[value='Update All Feeds']")
+                    .click();
+                }, 150);
               });
             }
           }
