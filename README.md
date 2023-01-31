@@ -27,6 +27,7 @@ creating an issue, or by posting in the according topic on Vivaldi Forum.
 * [tab-scroll.js](tab-scroll.js)
 * [toggle-keys-and-gestures](toggle-keys-and-gestures.js)
 * [theme-interface-plus.js](theme-interface-plus.js)
+* [update-feeds.js](update-feeds.js)
 
 ## How to
 
