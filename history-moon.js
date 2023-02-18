@@ -1,12 +1,11 @@
 // History Moon
-// version 2023.1.0
+// version 2023.2.0
 // https://forum.vivaldi.net/post/461432
-// Displays the current moon phase in the panel instead of the history clock
-// icon. Download the history-moon.svg file and load it in theme settings. Moon
-// phase calculation adapted from https://minkukel.com/en/various/calculating-moon-phase/
+// Displays the current moon phase instead of the history clock icon. Download
+// the history-moon.svg file and load it in theme settings. Moon phase
+// calculation adapted from https://minkukel.com/en/various/calculating-moon-phase/
 
 (function historyMoon() {
-  const hemisphere = "northern"; //northern or southern
   const moon = {
     phases: [
       ["New", 0, 1],
@@ -41,12 +40,14 @@
     },
   };
 
-  function icon(phase) {
+  function icon(el) {
+    if (otitle === "") otitle = el.title;
+    const lc = moon.phase();
     let p = 0;
     if (hemisphere === "southern") {
       const pa = [0, 7, 6, 5, 4, 3, 2, 1];
-      p = pa[phase];
-    } else p = phase;
+      p = pa[lc.phase];
+    } else p = lc.phase;
     const icon = [
       [-8, 0],
       [2, 6],
@@ -57,11 +58,18 @@
       [-8, 8],
       [-8, 6],
     ];
-    const mod = document.getElementById("vm-hm-mod");
-    mod.setAttribute("x", icon[p][0]);
-    mod.setAttribute("width", icon[p][1]);
+    const btns = document.querySelectorAll(select);
+    btns.forEach((btn) => {
+      btn.title = `${otitle}\n${lc.name} Moon ${lc.progress}%`;
+      const mod = btn.querySelector("#vm-hm-mod");
+      mod.setAttribute("x", icon[p][0]);
+      mod.setAttribute("width", icon[p][1]);
+    });
   }
 
+  const hemisphere = "northern"; //use northern or southern
+  const select = ".ToolbarButton-Button[name='PanelHistory']";
+  let otitle = "";
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
     if (this.tagName === "BUTTON") {
@@ -71,9 +79,7 @@
             this.name === "PanelHistory" &&
             this.classList.contains("ToolbarButton-Button")
           ) {
-            const lc = moon.phase();
-            icon(lc.phase);
-            this.title += `\n${lc.name} Moon ${lc.progress}%`;
+            icon(this);
           }
         }.bind(this, arguments[0])
       );
