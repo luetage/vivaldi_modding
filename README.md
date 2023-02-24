@@ -14,20 +14,20 @@ creating an issue, or by posting in the according topic on Vivaldi Forum.
 
 ## Actively maintained mods
 
-* [activate-tab-on-hover.js](activate-tab-on-hover.js)
-* [addressfield-theming.css](addressfield-theming.css)
-* [backup-search-engines.js](backup-search-engines.js)
-* [changing-buttons.css](changing-buttons.css)
-* [collapse-keyboard-settings.js](collapse-keyboard-settings.js)
-* [history-moon.js](history-moon.js)
-* [m3.css](m3.css)
-* [profile-icon.js](profile-icon.js)
-* [random-theme-button.js](random-theme-button.js)
-* [Tab_Lock.js](page-actions/Tab_Lock.js)
-* [tab-scroll.js](tab-scroll.js)
-* [toggle-keys-and-gestures](toggle-keys-and-gestures.js)
-* [theme-interface-plus.js](theme-interface-plus.js)
-* [update-feeds.js](update-feeds.js)
+- [activate-tab-on-hover.js](activate-tab-on-hover.js)
+- [addressfield-theming.css](addressfield-theming.css)
+- [backup-search-engines.js](backup-search-engines.js)
+- [changing-buttons.css](changing-buttons.css)
+- [collapse-keyboard-settings.js](collapse-keyboard-settings.js)
+- [history-moon.js](history-moon.js)
+- [m3.css](m3.css)
+- [profile-icon.js](profile-icon.js)
+- [random-theme-button.js](random-theme-button.js)
+- [Tab_Lock.js](page-actions/Tab_Lock.js)
+- [tab-scroll.js](tab-scroll.js)
+- [toggle-keys-and-gestures](toggle-keys-and-gestures.js)
+- [theme-interface-plus.js](theme-interface-plus.js)
+- [update-feeds.js](update-feeds.js)
 
 ## How to
 
@@ -42,4 +42,3 @@ mods written by the community.
 [1]: https://vivaldi.com/
 [2]: https://forum.vivaldi.net/topic/10549/modding-vivaldi/
 [3]: https://forum.vivaldi.net/category/52/modifications/
-
