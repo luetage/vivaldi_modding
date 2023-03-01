@@ -1,26 +1,22 @@
 /*
 Addressfield Theming
-version 2022.2.2
+version 2023.3.0
 https://forum.vivaldi.net/post/356714
 Changes the colors of the hostfragments, the certified siteinfo button, the
 icons for blocked content and the bookmark button in the addressfield.
 */
 
-.UrlFragment-Wrapper,
-.UrlFragment--Lowlight:first-of-type {
-  color: var(--colorFgFaded);
+.UrlFragment-Wrapper--ShouldHighlight {
+  --HighlightColor: var(--colorFg);
+  --LowlightColor: var(--colorFgFaded);
 }
-.UrlFragment-HostFragment-Basedomain,
-.UrlFragment-HostFragment-TLD {
-  color: var(--colorFgIntense) !important;
-  font-weight: bold;
-}
-.UrlFragment-HostFragment-Subdomain {
+.UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-Subdomain {
   color: var(--colorHighlightBg) !important;
   font-weight: bold;
 }
-.bookmark-animated-fill {
-  fill: var(--colorFg) !important;
+.UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-Basedomain,
+.UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-TLD {
+  font-weight: bold;
 }
 .permission-denied circle {
   fill: var(--colorHighlightBg);
