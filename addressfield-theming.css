@@ -6,13 +6,13 @@ Changes the colors of the hostfragments, the certified siteinfo button, the
 icons for blocked content and the bookmark button in the addressfield.
 */
 
+.UrlFragment-Wrapper:not(.UrlFragment-Wrapper--ShouldHighlight) {
+  --HighlightColor: var(--colorFg);
+  --LowlightColor: var(--colorFg);
+}
 .UrlFragment-Wrapper--ShouldHighlight {
   --HighlightColor: var(--colorFg);
-  --LowlightColor: var(--colorFgFaded);
-}
-.UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-Subdomain {
-  color: var(--colorHighlightBg) !important;
-  font-weight: bold;
+  --LowlightColor: var(--colorFgFadedMost);
 }
 .UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-Basedomain,
 .UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-TLD {
