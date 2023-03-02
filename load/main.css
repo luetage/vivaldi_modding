@@ -10,14 +10,8 @@
 #header {
   -webkit-app-region: no-drag;
 }
-.transparent-tabbar .tab-position .tab.active .tab-header .favicon:not(.svg),
-.theme-dark .tab-position .tab.active .tab-header .favicon:not(.svg),
-.acc-dark.color-behind-tabs-off
-  .tab-position
-  .tab.active
-  .tab-header
-  .favicon:not(.svg) {
-  filter: unset;
+.tab-position .tab.active .tab-header .favicon:not(.svg) {
+  filter: unset !important;
 }
 
 /* trash icon */
@@ -26,7 +20,6 @@
 }
 
 /* addressfield */
-
 .UrlFragment-Wrapper:not(.UrlFragment-Wrapper--ShouldHighlight) {
   --HighlightColor: var(--colorFg);
   --LowlightColor: var(--colorFg);
@@ -40,14 +33,17 @@
 .UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-TLD {
   font-weight: bold;
 }
-.permission-denied circle {
+.BookmarkButton .bookmark-animated-fill {
+  fill: var(--colorFg) !important;
+}
+}.permission-denied circle {
   fill: var(--colorHighlightBg);
 }
 .permission-denied path {
   fill: var(--colorHighlightFg);
 }
 
-/* clock icon */
+/* clock dropdown */
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
 }
