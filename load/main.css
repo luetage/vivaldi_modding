@@ -20,6 +20,34 @@
   filter: unset;
 }
 
+/* trash icon */
+.toggle-trash.button-toolbar button svg path {
+  d: path("M6.5 8 h13 v2 h-13 Z M6.5 12 h13 v2 h-13 Z M9 16 h8 v2 h-8 Z");
+}
+
+/* addressfield */
+
+.UrlFragment-Wrapper:not(.UrlFragment-Wrapper--ShouldHighlight) {
+  --HighlightColor: var(--colorFg);
+  --LowlightColor: var(--colorFg);
+}
+.UrlFragment-Wrapper--ShouldHighlight {
+  --HighlightColor: var(--colorFg);
+  --LowlightColor: var(--colorFgFadedMost);
+}
+.UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-Subdomain,
+.UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-Basedomain,
+.UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-TLD {
+  font-weight: bold;
+}
+.permission-denied circle {
+  fill: var(--colorHighlightBg);
+}
+.permission-denied path {
+  fill: var(--colorHighlightFg);
+}
+
+/* clock icon */
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
 }
@@ -39,14 +67,21 @@
   user-select: all;
 }
 
-/* trash icon */
-.toggle-trash.button-toolbar button svg path {
-  d: path("M6.5 8 h13 v2 h-13 Z M6.5 12 h13 v2 h-13 Z M9 16 h8 v2 h-8 Z");
+/* mail panel */
+#mail_panel h1 {
+  font-size: 0;
 }
+#mail_panel h1::before {
+  font-size: 16px;
+  content: "M3";
+}
+
 /* hide play button in pause mode */
 .HUD {
   display: none;
 }
+
+/* statusinfo */
 .StatusInfo div {
   background-color: var(--colorBg);
   padding: 3px;
