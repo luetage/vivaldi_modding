@@ -36,16 +36,12 @@
 .BookmarkButton .bookmark-animated-fill {
   fill: var(--colorFg) !important;
 }
-}.permission-denied circle {
+
+.permission-denied circle {
   fill: var(--colorHighlightBg);
 }
 .permission-denied path {
   fill: var(--colorHighlightFg);
-}
-
-/* clock dropdown */
-.ClockGraphic-Second-Hand {
-  fill: var(--colorHighlightBg);
 }
 
 /* internal pages */
@@ -63,7 +59,7 @@
   user-select: all;
 }
 
-/* mail panel */
+/* mail panel M3 */
 #mail_panel h1 {
   font-size: 0;
 }
