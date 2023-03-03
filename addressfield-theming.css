@@ -2,7 +2,8 @@
 Addressfield Theming
 version 2023.3.1
 https://forum.vivaldi.net/post/356714
-Themes hostfragments native and changes icon color for blocked content.
+Themes hostfragments and changes icon color for blocked content and the bookmark
+button.
 */
 
 .UrlFragment-Wrapper:not(.UrlFragment-Wrapper--ShouldHighlight) {
