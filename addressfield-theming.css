@@ -18,6 +18,10 @@ Themes hostfragments native and changes icon color for blocked content.
 .UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-TLD {
   font-weight: bold;
 }
+.BookmarkButton .bookmark-animated-fill {
+  fill: var(--colorFg) !important;
+}
+
 .permission-denied circle {
   fill: var(--colorHighlightBg);
 }
