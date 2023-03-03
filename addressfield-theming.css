@@ -22,7 +22,6 @@ button.
 .BookmarkButton .bookmark-animated-fill {
   fill: var(--colorFg) !important;
 }
-
 .permission-denied circle {
   fill: var(--colorHighlightBg);
 }
