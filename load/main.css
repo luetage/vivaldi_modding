@@ -14,7 +14,7 @@
   filter: unset !important;
 }
 
-/* trash icon */
+/* trash icon /
 .toggle-trash.button-toolbar button svg path {
   d: path("M6.5 8 h13 v2 h-13 Z M6.5 12 h13 v2 h-13 Z M9 16 h8 v2 h-8 Z");
 }
@@ -44,6 +44,7 @@
 }
 
 /* internal pages */
+.button-startpage.add-set,
 .SpeedDialView-Settings-Button {
   display: none;
 }
@@ -76,5 +77,5 @@
 .StatusInfo div {
   background-color: var(--colorBg);
   padding: 3px;
-  border: 1px solid var(--colorBorder)
+  border: 1px solid var(--colorBorder);
 }
