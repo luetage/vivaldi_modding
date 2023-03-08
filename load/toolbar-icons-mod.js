@@ -1,5 +1,5 @@
 // Toolbar icons mod
-// version 2023.3.0
+// version 2023.3.1
 // Icons: Font Awesome 6 Free
 
 (function toolbarIconsMod() {
@@ -80,6 +80,9 @@
                     .click();
                 }, 150);
               });
+            }
+            if (this.title.startsWith("Show Closed Tabs")) {
+              this.innerHTML = `<span class="button-icon"><svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><g opacity="0.8"><path d="M7.5 9 h13 v2 h-13 Z M7.5 13 h13 v2 h-13 Z M10 17 h8 v2 h-8 Z"></path></g></svg></span>`
             }
           }
         }.bind(this, arguments[0])
