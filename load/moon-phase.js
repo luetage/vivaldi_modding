@@ -1,9 +1,9 @@
 // Moon Phase
-// version 2023.3.0
+// version 2023.3.1
 // https://forum.vivaldi.net/post/461432
-// Displays the current moon phase as button icon. Download
-// the moon-phase.svg file and load it in theme settings. Moon phase
-// calculation adapted from https://minkukel.com/en/various/calculating-moon-phase/
+// Displays the current moon phase as button icon. Download the moon-phase.svg
+// file and load it in theme settings. Moon phase calculation adapted from
+// https://minkukel.com/en/various/calculating-moon-phase/
 
 (function historyMoon() {
   const moon = {
@@ -60,7 +60,7 @@
     const btns = document.querySelectorAll(select);
     btns.forEach((btn) => {
       btn.title = `${lc.name} Moon ${lc.progress}%`;
-      const mod = btn.querySelector("#vm-hm-mod");
+      const mod = btn.querySelector("#vm-mp-mod");
       mod.setAttribute("x", icon[p][0]);
       mod.setAttribute("width", icon[p][1]);
     });
