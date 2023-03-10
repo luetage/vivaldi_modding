@@ -74,3 +74,6 @@
   padding: 3px;
   border: 1px solid var(--colorBorder);
 }
+.toolbar-statusbar .StatusInfo div {
+  border: unset;
+}
