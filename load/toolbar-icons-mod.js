@@ -42,6 +42,18 @@
 
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
+    if (this.tagName === "FOOTER") {
+      setTimeout(
+        function () {
+          document
+            .getElementById("main")
+            .insertBefore(this, document.querySelector(".inner"));
+          this.style.backgroundColor = "var(--colorBgAlphaBlur)";
+          this.style.backdropFilter = "var(--backgroundBlur)";
+          this.style.boxShadow = "0 -1px rgba(0, 0, 0, 0.1) inset";
+        }.bind(this, arguments[0])
+      );
+    }
     if (this.tagName === "BUTTON") {
       setTimeout(
         function () {
@@ -82,7 +94,7 @@
               });
             }
             if (this.title.startsWith("Show Closed Tabs")) {
-              this.innerHTML = `<span class="button-icon"><svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 9 h13 v2 h-13 Z M7.5 13 h13 v2 h-13 Z M10 17 h8 v2 h-8 Z"></path></svg></span>`
+              this.innerHTML = `<span class="button-icon"><svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 9 h13 v2 h-13 Z M7.5 13 h13 v2 h-13 Z M10 17 h8 v2 h-8 Z"></path></svg></span>`;
             }
           }
         }.bind(this, arguments[0])

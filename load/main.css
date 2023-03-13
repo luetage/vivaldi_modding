@@ -5,11 +5,30 @@
 .linux #tabs-container:not(.none).top {
   padding-right: 10px;
 }
+/* #header {
+  order: 1;
+}
+footer {
+  order: 2;
+  background-color: var(--colorBgAlphaBlur) !important;
+  backdrop-filter: var(--backgroundBlur);
+}
+footer::after {
+  content: none !important;
+}
+#main {
+  order: 3;
+}
 
-/* tabs */
+/* drag */
 #header {
   -webkit-app-region: no-drag;
 }
+.toolbar-spacer {
+  -webkit-app-region: drag;
+}
+
+/* tabs */
 .tab-position .tab.active .tab-header .favicon:not(.svg) {
   filter: unset !important;
 }
