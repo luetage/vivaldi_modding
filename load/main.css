@@ -5,19 +5,10 @@
 .linux #tabs-container:not(.none).top {
   padding-right: 10px;
 }
-/* #header {
-  order: 1;
-}
-footer {
-  order: 2;
-  background-color: var(--colorBgAlphaBlur) !important;
-  backdrop-filter: var(--backgroundBlur);
-}
-footer::after {
-  content: none !important;
-}
-#main {
-  order: 3;
+
+/* statusbar */
+footer:has(.toolbar-statusbar) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* drag */

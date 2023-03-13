@@ -1,5 +1,5 @@
 // Toolbar icons mod
-// version 2023.3.1
+// version 2023.3.2
 // Icons: Font Awesome 6 Free
 
 (function toolbarIconsMod() {
@@ -50,7 +50,6 @@
             .insertBefore(this, document.querySelector(".inner"));
           this.style.backgroundColor = "var(--colorBgAlphaBlur)";
           this.style.backdropFilter = "var(--backgroundBlur)";
-          this.style.boxShadow = "0 -1px rgba(0, 0, 0, 0.1) inset";
         }.bind(this, arguments[0])
       );
     }
