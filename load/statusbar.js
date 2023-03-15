@@ -19,6 +19,9 @@
     .toolbar-statusbar > .button-toolbar:last-of-type > button {
       padding-right: 3px;
     }
+    #tabs-tabbar-container.bottom {
+      padding: unset;
+    }
   `;
 
   setTimeout(function wait() {
