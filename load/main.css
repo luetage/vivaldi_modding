@@ -5,10 +5,12 @@
 .linux #tabs-container:not(.none).top {
   padding-right: 10px;
 }
-
-/* statusbar */
-footer:has(.toolbar-statusbar) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+#browser.linux:not(.native).address-top
+  .toolbar:has(.window-buttongroup.on-mainbar) {
+  padding-right: unset;
+}
+.alt#browser.linux:not(.native).address-top .toolbar:has(.window-buttongroup.on-mainbar) {
+  padding-left: unset;
 }
 
 /* drag */
@@ -48,6 +50,31 @@ footer:has(.toolbar-statusbar) {
   fill: var(--colorHighlightFg);
 }
 
+/* statusbar */
+.StatusInfo div {
+  background-color: var(--colorBg);
+  padding: 3px;
+  border: 1px solid var(--colorBorder);
+}
+.toolbar-statusbar .StatusInfo div {
+  border: unset;
+  background-color: unset;
+}
+
+/* panel container */
+#window-panel .vivaldi-tree .title.active::before {
+  content: "☛";
+  margin-left: -40px;
+}
+/* M3 */
+#mail_panel h1 {
+  font-size: 0;
+}
+#mail_panel h1::before {
+  font-size: 16px;
+  content: "M3";
+}
+
 /* internal pages */
 .button-startpage.add-set,
 .SpeedDialView-Settings-Button {
@@ -64,26 +91,7 @@ footer:has(.toolbar-statusbar) {
   user-select: all;
 }
 
-/* mail panel M3 */
-#mail_panel h1 {
-  font-size: 0;
-}
-#mail_panel h1::before {
-  font-size: 16px;
-  content: "M3";
-}
-
 /* hide play button in pause mode */
 .HUD {
   display: none;
-}
-
-/* statusinfo */
-.StatusInfo div {
-  background-color: var(--colorBg);
-  padding: 3px;
-  border: 1px solid var(--colorBorder);
-}
-.toolbar-statusbar .StatusInfo div {
-  border: unset;
 }
