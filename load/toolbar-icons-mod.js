@@ -42,17 +42,6 @@
 
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
-    if (this.tagName === "FOOTER") {
-      setTimeout(
-        function () {
-          document
-            .getElementById("main")
-            .insertBefore(this, document.querySelector(".inner"));
-          this.style.backgroundColor = "var(--colorBgAlphaBlur)";
-          this.style.backdropFilter = "var(--backgroundBlur)";
-        }.bind(this, arguments[0])
-      );
-    }
     if (this.tagName === "BUTTON") {
       setTimeout(
         function () {

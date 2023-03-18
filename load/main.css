@@ -2,9 +2,7 @@
 .window-buttongroup {
   display: none !important;
 }
-.linux #tabs-container:not(.none).top {
-  padding-right: 10px;
-}
+.linux #tabs-container:not(.none).top,
 #browser.linux:not(.native).address-top
   .toolbar:has(.window-buttongroup.on-mainbar) {
   padding-right: unset;
@@ -66,6 +64,7 @@
   content: "☛";
   margin-left: -40px;
 }
+
 /* M3 */
 #mail_panel h1 {
   font-size: 0;
