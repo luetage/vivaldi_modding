@@ -11,10 +11,7 @@
   padding-left: unset;
 }
 
-/* drag */
-#header {
-  -webkit-app-region: no-drag;
-}
+/* drag windows */
 .toolbar-spacer {
   -webkit-app-region: drag;
 }
