@@ -82,12 +82,12 @@
   order: 1;
 }
 
-/* alerts */
-#modal-bg {
-  user-select: all;
-}
-
 /* hide play button in pause mode */
 .HUD {
   display: none;
+}
+
+/* clock feature */
+.ClockGraphic-Second-Hand {
+  fill: var(--colorHighlightBg);
 }

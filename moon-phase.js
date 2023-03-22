@@ -1,11 +1,11 @@
 // Moon Phase
-// version 2023.3.1
+// version 2023.3.2
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase as button icon. Download the moon-phase.svg
 // file and load it in theme settings. Moon phase calculation adapted from
 // https://minkukel.com/en/various/calculating-moon-phase/
 
-(function historyMoon() {
+(function moonPhase() {
   const moon = {
     phases: [
       ["New", 0, 1],
@@ -40,7 +40,7 @@
     },
   };
 
-  function icon(el) {
+  function icon() {
     const lc = moon.phase();
     let p = 0;
     if (hemisphere === "southern") {
@@ -57,7 +57,9 @@
       [-8, 8],
       [-8, 6],
     ];
-    const btns = document.querySelectorAll(select);
+    const btns = document.querySelectorAll(
+      ".ToolbarButton-Button[name=" + CSS.escape(command) + "]"
+    );
     btns.forEach((btn) => {
       btn.title = `${lc.name} Moon ${lc.progress}%`;
       const mod = btn.querySelector("#vm-mp-mod");
@@ -66,18 +68,19 @@
     });
   }
 
-  const hemisphere = "northern"; //use northern or southern
-  const select = ".ToolbarButton-Button[title='Moon Phase']";
+  // choose your hemisphere (northern or southern)
+  const hemisphere = "northern";
+  // command chain identifier (inspect UI and input your own)
+  const command = "COMMAND_clf0b60ze001l2v61k9i24prs";
+
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
     if (this.tagName === "BUTTON") {
       setTimeout(
         function () {
-          if (
-            this.title === "Moon Phase" &&
-            this.classList.contains("ToolbarButton-Button")
-          ) {
-            icon(this);
+          if (this.name === command) {
+            icon();
+            this.addEventListener("click", icon);
           }
         }.bind(this, arguments[0])
       );
