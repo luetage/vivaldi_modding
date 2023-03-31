@@ -7,13 +7,15 @@
   .toolbar:has(.window-buttongroup.on-mainbar) {
   padding-right: unset;
 }
-.alt#browser.linux:not(.native).address-top .toolbar:has(.window-buttongroup.on-mainbar) {
+.alt#browser.linux:not(.native).address-top
+  .toolbar:has(.window-buttongroup.on-mainbar) {
   padding-left: unset;
 }
-
-/* drag windows */
-.toolbar-spacer {
-  -webkit-app-region: drag;
+#browser.linux.address-top .toolbar:has(.window-buttongroup.on-mainbar) {
+  min-height: calc(35px / var(--uiZoomLevel));
+}
+#browser.linux.address-top .toolbar:has(.window-buttongroup.on-mainbar) .vivaldi {
+  height: 35px;
 }
 
 /* tabs */
@@ -43,17 +45,6 @@
 }
 .permission-denied path {
   fill: var(--colorHighlightFg);
-}
-
-/* statusbar */
-.StatusInfo div {
-  background-color: var(--colorBg);
-  padding: 3px;
-  border: 1px solid var(--colorBorder);
-}
-.toolbar-statusbar .StatusInfo div {
-  border: unset;
-  background-color: unset;
 }
 
 /* panel container */
