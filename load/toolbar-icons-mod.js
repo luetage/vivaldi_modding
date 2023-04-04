@@ -81,13 +81,15 @@
                 }, 150);
               });
             }
-            if (this.title === "Vivaldi Version") {
+            if (this.name === "COMMAND_clg2nkc2700u92v61tsani64d") {
+              const util = vivaldi.utilities.getVersion();
+              const version = `Vivaldi ${util.vivaldiVersion}`;
+              const mail = `Mail ${util.mailVersion}`;
+              const chromium = `Chromium ${util.chromiumVersion}`;
+              this.title = `${version}\n${mail}\n${chromium}`;
               this.addEventListener("click", () => {
                 this.focus();
-                const version = vivaldi.utilities.getVersion();
-                navigator.clipboard.writeText(
-                  `Vivaldi ${version.vivaldiVersion}`
-                );
+                navigator.clipboard.writeText(version);
                 this.blur();
               });
             }
