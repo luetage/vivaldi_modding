@@ -81,6 +81,16 @@
                 }, 150);
               });
             }
+            if (this.title === "Vivaldi Version") {
+              this.addEventListener("click", () => {
+                this.focus();
+                const version = vivaldi.utilities.getVersion();
+                navigator.clipboard.writeText(
+                  `Vivaldi ${version.vivaldiVersion}`
+                );
+                this.blur();
+              });
+            }
             if (this.title.startsWith("Show Closed Tabs")) {
               this.innerHTML = `<span class="button-icon"><svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 9 h13 v2 h-13 Z M7.5 13 h13 v2 h-13 Z M10 17 h8 v2 h-8 Z"></path></svg></span>`;
             }
