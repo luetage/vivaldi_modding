@@ -1,11 +1,17 @@
 // Statusbar above panel
-// version 2023.3.0
+// version 2023.4.0
 // https://forum.vivaldi.net/post/652235
 // Moves the statusbar above the panel, adds style to fit the theme
 // (transparency, blur), and lines up the first and last button.
 
 (function statusbarAbovePanel() {
   const css = `
+    .address-top.tabs-bottom .mainbar > .toolbar-mainbar {
+      border-bottom-color: transparent !important;
+    }
+    #tabs-tabbar-container.bottom {
+      padding: unset;
+    }
     footer {
       background-color: var(--colorBgAlphaBlur) !important;
       backdrop-filter: var(--backgroundBlur);
@@ -18,9 +24,6 @@
     }
     .toolbar-statusbar > .button-toolbar:last-of-type > button {
       padding-right: 3px;
-    }
-    #tabs-tabbar-container.bottom {
-      padding: unset;
     }
   `;
 

@@ -83,10 +83,8 @@
             }
             if (this.name === "COMMAND_clg2nkc2700u92v61tsani64d") {
               const util = vivaldi.utilities.getVersion();
-              const version = `Vivaldi ${util.vivaldiVersion}`;
-              const mail = `Mail ${util.mailVersion}`;
-              const chromium = `Chromium ${util.chromiumVersion}`;
-              this.title = `${version}\n${mail}\n${chromium}`;
+              const version = util.vivaldiVersion;
+              this.title = `Vivaldi ${version}\nMail ${util.mailVersion}\nChromium ${util.chromiumVersion}`;
               this.addEventListener("click", () => {
                 this.focus();
                 navigator.clipboard.writeText(version);

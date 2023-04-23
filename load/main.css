@@ -49,8 +49,7 @@
 
 /* panel container */
 #window-panel .vivaldi-tree .title.active::before {
-  content: "☛";
-  margin-left: -40px;
+  content: "✦";
 }
 
 /* M3 */
