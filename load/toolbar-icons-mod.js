@@ -61,7 +61,7 @@
                 check = 1;
               }
             }
-            if (this.title === "Customize Toolbar") {
+            if (this.title === "Toolbar Editor") {
               this.addEventListener("click", () => {
                 if (document.querySelector(".toolbar-editor")) {
                   document
