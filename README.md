@@ -31,7 +31,7 @@ creating an issue, or by posting in the according topic on Vivaldi Forum.
 
 ## How to
 
-Vivaldi's user interface is based on web technologies, therefore it's relatively
+Vivaldi’s user interface is based on web technologies, therefore it’s relatively
 easy to customize its appearance and functionality with CSS and Javascript.
 Detailed explanations on how to implement these modifications can be found in
 the [**Official Guide**][2]. The [**Modding Forum Board**][3] is a great
