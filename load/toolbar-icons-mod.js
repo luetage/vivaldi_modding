@@ -4,6 +4,7 @@
 
 (function toolbarIconsMod() {
   function toggleKeysAndGestures(e, el) {
+    console.log('hi');
     vivaldi.prefs.get(sk, (k) => {
       vivaldi.prefs.get(sm, (m) => {
         if (e !== null && !e.ctrlKey) {

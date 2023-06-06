@@ -1,3 +1,12 @@
+#browser.linux,
+#browser.linux ~ div,
+#browser.linux button,
+#browser.linux input,
+#browser.linux select,
+#browser.linux textarea {
+  font-family: Ubuntu, system-ui, sans-serif;
+}
+
 /* header */
 .window-buttongroup {
   display: none !important;
