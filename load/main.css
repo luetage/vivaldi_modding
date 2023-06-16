@@ -27,6 +27,19 @@
   .toolbar:has(.window-buttongroup.on-mainbar)
   .vivaldi {
   height: 35px;
+  width: 34px;
+  margin: 0;
+  padding: 0;
+}
+#browser.linux.address-top
+  .toolbar:has(.window-buttongroup.on-mainbar)
+  .vivaldi svg {
+  fill-opacity: 0.5;
+}
+#browser.linux.address-top
+  .toolbar:has(.window-buttongroup.on-mainbar)
+  .vivaldi .expand-arrow {
+  display: none;
 }
 
 /* tabs */
