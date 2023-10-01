@@ -36,18 +36,15 @@
 }
 #browser.linux.address-top
   .toolbar:has(.window-buttongroup.on-mainbar)
-  .vivaldi svg {
+  .vivaldi
+  svg {
   fill-opacity: 0.33;
 }
 #browser.linux.address-top
   .toolbar:has(.window-buttongroup.on-mainbar)
-  .vivaldi .expand-arrow {
+  .vivaldi
+  .expand-arrow {
   display: none;
-}
-
-/* tabs */
-.tab-position .tab.active .tab-header .favicon:not(.svg) {
-  filter: unset !important;
 }
 
 /* addressfield */
@@ -86,12 +83,6 @@
 #mail_panel h1::before {
   font-size: 16px;
   content: "M3";
-}
-
-/* internal pages */
-.button-startpage.add-set,
-.SpeedDialView-Settings-Button {
-  display: none;
 }
 
 /* reading list */
