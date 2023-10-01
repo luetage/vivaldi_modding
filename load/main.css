@@ -1,3 +1,4 @@
+/* font */
 #browser.linux,
 #browser.linux ~ div,
 #browser.linux button,
@@ -71,7 +72,7 @@
   fill: var(--colorHighlightFg);
 }
 
-/* move window */
+/* drag window */
 .toolbar-spacer {
   -webkit-app-region: no-drag;
 }
@@ -93,11 +94,6 @@
 /* reading list */
 .readinglist-listing-large {
   order: 1;
-}
-
-/* hide play button in pause mode */
-.HUD {
-  display: none;
 }
 
 /* clock feature */
