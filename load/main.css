@@ -71,6 +71,11 @@
   fill: var(--colorHighlightFg);
 }
 
+/* move window */
+.toolbar-spacer {
+  -webkit-app-region: no-drag;
+}
+
 /* panel container */
 #window-panel .vivaldi-tree .title.active::before {
   content: "⌑";
