@@ -72,6 +72,11 @@
   fill: var(--colorHighlightFg);
 }
 
+/* privacy guard button */
+.button-toolbar button[title^="Privacy Guard"] svg {
+  opacity: 0.6;
+}
+
 /* panel container */
 #window-panel .vivaldi-tree .title.active::before {
   content: "⌑";
