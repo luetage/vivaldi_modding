@@ -77,6 +77,11 @@
   opacity: 0.6;
 }
 
+/* clock button */
+.ClockButton svg {
+  opacity: 0.8;
+}
+
 /* panel container */
 #window-panel .vivaldi-tree .title.active::before {
   content: "⌑";
