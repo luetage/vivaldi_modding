@@ -40,7 +40,8 @@
     },
   };
 
-  function mw() {
+  function moonwatch(btn) {
+    console.info(`HI there ${btn}`);
     const lc = moon.phase();
     let p = 0;
     if (hemisphere === "southern") {
@@ -57,31 +58,36 @@
       [-8, 8],
       [-8, 6],
     ];
-    const btn = document.querySelector(select);
     btn.title = `${lc.name} Moon ${lc.progress}%`;
     const mod = btn.querySelector("#vm-mp-mod");
     mod.setAttribute("x", icon[p][0]);
     mod.setAttribute("width", icon[p][1]);
   }
 
+  // EDIT START
   // choose your hemisphere (northern or southern)
   const hemisphere = "northern";
   // command chain identifier (inspect UI and input your own)
   const command = "COMMAND_cln9yq818001n2v649xyaiird";
+  // EDIT END
+
   const select = `.ToolbarButton-Button[name=${command}]`;
-  // run function on first load for additional windows
-  setTimeout(() => mw());
+  const conflate = (el) => {
+    moonwatch(el);
+    const send = () => moonwatch(el);
+    el.addEventListener("click", send);
+  };
+  setTimeout(() => {
+    const check = document.querySelector(select);
+    if (check) conflate(check);
+  });
 
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
     if (this.tagName === "BUTTON") {
       setTimeout(
         function () {
-          if (this.name === command) {
-            mw();
-            // update moon phase on click
-            this.addEventListener("click", mw);
-          }
+          if (this.name === command) conflate(this);
         }.bind(this, arguments[0])
       );
     }

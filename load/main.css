@@ -74,7 +74,7 @@
 
 /* privacy guard button */
 .button-toolbar button[title^="Privacy Guard"] svg {
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 /* clock button */
