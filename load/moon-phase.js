@@ -41,7 +41,6 @@
   };
 
   function moonwatch(btn) {
-    console.info(`HI there ${btn}`);
     const lc = moon.phase();
     let p = 0;
     if (hemisphere === "southern") {
