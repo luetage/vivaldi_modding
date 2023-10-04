@@ -1,9 +1,9 @@
 // Moon Phase
-// version 2023.3.2
+// version 2023.9.0
 // https://forum.vivaldi.net/post/461432
-// Displays the current moon phase as button icon. Download the moon-phase.svg
-// file and load it in theme settings. Moon phase calculation adapted from
-// https://minkukel.com/en/various/calculating-moon-phase/
+// Displays the current moon phase as command chain button. Download the
+// moon-phase.svg file and load it in theme settings. Moon phase calculation
+// adapted from https://minkukel.com/en/various/calculating-moon-phase/
 
 (function moonPhase() {
   const moon = {
@@ -40,7 +40,7 @@
     },
   };
 
-  function icon() {
+  function mw() {
     const lc = moon.phase();
     let p = 0;
     if (hemisphere === "southern") {
@@ -57,21 +57,20 @@
       [-8, 8],
       [-8, 6],
     ];
-    const btns = document.querySelectorAll(
-      ".ToolbarButton-Button[name=" + CSS.escape(command) + "]"
-    );
-    btns.forEach((btn) => {
-      btn.title = `${lc.name} Moon ${lc.progress}%`;
-      const mod = btn.querySelector("#vm-mp-mod");
-      mod.setAttribute("x", icon[p][0]);
-      mod.setAttribute("width", icon[p][1]);
-    });
+    const btn = document.querySelector(select);
+    btn.title = `${lc.name} Moon ${lc.progress}%`;
+    const mod = btn.querySelector("#vm-mp-mod");
+    mod.setAttribute("x", icon[p][0]);
+    mod.setAttribute("width", icon[p][1]);
   }
 
   // choose your hemisphere (northern or southern)
   const hemisphere = "northern";
   // command chain identifier (inspect UI and input your own)
-  const command = "COMMAND_clf0b60ze001l2v61k9i24prs";
+  const command = "COMMAND_cln9yq818001n2v649xyaiird";
+  const select = `.ToolbarButton-Button[name=${command}]`;
+  // run function on first load for additional windows
+  setTimeout(() => mw(), 1000);
 
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
@@ -79,8 +78,9 @@
       setTimeout(
         function () {
           if (this.name === command) {
-            icon();
-            this.addEventListener("click", icon);
+            mw();
+            // update moon phase on click
+            this.addEventListener("click", mw);
           }
         }.bind(this, arguments[0])
       );
