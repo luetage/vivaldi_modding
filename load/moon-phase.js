@@ -70,7 +70,7 @@
   const command = "COMMAND_cln9yq818001n2v649xyaiird";
   const select = `.ToolbarButton-Button[name=${command}]`;
   // run function on first load for additional windows
-  setTimeout(() => mw(), 1000);
+  setTimeout(() => mw());
 
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
