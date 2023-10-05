@@ -70,15 +70,16 @@
   const command = "COMMAND_cln9yq818001n2v649xyaiird";
   // EDIT END
 
-  const select = `.ToolbarButton-Button[name=${command}]`;
   const conflate = (el) => {
-    moonwatch(el);
     const send = () => moonwatch(el);
+    send();
     el.addEventListener("click", send);
   };
+
   setTimeout(() => {
-    const check = document.querySelector(select);
-    if (check) conflate(check);
+    const check = `.ToolbarButton-Button[name=${command}]`;
+    const select = document.querySelector(check);
+    if (select) conflate(select);
   });
 
   let appendChild = Element.prototype.appendChild;
