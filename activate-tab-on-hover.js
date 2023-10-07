@@ -1,6 +1,6 @@
 // Activate Tab On Hover
 // version 2022.10.0
-// https://forum.vivaldi.net/topic/50354/create-a-new-mod-mouseover-tab-select/4
+// https://forum.vivaldi.net/post/395460
 // Activates tab on hover.
 
 (function activateTab() {
