@@ -1,5 +1,5 @@
 // Moon Phase
-// version 2023.9.0
+// version 2023.10.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase as command chain button. Download the
 // moon-phase.svg file and load it in theme settings. Moon phase calculation
@@ -8,11 +8,11 @@
 (function moonPhase() {
   const moon = {
     phases: [
-      ["New", 0, 1],
+      ["New Moon", 0, 1],
       ["Waxing Crescent", 1, 6.38264692644],
       ["First Quarter", 6.38264692644, 8.38264692644],
       ["Waxing Gibbous", 8.38264692644, 13.76529385288],
-      ["Full", 13.76529385288, 15.76529385288],
+      ["Full Moon", 13.76529385288, 15.76529385288],
       ["Waning Gibbous", 15.76529385288, 21.14794077932],
       ["Last Quarter", 21.14794077932, 23.14794077932],
       ["Waning Crescent", 23.14794077932, 28.53058770576],
@@ -57,7 +57,7 @@
       [-8, 8],
       [-8, 6],
     ];
-    btn.title = `${lc.name} Moon ${lc.progress}%`;
+    btn.title = `${lc.name} ${lc.progress}%`;
     const mod = btn.querySelector("#vm-mp-mod");
     mod.setAttribute("x", icon[p][0]);
     mod.setAttribute("width", icon[p][1]);
