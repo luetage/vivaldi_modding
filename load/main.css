@@ -8,10 +8,7 @@
   font-family: Ubuntu, system-ui, sans-serif;
 }
 
-/* header
-#browser.minimal-ui.disable-titlebar .vivaldi, #browser.minimal-ui.disable-titlebar .window-buttongroup {
-  display: block;
-}*/
+/* header */
 .window-buttongroup {
   display: none !important;
 }
