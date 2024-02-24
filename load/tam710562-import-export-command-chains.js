@@ -7,6 +7,17 @@
   'use strict';
 
   const gnoh = {
+    i18n: {
+      getMessageName: function (message, type) {
+        message = (type ? type + '\x04' : '') + message;
+        return message.replace(/[^a-z0-9]/g, function (i) {
+          return '_' + i.codePointAt(0) + '_';
+        }) + '0';
+      },
+      getMessage: function (message, type) {
+        return chrome.i18n.getMessage(this.getMessageName(message, type)) || message;
+      },
+    },
     uuid: {
       check: function (id) {
         return !/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(id);
@@ -24,7 +35,28 @@
           return this.uuid.generate(ids);
         }
         return id;
-      }
+      },
+    },
+    object: {
+      isObject(item) {
+        return (item && typeof item === 'object' && !Array.isArray(item));
+      },
+      merge(target, source) {
+        let output = Object.assign({}, target);
+        if (this.isObject(target) && this.isObject(source)) {
+          Object.keys(source).forEach(key => {
+            if (this.isObject(source[key])) {
+              if (!(key in target))
+                Object.assign(output, { [key]: source[key] });
+              else
+                output[key] = this.merge(target[key], source[key]);
+            } else {
+              Object.assign(output, { [key]: source[key] });
+            }
+          });
+        }
+        return output;
+      },
     },
     addStyle: function (css, id, isNotMin) {
       this.styles = this.styles || {};
@@ -34,7 +66,7 @@
       id = id || this.uuid.generate(Object.keys(this.styles));
       this.styles[id] = this.createElement('style', {
         html: css || '',
-        'data-id': id
+        'data-id': id,
       }, document.head);
       return this.styles[id];
     },
@@ -101,27 +133,29 @@
     },
     createElementFromHTML: function (html) {
       return this.createElement('template', {
-        html: (html || '').trim()
+        html: (html || '').trim(),
       }).content;
     },
-    constant: {
-      dialogButtons: {
-        submit: {
-          label: chrome.i18n.getMessage('_79__75_0') || 'OK',
-          type: 'submit'
-        },
-        cancel: {
-          label: chrome.i18n.getMessage('_67_ancel0') || 'Cancel',
-          cancel: true
-        },
-        primary: {
-          class: 'primary'
-        },
-        danger: {
-          class: 'danger'
-        },
-        default: {}
-      }
+    get constant() {
+      return {
+        dialogButtons: {
+          submit: {
+            label: this.i18n.getMessage('OK'),
+            type: 'submit'
+          },
+          cancel: {
+            label: this.i18n.getMessage('Cancel'),
+            cancel: true
+          },
+          primary: {
+            class: 'primary'
+          },
+          danger: {
+            class: 'danger'
+          },
+          default: {},
+        }
+      };
     },
     getFormData: function (formElement) {
       if (!formElement || formElement.nodeName !== 'FORM') {
@@ -316,36 +350,37 @@
 
       const focusModal = this.createElement('span', {
         class: 'focus_modal',
-        tabindex: '0'
+        tabindex: '0',
       });
       const div = this.createElement('div', {
         style: {
-          width: config.width ? config.width + 'px' : ''
+          width: config.width ? config.width + 'px' : '',
+          margin: '0 auto',
         }
       });
       dialog = this.createElement('form', {
         'data-dialog-id': id,
-        class: 'dialog-custom modal-wrapper'
+        class: 'dialog-custom modal-wrapper',
       }, div);
       if (config.class) {
         dialog.classList.add(config.class);
       }
       const dialogHeader = this.createElement('header', {
-        class: 'dialog-header'
+        class: 'dialog-header',
       }, dialog, '<h1>' + (title || '') + '</h1>');
       const dialogContent = this.createElement('div', {
-        class: 'dialog-content'
+        class: 'dialog-content',
       }, dialog, content);
       if (buttons && buttons.length > 0) {
         const dialogFooter = this.createElement('footer', {
-          class: 'dialog-footer'
+          class: 'dialog-footer',
         }, dialog, buttonElements);
       }
       modalBg = this.createElement('div', {
         id: 'modal-bg',
-        class: 'slide'
+        class: 'slide',
       }, undefined, [focusModal.cloneNode(true), div, focusModal.cloneNode(true)]);
-      const inner = document.querySelector('#main .inner');
+      const inner = document.querySelector('#main > .inner') || document.querySelector('#main > .webpageview');
       if (inner) {
         inner.prepend(modalBg);
       }
@@ -354,12 +389,12 @@
         dialogHeader: dialogHeader,
         dialogContent: dialogContent,
         buttons: buttonElements,
-        close: closeDialog
+        close: closeDialog,
       };
     },
     alert: function (message, okEvent) {
       const buttonOkElement = Object.assign({}, this.constant.dialogButtons.submit, {
-        cancel: true
+        cancel: true,
       });
       if (typeof okEvent === 'function') {
         buttonOkElement.click = function (data) {
@@ -369,11 +404,11 @@
 
       return this.dialog('Gnoh', message, [buttonOkElement], {
         width: 400,
-        class: 'dialog-javascript'
+        class: 'dialog-javascript',
       });
     },
-    timeOut: function (callback, conditon, timeout) {
-      setTimeout(function wait() {
+    timeOut: function (callback, conditon, timeOut = 300) {
+      let timeOutId = setTimeout(function wait() {
         let result;
         if (!conditon) {
           result = document.getElementById('browser');
@@ -387,9 +422,19 @@
         if (result) {
           callback(result);
         } else {
-          setTimeout(wait, timeout || 300);
+          timeOutId = setTimeout(wait, timeOut);
         }
-      }, timeout || 300);
+      }, timeOut);
+
+      function stop() {
+        if (timeOutId) {
+          clearTimeout(timeOutId);
+        }
+      }
+
+      return {
+        stop,
+      };
     },
     element: {
       appendAtIndex: function (element, parentElement, index) {
@@ -419,15 +464,32 @@
   };
 
   const langs = {
-    copy: chrome.i18n.getMessage('verb_4__67_opy0') || 'Copy',
-    export: chrome.i18n.getMessage('verb_4__69_xport0') || 'Export',
-    import: chrome.i18n.getMessage('_73_mport0') || 'Import',
-    install: chrome.i18n.getMessage('_73_nstall0') || 'Install',
+    general: gnoh.i18n.getMessage('General'),
+    quickCommands: gnoh.i18n.getMessage('Quick Commands'),
+    copy: gnoh.i18n.getMessage('Copy', 'verb'),
+    export: gnoh.i18n.getMessage('Export', 'verb'),
+    import: gnoh.i18n.getMessage('Import'),
+    install: gnoh.i18n.getMessage('Install'),
+    installed: gnoh.i18n.getMessage('Installed'),
+    update: gnoh.i18n.getMessage('Update'),
   };
 
   gnoh.addStyle([
     '.import-export-command-chains input[type="file"]::file-selector-button { border: 0px; border-right: 1px solid var(--colorBorder); height: 28px; padding: 0 18px; color: var(--colorFg); background: linear-gradient(var(--colorBgLightIntense) 0%, var(--colorBg) 100%); margin-right: 18px; }',
-    '.import-export-command-chains input[type="file"]::file-selector-button:hover { background: linear-gradient(var(--colorBg), var(--colorBg)); }'
+    '.import-export-command-chains input[type="file"]::file-selector-button:hover { background: linear-gradient(var(--colorBg), var(--colorBg)); }',
+    '.import-export-command-chains .editor { width: 100%; height: 100px; position: relative; background-color: var(--colorBgIntense); border-radius: var(--radius); border-width: 1px; border-style: solid; border-color: var(--colorBorder); }',
+    '.import-export-command-chains .editor .editing, .import-export-command-chains .editor .highlighting { overflow: auto; white-space: pre-wrap; word-break: break-word; border-radius: var(--radius); border: none; box-shadow: none; position: absolute; top: 0; left: 0; bottom: 0; right: 0; padding: 6px; font-size: 13px; font-family: monospace !important; line-height: 1.3; tab-size: 2; }',
+    '.import-export-command-chains .editor .highlighting { color: var(--colorFg); }',
+    '.import-export-command-chains .editor .highlighting .json-key, .import-export-command-chains .editor .highlighting .json-key span { color: #0451a5; }',
+    '.import-export-command-chains .editor .highlighting .json-string, .import-export-command-chains .editor .highlighting .json-string span { color: #a31515; }',
+    '.import-export-command-chains .editor .highlighting .json-number { color: #098658; }',
+    '.import-export-command-chains .editor .highlighting .json-bool { color: #0000ff; }',
+    '.theme-dark .import-export-command-chains .editor .highlighting .json-key, .theme-dark .import-export-command-chains .editor .highlighting .json-key span { color: #9cdcfe; }',
+    '.theme-dark .import-export-command-chains .editor .highlighting .json-string, .theme-dark .import-export-command-chains .editor .highlighting .json-string span { color: #ce9178; }',
+    '.theme-dark .import-export-command-chains .editor .highlighting .json-number { color: #b5cea8; }',
+    '.theme-dark .import-export-command-chains .editor .highlighting .json-bool { color: #569cd6; }',
+    '.import-export-command-chains .editor .editing { color: transparent; background: transparent; caret-color: white; }',
+    '.import-export-command-chains .editor .editing::-webkit-scrollbar-button, .import-export-command-chains .editor .editing::-webkit-scrollbar-thumb, .import-export-command-chains .editor .editing::-webkit-scrollbar-track { cursor: default; }',
   ], 'import-export-command-chains');
 
   const buttons = {
@@ -450,17 +512,12 @@
         const commandChainText = JSON.stringify(commandChain);
         const commandChainUrl = URL.createObjectURL(new Blob([commandChainText], { type: 'application/json' }));
 
-        const content = gnoh.createElement('textarea', {
-          rows: 5,
+        const editor = createEditor({
           readonly: true,
-          style: {
-            'resize': 'vertical',
-            'max-height': '300px',
-          },
+          value: commandChainText,
           events: {
-            click: (e) => e.target.select()
+            click: (e) => e.target.select(),
           },
-          value: JSON.stringify(commandChain),
         });
 
         const buttonCopyElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
@@ -473,9 +530,14 @@
         const buttonExportElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
           label: langs.export,
           click: () => {
+            const filename = commandChain.label.trim()
+              .replace(/\s+/g, '-').toLowerCase()
+              .replace(/[^\p{L}0-9-]/gu, '')
+              .replace(/^-+|-+$/g, '') || key;
+
             chrome.downloads.download({
               url: commandChainUrl,
-              filename: `${commandChain.label.trim().replace(/\s+/g, '-').toLowerCase().replace(/[^a-z0-9-]/g, '')}.json`,
+              filename: filename + '.json',
               saveAs: true,
             });
           },
@@ -485,7 +547,7 @@
 
         gnoh.dialog(
           'Export Command Chain',
-          content,
+          editor.editor,
           [buttonCopyElement, buttonExportElement, buttonCancelElement],
           {
             width: 500,
@@ -497,6 +559,78 @@
     },
   };
 
+
+  function escapeHtml(text) {
+    return text.replace(/[<>&]/g, function (char) {
+      return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[char];
+    });
+  }
+
+  function highlightJson(text) {
+    if (!text) {
+      return '';
+    }
+
+    if (text[text.length - 1] == '\n') {
+      text += ' ';
+    }
+
+    return escapeHtml(text)
+      .replace(/(("([^"]|\\")+?[^\\]")|"")(\s*.)/ig, (str, g1, g2, g3, g4) => {
+        const type = g4.trim() === ':' ? 'json-key' : 'json-string';
+        return '<span class="' + type + '">' + g1 + '</span>' + g4;
+      })
+      .replace(/-?\d+\.?\d*((E|e)[\+]\d+)?/ig, '<span class="json-number">$&</span>')
+      .replace(/false|true|null/ig, '<span class="json-bool">$&</span>');
+  }
+
+  function createEditor(attribute = {}) {
+    const editor = gnoh.createElement('div', {
+      class: 'editor',
+    });
+
+    const highlighting = gnoh.createElement('div', {
+      class: 'highlighting',
+      'aria-hidden': 'true',
+      html: highlightJson(attribute.value),
+    }, editor);
+
+    const textarea = gnoh.createElement('textarea', gnoh.object.merge({
+      name: 'textarea',
+      class: 'editing',
+      rows: 5,
+      spellcheck: 'false',
+      style: {
+        'resize': 'vertical',
+        'max-height': '300px',
+      },
+      events: {
+        input: () => {
+          highlighting.innerHTML = highlightJson(textarea.value);
+          highlighting.scrollTop = textarea.scrollTop;
+          highlighting.scrollLeft = textarea.scrollLeft;
+        },
+        scroll: () => {
+          highlighting.scrollTop = textarea.scrollTop;
+          highlighting.scrollLeft = textarea.scrollLeft;
+        },
+      },
+    }, attribute), editor);
+
+    new ResizeObserver(() => {
+      editor.style.width = textarea.offsetWidth + 2 + 'px';
+      editor.style.height = textarea.offsetHeight + 2 + 'px';
+      highlighting.scrollTop = textarea.scrollTop;
+      highlighting.scrollLeft = textarea.scrollLeft;
+    }).observe(textarea);
+
+    return {
+      editor,
+      highlighting,
+      textarea,
+    };
+  }
+
   async function parseTextFile(file) {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -506,28 +640,24 @@
     })
   }
 
-  async function showDialogImport(commandChainText) {
+  async function showDialogImport(commandChainText, callback) {
     const p1 = gnoh.createElement('p', {
       class: 'info',
       text: 'Import from code',
     });
 
-    const textarea = gnoh.createElement('textarea', {
+    const editor = createEditor({
       name: 'textarea',
-      rows: 5,
-      style: {
-        'resize': 'vertical',
-        'max-height': '300px',
-      },
     });
 
     let p2 = null;
     let inputFile = null;
-    const content = [p1, textarea];
+    const content = [p1, editor.editor];
 
     if (commandChainText) {
-      textarea.value = commandChainText;
-      textarea.readonly = true;
+      editor.textarea.value = commandChainText;
+      editor.textarea.readonly = true;
+      editor.highlighting.innerHTML = highlightJson(commandChainText);
     } else {
       p2 = gnoh.createElement('p', {
         class: 'info',
@@ -547,21 +677,27 @@
       label: langs.import,
       click: async (data) => {
         if (data.textarea.trim()) {
-          commandChainText = textarea.value.trim();
+          commandChainText = data.textarea.trim();
         } else if (data.file && data.file[0]) {
           commandChainText = await parseTextFile(data.file[0]);
         }
 
         if (!commandChainText || !checkCommandChain(commandChainText)) {
           gnoh.alert('Import failed');
+          callback && callback('fail');
         } else {
           await importCommandChain(JSON.parse(commandChainText));
           await reloadSetting();
+          callback && callback('installed');
         }
       },
     });
 
-    const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel);
+    const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel, {
+      click: () => {
+        callback && callback('cancel');
+      },
+    });
 
     gnoh.dialog(
       'Import Command Chain',
@@ -626,65 +762,145 @@
     });
   }
 
-  async function reloadSetting() {
-    const tabs = await chrome.tabs.query({ url: urls.quickCommands, currentWindow: true });
-    if (tabs.length > 0) {
-      await chrome.tabs.update(tabs[0].id, { url: urls.general });
-      chrome.tabs.onUpdated.addListener(async function listener(tabId, changeInfo) {
-        if (changeInfo.status === 'complete' && tabId === tabs[0].id) {
-          chrome.tabs.onUpdated.removeListener(listener);
-          await chrome.tabs.update(tabs[0].id, { url: urls.quickCommands });
-        }
-      });
-    }
+  function getMenuItem(name) {
+    const menuItem = document.evaluate(`//div[contains(concat(" ", normalize-space(@class), " "), " tree-row ") and contains(., "${name}")]`, document, null, XPathResult.ANY_TYPE, null);
+    return menuItem.iterateNext();
   }
 
-  chrome.runtime.onMessage.addListener(function (info, sender, sendResponse) {
-    if (info.type === messageType && info.action === 'import') {
-      showDialogImport(info.data);
+  async function reloadSetting() {
+    try {
+      const window = await chrome.windows.getLastFocused({ windowTypes: ['popup'] });
+      if (window) {
+        try {
+          const vivExtData = JSON.parse(window.vivExtData);
+          if (vivExtData.isSettings) {
+            chrome.runtime.sendMessage({
+              type: messageType,
+              action: 'reload-setting',
+              windowId: window.id,
+            });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+
+    const tabs = await chrome.tabs.query({ url: urls.quickCommands });
+    tabs.forEach(async tab => {
+      chrome.tabs.onUpdated.addListener(async function listener(tabId, changeInfo) {
+        if (changeInfo.status === 'complete' && tabId === tab.id) {
+          chrome.tabs.onUpdated.removeListener(listener);
+          await chrome.tabs.update(tab.id, { url: urls.quickCommands });
+        }
+      });
+      await chrome.tabs.update(tab.id, { url: urls.general });
+    });
+  }
+
+  chrome.runtime.onMessage.addListener((info, sender, sendResponse) => {
+    if (info.type === messageType) {
+      (async () => {
+        const window = await chrome.windows.getLastFocused({ windowTypes: ['normal'] });
+
+        if (window && window.id === vivaldiWindowId || info.windowId === vivaldiWindowId) {
+          switch (info.action) {
+            case 'import':
+              showDialogImport(info.data);
+            case 'check':
+              if (checkCommandChain(info.data)) {
+                const data = JSON.parse(info.data);
+                try {
+                  const commandChain = await getCommandChainByKey(data.key);
+                  if (JSON.stringify(commandChain) === JSON.stringify(data)) {
+                    sendResponse('installed');
+                  } else {
+                    sendResponse('update');
+                  }
+                } catch {
+                  sendResponse('new');
+                }
+              } else {
+                sendResponse('fail');
+              }
+              break;
+            case 'reload-setting':
+              const menuItemGeneralElement = getMenuItem(langs.general);
+              const menuItemQuickCommandsElement = getMenuItem(langs.quickCommands);
+              if (menuItemGeneralElement && menuItemQuickCommandsElement) {
+                setTimeout(() => menuItemGeneralElement.click());
+                setTimeout(() => menuItemQuickCommandsElement.click());
+              }
+              break;
+          }
+        }
+      })();
+      return true;
     }
   });
+
+  vivaldi.prefs.onChanged.addListener(async newValue => {
+    if (newValue.path === 'vivaldi.chained_commands.command_list') {
+      const tabs = await chrome.tabs.query({ url: '*://forum.vivaldi.net/topic/*' });
+      tabs.forEach(tab => {
+        chrome.tabs.sendMessage(tab.id, {
+          type: messageType,
+          action: 'change',
+        });
+      });
+    }
+  });
+
+  function createSettings() {
+    if (timeOut) {
+      timeOut.stop();
+    }
+    timeOut = gnoh.timeOut(chainedCommand => {
+      chainedCommand.dataset.importExportCommandChains = true;
+      const masterToolbar = chainedCommand.querySelector('.master-toolbar:not([data-import-export-command-chains="true"])');
+      masterToolbar.dataset.importExportCommandChains = true;
+
+      const master = chainedCommand.querySelector('.master:not([data-import-export-command-chains="true"])');
+      master.dataset.importExportCommandChains = true;
+
+      async function selectedKey() {
+        const itemSelected = master.querySelector('.master-items .item-selected');
+        if (!itemSelected) {
+          return;
+        }
+        const commandList = await getCommandChains();
+        const indexSelected = gnoh.element.getIndex(itemSelected);
+        return commandList[indexSelected] && commandList[indexSelected].key;
+      }
+
+      Object.values(buttons).forEach((button) => {
+        gnoh.element.appendAtIndex(
+          gnoh.createElement('button', {
+            class: 'button-toolbar',
+            html: button.icon,
+            title: button.title,
+            events: {
+              click: async (e) => {
+                e.preventDefault();
+                const key = await selectedKey();
+                button.click(key);
+              },
+            },
+          }),
+          masterToolbar,
+          button.index,
+        );
+      });
+    }, '.Setting--ChainedCommand.master-detail:not([data-import-export-command-chains="true"])');
+  }
 
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.status === 'complete') {
       if (tab.url === urls.quickCommands) {
-        if (timeOut) {
-          timeOut.stop();
-        }
-        timeOut = gnoh.timeOut(chainedCommand => {
-          chainedCommand.importExportCommandChains = true;
-          const masterToolbar = chainedCommand.querySelector('.master-toolbar');
-          const master = chainedCommand.querySelector('.master');
-
-          async function selectedKey() {
-            const itemSelected = master.querySelector('.master-items .item-selected');
-            if (!itemSelected) {
-              return;
-            }
-            const commandList = await getCommandChains();
-            const indexSelected = gnoh.element.getIndex(itemSelected);
-            return commandList[indexSelected] && commandList[indexSelected].key;
-          }
-
-          Object.values(buttons).forEach((button) => {
-            gnoh.element.appendAtIndex(
-              gnoh.createElement('button', {
-                class: 'button-toolbar',
-                html: button.icon,
-                title: button.title,
-                events: {
-                  click: async (e) => {
-                    e.preventDefault();
-                    const key = await selectedKey();
-                    button.click(key);
-                  },
-                },
-              }),
-              masterToolbar,
-              button.index,
-            );
-          });
-        }, '.Setting--ChainedCommand:not([data-import-export-command-chains="true"])');
+        createSettings();
       } else if (/https:\/\/forum\.vivaldi\.net\/topic\/*/.test(tab.url)) {
         chrome.scripting.executeScript({
           target: {
@@ -698,63 +914,97 @@
               window.importExportCommandChains = true;
             }
 
-            function checkCommandChain(commandChainText) {
-              let commandChain = null;
-              try {
-                commandChain = JSON.parse(commandChainText);
-              } catch (e) {
-                return false;
-              }
+            const buttonElements = [];
 
-              if (
-                commandChain.category !== 'CATEGORY_COMMAND_CHAIN'
-                || !Array.from(commandChain.chain)
-                || commandChain.chain.some(c => typeof c.key !== 'string' || !/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(c.key))
-                || typeof commandChain.key !== 'string'
-                || typeof commandChain.label !== 'string'
-                || typeof commandChain.name !== 'string'
-              ) {
-                return false;
-              } else {
-                return true;
+            chrome.runtime.onMessage.addListener((info) => {
+              if (info.type === messageType) {
+                switch (info.action) {
+                  case 'change':
+                    buttonElements.forEach(async buttonElement => {
+                      const status = await chrome.runtime.sendMessage({
+                        type: messageType,
+                        action: 'check',
+                        data: buttonElement.code,
+                      });
+
+                      updateButton(buttonElement, status);
+                    });
+                }
+              }
+            });
+
+            async function onClick(event) {
+              chrome.runtime.sendMessage({
+                type: messageType,
+                action: 'import',
+                data: event.target.code,
+              });
+            }
+
+            function updateButton(buttonElement, status) {
+              if (status === 'new') {
+                buttonElement.classList.add('btn-primary');
+                buttonElement.classList.remove('btn-secondary');
+                buttonElement.innerText = langs.install;
+                buttonElement.disabled = false;
+                buttonElement.addEventListener('click', onClick);
+              } else if (status === 'update') {
+                buttonElement.classList.add('btn-primary');
+                buttonElement.classList.remove('btn-secondary');
+                buttonElement.innerText = langs.update;
+                buttonElement.disabled = false;
+                buttonElement.addEventListener('click', onClick);
+              } else if (status === 'installed') {
+                buttonElement.classList.remove('btn-primary');
+                buttonElement.classList.add('btn-secondary');
+                buttonElement.innerText = langs.installed;
+                buttonElement.disabled = true;
+                buttonElement.removeEventListener('click', onClick);
               }
             }
 
             function createInstall(node) {
               const codes = node.querySelectorAll('code:not([data-import-export-command-chains="true"])');
 
-              codes.forEach((code) => {
-                code.dataset.importExportCommandChains = true;
+              codes.forEach(async (codeElement) => {
+                codeElement.dataset.importExportCommandChains = true;
 
-                if (checkCommandChain(code.innerText.trim())) {
-                  const commandChainElement = document.createElement('div');
-                  commandChainElement.className = 'command-chain';
+                const code = codeElement.innerText.trim();
 
-                  const buttonInstallElement = document.createElement('button');
-                  buttonInstallElement.className = 'btn btn-primary mb-3';
-                  buttonInstallElement.innerText = langs.install;
-                  buttonInstallElement.addEventListener('click', () => {
-                    chrome.runtime.sendMessage({
-                      type: messageType,
-                      action: 'import',
-                      data: code.innerText.trim(),
-                    });
-                  });
-                  commandChainElement.append(buttonInstallElement);
+                const status = await chrome.runtime.sendMessage({
+                  type: messageType,
+                  action: 'check',
+                  data: code,
+                });
 
-                  const pre = code.closest('pre');
-                  if (pre) {
-                    pre.parentNode.insertBefore(commandChainElement, pre.nextSibling);
-                  } else {
-                    code.parentNode.insertBefore(commandChainElement, code.nextSibling);
-                  }
+                if (status === 'fail') {
+                  return;
+                }
+
+                const commandChainElement = document.createElement('div');
+                commandChainElement.className = 'command-chain';
+
+                const buttonElement = document.createElement('button');
+                buttonElement.code = code;
+                buttonElement.className = 'btn mb-3';
+
+                updateButton(buttonElement, status);
+                buttonElements.push(buttonElement);
+
+                commandChainElement.append(buttonElement);
+
+                const preElement = codeElement.closest('pre');
+                if (preElement) {
+                  preElement.parentNode.insertBefore(commandChainElement, preElement.nextSibling);
+                } else {
+                  codeElement.parentNode.insertBefore(commandChainElement, codeElement.nextSibling);
                 }
               });
             }
 
             createInstall(document.body);
 
-            const observer = new MutationObserver((mutationList, observer) => {
+            const observer = new MutationObserver((mutationList) => {
               mutationList.forEach(mutation => {
                 if (mutation.addedNodes.length) {
                   mutation.addedNodes.forEach(node => {
@@ -775,4 +1025,12 @@
       }
     }
   });
+
+  gnoh.timeOut((main) => {
+    if (document.querySelector('#main > .webpageview')) {
+      const menuItemQuickCommandsElement = getMenuItem(langs.quickCommands);
+
+      menuItemQuickCommandsElement.addEventListener('click', createSettings)
+    }
+  }, '#main');
 })();
