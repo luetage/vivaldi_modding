@@ -72,6 +72,11 @@
   fill: var(--colorHighlightFg);
 }
 
+/* status info */
+.StatusInfo .UrlFragments, .StatusInfo-Content {
+  color: var(--colorFgFaded);
+}
+
 /* privacy guard button */
 .button-toolbar button[title^="Privacy Guard"] svg {
   opacity: 0.8;
