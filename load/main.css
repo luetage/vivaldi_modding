@@ -77,11 +77,6 @@
   color: var(--colorFgFaded);
 }
 
-/* privacy guard button */
-.button-toolbar button[title^="Privacy Guard"] svg {
-  opacity: 0.8;
-}
-
 /* panel container */
 #window-panel .vivaldi-tree .title.active::before {
   content: "⌑";
@@ -94,16 +89,6 @@
 #mail_panel h1::before {
   font-size: 16px;
   content: "M3";
-}
-
-/* reading list */
-.readinglist-listing-large {
-  order: 1;
-}
-
-/* clock button */
-.ClockButton svg {
-  opacity: 0.8;
 }
 
 /* clock feature */
