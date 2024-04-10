@@ -81,6 +81,12 @@
 #window-panel .vivaldi-tree .title.active::before {
   content: "⌑";
 }
+.button-toolbar-webpanel img {
+  filter: grayscale(1);
+}
+#browser.isblurred.dim-blurred .button-toolbar-webpanel img {
+  filter: opacity(0.65) grayscale(1) !important;
+}
 
 /* M3 */
 #mail_panel h1 {
