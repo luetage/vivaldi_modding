@@ -1,15 +1,14 @@
 // Backup Keyboard Cheat Sheet
-// version 2024.4.0
+// version 2024.4.1
 // https://forum.vivaldi.net/post/745999
 // Writes the content of the keyboard cheat sheet to your clipboard in markdown
 // format. Open keyboard cheat sheet popup, open user interface console, paste
 // code and hit Enter to execute.
 
-let output = "";
-const wrapper = document.querySelector(".keyboardShortcutsWrapper");
-const title = wrapper.querySelector("h1");
-output += `# ${title.innerText}\n\n| &nbsp; | &nbsp; |\n|---|---|\n`;
-wrapper.querySelectorAll(".category").forEach((category) => {
+const sheet = document.querySelector(".keyboardShortcutsWrapper");
+const heading = wrapper.querySelector("h1");
+let output = `# ${heading.innerText}\n\n| &nbsp; | &nbsp; |\n|---|---|\n`;
+sheet.querySelectorAll(".category").forEach((category) => {
   output += `| **${category.firstChild.innerText.toUpperCase()}** |   |\n`;
   category.querySelectorAll(".keycombo").forEach((key) => {
     output += `| ${key.innerText} |`;
