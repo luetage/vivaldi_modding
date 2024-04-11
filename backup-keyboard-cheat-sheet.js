@@ -6,7 +6,7 @@
 // code and hit Enter to execute.
 
 const sheet = document.querySelector(".keyboardShortcutsWrapper");
-const heading = wrapper.querySelector("h1");
+const heading = sheet.querySelector("h1");
 let output = `# ${heading.innerText}\n\n| &nbsp; | &nbsp; |\n|---|---|\n`;
 sheet.querySelectorAll(".category").forEach((category) => {
   output += `| **${category.firstChild.innerText.toUpperCase()}** |   |\n`;
@@ -15,9 +15,9 @@ sheet.querySelectorAll(".category").forEach((category) => {
     key.querySelectorAll("input").forEach((combo) => {
       output += ` ${combo.value}<br>`;
     });
-    output += ` |\n`;
+    output += " |\n";
   });
-  output += `| &nbsp; | &nbsp; |\n`;
+  output += "| &nbsp; | &nbsp; |\n";
 });
 copy(output);
 console.info(output);
