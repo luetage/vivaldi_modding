@@ -11,9 +11,9 @@ let output = `# ${heading.innerText}\n\n| &nbsp; | &nbsp; |\n|---|---|\n`;
 sheet.querySelectorAll(".category").forEach((category) => {
   const caps = category.firstChild.innerText.toUpperCase();
   output += `| **${caps}** | <div style="page-break-after:avoid"></div> |\n`;
-  category.querySelectorAll(".keycombo").forEach((key) => {
-    output += `| ${key.innerText} |`;
-    key.querySelectorAll("input").forEach((combo) => {
+  category.querySelectorAll(".keycombo").forEach((command) => {
+    output += `| ${command.innerText} |`;
+    command.querySelectorAll("input").forEach((combo) => {
       output += ` ${combo.value}<br>`;
     });
     output += " |\n";
