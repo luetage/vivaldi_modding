@@ -7,7 +7,7 @@
 
 const sheet = document.querySelector(".keyboardShortcutsWrapper");
 const heading = sheet.querySelector("h1").innerText;
-const pb1 = `<style>\n  tr{page-break-inside:avoid}\n</style>\n\n`
+const pb1 = `<style>\n  tr{page-break-inside:avoid}\n</style>\n\n`;
 const pb2 = `<div style="page-break-after:avoid"></div>`;
 let output = `${pb1}# ${heading}\n\n<table>\n`;
 sheet.querySelectorAll(".category").forEach((category, key, arr) => {
