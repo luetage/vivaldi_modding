@@ -6,12 +6,13 @@
 // code and hit Enter to execute.
 
 const sheet = document.querySelector(".keyboardShortcutsWrapper");
-const heading = sheet.querySelector("h1");
-const pb = `<div style="page-break-after:avoid"></div>`;
-let output = `# ${heading.innerText}\n\n<table>\n`;
+const heading = sheet.querySelector("h1").innerText;
+const pb1 = `<style>\n  tr{page-break-inside:avoid}\n</style>\n\n`
+const pb2 = `<div style="page-break-after:avoid"></div>`;
+let output = `${pb1}# ${heading}\n\n<table>\n`;
 sheet.querySelectorAll(".category").forEach((category, key, arr) => {
   const caps = category.firstChild.innerText.toUpperCase();
-  output += `  <tr><td><b>${caps}</b></td><td>${pb}</td></tr>\n`;
+  output += `  <tr><td><b>${caps}</b></td><td>${pb2}</td></tr>\n`;
   category.querySelectorAll(".keycombo").forEach((command) => {
     output += `  <tr><td>${command.innerText}</td><td>`;
     command.querySelectorAll("input").forEach((combo, key, arr) => {
