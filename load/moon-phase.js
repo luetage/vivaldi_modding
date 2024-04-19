@@ -1,5 +1,5 @@
 // Moon Phase
-// version 2023.10.0
+// version 2024.4.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase as command chain button. Download the
 // moon-phase.svg file and load it in theme settings. Moon phase calculation

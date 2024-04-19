@@ -101,3 +101,6 @@
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
 }
+.ClockPopup-Header, .ClockPopup-Passed {
+  display: none !important;
+}
