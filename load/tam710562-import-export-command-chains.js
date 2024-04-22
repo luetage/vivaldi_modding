@@ -3,26 +3,26 @@
  * Written by Tam710562
  */
 
-(function () {
+(async () => {
   'use strict';
 
   const gnoh = {
     i18n: {
-      getMessageName: function (message, type) {
+      getMessageName(message, type) {
         message = (type ? type + '\x04' : '') + message;
         return message.replace(/[^a-z0-9]/g, function (i) {
           return '_' + i.codePointAt(0) + '_';
         }) + '0';
       },
-      getMessage: function (message, type) {
+      getMessage(message, type) {
         return chrome.i18n.getMessage(this.getMessageName(message, type)) || message;
       },
     },
     uuid: {
-      check: function (id) {
+      check(id) {
         return !/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(id);
       },
-      generate: function (ids) {
+      generate(ids) {
         let d = Date.now() + performance.now();
         let r;
         const id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -58,7 +58,7 @@
         return output;
       },
     },
-    addStyle: function (css, id, isNotMin) {
+    addStyle(css, id, isNotMin) {
       this.styles = this.styles || {};
       if (Array.isArray(css)) {
         css = css.join(isNotMin === true ? '\n' : '');
@@ -70,7 +70,7 @@
       }, document.head);
       return this.styles[id];
     },
-    createElement: function (tagName, attribute, parent, inner, options) {
+    createElement(tagName, attribute, parent, inner, options) {
       if (typeof tagName === 'undefined') {
         return;
       }
@@ -131,7 +131,7 @@
       }
       return el;
     },
-    createElementFromHTML: function (html) {
+    createElementFromHTML(html) {
       return this.createElement('template', {
         html: (html || '').trim(),
       }).content;
@@ -157,7 +157,7 @@
         }
       };
     },
-    getFormData: function (formElement) {
+    getFormData(formElement) {
       if (!formElement || formElement.nodeName !== 'FORM') {
         return;
       }
@@ -283,11 +283,12 @@
       });
       return data;
     },
-    dialog: function (title, content, buttons = [], config) {
+    dialog(title, content, buttons = [], config) {
       let modalBg;
       let dialog;
       let cancelEvent;
       const id = this.uuid.generate();
+      const inner = document.querySelector('#main > .inner, #main > .webpageview');
 
       if (!config) {
         config = {};
@@ -296,14 +297,20 @@
         config.autoClose = true;
       }
 
-      function onKeyCloseDialog(key) {
-        if (key === 'Esc') {
+      function onKeyCloseDialog(windowId, key) {
+        if (
+          windowId === vivaldiWindowId
+          && key === 'Esc'
+        ) {
           closeDialog(true);
         }
       }
 
       function onClickCloseDialog(event) {
-        if (config.autoClose && !event.target.closest('.dialog-custom[data-dialog-id="' + id + '"]')) {
+        if (
+          config.autoClose
+          && !event.target.closest('.dialog-custom[data-dialog-id="' + id + '"]')
+        ) {
           closeDialog(true);
         }
       }
@@ -330,7 +337,7 @@
           cancelEvent = clickEvent;
         }
         button.events = {
-          click: function (event) {
+          click(event) {
             event.preventDefault();
             if (typeof clickEvent === 'function') {
               clickEvent.bind(this)(gnoh.getFormData(dialog));
@@ -370,6 +377,9 @@
       }, dialog, '<h1>' + (title || '') + '</h1>');
       const dialogContent = this.createElement('div', {
         class: 'dialog-content',
+        style: {
+          maxHeight: '65vh',
+        },
       }, dialog, content);
       if (buttons && buttons.length > 0) {
         const dialogFooter = this.createElement('footer', {
@@ -379,11 +389,7 @@
       modalBg = this.createElement('div', {
         id: 'modal-bg',
         class: 'slide',
-      }, undefined, [focusModal.cloneNode(true), div, focusModal.cloneNode(true)]);
-      const inner = document.querySelector('#main > .inner') || document.querySelector('#main > .webpageview');
-      if (inner) {
-        inner.prepend(modalBg);
-      }
+      }, inner, [focusModal.cloneNode(true), div, focusModal.cloneNode(true)]);
       return {
         dialog: dialog,
         dialogHeader: dialogHeader,
@@ -392,7 +398,7 @@
         close: closeDialog,
       };
     },
-    alert: function (message, okEvent) {
+    alert(message, okEvent) {
       const buttonOkElement = Object.assign({}, this.constant.dialogButtons.submit, {
         cancel: true,
       });
@@ -407,7 +413,7 @@
         class: 'dialog-javascript',
       });
     },
-    timeOut: function (callback, conditon, timeOut = 300) {
+    timeOut(callback, conditon, timeOut = 300) {
       let timeOutId = setTimeout(function wait() {
         let result;
         if (!conditon) {
@@ -437,14 +443,14 @@
       };
     },
     element: {
-      appendAtIndex: function (element, parentElement, index) {
+      appendAtIndex(element, parentElement, index) {
         if (index >= parentElement.children.length) {
           parentElement.append(element)
         } else {
           parentElement.insertBefore(element, parentElement.children[index])
         }
       },
-      getIndex: function (element) {
+      getIndex(element) {
         return Array.from(element.parentElement.children).indexOf(element);
       },
     },
@@ -472,31 +478,31 @@
     install: gnoh.i18n.getMessage('Install'),
     installed: gnoh.i18n.getMessage('Installed'),
     update: gnoh.i18n.getMessage('Update'),
+    preview: gnoh.i18n.getMessage('Preview'),
+    commandParameter: gnoh.i18n.getMessage('Command Parameter', 'chainedcommand'),
   };
 
   gnoh.addStyle([
     '.import-export-command-chains input[type="file"]::file-selector-button { border: 0px; border-right: 1px solid var(--colorBorder); height: 28px; padding: 0 18px; color: var(--colorFg); background: linear-gradient(var(--colorBgLightIntense) 0%, var(--colorBg) 100%); margin-right: 18px; }',
     '.import-export-command-chains input[type="file"]::file-selector-button:hover { background: linear-gradient(var(--colorBg), var(--colorBg)); }',
-    '.import-export-command-chains .editor { width: 100%; height: 100px; position: relative; background-color: var(--colorBgIntense); border-radius: var(--radius); border-width: 1px; border-style: solid; border-color: var(--colorBorder); }',
-    '.import-export-command-chains .editor .editing, .import-export-command-chains .editor .highlighting { overflow: auto; white-space: pre-wrap; word-break: break-word; border-radius: var(--radius); border: none; box-shadow: none; position: absolute; top: 0; left: 0; bottom: 0; right: 0; padding: 6px; font-size: 13px; font-family: monospace !important; line-height: 1.3; tab-size: 2; }',
-    '.import-export-command-chains .editor .highlighting { color: var(--colorFg); }',
-    '.import-export-command-chains .editor .highlighting .json-key, .import-export-command-chains .editor .highlighting .json-key span { color: #0451a5; }',
-    '.import-export-command-chains .editor .highlighting .json-string, .import-export-command-chains .editor .highlighting .json-string span { color: #a31515; }',
-    '.import-export-command-chains .editor .highlighting .json-number { color: #098658; }',
-    '.import-export-command-chains .editor .highlighting .json-bool { color: #0000ff; }',
-    '.theme-dark .import-export-command-chains .editor .highlighting .json-key, .theme-dark .import-export-command-chains .editor .highlighting .json-key span { color: #9cdcfe; }',
-    '.theme-dark .import-export-command-chains .editor .highlighting .json-string, .theme-dark .import-export-command-chains .editor .highlighting .json-string span { color: #ce9178; }',
-    '.theme-dark .import-export-command-chains .editor .highlighting .json-number { color: #b5cea8; }',
-    '.theme-dark .import-export-command-chains .editor .highlighting .json-bool { color: #569cd6; }',
-    '.import-export-command-chains .editor .editing { color: transparent; background: transparent; caret-color: white; }',
-    '.import-export-command-chains .editor .editing::-webkit-scrollbar-button, .import-export-command-chains .editor .editing::-webkit-scrollbar-thumb, .import-export-command-chains .editor .editing::-webkit-scrollbar-track { cursor: default; }',
+    '.import-export-command-chains .editor { width: 100%; height: 300px; overflow: auto; white-space: pre-wrap; word-break: break-word; background-color: var(--colorBgIntense); color: var(--colorFg); user-select: text; border-radius: var(--radius); border: 1px solid var(--colorBorder); font-size: 13px; font-family: monospace; line-height: 1.3; tab-size: 2; padding: 6px; }',
+    '.import-export-command-chains .editor::highlight(json-key) { color: #0451a5; }',
+    '.import-export-command-chains .editor::highlight(json-number) { color: #098658; }',
+    '.import-export-command-chains .editor::highlight(json-bool) { color: #0000ff; }',
+    '.import-export-command-chains .editor::highlight(json-string) { color: #a31515; }',
+    '.theme-dark .import-export-command-chains .editor::highlight(json-key) { color: #9cdcfe; }',
+    '.theme-dark .import-export-command-chains .editor::highlight(json-number) { color: #b5cea8; }',
+    '.theme-dark .import-export-command-chains .editor::highlight(json-bool) { color: #569cd6; }',
+    '.theme-dark .import-export-command-chains .editor::highlight(json-string) { color: #ce9178; }',
+    '.import-export-command-chains .export.master-detail { max-height: 335px; height: auto; }',
+    '.import-export-command-chains .chained-command-item-value { background-color: var(--colorBgIntense); padding: 6px 12px; white-space: nowrap; overflow: auto; scrollbar-width: none; user-select: text; }',
   ], 'import-export-command-chains');
 
   const buttons = {
     import: {
       icon: icons.import,
       title: langs.import,
-      click: async (key) => {
+      click(key) {
         showDialogImport();
       },
       index: 2,
@@ -504,130 +510,105 @@
     export: {
       icon: icons.export,
       title: langs.export,
-      click: async (key) => {
-        if (!key) {
-          return;
-        }
-        const commandChain = await getCommandChainByKey(key);
-        const commandChainText = JSON.stringify(commandChain);
-        const commandChainUrl = URL.createObjectURL(new Blob([commandChainText], { type: 'application/json' }));
-
-        const editor = createEditor({
-          readonly: true,
-          value: commandChainText,
-          events: {
-            click: (e) => e.target.select(),
-          },
-        });
-
-        const buttonCopyElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
-          label: langs.copy,
-          click: () => {
-            navigator.clipboard.writeText(commandChainText);
-          },
-        });
-
-        const buttonExportElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
-          label: langs.export,
-          click: () => {
-            const filename = commandChain.label.trim()
-              .replace(/\s+/g, '-').toLowerCase()
-              .replace(/[^\p{L}0-9-]/gu, '')
-              .replace(/^-+|-+$/g, '') || key;
-
-            chrome.downloads.download({
-              url: commandChainUrl,
-              filename: filename + '.json',
-              saveAs: true,
-            });
-          },
-        });
-
-        const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel);
-
-        gnoh.dialog(
-          'Export Command Chain',
-          editor.editor,
-          [buttonCopyElement, buttonExportElement, buttonCancelElement],
-          {
-            width: 500,
-            class: 'import-export-command-chains',
-          }
-        );
+      click(key) {
+        showDialogExport(key);
       },
       index: 3,
     },
   };
 
+  const commands = await getCommands();
 
-  function escapeHtml(text) {
-    return text.replace(/[<>&]/g, function (char) {
-      return { '<': '&lt;', '>': '&gt;', '&': '&amp;' }[char];
+  async function getCommands() {
+    const response = await fetch(chrome.runtime.getURL('bundle.js'));
+    const bundleScript = await response.text();
+    const matches = Array.from(bundleScript.matchAll(/name\s*:\s*"([^"]+)",[\s\S]+?guid\s*:\s*"([^"]+)",[\s\S]+?\("(([^"]+)"\s*,\s*")?([^"]+)"\)/g));
+
+    const commands = {};
+    matches.forEach(match => {
+      commands[match[2]] = {
+        name: match[1],
+        key: match[2],
+        message: match[5],
+        messageType: match[4],
+        label: gnoh.i18n.getMessage(match[5], match[4]),
+      }
     });
+
+    return commands;
   }
 
-  function highlightJson(text) {
+  function highlightJson(element, text) {
+    CSS.highlights.delete('json-number');
+    CSS.highlights.delete('json-bool');
+    CSS.highlights.delete('json-key');
+    CSS.highlights.delete('json-string');
+
     if (!text) {
-      return '';
+      return;
     }
 
-    if (text[text.length - 1] == '\n') {
-      text += ' ';
-    }
-
-    return escapeHtml(text)
-      .replace(/(("([^"]|\\")+?[^\\]")|"")(\s*.)/ig, (str, g1, g2, g3, g4) => {
-        const type = g4.trim() === ':' ? 'json-key' : 'json-string';
-        return '<span class="' + type + '">' + g1 + '</span>' + g4;
-      })
-      .replace(/-?\d+\.?\d*((E|e)[\+]\d+)?/ig, '<span class="json-number">$&</span>')
-      .replace(/false|true|null/ig, '<span class="json-bool">$&</span>');
-  }
-
-  function createEditor(attribute = {}) {
-    const editor = gnoh.createElement('div', {
-      class: 'editor',
+    const jsonNumbers = [...text.matchAll(/-?\d+\.?\d*((E|e)[\+]\d+)?/ig)].map((match) => {
+      const range = new Range();
+      range.setStart(element.firstChild, match.index);
+      range.setEnd(element.firstChild, match.index + match[0].length);
+      return range;
     });
 
-    const highlighting = gnoh.createElement('div', {
-      class: 'highlighting',
-      'aria-hidden': 'true',
-      html: highlightJson(attribute.value),
-    }, editor);
+    const jsonNumbersHighlight = new Highlight(...jsonNumbers);
+    CSS.highlights.set('json-number', jsonNumbersHighlight);
 
-    const textarea = gnoh.createElement('textarea', gnoh.object.merge({
-      name: 'textarea',
-      class: 'editing',
-      rows: 5,
-      spellcheck: 'false',
-      style: {
-        'resize': 'vertical',
-        'max-height': '300px',
-      },
+    const jsonBooleans = [...text.matchAll(/false|true|null/ig)].map((match) => {
+      const range = new Range();
+      range.setStart(element.firstChild, match.index);
+      range.setEnd(element.firstChild, match.index + match[0].length);
+      return range;
+    });
+
+    const jsonBooleansHighlight = new Highlight(...jsonBooleans);
+    CSS.highlights.set('json-bool', jsonBooleansHighlight);
+
+    const jsonKeys = [];
+    const jsonStrings = [];
+
+    [...text.matchAll(/(("([^"]|\\")+?[^\\]")|"")(\s*.)/ig)].forEach((match) => {
+      const range = new Range();
+      range.setStart(element.firstChild, match.index);
+      range.setEnd(element.firstChild, match.index + match[1].length);
+
+      if (match[4].trim() === ':') {
+        jsonKeys.push(range);
+      } else {
+        jsonStrings.push(range);
+      }
+    });
+    const jsonKeysHighlight = new Highlight(...jsonKeys);
+    CSS.highlights.set('json-key', jsonKeysHighlight);
+    const jsonStringsHighlight = new Highlight(...jsonStrings);
+    CSS.highlights.set('json-string', jsonStringsHighlight);
+  }
+
+  function createEditor(attribute = {}, parent, inner, options) {
+    const editor = gnoh.createElement('div', gnoh.object.merge({
+      class: 'editor',
+      contentEditable: attribute.contentEditable === false ? false : 'plaintext-only',
       events: {
-        input: () => {
-          highlighting.innerHTML = highlightJson(textarea.value);
-          highlighting.scrollTop = textarea.scrollTop;
-          highlighting.scrollLeft = textarea.scrollLeft;
-        },
-        scroll: () => {
-          highlighting.scrollTop = textarea.scrollTop;
-          highlighting.scrollLeft = textarea.scrollLeft;
+        input() {
+          setValue(this.textContent);
         },
       },
-    }, attribute), editor);
+    }, attribute), parent, inner, options);
 
-    new ResizeObserver(() => {
-      editor.style.width = textarea.offsetWidth + 2 + 'px';
-      editor.style.height = textarea.offsetHeight + 2 + 'px';
-      highlighting.scrollTop = textarea.scrollTop;
-      highlighting.scrollLeft = textarea.scrollLeft;
-    }).observe(textarea);
+    function setValue(value) {
+      editor.textContent = value;
+      highlightJson(editor, value);
+    }
+
+    setValue(attribute.value || '');
 
     return {
       editor,
-      highlighting,
-      textarea,
+      setValue,
     };
   }
 
@@ -640,24 +621,21 @@
     })
   }
 
-  async function showDialogImport(commandChainText, callback) {
+  async function showDialogImport(commandChainText) {
     const p1 = gnoh.createElement('p', {
       class: 'info',
       text: 'Import from code',
     });
 
-    const editor = createEditor({
-      name: 'textarea',
-    });
+    const editor = createEditor();
 
     let p2 = null;
     let inputFile = null;
     const content = [p1, editor.editor];
 
     if (commandChainText) {
-      editor.textarea.value = commandChainText;
-      editor.textarea.readonly = true;
-      editor.highlighting.innerHTML = highlightJson(commandChainText);
+      editor.editor.contentEditable = false;
+      editor.setValue(commandChainText);
     } else {
       p2 = gnoh.createElement('p', {
         class: 'info',
@@ -675,36 +653,185 @@
 
     const buttonInputElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
       label: langs.import,
-      click: async (data) => {
-        if (data.textarea.trim()) {
-          commandChainText = data.textarea.trim();
+      async click(data) {
+        if (editor.editor.textContent.trim()) {
+          commandChainText = editor.editor.textContent.trim();
         } else if (data.file && data.file[0]) {
           commandChainText = await parseTextFile(data.file[0]);
         }
 
         if (!commandChainText || !checkCommandChain(commandChainText)) {
           gnoh.alert('Import failed');
-          callback && callback('fail');
         } else {
           await importCommandChain(JSON.parse(commandChainText));
           await reloadSetting();
-          callback && callback('installed');
         }
       },
     });
 
-    const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel, {
-      click: () => {
-        callback && callback('cancel');
+    const buttonPreviewElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
+      label: langs.preview,
+      async click(data) {
+        if (editor.editor.textContent.trim()) {
+          commandChainText = editor.editor.textContent.trim();
+        } else if (data.file && data.file[0]) {
+          commandChainText = await parseTextFile(data.file[0]);
+        }
+
+        if (!commandChainText || !checkCommandChain(commandChainText)) {
+          gnoh.alert('Import failed');
+        } else {
+          await showDialogPreview(commandChainText);
+        }
       },
     });
+
+    const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel);
 
     gnoh.dialog(
       'Import Command Chain',
       content,
-      [buttonInputElement, buttonCancelElement],
+      [buttonInputElement, buttonPreviewElement, buttonCancelElement],
       {
         width: 500,
+        class: 'import-export-command-chains',
+      }
+    );
+  }
+
+  async function showDialogExport(key) {
+    if (!key) {
+      return;
+    }
+    const commandChain = await getCommandChainByKey(key);
+    const commandChainText = JSON.stringify(commandChain);
+    const commandChainUrl = URL.createObjectURL(new Blob([commandChainText], { type: 'application/json' }));
+
+    const editor = createEditor({
+      contentEditable: false,
+      value: commandChainText,
+    });
+
+    const buttonCopyElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
+      label: langs.copy,
+      click: () => {
+        navigator.clipboard.writeText(commandChainText);
+      },
+    });
+
+    const buttonExportElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
+      label: langs.export,
+      click: () => {
+        const filename = commandChain.label.trim()
+          .replace(/\s+/g, '-').toLowerCase()
+          .replace(/[^\p{L}0-9-]/gu, '')
+          .replace(/^-+|-+$/g, '') || key;
+
+        chrome.downloads.download({
+          url: commandChainUrl,
+          filename: filename + '.json',
+          saveAs: true,
+        });
+      },
+    });
+
+    const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel);
+
+    gnoh.dialog(
+      'Export Command Chain',
+      editor.editor,
+      [buttonCopyElement, buttonExportElement, buttonCancelElement],
+      {
+        width: 500,
+        class: 'import-export-command-chains',
+      }
+    );
+  }
+
+  function createCommandChainItem(chain, index) {
+    const chainedCommandItem = gnoh.createElement('div', {
+      class: 'ChainedCommand-Item',
+    });
+
+    const chainedCommandItemTitle = gnoh.createElement('div', {
+      class: 'ChainedCommand-Item--Title floating-label',
+    }, chainedCommandItem);
+
+    const chainedCommandItemName = gnoh.createElement('span', {
+      class: 'chained-command-item-name',
+      text: 'Command ' + index,
+    }, chainedCommandItemTitle);
+
+    const chainedCommandItemValue = gnoh.createElement('div', {
+      class: 'chained-command-item-value',
+      text: commands[chain.key]?.label || chain.label || '',
+    }, chainedCommandItemTitle);
+
+    if (typeof chain.param !== 'undefined') {
+      const chainedCommandItemParameter = gnoh.createElement('div', {
+        class: 'ChainedCommand-Item--Parameter floating-label',
+      }, chainedCommandItem);
+
+      const chainedCommandItemParameterName = gnoh.createElement('span', {
+        class: 'chained-command-item-name',
+        text: langs.commandParameter,
+      }, chainedCommandItemParameter);
+
+      const chainedCommandItemParameterValue = gnoh.createElement('div', {
+        class: 'chained-command-item-value',
+        text: chain.param || chain.defaultValue || '',
+      }, chainedCommandItemParameter);
+    }
+
+    return chainedCommandItem;
+  }
+
+  function createCommandChain(commandChain) {
+    const chainName = gnoh.createElement('div', {
+      class: 'chain-name',
+      text: commandChain.label,
+    });
+
+    const chainedCommand = gnoh.createElement('div', {
+      class: 'ChainedCommand',
+    });
+
+    commandChain.chain.forEach((chain, index) => {
+      chainedCommand.append(createCommandChainItem(chain, index + 1));
+    });
+
+    return [chainName, chainedCommand];
+  }
+
+  async function showDialogPreview(commandChainText) {
+    if (!checkCommandChain(commandChainText)) {
+      return;
+    }
+
+    const commandChain = JSON.parse(commandChainText);
+
+    const chainedCommand = createCommandChain(commandChain);
+
+    const buttonInputElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
+      label: langs.import,
+      async click() {
+        if (!commandChainText || !checkCommandChain(commandChainText)) {
+          gnoh.alert('Import failed');
+        } else {
+          await importCommandChain(JSON.parse(commandChainText));
+          await reloadSetting();
+        }
+      },
+    });
+
+    const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel);
+
+    gnoh.dialog(
+      'Preview Command Chain',
+      chainedCommand,
+      [buttonInputElement, buttonCancelElement],
+      {
+        width: 750,
         class: 'import-export-command-chains',
       }
     );
@@ -810,6 +937,7 @@
           switch (info.action) {
             case 'import':
               showDialogImport(info.data);
+              break;
             case 'check':
               if (checkCommandChain(info.data)) {
                 const data = JSON.parse(info.data);
@@ -854,6 +982,12 @@
     }
   });
 
+  function createButtonToolbar(attribute = {}, parent, inner, options) {
+    return gnoh.createElement('button', gnoh.object.merge({
+      class: 'button-toolbar',
+    }, attribute), parent, inner, options);
+  }
+
   function createSettings() {
     if (timeOut) {
       timeOut.stop();
@@ -878,12 +1012,11 @@
 
       Object.values(buttons).forEach((button) => {
         gnoh.element.appendAtIndex(
-          gnoh.createElement('button', {
-            class: 'button-toolbar',
+          createButtonToolbar({
             html: button.icon,
             title: button.title,
             events: {
-              click: async (e) => {
+              async click(e) {
                 e.preventDefault();
                 const key = await selectedKey();
                 button.click(key);
@@ -914,13 +1047,13 @@
               window.importExportCommandChains = true;
             }
 
-            const buttonElements = [];
+            const buttonInstallElements = [];
 
             chrome.runtime.onMessage.addListener((info) => {
               if (info.type === messageType) {
                 switch (info.action) {
                   case 'change':
-                    buttonElements.forEach(async buttonElement => {
+                    buttonInstallElements.forEach(async buttonElement => {
                       const status = await chrome.runtime.sendMessage({
                         type: messageType,
                         action: 'check',
@@ -929,11 +1062,12 @@
 
                       updateButton(buttonElement, status);
                     });
+                    break;
                 }
               }
             });
 
-            async function onClick(event) {
+            async function onInstallClick(event) {
               chrome.runtime.sendMessage({
                 type: messageType,
                 action: 'import',
@@ -947,23 +1081,23 @@
                 buttonElement.classList.remove('btn-secondary');
                 buttonElement.innerText = langs.install;
                 buttonElement.disabled = false;
-                buttonElement.addEventListener('click', onClick);
+                buttonElement.addEventListener('click', onInstallClick);
               } else if (status === 'update') {
                 buttonElement.classList.add('btn-primary');
                 buttonElement.classList.remove('btn-secondary');
                 buttonElement.innerText = langs.update;
                 buttonElement.disabled = false;
-                buttonElement.addEventListener('click', onClick);
+                buttonElement.addEventListener('click', onInstallClick);
               } else if (status === 'installed') {
                 buttonElement.classList.remove('btn-primary');
                 buttonElement.classList.add('btn-secondary');
                 buttonElement.innerText = langs.installed;
                 buttonElement.disabled = true;
-                buttonElement.removeEventListener('click', onClick);
+                buttonElement.removeEventListener('click', onInstallClick);
               }
             }
 
-            function createInstall(node) {
+            function createButton(node) {
               const codes = node.querySelectorAll('code:not([data-import-export-command-chains="true"])');
 
               codes.forEach(async (codeElement) => {
@@ -984,14 +1118,14 @@
                 const commandChainElement = document.createElement('div');
                 commandChainElement.className = 'command-chain';
 
-                const buttonElement = document.createElement('button');
-                buttonElement.code = code;
-                buttonElement.className = 'btn mb-3';
+                const buttonInstallElement = document.createElement('button');
+                buttonInstallElement.code = code;
+                buttonInstallElement.className = 'btn mb-3';
 
-                updateButton(buttonElement, status);
-                buttonElements.push(buttonElement);
+                updateButton(buttonInstallElement, status);
+                buttonInstallElements.push(buttonInstallElement);
 
-                commandChainElement.append(buttonElement);
+                commandChainElement.append(buttonInstallElement);
 
                 const preElement = codeElement.closest('pre');
                 if (preElement) {
@@ -1002,14 +1136,14 @@
               });
             }
 
-            createInstall(document.body);
+            createButton(document.body);
 
             const observer = new MutationObserver((mutationList) => {
               mutationList.forEach(mutation => {
                 if (mutation.addedNodes.length) {
                   mutation.addedNodes.forEach(node => {
                     if (node.nodeType === 1) {
-                      createInstall(node);
+                      createButton(node);
                     }
                   });
                 }
