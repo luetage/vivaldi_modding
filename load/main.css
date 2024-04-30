@@ -73,7 +73,8 @@
 }
 
 /* status info */
-.StatusInfo .UrlFragments, .StatusInfo-Content {
+.StatusInfo .UrlFragments,
+.StatusInfo-Content {
   color: var(--colorFgFaded);
 }
 
@@ -101,6 +102,7 @@
 .ClockGraphic-Second-Hand {
   fill: var(--colorHighlightBg);
 }
-.ClockPopup-Header, .ClockPopup-Passed {
+.ClockPopup-Header,
+.ClockPopup-Passed {
   display: none !important;
 }
