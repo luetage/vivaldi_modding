@@ -23,9 +23,7 @@
       const lunartime = lunarcycle * 86400;
       const unixtime = Math.round(Date.now() / 1000);
       const newmoon = 947182440;
-      const diff = unixtime - newmoon;
-      const mod = diff % lunartime;
-      const frac = mod / lunartime;
+      const frac = ((unixtime - newmoon) % lunartime) / lunartime;
       const age = frac * lunarcycle;
       for (let i = 0; i < moon.phases.length; i++) {
         if (age >= moon.phases[i][1] && age <= moon.phases[i][2]) {
