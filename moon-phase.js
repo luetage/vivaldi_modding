@@ -7,6 +7,9 @@
 
 (function moonPhase() {
   "use strict";
+  const lunarcycle = 29.53058770576;
+  const lunartime = lunarcycle * 86400;
+  const newmoon = 947182440;
   const moon = {
     phases: [
       ["New Moon", 1],
@@ -17,22 +20,19 @@
       ["Waning Gibbous", 21.14794077932],
       ["Last Quarter", 23.14794077932],
       ["Waning Crescent", 28.53058770576],
-      ["", 29.53058770576],
+      ["", lunarcycle],
     ],
     phase: () => {
-      const lunarcycle = 29.53058770576;
-      const lunartime = lunarcycle * 86400;
       const unixtime = Math.round(Date.now() / 1000);
-      const newmoon = 947182440;
-      const frac = ((unixtime - newmoon) % lunartime) / lunartime;
-      const age = frac * lunarcycle;
+      const progress = ((unixtime - newmoon) % lunartime) / lunartime;
+      const age = progress * lunarcycle;
       for (let i = 0; i < moon.phases.length; i++) {
         if (age <= moon.phases[i][1]) {
           if (i === 8) i = 0;
           return {
             phase: i,
             name: moon.phases[i][0],
-            progress: Math.trunc(frac * 100),
+            progress: Math.trunc(progress * 100),
             age: age.toFixed(1),
           };
         }
