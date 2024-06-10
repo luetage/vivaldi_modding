@@ -7,6 +7,12 @@
 
 (function moonPhase() {
   "use strict";
+  // EDIT START
+  // choose your hemisphere (northern or southern)
+  const hemisphere = "northern";
+  // command chain identifier (inspect UI and input your own)
+  const command = "COMMAND_cln9yq818001n2v649xyaiird";
+  // EDIT END
   const lunarcycle = 29.53058770576;
   const lunartime = lunarcycle * 86400;
   const newmoon = 947182440;
@@ -22,6 +28,17 @@
       ["Waning Crescent", 28.53058770576],
       ["", lunarcycle],
     ],
+    icon: [
+      [-8, 0],
+      [2, 6],
+      [0, 8],
+      [-2, 10],
+      [-8, 16],
+      [-8, 10],
+      [-8, 8],
+      [-8, 6],
+    ],
+    alternate: [0, 7, 6, 5, 4, 3, 2, 1],
     phase: () => {
       const unixtime = Math.round(Date.now() / 1000);
       const progress = ((unixtime - newmoon) % lunartime) / lunartime;
@@ -44,31 +61,13 @@
     const lc = moon.phase();
     let p = lc.phase;
     if (hemisphere === "southern") {
-      const pa = [0, 7, 6, 5, 4, 3, 2, 1];
-      p = pa[p];
+      p = moon.alternate[p];
     }
-    const icon = [
-      [-8, 0],
-      [2, 6],
-      [0, 8],
-      [-2, 10],
-      [-8, 16],
-      [-8, 10],
-      [-8, 8],
-      [-8, 6],
-    ];
     btn.title = `${lc.name}\n${lc.age} days \u{21ba} ${lc.progress}%`;
     const mod = btn.querySelector("#vm-mp-mod");
-    mod.setAttribute("x", icon[p][0]);
-    mod.setAttribute("width", icon[p][1]);
+    mod.setAttribute("x", moon.icon[p][0]);
+    mod.setAttribute("width", moon.icon[p][1]);
   }
-
-  // EDIT START
-  // choose your hemisphere (northern or southern)
-  const hemisphere = "northern";
-  // command chain identifier (inspect UI and input your own)
-  const command = "COMMAND_cln9yq818001n2v649xyaiird";
-  // EDIT END
 
   const conflate = (el) => {
     const send = () => moonwatch(el);
