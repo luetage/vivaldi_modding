@@ -40,7 +40,7 @@
     ],
     alternate: [0, 7, 6, 5, 4, 3, 2, 1],
     phase: () => {
-      const unixtime = Math.round(Date.now() / 1000);
+      const unixtime = Math.floor(Date.now() / 1000);
       const progress = ((unixtime - newmoon) % lunartime) / lunartime;
       const age = progress * lunarcycle;
       for (let i = 0; i < moon.phases.length; i++) {
@@ -50,7 +50,7 @@
             phase: i,
             name: moon.phases[i][0],
             progress: Math.trunc(progress * 100),
-            age: age.toFixed(1),
+            age: Math.trunc(age),
           };
         }
       }
