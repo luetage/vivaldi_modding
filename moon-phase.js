@@ -7,12 +7,14 @@
 
 (function moonPhase() {
   "use strict";
+
   // EDIT START
   // choose your hemisphere (northern or southern)
   const hemisphere = "northern";
   // command chain identifier (inspect UI and input your own)
   const command = "COMMAND_cln9yq818001n2v649xyaiird";
   // EDIT END
+
   const lunarcycle = 29.53058770576;
   const lunartime = lunarcycle * 86400;
   const newmoon = 947182440;
@@ -58,15 +60,15 @@
   };
 
   function moonwatch(btn) {
-    const lc = moon.phase();
-    let p = lc.phase;
-    if (hemisphere === "southern") {
-      p = moon.alternate[p];
-    }
-    btn.title = `${lc.name}\n${lc.age} days \u{21ba} ${lc.progress}%`;
+    const get = moon.phase();
+    const phase =
+      hemisphere === "southern" ? moon.alternate[get.phase] : get.phase;
+    const age = get.age;
+    const day = age === 1 ? "day" : "days";
+    btn.title = `${get.name}\n${age} ${day} \u{21ba} ${get.progress}%`;
     const mod = btn.querySelector("#vm-mp-mod");
-    mod.setAttribute("x", moon.icon[p][0]);
-    mod.setAttribute("width", moon.icon[p][1]);
+    mod.setAttribute("x", moon.icon[phase][0]);
+    mod.setAttribute("width", moon.icon[phase][1]);
   }
 
   const conflate = (el) => {
