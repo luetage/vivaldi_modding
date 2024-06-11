@@ -63,9 +63,8 @@
     const get = moon.phase();
     const phase =
       hemisphere === "southern" ? moon.alternate[get.phase] : get.phase;
-    const age = get.age;
-    const day = age === 1 ? "day" : "days";
-    btn.title = `${get.name}\n${age} ${day} \u{21ba} ${get.progress}%`;
+    const day = get.age === 1 ? "day" : "days";
+    btn.title = `${get.name}\n${get.age} ${day} \u{21ba} ${get.progress}%`;
     const mod = btn.querySelector("#vm-mp-mod");
     mod.setAttribute("x", moon.icon[phase][0]);
     mod.setAttribute("width", moon.icon[phase][1]);
