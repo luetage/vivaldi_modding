@@ -48,11 +48,13 @@
       for (let i = 0; i < moon.phases.length; i++) {
         if (age <= moon.phases[i][1]) {
           if (i === 8) i = 0;
+          const angle = hemisphere === "southern" ? moon.alternate[i] : i;
           return {
-            phase: i,
             name: moon.phases[i][0],
-            progress: Math.trunc(progress * 100),
             age: Math.trunc(age),
+            progress: Math.trunc(progress * 100),
+            coordinate: moon.icon[angle][0],
+            range: moon.icon[angle][1],
           };
         }
       }
@@ -61,14 +63,11 @@
 
   function moonwatch(btn) {
     const get = moon.phase();
-    const phase =
-      hemisphere === "southern" ? moon.alternate[get.phase] : get.phase;
-    const age = get.age;
-    const day = age === 1 ? "day" : "days";
-    btn.title = `${get.name}\n${age} ${day} \u{21ba} ${get.progress}%`;
+    const number = get.age === 1 ? "day" : "days";
+    btn.title = `${get.name}\n${get.age} ${number} \u{21ba} ${get.progress}%`;
     const mod = btn.querySelector("#vm-mp-mod");
-    mod.setAttribute("x", moon.icon[phase][0]);
-    mod.setAttribute("width", moon.icon[phase][1]);
+    mod.setAttribute("x", get.coordinate);
+    mod.setAttribute("width", get.range);
   }
 
   const conflate = (el) => {
