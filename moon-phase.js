@@ -1,5 +1,5 @@
 // Moon Phase
-// version 2024.6.0
+// version 2024.6.1
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase as command chain button. Download the
 // moon-phase.svg file and load it in theme settings. Moon phase calculation
@@ -9,8 +9,9 @@
   "use strict";
 
   // EDIT START
-  // choose your hemisphere (northern or southern)
-  const hemisphere = "northern";
+  // choose a digit from 0 to 4 approximating your latitude
+  // north[0] northern[1] equator[2] southern[3] south[4]
+  const latitude = 1;
   // command chain identifier (inspect UI and input your own)
   const command = "COMMAND_cln9yq818001n2v649xyaiird";
   // EDIT END
@@ -30,17 +31,17 @@
       ["Waning Crescent", 28.53058770576],
       ["", lunarcycle],
     ],
-    icon: [
+    illum: [
       [-8, 0],
-      [2, 6],
-      [0, 8],
-      [-2, 10],
-      [-8, 16],
-      [-8, 10],
-      [-8, 8],
       [-8, 6],
+      [-8, 8],
+      [-8, 10],
+      [-8, 16],
+      [-2, 10],
+      [0, 8],
+      [2, 6],
     ],
-    alternate: [0, 7, 6, 5, 4, 3, 2, 1],
+    LAT: [90, 45, 0, -45, -90],
     phase: () => {
       const unixtime = Math.floor(Date.now() / 1000);
       const progress = ((unixtime - newmoon) % lunartime) / lunartime;
@@ -48,13 +49,13 @@
       for (let i = 0; i < moon.phases.length; i++) {
         if (age <= moon.phases[i][1]) {
           if (i === 8) i = 0;
-          const angle = hemisphere === "southern" ? moon.alternate[i] : i;
           return {
             name: moon.phases[i][0],
             age: Math.trunc(age),
             progress: Math.trunc(progress * 100),
-            coordinate: moon.icon[angle][0],
-            range: moon.icon[angle][1],
+            coordinate: moon.illum[i][0],
+            range: moon.illum[i][1],
+            angle: moon.LAT[latitude],
           };
         }
       }
@@ -66,8 +67,9 @@
     const number = get.age === 1 ? "day" : "days";
     btn.title = `${get.name}\n${get.age} ${number} \u{21ba} ${get.progress}%`;
     const mod = btn.querySelector("#vm-mp-mod");
-    mod.setAttribute("x", get.coordinate);
-    mod.setAttribute("width", get.range);
+    mod.setAttribute("y", get.coordinate);
+    mod.setAttribute("height", get.range);
+    mod.setAttribute("transform", `rotate(${get.angle})`);
   }
 
   const conflate = (el) => {

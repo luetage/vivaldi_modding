@@ -106,3 +106,6 @@
 .ClockPopup-Passed {
   display: none !important;
 }
+
+/* startpage */
+#browser:not(:has(.startpage)) .bookmark-bar {display: none;}
