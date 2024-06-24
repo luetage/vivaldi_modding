@@ -1,5 +1,5 @@
 // Moon Phase
-// version 2024.6.1
+// version 2024.6.2
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase as command chain button. Download the
 // moon-phase.svg file and load it in theme settings. Moon phase calculation
@@ -11,7 +11,9 @@
   // EDIT START
   // choose a digit from 0 to 4 approximating your latitude
   // north[0] northern[1] equator[2] southern[3] south[4]
-  const latitude = 1;
+  const approx = 0;
+  // alternatively input your exact latitude in degrees (between 90 and -90)
+  const latitude = NaN;
   // command chain identifier (inspect UI and input your own)
   const command = "COMMAND_cln9yq818001n2v649xyaiird";
   // EDIT END
@@ -32,16 +34,16 @@
       ["", lunarcycle],
     ],
     illum: [
-      [-8, 0],
-      [-8, 6],
-      [-8, 8],
-      [-8, 10],
-      [-8, 16],
-      [-2, 10],
-      [0, 8],
-      [2, 6],
+      [-5, 0],
+      [-5, 3],
+      [-5, 5],
+      [-5, 7],
+      [-5, 10],
+      [-2, 7],
+      [0, 5],
+      [2, 3],
     ],
-    LAT: [90, 45, 0, -45, -90],
+    lat: [90, 45, 0, -45, -90],
     phase: () => {
       const unixtime = Math.floor(Date.now() / 1000);
       const progress = ((unixtime - newmoon) % lunartime) / lunartime;
@@ -55,7 +57,7 @@
             progress: Math.trunc(progress * 100),
             coordinate: moon.illum[i][0],
             range: moon.illum[i][1],
-            angle: moon.LAT[latitude],
+            angle: typeof latitude === "number" ? latitude : moon.lat[approx],
           };
         }
       }
