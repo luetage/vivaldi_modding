@@ -13,7 +13,7 @@
   // north[0] northern[1] equator[2] southern[3] south[4]
   const approx = 0;
   // alternatively input your exact latitude in degrees (between 90 and -90)
-  const latitude = NaN;
+  const latitude = undefined;
   // command chain identifier (inspect UI and input your own)
   const command = "COMMAND_cln9yq818001n2v649xyaiird";
   // EDIT END
