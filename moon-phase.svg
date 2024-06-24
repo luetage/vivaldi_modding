@@ -10,9 +10,9 @@
       <clipPath id="vm-mp-cut">
         <rect
           id="vm-mp-mod"
-          x="-8"
-          y="-8"
-          width="16"
+          x="-5"
+          y="-5"
+          width="10"
           height="0"
           transform="rotate(0)"
         />
