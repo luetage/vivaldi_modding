@@ -18,8 +18,8 @@
   const command = "COMMAND_cln9yq818001n2v649xyaiird";
   // EDIT END
 
-  const lunarcycle = 29.53058770576;
-  const lunartime = lunarcycle * 86400;
+  const lunation = 29.53058770576;
+  const lunartime = lunation * 86400;
   const newmoon = 947182440;
   const moon = {
     phases: [
@@ -31,7 +31,7 @@
       ["Waning Gibbous", 21.14794077932],
       ["Last Quarter", 23.14794077932],
       ["Waning Crescent", 28.53058770576],
-      ["", lunarcycle],
+      ["", lunation],
     ],
     illum: [
       [-5, 0],
@@ -47,7 +47,7 @@
     phase: () => {
       const unixtime = Math.floor(Date.now() / 1000);
       const progress = ((unixtime - newmoon) % lunartime) / lunartime;
-      const age = progress * lunarcycle;
+      const age = progress * lunation;
       for (let i = 0; i < moon.phases.length; i++) {
         if (age <= moon.phases[i][1]) {
           if (i === 8) i = 0;
