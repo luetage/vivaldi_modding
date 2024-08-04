@@ -2,15 +2,15 @@
 
 ## What
 
-This repository is a collection of mods I have written for the
-[**Vivaldi web browser**][1]. Each file is a standalone modification which works
-on its own. Every mod contains a link to the Vivaldi forum topic it was first
-featured in, however the most up to date versions can be found in this github
-repo. I cannot guarantee that all of these mods function as advertised at this
-point in time, since the Vivaldi user interface is an ever changing target, but
-below is a list of actively maintained mods. I do use these myself at the
-moment, so should you run into problems with any of them, please let me know by
-creating an issue, or by posting in the according topic on Vivaldi Forum.
+This repository is a collection of mods I have written for the [**Vivaldi web
+browser**][1]. Each file is a standalone modification which works on its own.
+Every mod contains a link to the Vivaldi forum topic it was first featured in,
+however the most up to date versions can be found in this github repo. I cannot
+guarantee that all of these mods function as advertised at this point in time,
+since the Vivaldi user interface is an ever changing target, but below is a list
+of actively maintained mods. I do use these myself at the moment, so should you
+run into problems with any of them, please let me know by creating an issue, or
+by posting in the according topic on Vivaldi Forum.
 
 ## Actively maintained mods
 
