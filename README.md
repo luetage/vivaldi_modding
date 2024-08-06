@@ -1,7 +1,5 @@
 # Vivaldi Modding
 
-## What
-
 This repository is a collection of mods I have written for the [**Vivaldi web
 browser**][1]. Each file is a standalone modification which works on its own.
 Every mod contains a link to the Vivaldi forum topic it was first featured in,
@@ -16,8 +14,6 @@ by posting in the according topic on Vivaldi Forum.
 
 - [activate-tab-on-hover.js](activate-tab-on-hover.js)
 - [addressfield-theming.css](addressfield-theming.css)
-- [backup-search-engines.js](backup-search-engines.js)
-- [changing-buttons.css](changing-buttons.css)
 - [collapse-keyboard-settings.js](collapse-keyboard-settings.js)
 - [history-moon.js](history-moon.js)
 - [m3.css](m3.css)
@@ -26,7 +22,6 @@ by posting in the according topic on Vivaldi Forum.
 - [Tab_Lock.js](page-actions/Tab_Lock.js)
 - [tab-scroll.js](tab-scroll.js)
 - [toggle-keys-and-gestures](toggle-keys-and-gestures.js)
-- [theme-interface-plus.js](theme-interface-plus.js)
 - [update-feeds.js](update-feeds.js)
 
 ## How to
