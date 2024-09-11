@@ -1,5 +1,5 @@
 // Activate Tab On Hover
-// version 2022.10.0
+// version 2024.9.0
 // https://forum.vivaldi.net/post/395460
 // Activates tab on hover.
 
@@ -15,7 +15,7 @@
         tab.removeEventListener("mouseleave", tab);
       });
       wait = setTimeout(function () {
-        const id = Number(tab.parentNode.id.replace(/^\D+/g, ""));
+        const id = Number(tab.parentNode.parentNode.id.replace(/^\D+/g, ""));
         chrome.tabs.update(id, { active: true, highlighted: true });
       }, delay);
     }
