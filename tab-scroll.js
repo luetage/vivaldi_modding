@@ -1,11 +1,13 @@
 // Tab Scroll
-// version 2022.4.0
-// https://forum.vivaldi.net/topic/27856/tab-scroll
+// version 2024.9.0
+// https://forum.vivaldi.net/post/214898
 // Clicking on an active tab scrolls page to top, clicking it again returns to
 // previous scroll position. Credits to tam710562 from Vivaldi Forum for coming
 // up with the sessionStorage solution, which made this possible.
 
 (function tabScroll() {
+  "use strict";
+
   function exit(tab) {
     tab.removeEventListener("mousemove", exit);
     tab.removeEventListener("click", trigger);
@@ -13,7 +15,9 @@
 
   function trigger(tab) {
     chrome.scripting.executeScript({
-      target: { tabId: Number(tab.parentNode.id.replace(/\D/g, "")) },
+      target: {
+        tabId: Number(tab.parentNode.parentNode.id.replace(/\D/g, "")),
+      },
       function: script,
     });
     exit(tab);
@@ -23,6 +27,7 @@
     if (
       tab.parentNode.classList.contains("active") &&
       e.which === 1 &&
+      !(e.target.nodeName === "path" || e.target.nodeName === "svg") &&
       !e.shiftKey &&
       !e.ctrlKey &&
       !e.altKey &&
@@ -34,12 +39,15 @@
   }
 
   const script = () => {
-    let offset = window.pageYOffset;
+    let offset = window.scrollY;
     if (offset > 0) {
-      window.sessionStorage.setItem("tabOffset", offset);
-      window.scrollTo(0, 0);
+      window.sessionStorage.setItem("offset", offset);
+      window.scrollTo({ top: 0, behavior: "instant" });
     } else {
-      window.scrollTo(0, window.sessionStorage.getItem("tabOffset") || 0);
+      window.scrollTo({
+        top: window.sessionStorage.getItem("offset") || 0,
+        behavior: "instant",
+      });
     }
   };
 

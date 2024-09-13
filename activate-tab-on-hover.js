@@ -4,6 +4,8 @@
 // Activates tab on hover.
 
 (function activateTab() {
+  "use strict"
+
   function hover(e, tab) {
     if (
       !tab.parentNode.classList.contains("active") &&
