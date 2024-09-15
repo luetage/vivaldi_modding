@@ -1,5 +1,5 @@
 // Tab Scroll
-// version 2024.9.0
+// version 2024.9.1
 // https://forum.vivaldi.net/post/214898
 // Clicking on an active tab scrolls page to top, clicking it again returns to
 // previous scroll position. Credits to tam710562 from Vivaldi Forum for coming
@@ -7,6 +7,11 @@
 
 (function tabScroll() {
   "use strict";
+
+  // EDIT START
+  // choose scroll behavior, instant or smooth
+  const scb = "instant";
+  // EDIT END
 
   function exit(tab) {
     tab.removeEventListener("mousemove", exit);
@@ -18,7 +23,8 @@
       target: {
         tabId: Number(tab.parentNode.parentNode.id.replace(/\D/g, "")),
       },
-      function: script,
+      func: script,
+      args: [scb],
     });
     exit(tab);
   }
@@ -38,15 +44,15 @@
     }
   }
 
-  const script = () => {
+  const script = (scb) => {
     let offset = window.scrollY;
     if (offset > 0) {
       window.sessionStorage.setItem("offset", offset);
-      window.scrollTo({ top: 0, behavior: "instant" });
+      window.scrollTo({ top: 0, behavior: scb });
     } else {
       window.scrollTo({
         top: window.sessionStorage.getItem("offset") || 0,
-        behavior: "instant",
+        behavior: scb,
       });
     }
   };
