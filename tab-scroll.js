@@ -1,5 +1,5 @@
 // Tab Scroll
-// version 2024.9.1
+// version 2024.9.2
 // https://forum.vivaldi.net/post/214898
 // Clicking on an active tab scrolls page to top, clicking it again returns to
 // previous scroll position. Credits to tam710562 from Vivaldi Forum for coming
@@ -20,9 +20,7 @@
 
   function trigger(tab) {
     chrome.scripting.executeScript({
-      target: {
-        tabId: Number(tab.parentNode.parentNode.id.replace(/\D/g, "")),
-      },
+      target: { tabId: Number(tab.parentNode.id.replace(/\D/g, "")) },
       func: script,
       args: [scb],
     });
@@ -31,7 +29,7 @@
 
   function react(e, tab) {
     if (
-      tab.parentNode.classList.contains("active") &&
+      tab.classList.contains("active") &&
       e.which === 1 &&
       !(e.target.nodeName === "path" || e.target.nodeName === "svg") &&
       !e.shiftKey &&
@@ -61,7 +59,7 @@
   Element.prototype.appendChild = function () {
     if (
       arguments[0].tagName === "DIV" &&
-      arguments[0].classList.contains("tab-header")
+      arguments[0].classList.contains("tab")
     ) {
       setTimeout(
         function () {
