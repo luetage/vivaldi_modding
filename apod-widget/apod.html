@@ -1,0 +1,41 @@
+<!--
+Astronomy Picture of the Day Dashboard Widget
+version 2024.10.2
+Guide and updates ☛ https://forum.vivaldi.net/post/783627
+————————  ⁂  ————————
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Astronomy Picture of the Day</title>
+  <meta name="content-type" content="text/html; charset=UTF-8" />
+  <meta name="color-scheme" content="light dark">
+  <link rel="shortcut icon" type="image/png" href="icons/milky.ico" />
+  <link rel="stylesheet" href="apod.css">
+</head>
+
+<body>
+  <div id="container" class="hidden">
+    <h1><b id="title"></b></h1>
+    <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank">
+      <img id="media"></img>
+    </a>
+    <div id="text">
+      <div class="hidden"><b>date </b><span class="date"></span></div>
+      <details class="hidden">
+        <summary><b>date </b><span class="date" </span></summary>
+        <input id="set_date" type="date" min="1995-06-16" onclick="this.showPicker()" />
+      </details>
+      <span><b>copyright </b></span><span id="copyright"></span>
+      <details>
+        <summary><b>explanation</b></summary>
+        <p id="explanation"></p>
+      </details>
+    </div>
+  </div>
+  <p id="error" class="hidden"></p>
+  <script src="apod.js"></script>
+</body>
+
+</html>

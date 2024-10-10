@@ -1,0 +1,101 @@
+/*
+Astronomy Picture of the Day Dashboard Widget
+version 2024.10.2
+Guide and updates ☛ https://forum.vivaldi.net/post/783627
+————————  ⁂  ————————
+*/
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #eceff4;
+    --fg: #2e3440;
+    --scr1: #81a1c1;
+    --scr2: #d8dee9;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #2e3440;
+    --fg: #d8dee9;
+    --scr1: #8fbcbb;
+    --scr2: #3b4252;
+  }
+}
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 100%;
+    scrollbar-width: thin;
+  }
+}
+@media screen and (min-width: 601px) {
+  html {
+    font-size: 120%;
+    scrollbar-width: auto;
+  }
+  body {
+    margin-bottom: 3.2rem !important;
+  }
+}
+html {
+  font-family: sans-serif;
+  scrollbar-color: var(--scr1) var(--scr2);
+}
+body {
+  color: var(--fg);
+  background: var(--bg);
+  cursor: default;
+  margin: 0.4rem;
+}
+.hidden {
+  display: none;
+  margin: 0;
+}
+#error {
+  text-align: center;
+}
+#container {
+  width: fit-content;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+  font-size: 1rem;
+  width: 0;
+  min-width: 100%;
+  margin: 0 auto;
+}
+#media {
+  max-width: 100%;
+  margin: 0.4rem auto;
+  display: block;
+}
+#text {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  width: 0;
+  min-width: 100%;
+}
+summary {
+  list-style: none;
+  cursor: pointer;
+}
+summary::after {
+  content: " \25b6";
+}
+details[open] summary::after {
+  content: " \25bc";
+}
+#explanation {
+  margin: 0.4rem auto 1.6rem;
+}
+input {
+  background: var(--scr2);
+  color: var(--fg);
+  border: 0.15rem solid var(--scr1);
+  outline: none;
+  margin: 0.4rem;
+  cursor: pointer;
+}
+input::-webkit-calendar-picker-indicator {
+  outline-color: var(--fg);
+  cursor: pointer;
+}
