@@ -63,8 +63,8 @@ function set(data) {
   if (em.api === true) em.set_date.value = data.date;
   if ("copyright" in data) {
     em.copyright.innerHTML = data.copyright.trim();
-    em.copyright.classList.remove("hidden");
-  } else em.copyright.classList.add("hidden");
+    em.copyright.parentElement.classList.remove("hidden");
+  } else em.copyright.parentElement.classList.add("hidden");
   em.explanation.innerHTML = data.explanation;
   if (em.first_run === true) {
     if (em.api === true) em.set_date.setAttribute("max", data.date);

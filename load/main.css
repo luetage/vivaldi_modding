@@ -113,3 +113,11 @@
 #browser:not(:has(.startpage)) .bookmark-bar {
   display: none;
 }
+.dashboard-widget .unsecure-wrapper {
+  display: none;
+}
+
+/* quick commands */
+.modal-faded-background {
+  display: none;
+}
