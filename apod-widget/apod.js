@@ -1,5 +1,5 @@
 // Astronomy Picture of the Day Dashboard Widget
-// version 2024.10.2
+// version 2024.10.3
 // Guide and updates ☛ https://forum.vivaldi.net/post/783627
 // ————————  ⁂  ————————
 
@@ -10,8 +10,7 @@
 // and input it below. By default the demo key is being used, which limits the
 // number and rate of requests and might deny service.
 
-const api_key = "0cumTdq2evvvcQTXgc4FC7CVLfAM4RLMx75nslQW";
-// const api_key = "DEMO_KEY";
+const api_key = "DEMO_KEY";
 
 // EDIT END
 
