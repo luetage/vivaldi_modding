@@ -1,5 +1,5 @@
 // Moon Phase
-// version 2024.6.2
+// version 2024.10.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase as command chain button. Download the
 // moon-phase.svg file and load it in theme settings. Moon phase calculation
@@ -13,7 +13,7 @@
   // north[0] northern[1] equator[2] southern[3] south[4]
   const approx = 0;
   // alternatively input your exact latitude in degrees (between 90 and -90)
-  const latitude = undefined;
+  const latitude = 48.3;
   // command chain identifier (inspect UI and input your own)
   const command = "COMMAND_cln9yq818001n2v649xyaiird";
   // EDIT END
@@ -69,9 +69,11 @@
     const number = get.age === 1 ? "day" : "days";
     btn.title = `${get.name}\n${get.age} ${number} \u{21ba} ${get.progress}%`;
     const mod = btn.querySelector("#vm-mp-mod");
-    mod.setAttribute("y", get.coordinate);
-    mod.setAttribute("height", get.range);
-    mod.setAttribute("transform", `rotate(${get.angle})`);
+    if (mod) {
+      mod.setAttribute("y", get.coordinate);
+      mod.setAttribute("height", get.range);
+      mod.setAttribute("transform", `rotate(${get.angle})`);
+    }
   }
 
   const conflate = (el) => {
@@ -84,7 +86,7 @@
     const check = `.ToolbarButton-Button[name=${command}]`;
     const select = document.querySelector(check);
     if (select) conflate(select);
-  });
+  }, 2000);
 
   let appendChild = Element.prototype.appendChild;
   Element.prototype.appendChild = function () {
