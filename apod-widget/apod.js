@@ -22,9 +22,8 @@ const video_thumb = (url) => {
 };
 
 async function load_image(data, e) {
-  let image_url = "";
-  if (data.media_type === "video") image_url = video_thumb(data.url);
-  else image_url = data.url;
+  const image_url =
+    data.media_type === "video" ? video_thumb(data.url) : data.url;
   return new Promise((resolve) => {
     e.onload = () => resolve(`image loaded ${image_url}`);
     e.src = image_url;
@@ -132,7 +131,7 @@ function init() {
     data_error: data_error,
     first_run: true,
   };
-  let date = "";
+  let date;
   if (api_key === "DEMO_KEY") {
     elements.api = false;
     date = document.querySelector("div .date");
