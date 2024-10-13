@@ -98,7 +98,7 @@ const setup = async (data_url) => {
   await get_data(data_url).then(
     (resolve) => {
       console.info(resolve);
-      parse(resolve.data, init);
+      parse(resolve.data);
     },
     (reject) => {
       em.data_error.innerHTML = reject.message;
