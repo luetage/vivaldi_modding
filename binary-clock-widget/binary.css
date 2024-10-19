@@ -1,0 +1,47 @@
+/*
+Binary Clock Widget
+version 2024.10.0
+Guide and updates ☛ https://forum.vivaldi.net/post/783627
+————————  ⁂  ————————
+*/
+@media (prefers-color-scheme: light) {
+  :root {
+    --bbg: #eceff4;
+    --cr: #81a1c1;
+    --c0: #d8dee9;
+    --c1: #5e81ac;
+  }
+  svg circle {
+    r: 27px;
+    fill: var(--c0);
+    stroke: var(--cr);
+    stroke-width: 2px;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bbg: #2e3440;
+    --c0: #4c566a;
+    --c1: #8fbcbb;
+  }
+  svg circle {
+    r: 28px;
+    fill: var(--c0);
+  }
+}
+html {
+  height: 100%;
+  margin: 0;
+  background: var(--bbg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#container {
+  box-sizing: border-box;
+  height: 90vh;
+  width: 90vw;
+}
+.one {
+  fill: var(--c1);
+}

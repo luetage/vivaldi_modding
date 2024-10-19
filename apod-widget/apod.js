@@ -10,7 +10,8 @@
 // and input it below. By default the demo key is being used, which limits the
 // number and rate of requests and might deny service.
 
-const api_key = "DEMO_KEY";
+const api_key = "0cumTdq2evvvcQTXgc4FC7CVLfAM4RLMx75nslQW";
+// const api_key = "DEMO_KEY";
 
 // EDIT END
 
