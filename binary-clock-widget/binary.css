@@ -12,10 +12,10 @@ Guide and updates ☛ https://forum.vivaldi.net/post/786622
     --c1: #5e81ac;
   }
   svg circle {
-    r: 27px;
+    r: 26px;
     fill: var(--c0);
     stroke: var(--cr);
-    stroke-width: 2px;
+    stroke-width: 4px;
   }
 }
 @media (prefers-color-scheme: dark) {
