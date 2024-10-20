@@ -1,6 +1,6 @@
 /*
 Binary Clock Widget
-version 2024.10.0
+version 2024.10.1
 Guide and updates ☛ https://forum.vivaldi.net/post/786622
 ————————  ⁂  ————————
 */
@@ -36,6 +36,9 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+body {
+  margin: 0;
 }
 #container {
   box-sizing: border-box;
