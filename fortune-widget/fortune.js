@@ -45,6 +45,7 @@ function parse(q, el) {
 
 const init = async () => {
   let request = true;
+  const text = document.getElementById("text");
   const sto = JSON.parse(localStorage.getItem("fortune"));
   if (sto !== null) {
     console.info(sto);

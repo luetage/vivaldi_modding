@@ -86,6 +86,8 @@ details[open] summary::after {
 }
 #explanation {
   margin: 0.4rem auto 1.6rem;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 input {
   background: var(--scr2);
