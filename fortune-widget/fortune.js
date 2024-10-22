@@ -38,8 +38,8 @@ function get_time() {
   return { day: d, hour: h };
 }
 
-function parse(q, el) {
-  q = q.replace("--", '-\u2060-');
+function write_fortune(q, el) {
+  q = q.replace("--", "-\u2060-");
   el.innerHTML = q;
 }
 
@@ -51,11 +51,11 @@ const init = async () => {
     console.info(sto);
     const local = get_time();
     if (
-      (local.day === sto.time.day && local.hour < 12) ||
-      (local.day === sto.time.day && local.hour > 11 && sto.time.hour > 11)
+      local.day === sto.time.day &&
+      (local.hour < 12 || (local.hour > 11 && sto.time.hour > 11))
     ) {
       request = false;
-      parse(sto.quote, text);
+      write_fortune(sto.quote, text);
     }
   }
   if (request === true) {
@@ -68,7 +68,7 @@ const init = async () => {
           time: { day: store.day, hour: store.hour },
         };
         localStorage.setItem("fortune", JSON.stringify(object));
-        parse(resolve.data, text);
+        write_fortune(resolve.data, text);
       },
       (reject) => {
         text.innerHTML = reject.message;
