@@ -7,15 +7,17 @@ Guide and updates ☛ https://forum.vivaldi.net/post/786622
 @media (prefers-color-scheme: light) {
   :root {
     --bbg: #eceff4;
-    --cr: #81a1c1;
-    --c0: #d8dee9;
+    --c0: #81a1c1;
     --c1: #5e81ac;
   }
   svg circle {
     r: 26px;
-    fill: var(--c0);
-    stroke: var(--cr);
+    stroke: var(--c0);
     stroke-width: 4px;
+  }
+  .one {
+    fill: var(--c1);
+    stroke: var(--c1);
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -27,6 +29,9 @@ Guide and updates ☛ https://forum.vivaldi.net/post/786622
   svg circle {
     r: 28px;
     fill: var(--c0);
+  }
+  .one {
+    fill: var(--c1);
   }
 }
 html {
@@ -44,7 +49,4 @@ body {
   box-sizing: border-box;
   height: 90vh;
   width: 90vw;
-}
-.one {
-  fill: var(--c1);
 }
