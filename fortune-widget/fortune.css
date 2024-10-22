@@ -28,13 +28,17 @@ html {
   scrollbar-color: var(--scr1) var(--scr2);
 }
 body {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   color: var(--fg);
   background: var(--bg);
   cursor: default;
   margin: 1rem;
 }
 #text {
-  margin: 0 auto;
+  margin: 0;
   line-height: 1.3;
   overflow-wrap: break-word;
   hyphens: auto;
@@ -42,5 +46,6 @@ body {
 #asterism {
   text-align: center;
   opacity: 0.6;
-  margin-top: 0.6rem;
+  padding: 1rem;
+  user-select: none;
 }
