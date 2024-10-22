@@ -1,0 +1,46 @@
+/*
+Fortune Widget
+version 2024.10.0
+Guide and updates ☛ https://forum.vivaldi.net/post/783627
+————————  ⁂  ————————
+*/
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #eceff4;
+    --fg: #2e3440;
+    --scr1: #81a1c1;
+    --scr2: #d8dee9;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #2e3440;
+    --fg: #d8dee9;
+    --scr1: #8fbcbb;
+    --scr2: #3b4252;
+  }
+}
+html {
+  font-size: 112%;
+  font-family: monospace;
+  font-weight: 400;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scr1) var(--scr2);
+}
+body {
+  color: var(--fg);
+  background: var(--bg);
+  cursor: default;
+  margin: 1rem;
+}
+#text {
+  margin: 0 auto;
+  line-height: 1.3;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+#asterism {
+  text-align: center;
+  opacity: 0.6;
+  margin-top: 0.6rem;
+}
