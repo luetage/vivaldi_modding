@@ -44,7 +44,6 @@ function parse(q, el) {
 }
 
 const init = async () => {
-  const text = document.getElementById("text");
   let request = true;
   const sto = JSON.parse(localStorage.getItem("fortune"));
   if (sto !== null) {
@@ -77,4 +76,12 @@ const init = async () => {
   }
 };
 
+function new_fortune(event) {
+  if (event.button === 0 && event.ctrlKey) {
+    localStorage.removeItem("fortune");
+    init();
+  }
+}
+
 init();
+document.getElementById("asterism").addEventListener("click", new_fortune);
