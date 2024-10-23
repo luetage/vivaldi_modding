@@ -1,5 +1,5 @@
 // Astronomy Picture of the Day Dashboard Widget
-// version 2024.10.3
+// version 2024.10.4
 // Guide and updates ☛ https://forum.vivaldi.net/post/783627
 // ————————  ⁂  ————————
 
@@ -23,9 +23,15 @@ const video_thumb = (url) => {
 
 async function load_image(data, e) {
   let image_url;
-  if (media_type === other) image_url = "icons/noimage.jpg";
-  else {
-    image_url = data.media_type === "video" ? video_thumb(data.url) : data.url;
+  switch (data.media_type) {
+    case "image":
+      image_url = data.url;
+      break
+    case "video":
+      image_url = video_thumb(data.url);
+      break
+    default:
+      image_url = "icons/noimage.jpg";
   }
   return new Promise((resolve) => {
     e.onload = () => resolve(`image loaded ${image_url}`);
