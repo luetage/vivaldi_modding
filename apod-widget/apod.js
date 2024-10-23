@@ -22,8 +22,11 @@ const video_thumb = (url) => {
 };
 
 async function load_image(data, e) {
-  const image_url =
-    data.media_type === "video" ? video_thumb(data.url) : data.url;
+  let image_url;
+  if (media_type === other) image_url = "icons/noimage.jpg";
+  else {
+    image_url = data.media_type === "video" ? video_thumb(data.url) : data.url;
+  }
   return new Promise((resolve) => {
     e.onload = () => resolve(`image loaded ${image_url}`);
     e.src = image_url;
