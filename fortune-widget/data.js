@@ -7588,7 +7588,7 @@ const data = [
   },
   {
     quote:
-      "Don’t expect people to keep in step--\nit’s hard enough just staying in line.",
+      "Don’t expect people to keep in step -- it’s hard enough just staying in line.",
   },
   {
     quote: "Don’t feed the bats tonight.",
