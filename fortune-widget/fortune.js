@@ -14,7 +14,8 @@ function write_fortune(el) {
   rnd.quote = rnd.quote.replace(italic, "<i>$1$2</i>");
   rnd.quote = rnd.quote.replace(/---/g, "\u2014");
   rnd.quote = rnd.quote.replace(/--/g, "\u2013");
-  rnd.quote = rnd.quote.replace(/(\w)-(\w)/g, '$1\u2010$2');
+  rnd.quote = rnd.quote.replace(/(\w)-(\w)/g, "$1\u2010$2");
+  rnd.quote = rnd.quote.replace(/ - /g, " \u2013 ");
   rnd.quote = rnd.quote.replace(/\n\n/g, "<br>");
   const fortune = rnd.author
     ? `${rnd.quote}<br>\u2015\u202f${rnd.author}`

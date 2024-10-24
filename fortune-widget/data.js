@@ -662,7 +662,7 @@ const data = [
     author: "Herbert Prochnow",
   },
   {
-    quote: "A clash of doctrine is not a disaster - it is an opportunity.",
+    quote: "A clash of doctrine is not a disaster -- it is an opportunity.",
   },
   {
     quote:
@@ -1137,7 +1137,7 @@ const data = [
       "A halted retreat\nIs nerve-wracking and dangerous.\nTo retain people as men -- and maidservants\nBrings good fortune.",
   },
   {
-    quote: "A hammer sometimes misses its mark - a bouquet never.",
+    quote: "A hammer sometimes misses its mark -- a bouquet never.",
   },
   {
     quote: "A handful of friends is worth more than a wagon of gold.",
@@ -2220,7 +2220,7 @@ const data = [
     author: "Edsger W. Dijkstra",
   },
   {
-    quote: "Above all else - sky.",
+    quote: "Above all else -- sky.",
   },
   {
     quote: "Above all things, reverence yourself.",
@@ -2693,7 +2693,7 @@ const data = [
   },
   {
     quote:
-      "Alexander Hamilton started the U.S. Treasury with nothing - and that was\nthe closest our country has ever been to being even.",
+      "Alexander Hamilton started the U.S. Treasury with nothing -- and that was\nthe closest our country has ever been to being even.",
     author: "The Best of Will Rogers",
   },
   {
@@ -3944,11 +3944,11 @@ const data = [
   },
   {
     quote:
-      "ARIES (Mar 21 - Apr 19)\n  You are the pioneer type and hold most people in contempt.  You are\n  quick tempered, impatient, and scornful of advice.  You are not\n  very nice.",
+      "ARIES (Mar 21 -- Apr 19)\n  You are the pioneer type and hold most people in contempt.  You are\n  quick tempered, impatient, and scornful of advice.  You are not\n  very nice.",
   },
   {
     quote:
-      "ARIES (Mar.21 - Apr.19)\n  You are a wonderfully interesting, honest, hard-working person\n  and you should make many new friends, but you won’t because you’ve\n  got a mean streak in you a mile wide.",
+      "ARIES (Mar.21 -- Apr.19)\n  You are a wonderfully interesting, honest, hard-working person\n  and you should make many new friends, but you won’t because you’ve\n  got a mean streak in you a mile wide.",
   },
   {
     quote:
@@ -3984,7 +3984,7 @@ const data = [
   },
   {
     quote:
-      "Arrakis teaches the attitude of the knife - chopping off what’s\nincomplete and saying: “Now it’s complete because it’s ended here.”",
+      "Arrakis teaches the attitude of the knife -- chopping off what’s\nincomplete and saying: “Now it’s complete because it’s ended here.”",
     author: "Muad’dib, “Dune”",
   },
   {
@@ -4069,7 +4069,7 @@ const data = [
   },
   {
     quote:
-      "As I bit into the nectarine, it had a crisp juiciness about it that was very\npleasurable - until I realized it wasn’t a nectarine at all, but A HUMAN HEAD!!",
+      "As I bit into the nectarine, it had a crisp juiciness about it that was very\npleasurable -- until I realized it wasn’t a nectarine at all, but A HUMAN HEAD!!",
     author: "Jack Handey",
   },
   {
@@ -4183,7 +4183,7 @@ const data = [
   },
   {
     quote:
-      "“Asked by reporters about his upcoming marriage to a forty-two-year-old\nwoman, director Roman Polanski told reporters, ‘The way I look at it,\nshe’s the equivalent of three fourteen-year-olds.’”",
+      "Asked by reporters about his upcoming marriage to a forty-two-year-old woman, director Roman Polanski told reporters, “The way I look at it, she’s the equivalent of three fourteen-year-olds.”",
     author: "David Letterman",
   },
   {
@@ -4786,7 +4786,7 @@ const data = [
     author: "Honore DeBalzac",
   },
   {
-    quote: "Bell Labs Unix - Reach out and grep someone.",
+    quote: "Bell Labs Unix -- Reach out and grep someone.",
   },
   {
     quote: "Ben, why didn’t you tell me?",
@@ -5218,7 +5218,7 @@ const data = [
     quote: "Boy, that crayon sure did hurt!",
   },
   {
-    quote: "Boycott meat - suck your thumb.",
+    quote: "Boycott meat -- suck your thumb.",
   },
   {
     quote:
@@ -5477,7 +5477,7 @@ const data = [
   },
   {
     quote:
-      "“But what we need to know is, do people want nasally-insertable\ncomputers?”",
+      "“But what we need to know is, do people want nasally insertable\ncomputers?”",
   },
   {
     quote: "But you shall not escape my iambics.",
@@ -6903,7 +6903,7 @@ const data = [
   },
   {
     quote:
-      "#define BITCOUNT(x) (((BX_(x)+(BX_(x)>>4)) & 0x0F0F0F0F) % 255)\n#define BX_(x)    ((x) - (((x)>>1)&0x77777777)      \\n           - (((x)>>2)&0x33333333)      \\n           - (((x)>>3)&0x11111111))\n",
+      "#define BITCOUNT(x) (((BX_(x)+(BX_(x)>>4)) & 0x0F0F0F0F) % 255)\n#define BX_(x)    ((x) − (((x)>>1)&0x77777777)      \\n           − (((x)>>2)&0x33333333)      \\n           − (((x)>>3)&0x11111111))\n",
     author: "really weird C code to count the number of bits in a word",
   },
   {
@@ -7631,7 +7631,7 @@ const data = [
     author: "Baretta",
   },
   {
-    quote: "Don’t guess - check your security regulations.",
+    quote: "Don’t guess -- check your security regulations.",
   },
   {
     quote: "Don’t hate yourself in the morning -- sleep till noon.",
@@ -7823,7 +7823,7 @@ const data = [
     author: "Zaphod Beeblebrox",
   },
   {
-    quote: "Don’t vote - it only encourages them!",
+    quote: "Don’t vote -- it only encourages them!",
   },
   {
     quote:
@@ -10011,7 +10011,7 @@ const data = [
       "Galbraith’s Law of Human Nature:\n  Faced with the choice between changing one’s mind and proving that\nthere is no need to do so, almost everybody gets busy on the proof.",
   },
   {
-    quote: "Garbage In - Gospel Out.",
+    quote: "Garbage In -- Gospel Out.",
   },
   {
     quote:
@@ -10707,7 +10707,7 @@ const data = [
   },
   {
     quote:
-      "Greenspun’s Tenth Rule of Programming:\n  Any sufficiently complicated C or Fortran program contains\n  an ad hoc informally-specified bug-ridden slow implementation\n  of half of Common Lisp.",
+      "Greenspun’s Tenth Rule of Programming:\n  Any sufficiently complicated C or Fortran program contains\n  an ad hoc informally specified bug-ridden slow implementation\n  of half of Common Lisp.",
   },
   {
     quote:
@@ -12324,7 +12324,7 @@ const data = [
   },
   {
     quote:
-      "I am a PC technician - however, this has unfortunately caused my\ncomputer to be running Win98.",
+      "I am a PC technician -- however, this has unfortunately caused my\ncomputer to be running Win98.",
     author: "seen on a FreeBSD mailing-list",
   },
   {
@@ -12947,7 +12947,8 @@ const data = [
   },
   {
     quote:
-      "I figure that if God actually does exist, He’s big enough to understand an\nhonest difference of opinion.\n    - Isaac Asimov",
+      "I figure that if God actually does exist, He’s big enough to understand an\nhonest difference of opinion.",
+    author: "Isaac Asimov",
   },
   {
     quote:
@@ -19383,7 +19384,7 @@ const data = [
   },
   {
     quote:
-      "Kludge, n:\n  An ill-assorted collection of poorly-matching parts, forming a\n  distressing whole.",
+      "Kludge, n:\n  An ill-assorted collection of poorly matching parts, forming a\n  distressing whole.",
     author: "Jackson Granholm, “Datamation”",
   },
   {
@@ -19747,7 +19748,7 @@ const data = [
   },
   {
     quote: "Let others praise ancient times; I am glad I was born in these.",
-    author: "Ovid (43 B.C. - A.D. 18)",
+    author: "Ovid (43 B.C. -- A.D. 18)",
   },
   {
     quote: "Let sleeping dogs lie.",
@@ -20005,7 +20006,7 @@ const data = [
     quote: "“Life is like a buffet; it’s not good but there’s plenty of it.”",
   },
   {
-    quote: "Life is like a diaper - short and loaded.",
+    quote: "Life is like a diaper -- short and loaded.",
   },
   {
     quote:
@@ -20443,7 +20444,7 @@ const data = [
   },
   {
     quote:
-      "LOVE:\n  When you don’t want someone too close--\n  because you’re very sensitive to pleasure.",
+      "LOVE:\n  When you don’t want someone too close---because you’re very sensitive to pleasure.",
   },
   {
     quote:
@@ -20456,7 +20457,7 @@ const data = [
     quote: "Love ain’t nothin’ but sex misspelled.",
   },
   {
-    quote: "Love America - or give it back.",
+    quote: "Love America -- or give it back.",
   },
   {
     quote: "Love and scandal are the best sweeteners of tea.",
@@ -21380,7 +21381,7 @@ const data = [
     quote: "Memory fault -- core...uh...um...core... Oh dammit, I forget!",
   },
   {
-    quote: "Memory fault - where am I?",
+    quote: "Memory fault -- where am I?",
   },
   {
     quote: "Memory should be the starting point of the present.",
@@ -22361,7 +22362,7 @@ const data = [
       "Nasrudin walked into a teahouse and declaimed, “The moon is more useful\nthan the sun.”\n  “Why?”, he was asked.\n  “Because at night we need the light more.”",
   },
   {
-    quote: "National security is in your hands - guard it well.",
+    quote: "National security is in your hands -- guard it well.",
   },
   {
     quote:
@@ -23972,7 +23973,7 @@ const data = [
   {
     quote:
       "On ability:\n  A dwarf is small, even if he stands on a mountain top;\n  a colossus keeps his height, even if he stands in a well.",
-    author: "Lucius Annaeus Seneca, 4BC - 65AD",
+    author: "Lucius Annaeus Seneca, 4BC -- 65AD",
   },
   {
     quote:
@@ -24069,14 +24070,14 @@ const data = [
     author: "Chuq Von Rospach",
   },
   {
-    quote: "One Bell System - it sometimes works.",
+    quote: "One Bell System -- it sometimes works.",
   },
   {
     quote:
-      "One Bell System - it used to work before they installed the Dimension!",
+      "One Bell System -- it used to work before they installed the Dimension!",
   },
   {
-    quote: "One Bell System - it works.",
+    quote: "One Bell System -- it works.",
   },
   {
     quote: "One big pile is better than two little piles.",
@@ -26777,7 +26778,7 @@ const data = [
       "Re: Graphics:\n  A picture is worth 10K words -- but only those to describe\n  the picture.  Hardly any sets of 10K words can be adequately\n  described with pictures.",
   },
   {
-    quote: "Reactor error - core dumped!",
+    quote: "Reactor error -- core dumped!",
   },
   {
     quote:
@@ -26892,7 +26893,7 @@ const data = [
     quote: "Reality always seems harsher in the early morning.",
   },
   {
-    quote: "Reality does not exist - yet.",
+    quote: "Reality does not exist -- yet.",
   },
   {
     quote: "Reality is a cop-out for people who can’t handle drugs.",
@@ -27602,7 +27603,7 @@ const data = [
   },
   {
     quote:
-      "SCORPIO (Oct 23 - Nov 21)\n  You are shrewd in business and cannot be trusted.  You will achieve\n  the pinnacle of success because of your total lack of ethics.  Most\n  Scorpio people are murdered.",
+      "SCORPIO (Oct 23 -- Nov 21)\n  You are shrewd in business and cannot be trusted.  You will achieve\n  the pinnacle of success because of your total lack of ethics.  Most\n  Scorpio people are murdered.",
   },
   {
     quote:
@@ -27663,7 +27664,7 @@ const data = [
   },
   {
     quote:
-      "“See - the thing is - I’m an absolutist.  I mean, kind of ... in a way ...”",
+      "“See -- the thing is -- I’m an absolutist.  I mean, kind of ... in a way ...”",
   },
   {
     quote:
@@ -27874,7 +27875,7 @@ const data = [
     author: "Tommy Manville",
   },
   {
-    quote: "She has an alarm clock and a phone that don’t ring - they applaud.",
+    quote: "She has an alarm clock and a phone that don’t ring -- they applaud.",
   },
   {
     quote: "She is descended from a long line that her mother listened to.",
@@ -29302,7 +29303,7 @@ const data = [
   },
   {
     quote:
-      "TAURUS (Apr 20 - May 20)\n  You are practical and persistent.  You have a dogged determination\n  and work like hell.  Most people think you are stubborn and bull\n  headed.  You are a Communist.",
+      "TAURUS (Apr 20 -- May 20)\n  You are practical and persistent.  You have a dogged determination\n  and work like hell.  Most people think you are stubborn and bull\n  headed.  You are a Communist.",
   },
   {
     quote: "TAX OFFICE:\n  Den of inequity.",
@@ -30861,7 +30862,7 @@ const data = [
   },
   {
     quote: "The hatred of relatives is the most violent.",
-    author: "Tacitus (c.55 - c.117)",
+    author: "Tacitus (c.55 -- c.117)",
   },
   {
     quote:
@@ -32618,7 +32619,7 @@ const data = [
   },
   {
     quote:
-      "The sudden sight of me causes panic in the streets. They have\nyet to learn - only the savage fears what he does not understand.",
+      "The sudden sight of me causes panic in the streets. They have\nyet to learn -- only the savage fears what he does not understand.",
     author: "The Silver Surfer",
   },
   {
@@ -32731,7 +32732,7 @@ const data = [
   },
   {
     quote:
-      "THE THREE MOST COMMONLY-ASKED QUESTIONS AT DISNEYLAND:\n\n1) Where’s the bathroom?\n2) What time does the parade start?\n3) Do you sell anything without that damn mouse on it?",
+      "THE THREE MOST COMMONLY ASKED QUESTIONS AT DISNEYLAND:\n\n1) Where’s the bathroom?\n2) What time does the parade start?\n3) Do you sell anything without that damn mouse on it?",
   },
   {
     quote:
@@ -34356,7 +34357,7 @@ const data = [
   },
   {
     quote:
-      "They wouldn’t listen to the fact that I was a genius,\nThe man said “We got all that we can use”,\nSo I’ve got those steadily-depressin’, low-down, mind-messin’,\nWorking-at-the-car-wash blues.",
+      "They wouldn’t listen to the fact that I was a genius,\nThe man said “We got all that we can use”,\nSo I’ve got those steadily depressin’, low-down, mind-messin’,\nWorking-at-the-car-wash blues.",
     author: "Jim Croce",
   },
   {
@@ -34838,7 +34839,7 @@ const data = [
   },
   {
     quote:
-      "Thus spake the master programmer:\n  “A well-written program is its own heaven; a poorly-written program\nis its own hell.”",
+      "Thus spake the master programmer:\n  “A well-written program is its own heaven; a poorly written program\nis its own hell.”",
     author: "Geoffrey James, “The Tao of Programming”",
   },
   {
@@ -35563,7 +35564,7 @@ const data = [
     author: "David Letterman",
   },
   {
-    quote: "TRANSACTION CANCELLED - FARECARD RETURNED",
+    quote: "TRANSACTION CANCELLED -- FARECARD RETURNED",
   },
   {
     quote:
@@ -36100,7 +36101,7 @@ const data = [
   },
   {
     quote:
-      "Van Roy’s Law:\n  Honesty is the best policy - there’s less competition.\n\nVan Roy’s Truism:\n  Life is a whole series of circumstances beyond your control.",
+      "Van Roy’s Law:\n  Honesty is the best policy -- there’s less competition.\n\nVan Roy’s Truism:\n  Life is a whole series of circumstances beyond your control.",
   },
   {
     quote: "Variables don’t; constants aren’t.",
@@ -36910,7 +36911,7 @@ const data = [
   },
   {
     quote:
-      "Welcome to boggle - do you want instructions?\n\nD    G    G    O\n\nO    Y    A    N\n\nA    D    B    T\n\nK    I    S    P\nEnter words:\n>",
+      "Welcome to boggle -- do you want instructions?\n\nD    G    G    O\n\nO    Y    A    N\n\nA    D    B    T\n\nK    I    S    P\nEnter words:\n>",
   },
   {
     quote:
@@ -43201,7 +43202,7 @@ const data = [
   },
   {
     quote:
-      "An easily-understood, workable falsehood is more useful than a complex, incomprehensible truth.",
+      "An easily understood, workable falsehood is more useful than a complex, incomprehensible truth.",
   },
   {
     quote:
@@ -43909,9 +43910,6 @@ const data = [
   {
     quote:
       "Possessions increase to fill the space available for their storage.",
-  },
-  {
-    quote: "When you dial a wrong number, you never get a busy signal",
   },
   {
     quote:
