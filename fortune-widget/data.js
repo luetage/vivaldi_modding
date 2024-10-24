@@ -10387,7 +10387,7 @@ const data = [
   },
   {
     quote:
-      "God is really only another artist.  He invented the giraffe, the\nelephant and the cat.  He has no real style, He just goes on trying\nother things.",
+      "God is really only another artist.  He invented the giraffe, the elephant, and the cat.  He has no real style, He just goes on trying other things.",
     author: "Pablo Picasso",
   },
   {
@@ -33659,7 +33659,7 @@ const data = [
   },
   {
     quote:
-      "There is a time in the tides of men,\nWhich, taken at its flood, leads on to success.\nOn the other hand, don’t count on it.",
+      "There is a time in the tides of men, which, taken at its flood, leads on to success. On the other hand, don’t count on it.",
     author: "T. K. Lawson",
   },
   {
@@ -41232,7 +41232,7 @@ const data = [
   },
   {
     quote:
-      "YO-YO:\n  Something that is occasionally up but normally down.\n  (see also Computer).",
+      "YO-YO:\n  Something that is occasionally up but normally down. (See also Computer)",
   },
   {
     quote:
@@ -42254,7 +42254,7 @@ const data = [
   },
   {
     quote:
-      "No matter which direction you start, It’s always against the wind coming back.",
+      "No matter which direction you start, it’s always against the wind coming back.",
   },
   {
     quote:
