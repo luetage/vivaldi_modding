@@ -29786,7 +29786,7 @@ const data = [
   },
   {
     quote:
-      "The best book on programming for the layman is “Alice in Wonderland”;\nbut that’s because it’s the best book on anything for the layman.",
+      "The best book on programming for the layman is “Alice in Wonderland;” but that’s because it’s the best book on anything for the layman.",
   },
   {
     quote: "The best cure for insomnia is to get a lot of sleep.",
@@ -29797,7 +29797,7 @@ const data = [
   },
   {
     quote:
-      "The best definition of a gentleman is a man who can play the accordion --\nbut doesn’t.",
+      "The best definition of a gentleman is a man who can play the accordion -- but doesn’t.",
     author: "Tom Crichton",
   },
   {
