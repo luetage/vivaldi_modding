@@ -1,5 +1,5 @@
 // Collection of fortunes under 200 characters.
-// Source: https://github.com/your-fortune/your-fortune.github.io/tree/master/data
+// Source: https://github.com/your-fortune/your-fortune.github.io
 // Delete, add, and edit entries, but make sure not to introduce errors.
 
 const data = [
@@ -118,7 +118,7 @@ const data = [
   },
   {
     quote:
-      "  I went into a bar feeling a little depressed, the bartender said,\n“What’ll you have, Bud”?\n  I said, “I don’t know, surprise me”.\n  So he showed me a nude picture of my wife.",
+      "  I went into a bar feeling a little depressed, the bartender said,\n“What’ll you have, Bud?”\n  I said, “I don’t know, surprise me.”\n  So he showed me a nude picture of my wife.",
     author: "Rodney Dangerfield",
   },
   {
@@ -3498,7 +3498,7 @@ const data = [
   },
   {
     quote:
-      "And so it was, later,\nAs the miller told his tale,\nThat her face, at first just ghostly,\nTurned a whiter shade of pale.",
+      "And so it was that later\nAs the miller told his tale\nThat her face, at first just ghostly\nTurned a whiter shade of pale.",
     author: "Procol Harum",
   },
   {
@@ -3785,10 +3785,6 @@ const data = [
     quote:
       "Anyone who has had a bull by the tail\nknows five or six more things than someone who hasn’t.",
     author: "Mark Twain",
-  },
-  {
-    quote: "Anyone who hates Dogs and Kids Can’t be All Bad.",
-    author: "W. C. Fields",
   },
   {
     quote:
@@ -10089,7 +10085,7 @@ const data = [
   },
   {
     quote:
-      "genius, n:\n  A chemist who discovers a laundry additive that rhymes with\n  “bright”.",
+      "genius, n:\n  A chemist who discovers a laundry additive that rhymes with\n  “bright.”",
   },
   {
     quote: "genlock, n:\n  Why he stays in the bottle.",
@@ -10370,11 +10366,6 @@ const data = [
   },
   {
     quote: "God is a polytheist.",
-  },
-  {
-    quote:
-      "God is Dead.\n&nbsp;&nbsp;–&nbsp;Nietzsche\n\nNietzsche is Dead.\n&nbsp;&nbsp;–&nbsp;God\n\nNietzsche is God.",
-    author: "Dead",
   },
   {
     quote: "God is dead and I don’t feel all too well either....",
@@ -15407,9 +15398,6 @@ const data = [
   {
     quote:
       "If the rich could pay the poor to die for them,\nwhat a living the poor could make!",
-  },
-  {
-    quote: "If the shoe fits, it’s ugly.",
   },
   {
     quote:
@@ -22890,12 +22878,6 @@ const data = [
       "Nick the Greek’s Law of Life:\n  All things considered, life is 9 to 5 against.",
   },
   {
-    quote: "Nietzsche is pietzsche.",
-  },
-  {
-    quote: "Nietzsche is pietzsche, Goethe is murder.",
-  },
-  {
     quote:
       "Nietzsche says that we will live the same life, over and over again.\nGod -- I’ll have to sit through the Ice Capades again.",
     author: "Woody Allen, “Hannah and Her Sisters”",
@@ -23218,9 +23200,9 @@ const data = [
   },
   {
     quote:
-      "“No self-respecting fish would want to be wrapped in that kind of\npaper.”",
+      "“No self-respecting fish would want to be wrapped in that kind of paper.”",
     author:
-      "Mike Royko on the Chicago Sun-Times after it was\n       taken over by Rupert Murdoch",
+      "Mike Royko on the Chicago Sun-Times after it was taken over by Rupert Murdoch",
   },
   {
     quote: "No skis take rocks like rental skis!",
@@ -28304,14 +28286,8 @@ const data = [
   },
   {
     quote:
-      "So much\ndepends\nupon\na red\n\nwheel\nbarrow\nglazed with\n\nrain\nwater\nbeside\nthe white\nchickens.",
+      "So much\ndepends\nupon\na red\n\nwheel\nbarrow\nglazed with\nrain\nwater\nbeside\nthe white\nchickens.",
     author: "William Carlos Williams, “The Red Wheel Barrow”",
-  },
-  {
-    quote:
-      "So now\nthat you have-\n\nyou know, whoever\n\nyou’re trying\nto do\n\na favor\nfor\n\n-you’ve done it-\n\nand I’m sure\nyou had\n\na smirk\non your mouth\n\nas you got me\ninto this.",
-    author:
-      "“To Linda”, from The Poetry Of H. Ross Perot,\n       composed for Linda Wertheimer of National Public\n       Radio.  From SPY Magazine, November 1992",
   },
   {
     quote:
@@ -35079,10 +35055,6 @@ const data = [
     author: "Katharine Hepburn",
   },
   {
-    quote:
-      "To be or not to be.\n&nbsp;&nbsp;–&nbsp;Shakespeare\nTo do is to be.\n&nbsp;&nbsp;–&nbsp;Nietzsche\nTo be is to do.\n&nbsp;&nbsp;–&nbsp;Sartre\nDo be do be do.\n&nbsp;&nbsp;–&nbsp;Sinatra",
-  },
-  {
     quote: "To be or not to be, that is the bottom line.",
   },
   {
@@ -36835,7 +36807,7 @@ const data = [
   },
   {
     quote:
-      "We should have a Vollyballocracy.  We elect a six-pack of presidents.\nEach one serves until they screw up, at which point they rotate.",
+      "We should have a Volleyballocracy.  We elect a six-pack of presidents.\nEach one serves until they screw up, at which point they rotate.",
     author: "Dennis Miller",
   },
   {
@@ -41348,8 +41320,8 @@ const data = [
     author: "T.S. Eliot",
   },
   {
-    quote: "‘Faith’ means not _wanting_ to know what is true.",
-    author: "Nietzsche",
+    quote: "“Faith” means not wanting to know what is true.",
+    author: "Friedrich Nietzsche, “The Antichrist”",
   },
   {
     quote:
@@ -43730,9 +43702,6 @@ const data = [
     quote: "If It’s good, they discontinue it.",
   },
   {
-    quote: "It the shoe fits, It’s ugly.",
-  },
-  {
     quote: "The one you want is never the one on sale.",
   },
   {
@@ -44142,7 +44111,7 @@ const data = [
     quote: "Never argue with an artist.",
   },
   {
-    quote: "When in doubt, don’t muble, overexpose ... then mumble.",
+    quote: "When in doubt, don’t mumble, overexpose ... then mumble.",
   },
   {
     quote: "The light at the end of the tunnel really is a train.",
