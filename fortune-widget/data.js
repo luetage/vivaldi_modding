@@ -5405,7 +5405,7 @@ const data = [
   },
   {
     quote:
-      "But has any little atom,\n  While a-sittin’ and a-splittin’,\nEver stopped to think or CARE\n  That E = m c**2 ?",
+      "But has any little atom,\n  While a-sittin’ and a-splittin’,\nEver stopped to think or CARE\n  That E = mc²?",
   },
   {
     quote: "“But Huey, you PROMISED!”\n“Tell ’em I lied.”",
@@ -6771,7 +6771,7 @@ const data = [
   },
   {
     quote:
-      "DATA:\n  Computerspeak for “information”.  Properly pronounced\n  the way Bostonians pronounce the word for a female child.",
+      "DATA:\n  Computerspeak for “information.”  Properly pronounced\n  the way Bostonians pronounce the word for a female child.",
   },
   {
     quote:
@@ -7379,7 +7379,7 @@ const data = [
   },
   {
     quote:
-      "Do not use that foreign word “ideals”.  We have that excellent native\nword “lies”.",
+      "Do not use that foreign word “ideals.”  We have that excellent native\nword “lies”.",
     author: "Henrik Ibsen, “The Wild Duck”",
   },
   {
@@ -8070,7 +8070,7 @@ const data = [
     author: "Woody Allen",
   },
   {
-    quote: "E = MC ** 2 +- 3db",
+    quote: "E = mc² ± 3db",
   },
   {
     quote: "E Pluribus UNIX.",
@@ -8403,7 +8403,7 @@ const data = [
   },
   {
     quote:
-      "Euch ist becannt, was wir beduerfen;\nWir wollen stark Getraenke schluerfen.",
+      "Euch ist bekannt, was wir bedürfen,\nWir wollen stark Getränke schlürfen.",
     author: "Goethe, “Faust”",
   },
   {
@@ -9491,7 +9491,7 @@ const data = [
   },
   {
     quote:
-      "For some reason a glaze passes over people’s faces when you say\n“Canada”.  Maybe we should invade South Dakota or something.",
+      "For some reason a glaze passes over people’s faces when you say\n“Canada.” Maybe we should invade South Dakota or something.",
     author: "Sandra Gotlieb, wife of the Canadian ambassador to the U.S.",
   },
   {
@@ -9828,7 +9828,8 @@ const data = [
   },
   {
     quote:
-      "Four be the things I’d been better without:\nLove, curiosity, freckles, and doubt.\n-- Dorothy Parker, “Not So Deep as a Well”",
+      "Four be the things I’d been better without:\nLove, curiosity, freckles, and doubt.",
+    author: "Dorothy Parker, “Not So Deep as a Well”",
   },
   {
     quote:
@@ -10169,7 +10170,7 @@ const data = [
   },
   {
     quote:
-      "Give all orders verbally.  Never write anything down\nthat might go into a “Pearl Harbor File”.",
+      "Give all orders verbally.  Never write anything down\nthat might go into a “Pearl Harbor File.”",
   },
   {
     quote: "Give him an evasive answer.",
@@ -10933,10 +10934,11 @@ const data = [
   },
   {
     quote:
-      "Hark, Hark, the dogs do bark\nThe Duke is fond of kittens\nHe likes to take their insides out\nAnd use them for his mittens\n  From “The Thirteen Clocks”",
+      "Hark, Hark, the dogs do bark,\n\nThe Duke is fond of kittens.\n\nHe likes to take their insides out,\n\nAnd use them for his mittens.",
+    author: "James Thurber, “The Thirteen Clocks”",
   },
   {
-    quote: "Hark, the Herald Tribune sings,\nAdvertising wondrous things.",
+    quote: "Hark, the Herald Tribune sings,\n\nAdvertising wondrous things.",
     author: "Tom Lehrer",
   },
   {
@@ -11519,10 +11521,6 @@ const data = [
   },
   {
     quote:
-      "Hear about...\n  the pessimistic historian whose latest book has chapter headings\n  that read “World War One”,“World War Two” and “Watch This\n  Space”?",
-  },
-  {
-    quote:
       "Hear about...\n  the wild office Christmas party in a completely automated\n  company -- the photocopier got drunk and tried to undo the\n  typewriter’s ribbon?",
   },
   {
@@ -11733,7 +11731,7 @@ const data = [
   },
   {
     quote:
-      "HEY KIDS!  ANN LANDERS SAYS:\n  Be sure it’s true, when you say “I love you”.  It’s a sin to\n  tell a lie.  Millions of hearts have been broken, just because\n  these words were spoken.",
+      "HEY KIDS!  ANN LANDERS SAYS:\n  Be sure it’s true, when you say “I love you.”  It’s a sin to\n  tell a lie.  Millions of hearts have been broken, just because\n  these words were spoken.",
   },
   {
     quote:
@@ -18345,7 +18343,8 @@ const data = [
   },
   {
     quote:
-      "It was one of those perfect summer days -- the sun was shining, a breeze\nwas blowing, the birds were singing, and the lawn mower was broken ...\n    --- James Dent",
+      "It was one of those perfect summer days -- the sun was shining, a breeze\nwas blowing, the birds were singing, and the lawn mower was broken...",
+    author: "James Dent",
   },
   {
     quote:
@@ -20244,10 +20243,6 @@ const data = [
   {
     quote:
       "Little Known Facts, #23:\n  Did you know... that if you dial 911 in Los Angeles you get\n  the BMW repair garage?",
-  },
-  {
-    quote:
-      "Little Mary on the ice,\nWent out to have a frisk,\nNow wasn’t little Mary nice,\nHer pretty *?",
   },
   {
     quote:
@@ -26439,7 +26434,7 @@ const data = [
   },
   {
     quote:
-      "QOTD:\n  I’m not bald -- I’m “hair challenged”.\n\n  [I thought that was “differently haired”. Ed.]",
+      "QOTD:\n  I’m not bald -- I’m “hair challenged”.\n\n  [I thought that was “differently haired.” Ed.]",
   },
   {
     quote:
@@ -27246,7 +27241,7 @@ const data = [
   },
   {
     quote:
-      "“Rights” is a fictional abstraction.  No one has “Rights”, neither\nmachines nor flesh-and-blood.  Persons... have opportunities, not\nrights, which they use or do not use.",
+      "“Rights” is a fictional abstraction.  No one has “Rights,” neither\nmachines nor flesh-and-blood.  Persons... have opportunities, not\nrights, which they use or do not use.",
     author: "Lazarus Long",
   },
   {
@@ -29792,7 +29787,7 @@ const data = [
   },
   {
     quote:
-      "The bank called to tell me that I’m overdrawn,\nSome freaks are burning crosses out on my front lawn,\nAnd I *can’t*believe* it, all the Cheetos are gone,\n  It’s just ONE OF THOSE DAYS!",
+      "The bank called to tell me that I’m overdrawn,\nSome freaks are burning crosses out on my front lawn,\nAnd I can’t believe it, all the Cheetos are gone,\n  It’s just ONE OF THOSE DAYS!",
     author: "Weird Al Yankovic, “One of Those Days”",
   },
   {
@@ -29805,7 +29800,7 @@ const data = [
   {
     quote: "The beer-cooled computer does not harm the ozone layer.",
     author:
-      "John M. Ford, a.k.a. Dr. Mike\n\n  [If I can read my notes from the Ask Dr. Mike session at Baycon, I\n   believe he added that the beer-cooled computer uses “Forget Only\n   Memory”.  Ed.]",
+      "John M. Ford, a.k.a. Dr. Mike\n\n  [If I can read my notes from the Ask Dr. Mike session at Baycon, I\n   believe he added that the beer-cooled computer uses “Forget Only\n   Memory.”  Ed.]",
   },
   {
     quote:
@@ -30792,7 +30787,7 @@ const data = [
   {
     quote:
       "The grand leap of the whale up the Fall of Niagara is esteemed, by all\nwho have seen it, as one of the finest spectacles in nature.",
-    author: "Benjamin Franklin.",
+    author: "Benjamin Franklin",
   },
   {
     quote: "The grass is always greener on the other side of your sunglasses.",
@@ -34350,7 +34345,7 @@ const data = [
   },
   {
     quote:
-      "They spell it “da Vinci” and pronounce it “da Vinchy”.  Foreigners\nalways spell better than they pronounce.",
+      "They spell it “da Vinci” and pronounce it “da Vinchy.”  Foreigners\nalways spell better than they pronounce.",
     author: "Mark Twain",
   },
   {
@@ -39529,10 +39524,6 @@ const data = [
     quote: "You are going to have a new love affair.",
   },
   {
-    quote:
-      "You are here:\n    ***\n    ***\n       *********\n        *******\n         *****\n    ***\n     *\n\n     But you’re not all there.",
-  },
-  {
     quote: "You are in a maze of little twisting passages, all alike.",
   },
   {
@@ -41684,7 +41675,7 @@ const data = [
       "No experiment is ever a complete failure. It can always be used as a bad example.",
   },
   {
-    quote: "Despite the sign that says “wet paint”, please don’t.",
+    quote: "Despite the sign that says “wet paint,” please don’t.",
   },
   {
     quote: "Everything tastes more or less like chicken.",
@@ -44271,7 +44262,7 @@ const data = [
   },
   {
     quote:
-      "Real programmers don’t comment their code. if it is hard to write, it should be hard to understand.",
+      "Real programmers don’t comment their code. If it is hard to write, it should be hard to understand.",
   },
   {
     quote:
@@ -44291,7 +44282,7 @@ const data = [
   },
   {
     quote:
-      "Real programmers never work 9 to 5.  If any real programmers are around at 9 a.m., It’s because they were up all night.",
+      "Real programmers never work 9 to 5.  If any real programmers are around at 9 a.m., it’s because they were up all night.",
   },
   {
     quote:
@@ -44374,5 +44365,9 @@ const data = [
   },
   {
     quote: "Don’t smoke in bed - the ashes on the floor might be your own.",
+  },
+  {
+    quote: "Leck mich im Arsch",
+    author: "Wolfgang Amadeus Mozart, KV6 382c",
   },
 ];
