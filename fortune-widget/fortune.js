@@ -25,8 +25,7 @@ function write_fortune(el) {
   const fortune = rnd.author
     ? `${typ(rnd.quote)}<br>\u2015\u202f${typ(rnd.author)}`
     : typ(rnd.quote);
-  console.info(fortune);
-  document.title = `Fortune ${random + 1}`;
+  console.info(`${random}: ${fortune}`);
   el.innerHTML = fortune;
 }
 
