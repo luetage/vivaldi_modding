@@ -1,5 +1,5 @@
 // Binary Clock Widget
-// version 2024.10.2
+// version 2024.10.3
 // Guide and updates ☛ https://forum.vivaldi.net/post/786622
 // ————————  ⁂  ————————
 

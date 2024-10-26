@@ -1,21 +1,21 @@
 /*
 Astronomy Picture of the Day Dashboard Widget
-version 2024.10.4
+version 2024.10.5
 Guide and updates ☛ https://forum.vivaldi.net/post/783627
 ————————  ⁂  ————————
 */
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #eceff4;
-    --fg: #2e3440;
+    --bbg: #eceff4;
+    --ffg: #2e3440;
     --scr1: #81a1c1;
     --scr2: #d8dee9;
   }
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #2e3440;
-    --fg: #d8dee9;
+    --bbg: #2e3440;
+    --ffg: #d8dee9;
     --scr1: #8fbcbb;
     --scr2: #3b4252;
   }
@@ -37,11 +37,12 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
 }
 html {
   font-family: sans-serif;
-  scrollbar-color: var(--scr1) var(--scr2);
+  scrollbar-color: var(--colorFgFadedMost, var(--scr1))
+    var(--colorBg, var(--scr2));
 }
 body {
-  color: var(--fg);
-  background: var(--bg);
+  color: var(--colorFg, var(--ffg));
+  background: var(--colorBgLight, var(--bbg));
   cursor: default;
   margin: 0.4rem;
 }
@@ -90,14 +91,14 @@ details[open] summary::after {
   hyphens: auto;
 }
 input {
-  background: var(--scr2);
-  color: var(--fg);
-  border: 0.15rem solid var(--scr1);
+  background: var(--colorBg, var(--bbg));
+  color: var(--colorFg, var(--ffg));
+  border: 0.15rem solid var(--colorFgFadedMost, var(--scr1));
   outline: none;
   margin: 0.4rem;
   cursor: pointer;
 }
 input::-webkit-calendar-picker-indicator {
-  outline-color: var(--fg);
+  outline-color: var(--ffg);
   cursor: pointer;
 }

@@ -27261,7 +27261,7 @@ const data = [
   },
   {
     quote:
-      "ROMEO: Courage, man; the hurt cannot be much.\nMERCUTIO: No, ’tis not so deep as a well, nor so wide as a church-\n  door; but ’tis enough, ’twill serve.",
+      "ROMEO: Courage, man; the hurt cannot be much.\nMERCUTIO: No, ’tis not so deep as a well, nor so wide as a church door; but ’tis enough, ’twill serve.",
   },
   {
     quote:
@@ -28611,7 +28611,7 @@ const data = [
   },
   {
     quote:
-      "Sometimes I feel like I’m fading away,\nLooking at me, I got nothin’ to say.\nDon’t make me angry with the things games that you play,\nEither light up or leave me alone.",
+      "Sometimes I feel like I’m fading away,\nLooking at me, I got nothin’ to say.\nDon’t make me angry with the games that you play,\nEither light up or leave me alone.",
   },
   {
     quote:
