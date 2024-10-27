@@ -20,7 +20,7 @@ function update() {
 function timer() {
   const time = new Date();
   const jump = (60 - time.getSeconds()) * 1000 - time.getMilliseconds();
-  setTimeout(function () {
+  setTimeout(() => {
     update();
     timer();
   }, jump);
