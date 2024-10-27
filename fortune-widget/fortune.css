@@ -29,7 +29,7 @@ html {
     var(--colorBg, var(--scr2));
 }
 body {
-  height: 79vh;
+  height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
