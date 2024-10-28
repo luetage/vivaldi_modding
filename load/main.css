@@ -64,8 +64,12 @@
 .UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-TLD {
   font-weight: bold;
 }
-.BookmarkButton .bookmark-animated-fill {
-  fill: var(--colorFg) !important;
+#browser.theme-dark .BookmarkButton .bookmark-animated-fill {
+  fill: color-mix(
+  in hsl,
+    var(--colorFgFadedMost) 70%,
+    var(--colorHighlightBg)
+  ) !important;
 }
 .permission-denied circle {
   fill: var(--colorHighlightBg);
@@ -85,10 +89,10 @@
   content: "⌑";
 }
 .button-toolbar-webpanel img {
-  filter: grayscale(1);
+  filter: opacity(0.8) brightness(0.8) sepia(1) hue-rotate(130deg);
 }
 #browser.isblurred.dim-blurred .button-toolbar-webpanel img {
-  filter: opacity(0.65) grayscale(1) !important;
+  filter: opacity(0.65) brightness(0.8) sepia(1) hue-rotate(130deg) !important;
 }
 
 /* M3 */
