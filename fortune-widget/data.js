@@ -24378,7 +24378,7 @@ const data = [
   },
   {
     quote:
-      "Only great masters of style can succeed in being obtuse.\n&nbsp;&nbsp;–&nbsp;Oscar Wilde\n\nMost UNIX programmers are great masters of style.\n&nbsp;&nbsp;–&nbsp;The Unnamed Usenetter",
+      "Only great masters of style can succeed in being obtuse.\n&nbsp;&nbsp;―&nbsp;Oscar Wilde\n\nMost UNIX programmers are great masters of style.\n&nbsp;&nbsp;―&nbsp;The Unnamed Usenetter",
   },
   {
     quote:

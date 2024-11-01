@@ -1,6 +1,6 @@
 // Monochrome icons
-// version 2024.11.0
-// https://forum.vivaldi.net/post/461432
+// version 2024.11.1
+// https://forum.vivaldi.net/post/791344
 // Makes web panel thumbnails monochrome depending on theme colors.
 
 (async function monochrome_icons() {
@@ -17,7 +17,7 @@
   }
 
   function theme(css) {
-    const color = document.querySelector(".vivaldi");
+    const color = document.getElementById("main");
     color.style =
       "color: color-mix(in hsl, var(--colorFgFadedMost) 70%, var(--colorHighlightBg));";
     const srgb = getComputedStyle(color).getPropertyValue("color");
