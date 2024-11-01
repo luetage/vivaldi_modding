@@ -17,12 +17,10 @@ by posting in the according topic on Vivaldi Forum.
 - [collapse-keyboard-settings.js](collapse-keyboard-settings.js)
 - [history-moon.js](history-moon.js)
 - [m3.css](m3.css)
-- [profile-icon.js](profile-icon.js)
+- [monochrome-icons.js](monochrome-icons.js)
 - [random-theme-button.js](random-theme-button.js)
 - [Tab_Lock.js](page-actions/Tab_Lock.js)
 - [tab-scroll.js](tab-scroll.js)
-- [toggle-keys-and-gestures](toggle-keys-and-gestures.js)
-- [update-feeds.js](update-feeds.js)
 
 ## How to
 
