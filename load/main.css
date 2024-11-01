@@ -66,7 +66,7 @@
 }
 #browser.theme-dark .BookmarkButton .bookmark-animated-fill {
   fill: color-mix(
-  in hsl,
+    in hsl,
     var(--colorFgFadedMost) 70%,
     var(--colorHighlightBg)
   ) !important;
@@ -87,12 +87,6 @@
 /* panel container */
 #window-panel .vivaldi-tree .title.active::before {
   content: "⌑";
-}
-.button-toolbar-webpanel img {
-  filter: opacity(0.8) brightness(0.8) sepia(1) hue-rotate(130deg);
-}
-#browser.isblurred.dim-blurred .button-toolbar-webpanel img {
-  filter: opacity(0.65) brightness(0.8) sepia(1) hue-rotate(130deg) !important;
 }
 
 /* M3 */
