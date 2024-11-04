@@ -156,6 +156,6 @@ function init() {
   return elements;
 }
 
-const nasa_api = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
+const api_request = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
 const em = init();
-setup(nasa_api);
+setup(api_request);
