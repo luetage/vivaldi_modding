@@ -1,14 +1,14 @@
 // Astronomy Picture of the Day Dashboard Widget
-// version 2024.10.5
+// version 2024.11.0
 // Guide and updates ☛ https://forum.vivaldi.net/post/783627
 // ————————  ⁂  ————————
 
 "use strict";
 
 // EDIT START
-// For advanced functionality generate your own API key @ https://api.nasa.gov
-// and input it below. By default the demo key is being used, which limits the
-// number and rate of requests and might deny service.
+// Generate your own API key @ https://api.nasa.gov and input it below. By
+// default the demo key is being used, which limits the number and rate of
+// requests and might deny service.
 
 const api_key = "DEMO_KEY";
 
@@ -21,21 +21,21 @@ const video_thumb = (url) => {
   return `https://img.youtube.com/vi/${id[1]}/hqdefault.jpg`;
 };
 
-async function load_image(data, e) {
+async function load_image(data) {
   let image_url;
   switch (data.media_type) {
     case "image":
       image_url = data.url;
-      break
+      break;
     case "video":
       image_url = video_thumb(data.url);
-      break
+      break;
     default:
       image_url = "icons/noimage.jpg";
   }
   return new Promise((resolve) => {
-    e.onload = () => resolve(`image loaded ${image_url}`);
-    e.src = image_url;
+    em.media.onload = () => resolve(`image loaded ${image_url}`);
+    em.media.src = image_url;
   });
 }
 
@@ -68,14 +68,14 @@ async function get_data(url) {
 function set(data) {
   em.title.innerHTML = data.title;
   em.date.innerHTML = data.date;
-  if (em.api === true) em.set_date.value = data.date;
+  em.set_date.value = data.date;
   if ("copyright" in data) {
     em.copyright.innerHTML = data.copyright.trim();
     em.copyright.parentElement.classList.remove("hidden");
   } else em.copyright.parentElement.classList.add("hidden");
   em.explanation.innerHTML = data.explanation;
   if (em.first_run === true) {
-    if (em.api === true) em.set_date.setAttribute("max", data.date);
+    em.set_date.setAttribute("max", data.date);
     em.container.classList.remove("hidden");
     em.first_run = false;
   } else {
@@ -88,7 +88,7 @@ function set(data) {
 }
 
 const parse = async (data) => {
-  await load_image(data, em.media).then(
+  await load_image(data).then(
     (resolve) => {
       console.info(resolve);
       set(data);
@@ -103,9 +103,22 @@ const parse = async (data) => {
 
 const setup = async (data_url) => {
   em.data_error.classList.add("hidden");
+  if (em.first_run === true) {
+    const apod = JSON.parse(localStorage.getItem("apod"));
+    if (apod !== null && Date.now() - apod.timestamp < 7200000) {
+      console.info(apod);
+      parse(apod);
+      return;
+    }
+  }
   await get_data(data_url).then(
     (resolve) => {
       console.info(resolve);
+      if (em.first_run === true) {
+        const storage = resolve.data;
+        storage.timestamp = Date.now();
+        localStorage.setItem("apod", JSON.stringify(storage));
+      }
       parse(resolve.data);
     },
     (reject) => {
@@ -123,44 +136,26 @@ const new_query = (event) => {
 };
 
 function init() {
-  const container = document.getElementById("container");
-  const title = document.getElementById("title");
-  const media = document.getElementById("media");
-  const text = document.getElementById("text");
-  const copyright = document.getElementById("copyright");
-  const explanation = document.getElementById("explanation");
-  const data_error = document.getElementById("error");
   const elements = {
-    container: container,
-    title: title,
-    media: media,
-    text: text,
-    copyright: copyright,
-    explanation: explanation,
-    data_error: data_error,
+    container: document.getElementById("container"),
+    title: document.getElementById("title"),
+    media: document.getElementById("media"),
+    text: document.getElementById("text"),
+    copyright: document.getElementById("copyright"),
+    explanation: document.getElementById("explanation"),
+    date: document.getElementById("date"),
+    set_date: document.getElementById("set_date"),
+    data_error: document.getElementById("error"),
     first_run: true,
   };
-  let date;
-  if (api_key === "DEMO_KEY") {
-    elements.api = false;
-    date = document.querySelector("div .date");
-    date.parentElement.classList.remove("hidden");
-  } else {
-    elements.api = true;
-    date = document.querySelector("details .date");
-    date.parentElement.parentElement.classList.remove("hidden");
-    const set_date = document.getElementById("set_date");
-    elements.set_date = set_date;
-    set_date.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") e.target.showPicker();
-      if (/^\d$/.test(e.key)) e.preventDefault();
-    });
-    set_date.addEventListener("change", new_query);
-  }
-  elements.date = date;
+  elements.set_date.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") e.target.showPicker();
+    if (/^\d$/.test(e.key)) e.preventDefault();
+  });
+  elements.set_date.addEventListener("change", new_query);
   return elements;
 }
 
-const apod = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
+const nasa_api = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
 const em = init();
-setup(apod);
+setup(nasa_api);
