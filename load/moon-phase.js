@@ -1,11 +1,11 @@
 // Moon Phase
-// version 2024.10.0
+// version 2024.11.0
 // https://forum.vivaldi.net/post/461432
 // Displays the current moon phase as command chain button. Download the
 // moon-phase.svg file and load it in theme settings. Moon phase calculation
 // adapted from https://minkukel.com/en/various/calculating-moon-phase/
 
-(function moonPhase() {
+(async function moonPhase() {
   "use strict";
 
   // EDIT START
@@ -73,30 +73,51 @@
       mod.setAttribute("y", get.coordinate);
       mod.setAttribute("height", get.range);
       mod.setAttribute("transform", `rotate(${get.angle})`);
+      btn.classList.add("vm-mp");
     }
   }
 
-  const conflate = (el) => {
-    const send = () => moonwatch(el);
-    send();
-    el.addEventListener("click", send);
-  };
-
-  setTimeout(() => {
-    const check = `.ToolbarButton-Button[name=${command}]`;
-    const select = document.querySelector(check);
-    if (select) conflate(select);
-  }, 2000);
-
-  let appendChild = Element.prototype.appendChild;
-  Element.prototype.appendChild = function () {
-    if (this.tagName === "BUTTON") {
-      setTimeout(
-        function () {
-          if (this.name === command) conflate(this);
-        }.bind(this, arguments[0])
-      );
+  function conflate(el) {
+    const btn = el.getElementsByTagName("BUTTON");
+    for (let i = 0; i < btn.length; i++) {
+      if (btn[i].name === command && !btn[i].classList.contains("vm-mp")) {
+        const send = () => moonwatch(btn[i]);
+        send();
+        btn[i].addEventListener("click", send);
+      }
     }
-    return appendChild.apply(this, arguments);
+  }
+
+  const wait = () => {
+    return new Promise((resolve) => {
+      const check = document.getElementById("browser");
+      if (check) return resolve(check);
+      else {
+        const startup = new MutationObserver(() => {
+          const el = document.getElementById("browser");
+          if (el) {
+            startup.disconnect();
+            resolve(el);
+          }
+        });
+        startup.observe(document.body, { childList: true, subtree: true });
+      }
+    });
   };
+
+  const lazy = (el, observer) => {
+    observer.observe(el, { childList: true, subtree: true });
+  };
+
+  await wait().then((browser) => {
+    const lazy_obs = new MutationObserver(() => {
+      lazy_obs.disconnect();
+      setTimeout(() => {
+        conflate(browser);
+        lazy(browser, lazy_obs);
+      }, 666);
+    });
+    conflate(browser);
+    lazy(browser, lazy_obs);
+  });
 })();
