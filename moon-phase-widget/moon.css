@@ -1,0 +1,44 @@
+/*
+Moon Phase Widget
+version 2024.11.0
+Guide and updates ☛ https://forum.vivaldi.net/post/783627
+————————  ⁂  ————————
+*/
+@media (prefers-color-scheme: light) {
+  :root {
+    --bbg: #eceff4;
+    --ffg: #2e3440;
+    --scr1: #81a1c1;
+    --scr2: #d8dee9;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bbg: #2e3440;
+    --ffg: #d8dee9;
+    --scr1: #8fbcbb;
+    --scr2: #3b4252;
+  }
+}
+html {
+  font-family: sans-serif;
+  scrollbar-color: var(--colorFgFadedMost, var(--scr1))
+    var(--colorBg, var(--scr2));
+}
+body {
+  color: var(--colorFg, var(--ffg));
+  background: var(--colorBgLight, var(--bbg));
+  cursor: default;
+  margin: 0.4rem;
+}
+.hidden {
+  display: none;
+  margin: 0;
+}
+#error {
+  text-align: center;
+}
+#container {
+  width: fit-content;
+  margin: 0 auto;
+}

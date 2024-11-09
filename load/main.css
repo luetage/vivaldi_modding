@@ -1,3 +1,11 @@
+#main {
+  --colormix: color-mix(
+    in hsl,
+    var(--colorFgFadedMost) 70%,
+    var(--colorHighlightBg)
+  );
+}
+
 /* font */
 #browser.linux,
 #browser.linux ~ div,
@@ -64,12 +72,8 @@
 .UrlFragment-Wrapper--ShouldHighlight .UrlFragment-HostFragment-TLD {
   font-weight: bold;
 }
-#browser.theme-dark .BookmarkButton .bookmark-animated-fill {
-  fill: color-mix(
-    in hsl,
-    var(--colorFgFadedMost) 70%,
-    var(--colorHighlightBg)
-  ) !important;
+#browser .BookmarkButton .bookmark-animated-fill {
+  fill: var(--colormix);
 }
 .permission-denied circle {
   fill: var(--colorHighlightBg);

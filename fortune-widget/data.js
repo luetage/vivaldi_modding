@@ -28700,9 +28700,6 @@ const data = [
     quote: "Sorry.  Nice try.",
   },
   {
-    quote: "Sorry never means having you’re say to love.",
-  },
-  {
     quote: "Sorry, no fortune this time.",
   },
   {
