@@ -6,39 +6,85 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
 */
 @media (prefers-color-scheme: light) {
   :root {
-    --bbg: #eceff4;
-    --ffg: #2e3440;
-    --scr1: #81a1c1;
-    --scr2: #d8dee9;
+    --bbg: #f8f9fa;
+    --ffg: #202122;
+    --dfg: #595c5f;
+    --cfg: #4b77d6;
   }
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bbg: #2e3440;
-    --ffg: #d8dee9;
-    --scr1: #8fbcbb;
-    --scr2: #3b4252;
+    --bbg: #101418;
+    --ffg: #eaecf0;
+    --dfg: #a5aebf;
+    --cfg: #3366cc;
   }
 }
 html {
+  --colormix1: color-mix(
+    in hsl,
+    var(--colorFgFadedMost, var(--dfg)) 70%,
+    var(--colorHighlightBg, var(--cfg))
+  );
+  --colormix2: color-mix(
+    in hsl,
+    var(--colorFgFadedMost, var(--dfg)) 50%,
+    var(--colorHighlightBg, var(--cfg))
+  );
+  font-size: 4.2vw;
   font-family: sans-serif;
-  scrollbar-color: var(--colorFgFadedMost, var(--scr1))
-    var(--colorBg, var(--scr2));
+  font-weight: 400;
 }
 body {
+  overflow: hidden;
   color: var(--colorFg, var(--ffg));
   background: var(--colorBgLight, var(--bbg));
   cursor: default;
-  margin: 0.4rem;
+  margin: 0.8rem;
+  line-height: 1.2;
+}
+#container {
+  width: calc(100vw - 1.6rem);
+  height: calc(100vh - 1.6rem);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+#left,
+#right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+svg {
+  color: var(--colormix1);
+}
+p {
+  min-width: 15ch;
+  text-align: center;
+  margin-block-start: 0.4rem;
+  margin-block-end: unset;
+}
+p b {
+  color: var(--colormix1);
+}
+#events {
+  display: flex;
+  flex-direction: column;
+  vertical-align: middle;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding-inline-start: unset;
+  margin-block-start: unset;
+  margin-block-end: unset;
+  white-space: pre;
+  list-style: none;
+}
+.moon {
+  color: var(--colormix2);
 }
 .hidden {
   display: none;
   margin: 0;
-}
-#error {
-  text-align: center;
-}
-#container {
-  width: fit-content;
-  margin: 0 auto;
 }

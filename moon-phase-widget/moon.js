@@ -14,43 +14,79 @@ const coordinates = [48.30521, 16.32522];
 
 // EDIT END
 
-const moon = {
-  phases: [
-    ["New Moon", -5, 0],
-    ["Waxing Crescent", -5, 3],
-    ["First Quarter", -5, 5],
-    ["Waxing Gibbous", -5, 7],
-    ["Full Moon", -5, 10],
-    ["Waning Gibbous", -2, 7],
-    ["Last Quarter", 0, 5],
-    ["Waning Crescent", 2, 3],
-  ],
-  illum: (p) => {
-    for (let i = 0; i < moon.phases.length; i++) {
-      if (moon.phases[i][0] === p) {
-        return {
-          coordinate: moon.phases[i][1],
-          range: moon.phases[i][2],
-        }
-      }
-    }
-  },
-};
-
 function parse(data) {
   const prop = data.properties.data;
+  const cp = prop.closestphase;
   const diff =
-    Math.max(em.timestamp, data.timestamp) -
-    Math.min(em.timestamp, data.timestamp);
-  const phase = diff < 86400 ? prop.closestphase.phase : prop.curphase;
-  const svg = moon.illum(phase);
-  console.info(svg);
-  const illum = prop.fracillum;
+    Math.max(em.timestamp, cp.timestamp) - Math.min(em.timestamp, cp.timestamp);
+  const phase = diff < 86400 ? cp.phase : prop.curphase;
+  em.phase.innerHTML = `${phase}<br><b>${prop.fracillum}</b>`;
+  const svg = prop.moon.find((item) => item.hasOwnProperty(phase));
   const lat = data.geometry.coordinates[1];
-  const lon = data.geometry.coordinates[0];
-  const coords = `${lat},${lon}`;
-  console.info(data.events);
-  console.info(phase);
+  em.mod.setAttribute("y", Object.values(svg)[0][0]);
+  em.mod.setAttribute("height", Object.values(svg)[0][1]);
+  em.mod.setAttribute("transform", `rotate(${lat})`);
+  prop.events.forEach((event) => {
+    const li = document.createElement("li");
+    li.classList.add(event.obj);
+    li.textContent = `${event.time}\u{2002}\u{200a}${event.phen}`;
+    em.events.appendChild(li);
+  });
+  em.container.classList.remove("hidden");
+}
+
+function edit(arr, obj) {
+  arr.forEach((entry) => {
+    switch (entry.phen) {
+      case "Rise":
+        entry.phen = `${obj}rise`;
+        break;
+      case "Upper Transit":
+        entry.phen = `${obj} transit`;
+        break;
+      case "Set":
+        entry.phen = `${obj}set`;
+        break;
+      case "Begin Civil Twilight":
+        entry.phen = "civil dawn";
+        break;
+      default:
+        entry.phen = "civil dusk";
+    }
+    Object.assign(entry, { obj: obj });
+  });
+  return arr;
+}
+
+function storage(data) {
+  data.date = em.date;
+  const prop = data.properties.data;
+  const cp = prop.closestphase;
+  const month = String(cp.month).padStart(2, "0");
+  const day = String(cp.day).padStart(2, "0");
+  const date_string = `${cp.year}-${month}-${day}`;
+  const time_string = `${date_string}T${cp.time}`;
+  cp.timestamp = Math.floor(new Date(time_string).getTime() / 1000);
+  const events = edit(prop.moondata, "moon").concat(edit(prop.sundata, "sun"));
+  if (date_string === em.date) {
+    prop.curphase = cp.phase;
+    const main = { phen: cp.phase.toLowerCase(), time: cp.time, obj: "moon" };
+    events.push(main);
+  }
+  prop.events = events.sort((a, b) => {
+    return a.time.localeCompare(b.time);
+  });
+  prop.moon = [
+    { "New Moon": [-5, 0] },
+    { "Waxing Crescent": [-5, 3] },
+    { "First Quarter": [-5, 5] },
+    { "Waxing Gibbous": [-5, 7] },
+    { "Full Moon": [-5, 10] },
+    { "Waning Gibbous": [-2, 7] },
+    { "Last Quarter": [0, 5] },
+    { "Waning Crescent": [2, 3] },
+  ];
+  return data;
 }
 
 async function load_data(url) {
@@ -78,52 +114,6 @@ async function load_data(url) {
   });
 }
 
-function edit(arr, obj) {
-  arr.forEach((entry) => {
-    switch (entry.phen) {
-      case "Begin Civil Twilight":
-        entry.phen = "civil dawn";
-        break;
-      case "Rise":
-        entry.phen = `${obj}rise`;
-        break;
-      case "Upper Transit":
-        entry.phen = `${obj} transit`;
-        break;
-      case "Set":
-        entry.phen = `${obj}set`;
-        break;
-      default:
-        entry.phen = "civil dusk";
-    }
-    Object.assign(entry, { obj: obj });
-  });
-  return arr;
-}
-
-function storage(data) {
-  const prop = data.properties.data;
-  const month = String(prop.closestphase.month).padStart(2, "0");
-  const day = String(prop.closestphase.day).padStart(2, "0");
-  const date_string = `${prop.closestphase.year}-${month}-${day}`;
-  const time_string = `${date_string}T${prop.closestphase.time}`;
-  data.timestamp = Math.floor(new Date(time_string).getTime() / 1000);
-  const moon_events = edit(prop.moondata, "moon");
-  const sun_events = edit(prop.sundata, "sun");
-  const events = moon_events.concat(sun_events);
-  if (date_string === em.date) {
-    const main = {
-      phen: prop.closestphase.phase.toLowerCase(),
-      time: prop.closestphase.time,
-      obj: "moon",
-    };
-    events.push(main);
-  }
-  data.events = events;
-  data.date = em.date;
-  return data;
-}
-
 async function astro(lat, lon) {
   await load_data(
     `https://aa.usno.navy.mil/api/rstt/oneday?date=${em.date}&coords=${lat},${lon}&tz=${em.tz}`
@@ -135,8 +125,8 @@ async function astro(lat, lon) {
       parse(sto);
     },
     (reject) => {
-      em.data_error.innerHTML = reject.message;
-      em.data_error.classList.remove("hidden");
+      em.container.innerHTML = reject.message;
+      em.container.classList.remove("hidden");
     }
   );
 }
@@ -152,8 +142,8 @@ async function loc() {
         if (!resolve.data.message) astro(resolve.data.lat, resolve.data.lon);
       },
       (reject) => {
-        em.data_error.innerHTML = reject.message;
-        em.data_error.classList.remove("hidden");
+        em.container.innerHTML = reject.message;
+        em.container.classList.remove("hidden");
       }
     );
   }
@@ -171,7 +161,9 @@ function init() {
   const now = new Date();
   const elements = {
     container: document.getElementById("container"),
-    data_error: document.getElementById("error"),
+    mod: document.getElementById("mod"),
+    phase: document.getElementById("phase"),
+    events: document.getElementById("events"),
     date: now.toLocaleDateString("en-ca"),
     tz: -now.getTimezoneOffset() / 60,
     timestamp: Math.floor(now.getTime() / 1000),

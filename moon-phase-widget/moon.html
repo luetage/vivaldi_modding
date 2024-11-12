@@ -16,8 +16,25 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
 
 <body>
   <div id="container" class="hidden">
+    <div id="left">
+      <svg viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.8">
+          <defs>
+            <clipPath id="cut">
+              <rect id="mod" x="-5" y="-5" width="10" height="0" transform="rotate(0)" />
+            </clipPath>
+          </defs>
+          <circle cx="0" cy="0" r="7" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <circle cx="0" cy="0" r="5" fill="currentColor" clip-path="url(#cut)" />
+        </g>
+      </svg>
+      <p id="phase"></p>
+    </div>
+    <div id="right">
+      <ul id="events">
+      </ul>
+    </div>
   </div>
-  <p id="error" class="hidden"></p>
   <script src="moon.js"></script>
 </body>
 

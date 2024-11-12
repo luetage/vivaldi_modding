@@ -115,3 +115,8 @@
 .dashboard-widget .url-wrapper {
   display: none;
 }
+
+/* break mode */
+button.HUD {
+  display: none;
+}
