@@ -20,19 +20,20 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
     --cfg: #3366cc;
   }
 }
+:focus-visible {
+  outline: 2px solid var(--colorHighlightBg, var(--cfg));
+  outline-offset: -1px;
+}
 html {
-  --colormix1: color-mix(
+  --colormix: color-mix(
     in hsl,
     var(--colorFgFadedMost, var(--dfg)) 70%,
     var(--colorHighlightBg, var(--cfg))
   );
-  --colormix2: color-mix(
-    in hsl,
-    var(--colorFgFadedMost, var(--dfg)) 50%,
-    var(--colorHighlightBg, var(--cfg))
-  );
-  font-size: 4.2vw;
+  font-size: 100%;
   font-family: sans-serif;
+  font-variant-numeric: "tabular-nums";
+  font-feature-settings: "tnum";
   font-weight: 400;
 }
 body {
@@ -42,6 +43,33 @@ body {
   cursor: default;
   margin: 0.8rem;
   line-height: 1.2;
+  user-select: none;
+}
+#reload {
+  position: fixed;
+  top: 0.8rem;
+  left: 0.8rem;
+  display: flex;
+  padding: 0;
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: var(--radius);
+  align-items: center;
+}
+#reload:hover {
+  background-color: var(--colorBgLighter);
+}
+#reload svg {
+  color: var(--colorFgFaded, var(--dfg));
+}
+@keyframes rotate {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+#reload.load svg {
+  animation: rotate 0.8s linear;
+  transform-origin: center;
 }
 #container {
   width: calc(100vw - 1.6rem);
@@ -58,7 +86,7 @@ body {
   justify-content: center;
 }
 svg {
-  color: var(--colormix1);
+  color: var(--colormix);
 }
 p {
   min-width: 15ch;
@@ -67,24 +95,36 @@ p {
   margin-block-end: unset;
 }
 p b {
-  color: var(--colormix1);
+  color: var(--colormix);
 }
 #events {
-  display: flex;
-  flex-direction: column;
-  vertical-align: middle;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 1.5ch;
+  position: relative;
   font-size: 0.8rem;
-  font-weight: 600;
   padding-inline-start: unset;
   margin-block-start: unset;
   margin-block-end: unset;
-  white-space: pre;
-  list-style: none;
+  list-style-type: none;
 }
-.moon {
-  color: var(--colormix2);
+li {
+  display: contents;
+}
+.main {
+  color: var(--colorHighlightBg, var(--colormix));
+}
+.after::before,
+.before::before {
+  position: absolute;
+  content: "\ff3f";
+  left: -2ch;
+  color: var(--colorHighlightBg, var(--cfg));
+  font-weight: bold;
+}
+.before::before {
+  top: -1em;
 }
 .hidden {
-  display: none;
-  margin: 0;
+  display: none !important;
 }

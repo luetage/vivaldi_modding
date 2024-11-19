@@ -29,13 +29,4 @@ function write_fortune(el) {
   el.innerHTML = fortune;
 }
 
-function init() {
-  const text = document.getElementById("text");
-  const asterism = document.getElementById("asterism");
-  write_fortune(text);
-  asterism.addEventListener("click", (e) => {
-    if (e.button === 0 && e.ctrlKey) write_fortune(text);
-  });
-}
-
-init();
+write_fortune(document.getElementById("text"));

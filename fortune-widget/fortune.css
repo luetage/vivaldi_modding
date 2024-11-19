@@ -45,9 +45,9 @@ body {
   hyphens: auto;
   hyphenate-character: "\2010";
 }
-#asterism {
+footer {
   text-align: center;
   opacity: 0.6;
-  padding: 1rem;
+  padding: 0.8rem 0 1rem;
   user-select: none;
 }

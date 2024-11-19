@@ -28374,8 +28374,8 @@ const data = [
   },
   {
     quote:
-      "Some men are all right in their place -- if they only the knew the right\nplaces!",
-    author: "Mae West",
+      "Some men are all right in their place if they only knew the right\nplaces!",
+    author: "Raoul Walsh",
   },
   {
     quote:
