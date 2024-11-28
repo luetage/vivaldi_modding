@@ -31,7 +31,7 @@ async function load_image(data) {
       image_url = video_thumb(data.url);
       break;
     default:
-      image_url = "icons/noimage.jpg";
+      image_url = "noimage.jpg";
   }
   return new Promise((resolve) => {
     em.media.onload = () => resolve(`image loaded ${image_url}`);
@@ -95,7 +95,7 @@ const parse = async (data) => {
     },
     () => {
       console.error(`cannot load image ${data.url}`);
-      em.media.src = "icons/noimage.jpg";
+      em.media.src = "noimage.jpg";
       set(data);
     }
   );
