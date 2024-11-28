@@ -1,25 +1,36 @@
 /*
 Binary Clock Widget
-version 2024.10.3
+version 2024.11.0
 Guide and updates ☛ https://forum.vivaldi.net/post/786622
 ————————  ⁂  ————————
 */
-@media (prefers-color-scheme: light) {
-  :root {
-    --bbg: #eceff4;
-    --ffg: #81a1c1;
+html {
+  container-type: normal;
+}
+svg circle {
+  fill: black;
+}
+@container style(--isDarkTheme: 0) {
+  body {
+    --premix: color-mix(in oklab, var(--colorFg) 40%, white);
+  }
+  svg circle {
+    fill: color-mix(in oklab, var(--premix) 70%, var(--colorHighlightBg));
   }
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bbg: #2e3440;
-    --ffg: #8fbcbb;
+@container style(--isDarkTheme: 1) {
+  body {
+    --premix: color-mix(in oklab, var(--colorFg) 70%, black);
+  }
+  svg circle {
+    fill: color-mix(in hsl, var(--premix) 70%, var(--colorHighlightBg));
   }
 }
 body {
   height: 100vh;
+  width: 100vw;
   margin: 0;
-  background: var(--colorBgLight, var(--bbg));
+  background: var(--colorBg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,11 +41,6 @@ body {
 }
 svg circle {
   r: 28px;
-  fill: color-mix(
-    in hsl,
-    var(--colorFgFadedMost, var(--ffg)) 70%,
-    var(--colorHighlightBg, var(--ffg))
-  );
   opacity: 0.3;
 }
 .one {

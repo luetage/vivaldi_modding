@@ -150,7 +150,7 @@ function init() {
   };
   elements.set_date.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") e.target.showPicker();
-    if (/^\d$/.test(e.key)) e.preventDefault();
+    else if (/^\d$/.test(e.key)) e.preventDefault();
   });
   elements.set_date.addEventListener("change", new_query);
   return elements;

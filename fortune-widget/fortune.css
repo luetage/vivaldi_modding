@@ -4,37 +4,22 @@ version 2024.10.1
 Guide and updates ☛ https://forum.vivaldi.net/post/787840
 ————————  ⁂  ————————
 */
-@media (prefers-color-scheme: light) {
-  :root {
-    --bbg: #eceff4;
-    --ffg: #2e3440;
-    --scr1: #81a1c1;
-    --scr2: #d8dee9;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bbg: #2e3440;
-    --ffg: #d8dee9;
-    --scr1: #8fbcbb;
-    --scr2: #3b4252;
-  }
-}
 html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "IBM Plex Sans",
+    Inter, "Fira Sans", Roboto, sans-serif;
   font-size: 100%;
-  font-family: sans-serif;
   font-weight: 400;
   scrollbar-width: thin;
-  scrollbar-color: var(--colorFgFadedMost, var(--scr1))
-    var(--colorBg, var(--scr2));
+  scrollbar-color: color-mix(in oklab, var(--colorFg) 40%, transparent)
+    color-mix(in oklab, var(--colorBg) 95%, black);
 }
 body {
   height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: var(--colorFg, var(--ffg));
-  background: var(--colorBgLight, var(--bbg));
+  color: var(--colorFg);
+  background: var(--colorBg);
   cursor: default;
   margin: 1rem;
 }

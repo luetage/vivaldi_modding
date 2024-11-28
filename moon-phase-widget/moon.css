@@ -4,63 +4,78 @@ version 2024.11.0
 Guide and updates ☛ https://forum.vivaldi.net/post/783627
 ————————  ⁂  ————————
 */
-@media (prefers-color-scheme: light) {
-  :root {
-    --bbg: #f8f9fa;
-    --ffg: #202122;
-    --dfg: #595c5f;
-    --cfg: #4b77d6;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bbg: #101418;
-    --ffg: #eaecf0;
-    --dfg: #a5aebf;
-    --cfg: #3366cc;
-  }
-}
 :focus-visible {
-  outline: 2px solid var(--colorHighlightBg, var(--cfg));
+  outline: 2px solid var(--colorHighlightBg);
   outline-offset: -1px;
 }
 html {
-  --colormix: color-mix(
-    in hsl,
-    var(--colorFgFadedMost, var(--dfg)) 70%,
-    var(--colorHighlightBg, var(--cfg))
-  );
+  container-type: normal;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--colorFg) 40%, transparent)
+    color-mix(in oklab, var(--colorBg) 95%, black);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "IBM Plex Sans",
+    Inter, "Fira Sans", Roboto, sans-serif;
   font-size: 100%;
-  font-family: sans-serif;
   font-variant-numeric: "tabular-nums";
   font-feature-settings: "tnum";
   font-weight: 400;
 }
+@media (min-height: 180px) {
+  html {
+    font-size: 120%;
+  }
+}
+@container style(--isDarkTheme: 0) {
+  body {
+    --premix: color-mix(in oklab, var(--colorFg) 40%, white);
+    --fgalt: color-mix(in oklab, var(--colorFg) 70%, white);
+    --bgalt: color-mix(in oklab, var(--colorBg) 97%, black);
+    --bgbtn: color-mix(in oklab, var(--colorBg) 97%, black);
+  }
+  #outer,
+  p b {
+    color: color-mix(in oklab, var(--premix) 70%, var(--colorHighlightBg));
+  }
+  #inner {
+    color: color-mix(in oklab, var(--colorBg) 70%, var(--colorHighlightBg));
+  }
+}
+@container style(--isDarkTheme: 1) {
+  body {
+    --premix: color-mix(in oklab, var(--colorFg) 70%, black);
+    --fgalt: color-mix(in oklab, var(--colorFg) 80%, black);
+    --bgalt: color-mix(in oklab, var(--colorBg) 94%, black);
+    --bgbtn: color-mix(in oklab, var(--colorBg) 94%, white);
+  }
+  #outer,
+  #inner,
+  p b {
+    color: color-mix(in hsl, var(--premix) 70%, var(--colorHighlightBg));
+  }
+}
 body {
-  overflow: hidden;
-  color: var(--colorFg, var(--ffg));
-  background: var(--colorBgLight, var(--bbg));
+  color: var(--colorFg);
+  background: var(--colorBg);
   cursor: default;
-  margin: 0.8rem;
+  margin: 0;
   line-height: 1.2;
   user-select: none;
+  overflow: hidden;
 }
 #reload {
-  position: fixed;
-  top: 0.8rem;
-  left: 0.8rem;
   display: flex;
-  padding: 0;
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.5ch;
   background-color: transparent;
   border-color: transparent;
   border-radius: var(--radius);
   align-items: center;
+  color: var(--fgalt);
 }
 #reload:hover {
-  background-color: var(--colorBgLighter);
-}
-#reload svg {
-  color: var(--colorFgFaded, var(--dfg));
+  background-color: var(--bgbtn);
 }
 @keyframes rotate {
   to {
@@ -72,9 +87,9 @@ body {
   transform-origin: center;
 }
 #container {
-  width: calc(100vw - 1.6rem);
-  height: calc(100vh - 1.6rem);
-  margin: 0 auto;
+  width: calc(100vw - 1rem);
+  height: calc(100vh - 1rem);
+  margin: 0.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -85,45 +100,51 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-svg {
-  color: var(--colormix);
+#right {
+  background: var(--bgalt);
+  border-radius: var(--radius);
 }
 p {
   min-width: 15ch;
   text-align: center;
-  margin-block-start: 0.4rem;
+  margin-block-start: 0.25rem;
   margin-block-end: unset;
-}
-p b {
-  color: var(--colormix);
 }
 #events {
   display: grid;
-  grid-template-columns: auto auto;
-  grid-column-gap: 1.5ch;
-  position: relative;
+  grid-template-columns: 1.8ch auto 1.5ch auto 0.3rem;
+  white-space: nowrap;
   font-size: 0.8rem;
-  padding-inline-start: unset;
+  padding: 0.5rem 0;
+  padding-inline-start: 0.3rem;
+  padding-inline-end: unset;
   margin-block-start: unset;
   margin-block-end: unset;
   list-style-type: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
 }
 li {
   display: contents;
 }
 .main {
-  color: var(--colorHighlightBg, var(--colormix));
+  color: var(--colorHighlightBg);
 }
-.after::before,
-.before::before {
+.contain {
+  position: relative;
+}
+.after,
+.before {
   position: absolute;
-  content: "\ff3f";
-  left: -2ch;
-  color: var(--colorHighlightBg, var(--cfg));
-  font-weight: bold;
+  color: var(--colorHighlightBg);
 }
-.before::before {
-  top: -1em;
+.before {
+  top: -50%;
+}
+.after {
+  bottom: -50%;
 }
 .hidden {
   display: none !important;

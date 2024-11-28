@@ -10,9 +10,7 @@
     i18n: {
       getMessageName(message, type) {
         message = (type ? type + '\x04' : '') + message;
-        return message.replace(/[^a-z0-9]/g, function (i) {
-          return '_' + i.codePointAt(0) + '_';
-        }) + '0';
+        return message.replace(/[^a-z0-9]/g, (i) => '_' + i.codePointAt(0) + '_') + '0';
       },
       getMessage(message, type) {
         return chrome.i18n.getMessage(this.getMessageName(message, type)) || message;
@@ -25,14 +23,14 @@
       generate(ids) {
         let d = Date.now() + performance.now();
         let r;
-        const id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
           r = (d + Math.random() * 16) % 16 | 0;
           d = Math.floor(d / 16);
           return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
 
         if (Array.isArray(ids) && ids.includes(id)) {
-          return this.uuid.generate(ids);
+          return this.generate(ids);
         }
         return id;
       },
@@ -147,141 +145,13 @@
             label: this.i18n.getMessage('Cancel'),
             cancel: true
           },
-          primary: {
-            class: 'primary'
-          },
-          danger: {
-            class: 'danger'
-          },
-          default: {},
-        }
+        },
       };
     },
-    getFormData(formElement) {
-      if (!formElement || formElement.nodeName !== 'FORM') {
-        return;
-      }
-
-      const data = {};
-
-      function setOrPush(key, value, isOnly) {
-        if (data.hasOwnProperty(key) && isOnly !== true) {
-          if (!Array.isArray(data[key])) {
-            data[key] = data[key] != null ? [data[key]] : [];
-          }
-          if (value != null) {
-            data[key].push(value);
-          }
-        } else {
-          data[key] = value;
-        }
-      }
-
-      const inputElements = Array.from(formElement.elements).filter(function (field) {
-        if (field.name) {
-          switch (field.nodeName) {
-            case 'INPUT':
-              switch (field.type) {
-                case 'button':
-                case 'image':
-                case 'reset':
-                case 'submit':
-                  return false;
-              }
-              break;
-            case 'BUTTON':
-              return false;
-          }
-          return true;
-        } else {
-          return false;
-        }
-      });
-
-      if (inputElements.length === 0) {
-        return;
-      }
-
-      inputElements.forEach(function (field) {
-        if (field.name) {
-          switch (field.nodeName) {
-            case 'INPUT':
-              switch (field.type) {
-                case 'color':
-                case 'email':
-                case 'hidden':
-                case 'password':
-                case 'search':
-                case 'tel':
-                case 'text':
-                case 'time':
-                case 'url':
-                case 'month':
-                case 'week':
-                  setOrPush(field.name, field.value);
-                  break;
-                case 'checkbox':
-                  if (field.checked) {
-                    setOrPush(field.name, field.value || field.checked);
-                  } else {
-                    setOrPush(field.name, null);
-                  }
-                  break;
-                case 'radio':
-                  if (field.checked) {
-                    setOrPush(field.name, field.value || field.checked, true);
-                  } else {
-                    setOrPush(field.name, null, true);
-                  }
-                  break;
-                case 'date':
-                case 'datetime-local':
-                  const date = new Date(field.value);
-                  if (isFinite(date)) {
-                    date.setTime(d.getTime() + d.getTimezoneOffset() * 60000);
-                    setOrPush(field.name, date);
-                  } else {
-                    setOrPush(field.name, null);
-                  }
-                  break;
-                case 'file':
-                  setOrPush(field.name, field.files);
-                  break;
-                case 'number':
-                case 'range':
-                  if (field.value && isFinite(Number(field.value))) {
-                    setOrPush(field.name, Number(field.value));
-                  } else {
-                    setOrPush(field.name, null);
-                  }
-                  break;
-              }
-              break;
-            case 'TEXTAREA':
-              setOrPush(field.name, field.value);
-              break;
-            case 'SELECT':
-              switch (field.type) {
-                case 'select-one':
-                  setOrPush(field.name, field.value);
-                  break;
-                case 'select-multiple':
-                  Array.from(field.options).forEach(function (option) {
-                    if (option.selected) {
-                      setOrPush(field.name, option.value);
-                    } else {
-                      setOrPush(field.name, null);
-                    }
-                  });
-                  break;
-              }
-              break;
-            case 'BUTTON':
-              break;
-          }
-        }
-      });
-      return data;
+    encode: {
+      regex(str) {
+        return !str ? str : str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      },
     },
     dialog(title, content, buttons = [], config) {
       let modalBg;
@@ -306,10 +176,12 @@
         }
       }
 
-      function onClickCloseDialog(event) {
+      function onClickCloseDialog(windowId, mousedown, button, clientX, clientY) {
         if (
           config.autoClose
-          && !event.target.closest('.dialog-custom[data-dialog-id="' + id + '"]')
+          && windowId === vivaldiWindowId
+          && mousedown
+          && !document.elementFromPoint(clientX, clientY).closest('.dialog-custom[data-dialog-id="' + id + '"]')
         ) {
           closeDialog(true);
         }
@@ -317,17 +189,17 @@
 
       function closeDialog(isCancel) {
         if (isCancel === true && cancelEvent) {
-          cancelEvent.bind(this)(gnoh.getFormData(dialog));
+          cancelEvent.bind(this)();
         }
         if (modalBg) {
           modalBg.remove();
         }
         vivaldi.tabsPrivate.onKeyboardShortcut.removeListener(onKeyCloseDialog);
-        document.removeEventListener('mousedown', onClickCloseDialog);
+        vivaldi.tabsPrivate.onWebviewClickCheck.addListener(onClickCloseDialog);
       }
 
       vivaldi.tabsPrivate.onKeyboardShortcut.addListener(onKeyCloseDialog);
-      document.addEventListener('mousedown', onClickCloseDialog);
+      vivaldi.tabsPrivate.onWebviewClickCheck.addListener(onClickCloseDialog);
 
       const buttonElements = [];
       for (let button of buttons) {
@@ -340,7 +212,7 @@
           click(event) {
             event.preventDefault();
             if (typeof clickEvent === 'function') {
-              clickEvent.bind(this)(gnoh.getFormData(dialog));
+              clickEvent.bind(this)();
             }
             if (button.closeDialog !== false) {
               closeDialog();
@@ -352,7 +224,8 @@
           button.value = button.label;
           delete button.label;
         }
-        buttonElements.push(this.createElement('input', button));
+        button.element = this.createElement('input', button);
+        buttonElements.push(button.element);
       }
 
       const focusModal = this.createElement('span', {
@@ -391,9 +264,10 @@
         class: 'slide',
       }, inner, [focusModal.cloneNode(true), div, focusModal.cloneNode(true)]);
       return {
-        dialog: dialog,
-        dialogHeader: dialogHeader,
-        dialogContent: dialogContent,
+        dialog,
+        dialogHeader,
+        dialogContent,
+        modalBg,
         buttons: buttonElements,
         close: closeDialog,
       };
@@ -408,20 +282,20 @@
         };
       }
 
-      return this.dialog('Gnoh', message, [buttonOkElement], {
+      return this.dialog('Alert', message, [buttonOkElement], {
         width: 400,
         class: 'dialog-javascript',
       });
     },
-    timeOut(callback, conditon, timeOut = 300) {
+    timeOut(callback, condition, timeOut = 300) {
       let timeOutId = setTimeout(function wait() {
         let result;
-        if (!conditon) {
+        if (!condition) {
           result = document.getElementById('browser');
-        } else if (typeof conditon === 'string') {
-          result = document.querySelector(conditon);
-        } else if (typeof conditon === 'function') {
-          result = conditon();
+        } else if (typeof condition === 'string') {
+          result = document.querySelector(condition);
+        } else if (typeof condition === 'function') {
+          result = condition();
         } else {
           return;
         }
@@ -469,6 +343,29 @@
     export: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" /></svg>',
   };
 
+  const messageKey = {
+    textSelection: {
+      message: 'selection',
+      type: 'textselection',
+    },
+    websiteLink: {
+      message: 'link url',
+      type: 'websitelink',
+    },
+    pageUrl: {
+      message: 'page url',
+      type: 'pageurl',
+    },
+    webpageTitle: {
+      message: 'page title',
+      type: 'webpagetitle',
+    },
+    elementSource: {
+      message: 'src url',
+      type: 'elementsource',
+    },
+  };
+
   const langs = {
     general: gnoh.i18n.getMessage('General'),
     quickCommands: gnoh.i18n.getMessage('Quick Commands'),
@@ -480,21 +377,27 @@
     update: gnoh.i18n.getMessage('Update'),
     preview: gnoh.i18n.getMessage('Preview'),
     commandParameter: gnoh.i18n.getMessage('Command Parameter', 'chainedcommand'),
+    textSelection: gnoh.i18n.getMessage(messageKey.textSelection.message, messageKey.textSelection.type),
+    websiteLink: gnoh.i18n.getMessage(messageKey.websiteLink.message, messageKey.websiteLink.type),
+    pageUrl: gnoh.i18n.getMessage(messageKey.pageUrl.message, messageKey.pageUrl.type),
+    webpageTitle: gnoh.i18n.getMessage(messageKey.webpageTitle.message, messageKey.webpageTitle.type),
+    elementSource: gnoh.i18n.getMessage(messageKey.elementSource.message, messageKey.elementSource.type),
   };
 
+
+  const placeholdersCurrent = Object.keys(messageKey).map(key => langs[key].replace(/\s/g, '_'));
+  const placeholdersEn = Object.values(messageKey).map(m => m.message.replace(/\s/g, '_'));
+
   gnoh.addStyle([
+    '.import-export-command-chains { --jsonKey: #0451a5; --jsonNumber: #098658; --jsonBool: #0000ff; --jsonString: #a31515; }',
+    '.theme-dark .import-export-command-chains { --jsonKey: #9cdcfe; --jsonNumber: #b5cea8; --jsonBool: #569cd6; --jsonString: #ce9178; }',
     '.import-export-command-chains input[type="file"]::file-selector-button { border: 0px; border-right: 1px solid var(--colorBorder); height: 28px; padding: 0 18px; color: var(--colorFg); background: linear-gradient(var(--colorBgLightIntense) 0%, var(--colorBg) 100%); margin-right: 18px; }',
     '.import-export-command-chains input[type="file"]::file-selector-button:hover { background: linear-gradient(var(--colorBg), var(--colorBg)); }',
     '.import-export-command-chains .editor { width: 100%; height: 300px; overflow: auto; white-space: pre-wrap; word-break: break-word; background-color: var(--colorBgIntense); color: var(--colorFg); user-select: text; border-radius: var(--radius); border: 1px solid var(--colorBorder); font-size: 13px; font-family: monospace; line-height: 1.3; tab-size: 2; padding: 6px; }',
-    '.import-export-command-chains .editor::highlight(json-key) { color: #0451a5; }',
-    '.import-export-command-chains .editor::highlight(json-number) { color: #098658; }',
-    '.import-export-command-chains .editor::highlight(json-bool) { color: #0000ff; }',
-    '.import-export-command-chains .editor::highlight(json-string) { color: #a31515; }',
-    '.theme-dark .import-export-command-chains .editor::highlight(json-key) { color: #9cdcfe; }',
-    '.theme-dark .import-export-command-chains .editor::highlight(json-number) { color: #b5cea8; }',
-    '.theme-dark .import-export-command-chains .editor::highlight(json-bool) { color: #569cd6; }',
-    '.theme-dark .import-export-command-chains .editor::highlight(json-string) { color: #ce9178; }',
-    '.import-export-command-chains .export.master-detail { max-height: 335px; height: auto; }',
+    '.import-export-command-chains .editor::highlight(json-key) { color: var(--jsonKey); }',
+    '.import-export-command-chains .editor::highlight(json-number) { color: var(--jsonNumber); }',
+    '.import-export-command-chains .editor::highlight(json-bool) { color: var(--jsonBool); }',
+    '.import-export-command-chains .editor::highlight(json-string) { color: var(--jsonString); }',
     '.import-export-command-chains .chained-command-item-value { background-color: var(--colorBgIntense); padding: 6px 12px; white-space: nowrap; overflow: auto; scrollbar-width: none; user-select: text; }',
   ], 'import-export-command-chains');
 
@@ -522,17 +425,17 @@
   async function getCommands() {
     const response = await fetch(chrome.runtime.getURL('bundle.js'));
     const bundleScript = await response.text();
-    const matches = Array.from(bundleScript.matchAll(/name\s*:\s*"([^"]+)",[\s\S]+?guid\s*:\s*"([^"]+)",[\s\S]+?\("(([^"]+)"\s*,\s*")?([^"]+)"\)/g));
+    const matches = Array.from(bundleScript.matchAll(/category\s*:\s*"([^"]+)",[\s\S]+?guid\s*:\s*"([^"]+)",[\s\S]+?\("(([^"]+)"\s*,\s*")?([^"]+)"\)/g));
 
     const commands = {};
     matches.forEach(match => {
       commands[match[2]] = {
-        name: match[1],
+        category: match[1],
         key: match[2],
         message: match[5],
         messageType: match[4],
         label: gnoh.i18n.getMessage(match[5], match[4]),
-      }
+      };
     });
 
     return commands;
@@ -621,6 +524,28 @@
     })
   }
 
+  function fixLanguageImport(commandChain) {
+    commandChain.chain.forEach(chain => {
+      if (chain.param && typeof chain.param === 'string') {
+        chain.param = chain.param.replace(
+          new RegExp('{(' + placeholdersEn.map(p => gnoh.encode.regex(p)).join('|') + ')}', 'gi'),
+          (match, p1) => '{' + placeholdersCurrent[placeholdersEn.findIndex(p => p === p1)] + '}',
+        );
+      }
+    });
+  }
+
+  function fixLanguageExport(commandChain) {
+    commandChain.chain.forEach(chain => {
+      if (chain.param && typeof chain.param === 'string') {
+        chain.param = chain.param.replace(
+          new RegExp('{(' + placeholdersCurrent.map(p => gnoh.encode.regex(p)).join('|') + ')}', 'gi'),
+          (match, p1) => '{' + placeholdersEn[placeholdersCurrent.findIndex(p => p === p1)] + '}',
+        );
+      }
+    });
+  }
+
   async function showDialogImport(commandChainText) {
     const p1 = gnoh.createElement('p', {
       class: 'info',
@@ -679,7 +604,7 @@
         }
 
         if (!commandChainText || !checkCommandChain(commandChainText)) {
-          gnoh.alert('Import failed');
+          gnoh.alert('Preview failed');
         } else {
           await showDialogPreview(commandChainText);
         }
@@ -704,8 +629,8 @@
       return;
     }
     const commandChain = await getCommandChainByKey(key);
+    fixLanguageExport(commandChain);
     const commandChainText = JSON.stringify(commandChain);
-    const commandChainUrl = URL.createObjectURL(new Blob([commandChainText], { type: 'application/json' }));
 
     const editor = createEditor({
       contentEditable: false,
@@ -727,11 +652,15 @@
           .replace(/[^\p{L}0-9-]/gu, '')
           .replace(/^-+|-+$/g, '') || key;
 
+        const commandChainUrl = URL.createObjectURL(new Blob([commandChainText], { type: 'application/json' }));
+
         chrome.downloads.download({
           url: commandChainUrl,
           filename: filename + '.json',
           saveAs: true,
         });
+
+        URL.revokeObjectURL(commandChainUrl);
       },
     });
 
@@ -809,6 +738,7 @@
     }
 
     const commandChain = JSON.parse(commandChainText);
+    fixLanguageImport(commandChain);
 
     const chainedCommand = createCommandChain(commandChain);
 
@@ -841,6 +771,7 @@
     let commandChain = null;
     try {
       commandChain = JSON.parse(commandChainText);
+      fixLanguageImport(commandChain);
     } catch (e) {
       return false;
     }
@@ -874,6 +805,8 @@
   }
 
   async function importCommandChain(commandChain) {
+    fixLanguageImport(commandChain);
+
     const commandList = await getCommandChains();
     const index = commandList.findIndex(c => c.key === commandChain.key);
 
@@ -941,6 +874,7 @@
             case 'check':
               if (checkCommandChain(info.data)) {
                 const data = JSON.parse(info.data);
+                fixLanguageImport(data);
                 try {
                   const commandChain = await getCommandChainByKey(data.key);
                   if (JSON.stringify(commandChain) === JSON.stringify(data)) {
@@ -1053,7 +987,7 @@
               if (info.type === messageType) {
                 switch (info.action) {
                   case 'change':
-                    buttonInstallElements.forEach(async buttonElement => {
+                    buttonInstallElements.forEach(async (buttonElement) => {
                       const status = await chrome.runtime.sendMessage({
                         type: messageType,
                         action: 'check',
@@ -1160,11 +1094,19 @@
     }
   });
 
-  gnoh.timeOut((main) => {
+  gnoh.timeOut(async () => {
     if (document.querySelector('#main > .webpageview')) {
       const menuItemQuickCommandsElement = getMenuItem(langs.quickCommands);
 
-      menuItemQuickCommandsElement.addEventListener('click', createSettings)
+      menuItemQuickCommandsElement.addEventListener('click', createSettings);
+    } else {
+      const tabs = await chrome.tabs.query({ active: true, windowId: vivaldiWindowId });
+      if (tabs.length) {
+        const tab = tabs[0];
+        if (tab.url === urls.quickCommands) {
+          createSettings();
+        }
+      }
     }
   }, '#main');
 })();

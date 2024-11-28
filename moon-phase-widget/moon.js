@@ -10,7 +10,7 @@
 // on a stationary install, or when using a VPN service, input your decimal
 // coordinates below. E.g. [latitude, longitude] for Reykjavík: [64.14, -21.89]
 
-const coordinates = [48.29, 16.32];
+const coordinates = [];
 
 // EDIT END
 
@@ -57,32 +57,42 @@ function schedule(events, em) {
   events.forEach((e, i, a) => {
     const li = document.createElement("li");
     let ind = "";
+    let ch = "";
     if (em.time === e.time) li.classList.add("main");
-    else if (i === 0 && em.time < e.time) ind = "before";
-    else if (
+    else if (i === 0 && em.time < e.time) {
+      ind = "before";
+      ch = arrow;
+    } else if (
       (i === a.length - 1 && em.time > e.time) ||
       (em.time > e.time && em.time < a[i + 1].time)
     ) {
       ind = "after";
+      ch = arrow;
     }
-    li.innerHTML = `<span class=${ind}>${e.time}</span><span>${e.phen}</span>`;
+    li.innerHTML = `<div class="contain"><span class=${ind}>${ch}</span></div><span>${e.time}</span><span></span><span>${e.phen}</span><span></span>`;
     em.events.appendChild(li);
   });
 }
 
+function calc_ry(p, i) {
+  return p.includes("Crescent") ? 250 - 5 * i : i * 5 - 250;
+}
+
 function parse(data, em) {
   const prop = data.properties.data;
-  const cp = prop.closestphase;
-  const diff =
-    Math.max(em.timestamp, cp.timestamp) - Math.min(em.timestamp, cp.timestamp);
-  const phase = diff < 86400 ? cp.phase : prop.curphase;
   const progress = lunation.progress(em);
+  const phase = prop.curphase;
   em.phase.innerHTML = `${phase}<br><b>${progress}%</b>`;
   const svg = prop.moon.find((entry) => entry.hasOwnProperty(phase));
-  const lat = data.geometry.coordinates[1];
-  em.mod.setAttribute("y", Object.values(svg)[0][0]);
-  em.mod.setAttribute("height", Object.values(svg)[0][1]);
-  em.mod.setAttribute("transform", `rotate(${lat})`);
+  const ry = Object.values(svg)[0][2];
+  const illum = ry === 1 ? calc_ry(phase, parseFloat(prop.fracillum)) : ry;
+  em.rec.setAttribute("y", Object.values(svg)[0][0]);
+  em.rec.setAttribute("fill", Object.values(svg)[0][1]);
+  em.ell.setAttribute("ry", illum);
+  em.ell.setAttribute("fill", Object.values(svg)[0][3]);
+  em.angle.forEach((el) => {
+    el.setAttribute("transform", `rotate(${data.geometry.coordinates[1]})`);
+  });
   schedule(prop.events, em);
   em.container.classList.remove("hidden");
 }
@@ -117,8 +127,6 @@ function storage(data, em) {
   const month = String(cp.month).padStart(2, "0");
   const day = String(cp.day).padStart(2, "0");
   const date_string = `${cp.year}-${month}-${day}`;
-  const time_string = `${date_string}T${cp.time}`;
-  cp.timestamp = Math.floor(new Date(time_string).getTime() / 1000);
   const events = edit(prop.moondata, "Moon").concat(edit(prop.sundata, "Sun"));
   if (date_string === em.date) {
     prop.curphase = cp.phase;
@@ -129,14 +137,14 @@ function storage(data, em) {
     if (a.time !== null) return a.time.localeCompare(b.time);
   });
   prop.moon = [
-    { "New Moon": [-5, 0] },
-    { "Waxing Crescent": [-5, 3] },
-    { "First Quarter": [-5, 5] },
-    { "Waxing Gibbous": [-5, 7] },
-    { "Full Moon": [-5, 10] },
-    { "Waning Gibbous": [-2, 7] },
-    { "Last Quarter": [0, 5] },
-    { "Waning Crescent": [2, 3] },
+    { "New Moon": [0, "black", 0, "black"] },
+    { "Waxing Crescent": [-250, "white", 1, "black"] },
+    { "First Quarter": [-250, "white", 0, "black"] },
+    { "Waxing Gibbous": [-250, "white", 1, "white"] },
+    { "Full Moon": [0, "white", 250, "white"] },
+    { "Waning Gibbous": [0, "white", 1, "white"] },
+    { "Last Quarter": [0, "white", 0, "black"] },
+    { "Waning Crescent": [0, "white", 1, "black"] },
   ];
   return data;
 }
@@ -217,7 +225,9 @@ function init() {
   const minutes = String(now.getMinutes()).padStart(2, "0");
   const elements = {
     container: document.getElementById("container"),
-    mod: document.getElementById("mod"),
+    ell: document.getElementById("ell"),
+    rec: document.getElementById("rec"),
+    angle: document.querySelectorAll(".angle"),
     phase: document.getElementById("phase"),
     events: document.getElementById("events"),
     date: now.toLocaleDateString("en-ca"),
@@ -228,6 +238,7 @@ function init() {
   check_storage(elements);
 }
 
+const arrow = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="0.8575em" viewBox="0 0 511.6 438.71" fill="currentColor"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>`;
 init();
 const reload = document.getElementById("reload");
 reload.addEventListener("click", () => {

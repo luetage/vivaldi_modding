@@ -10,45 +10,36 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
 <head>
   <title>Moon Phase</title>
   <meta name="content-type" content="text/html; charset=UTF-8" />
-  <meta name="color-scheme" content="light dark">
   <link rel="stylesheet" href="moon.css">
 </head>
 
 <body>
   <button id="reload" title="Reload">
-    <svg width="4ch" height="4ch" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g opacity="1">
-        <g clip-path="url(#clip0_158_368)">
-          <path d="M6.66663 8.66669V12.6667H10.6666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round"></path>
-          <path
-            d="M8.33996 16C8.77222 17.2269 9.59152 18.2801 10.6744 19.0009C11.7573 19.7217 13.0451 20.0711 14.3438 19.9963C15.6425 19.9216 16.8817 19.4268 17.8747 18.5865C18.8677 17.7462 19.5608 16.606 19.8494 15.3376C20.1381 14.0692 20.0067 12.7413 19.475 11.5541C18.9434 10.3668 18.0403 9.38454 16.9018 8.75518C15.7634 8.12583 14.4512 7.88352 13.1631 8.06475C11.8749 8.24599 10.6806 8.84095 9.75996 9.76001L6.66663 12.6667"
-            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-        </g>
-      </g>
-      <defs>
-        <clipPath id="clip0_158_368">
-          <rect width="16" height="16" transform="translate(6 6)"></rect>
-        </clipPath>
-      </defs>
-    </svg> </button>
+    <svg width="2.3ch" height="2.3ch" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z" />
+    </svg>
+  </button>
   <div id="container" class="hidden">
     <div id="left">
-      <svg viewBox="-7.2 -7.2 14.4 14.4" xmlns="http://www.w3.org/2000/svg">
-        <g opacity="0.8">
-          <defs>
-            <clipPath id="cut">
-              <rect id="mod" x="-5" y="-5" width="10" height="0" transform="rotate(0)" />
-            </clipPath>
-          </defs>
-          <circle cx="0" cy="0" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5" />
-          <circle cx="0" cy="0" r="5" fill="currentColor" clip-path="url(#cut)" />
-        </g>
+      <svg viewBox="-310 -310 620 620" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="circle">
+            <circle cx="0" cy="0" r="250" />
+          </clipPath>
+          <mask id="cut">
+            <rect id="rec" x="-250" y="0" width="500" height="250" fill="black" />
+            <ellipse id="ell" cx="0" cy="0" rx="250" ry="0" fill="black" />
+          </mask>
+        </defs>
+        <circle id="outer" cx="0" cy="0" r="280" fill="none" stroke="currentColor" stroke-width="60" stroke-opacity="0.3" />
+        <circle id="inner" class="angle" cx="0" cy="0" r="250" fill="currentColor" transform="rotate(0)" mask="url(#cut)" opacity="0.8" />
+        <image class="angle" href="moon-alpha.jpg" x="-250" y="-250" width="500" height="500" transform="rotate(0)" clip-path="url(#circle)" mask="url(#cut)" opacity="0.3" pointer-events="none" />
       </svg>
       <p id="phase"></p>
     </div>
     <div id="right">
-      <ul id="events">
+      <ul id="events" tabindex=-1>
       </ul>
     </div>
   </div>
