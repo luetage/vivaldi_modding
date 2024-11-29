@@ -12774,10 +12774,6 @@ const data = [
     author: "Jack Benny",
   },
   {
-    quote: "I don’t do it for the money.",
-    author: "Donald Trump, Art of the Deal",
-  },
-  {
     quote: "I don’t drink, I don’t like it, it makes me feel too good.",
     author: "K. Coates",
   },
@@ -37894,9 +37890,6 @@ const data = [
     quote:
       "When in doubt, have a man come through the door with a gun in his hand.",
     author: "Raymond Chandler",
-  },
-  {
-    quote: "When in doubt, lead trump.",
   },
   {
     quote:

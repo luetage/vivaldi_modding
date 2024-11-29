@@ -46,8 +46,14 @@ const lunation = {
   progress: (em) => {
     const ln = lunation.newmoon;
     for (let i = 0; i < ln.length; i++) {
-      if (em.timestamp >= ln[i])
-        return Math.trunc(((em.timestamp - ln[i]) / (ln[i + 1] - ln[i])) * 100);
+      if (em.timestamp >= ln[i]) {
+        const lunation = ln[i + 1] - ln[i];
+        const frac = (em.timestamp - ln[i]) / lunation;
+        return {
+          pct: Math.trunc(frac * 100),
+          days: Math.trunc((lunation / 86400)* frac),
+        };
+      }
     }
   },
 };
@@ -82,7 +88,7 @@ function parse(data, em) {
   const prop = data.properties.data;
   const progress = lunation.progress(em);
   const phase = prop.curphase;
-  em.phase.innerHTML = `${phase}<br><b>${progress}%</b>`;
+  em.phase.innerHTML = `${phase}<br><strong>${progress.pct}%</strong>`;
   const svg = prop.moon.find((entry) => entry.hasOwnProperty(phase));
   const ry = Object.values(svg)[0][2];
   const illum = ry === 1 ? calc_ry(phase, parseFloat(prop.fracillum)) : ry;
@@ -93,6 +99,8 @@ function parse(data, em) {
   em.angle.forEach((el) => {
     el.setAttribute("transform", `rotate(${data.geometry.coordinates[1]})`);
   });
+  const age = progress.days === 1 ? `${progress.days} day` : `${progress.days} days`;
+  em.stats.innerHTML = `<p>Lunar age<br><strong>${age}, ${progress.pct}%</strong><br>Illumination<br><strong>${prop.fracillum}</strong><br>Coordinates<br><strong>${data.geometry.coordinates[1].toFixed(2)}, ${data.geometry.coordinates[0].toFixed(2)}</strong></p>`;
   schedule(prop.events, em);
   em.container.classList.remove("hidden");
 }
@@ -229,6 +237,7 @@ function init() {
     rec: document.getElementById("rec"),
     angle: document.querySelectorAll(".angle"),
     phase: document.getElementById("phase"),
+    stats: document.getElementById("stats"),
     events: document.getElementById("events"),
     date: now.toLocaleDateString("en-ca"),
     time: `${hours}:${minutes}`,
