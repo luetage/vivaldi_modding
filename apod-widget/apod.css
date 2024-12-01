@@ -14,7 +14,7 @@ a:focus-visible {
 html {
   container-type: normal;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "IBM Plex Sans",
-    Inter, "Fira Sans", Roboto, sans-serif;
+    Inter, Ubuntu, sans-serif;
   font-size: 100%;
   scrollbar-width: thin;
   scrollbar-color: color-mix(in oklab, var(--colorFg) 40%, transparent)

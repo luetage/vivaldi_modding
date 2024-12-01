@@ -8,8 +8,8 @@
 function typ(x) {
   const bold = /(?<!\*)\*\*(\w)([^*]*?\w)?\*\*(?!\*)/g;
   const italic = /(?<!\*)\*(\w)([^*]*?\w)?\*(?!\*)/g;
-  x = x.replace(bold, "<b>$1$2</b>");
-  x = x.replace(italic, "<i>$1$2</i>");
+  x = x.replace(bold, "<strong>$1$2</strong>");
+  x = x.replace(italic, "<em>$1$2</em>");
   x = x.replace(/---/g, "\u2014");
   x = x.replace(/--/g, "\u2013");
   x = x.replace(/(\d)-(\d)/g, "$1\u2013$2");

@@ -22,7 +22,7 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
   </button>
   <div id="container" class="hidden">
     <div id="left">
-      <svg viewBox="-310 -310 620 620" xmlns="http://www.w3.org/2000/svg">
+      <svg id="angle" viewBox="-310 -310 620 620" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="circle">
             <circle cx="0" cy="0" r="250" />
@@ -32,20 +32,27 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
             <ellipse id="ell" cx="0" cy="0" rx="250" ry="0" fill="black" />
           </mask>
         </defs>
+        <path id="circle-path" fill="none" d="M -265,0 A 265,265 0 0,1 265,0" />
+        <path id="circle-path2" fill="none" d="M -290,0 A 290,290 0 0,0 290,0" />
+        <text font-size="38" font-weight="600" fill="transparent" opacity="0.4">
+          <textPath id="ctext" href="#circle-path" startOffset="50%" text-anchor="middle">
+          </textPath>
+          <textPath id="ctext2" href="#circle-path2" startOffset="50%" text-anchor="middle">
+          </textPath>
+        </text>
         <circle id="outer" cx="0" cy="0" r="280" fill="none" stroke="currentColor" stroke-width="60"
           stroke-opacity="0.3" />
-        <circle id="inner" class="angle" cx="0" cy="0" r="250" fill="currentColor" transform="rotate(0)"
-          mask="url(#cut)" opacity="0.8" />
-        <image class="angle" href="moon.webp" x="-250" y="-250" width="500" height="500" transform="rotate(0)"
-          clip-path="url(#circle)" mask="url(#cut)" opacity="0.3" pointer-events="none" />
+        <circle id="inner" cx="0" cy="0" r="250" fill="currentColor" mask="url(#cut)" opacity="0.8" />
+        <image href="moon.webp" x="-250" y="-250" width="500" height="500" clip-path="url(#circle)" mask="url(#cut)"
+          opacity="0.3" pointer-events="none" />
       </svg>
       <p id="phase"></p>
     </div>
     <div id="right">
-      <p id="stats"> </p>
       <ul id="events" tabindex=-1> </ul>
     </div>
   </div>
+  <footer><span>Data from aa.usno.navy.mil</span></footer>
   <script src="moon.js"></script>
 </body>
 

@@ -6,7 +6,7 @@ Guide and updates ☛ https://forum.vivaldi.net/post/787840
 */
 html {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "IBM Plex Sans",
-    Inter, "Fira Sans", Roboto, sans-serif;
+    Inter, Ubuntu, sans-serif;
   font-size: 100%;
   font-weight: 400;
   scrollbar-width: thin;

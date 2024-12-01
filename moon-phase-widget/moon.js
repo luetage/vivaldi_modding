@@ -46,13 +46,10 @@ const lunation = {
   progress: (em) => {
     const ln = lunation.newmoon;
     for (let i = 0; i < ln.length; i++) {
-      if (em.timestamp >= ln[i]) {
+      if (em.timestamp >= ln[i] && em.timestamp < ln[i+1]) {
         const lunation = ln[i + 1] - ln[i];
         const frac = (em.timestamp - ln[i]) / lunation;
-        return {
-          pct: Math.trunc(frac * 100),
-          days: Math.trunc((lunation / 86400)* frac),
-        };
+        return Math.trunc(frac * 100)
       }
     }
   },
@@ -86,9 +83,17 @@ function calc_ry(p, i) {
 
 function parse(data, em) {
   const prop = data.properties.data;
+  const geo = data.geometry.coordinates;
   const progress = lunation.progress(em);
   const phase = prop.curphase;
-  em.phase.innerHTML = `${phase}<br><strong>${progress.pct}%</strong>`;
+  const spacing = phase.length / 4 + phase.length;
+  const num = prop.fracillum.length + String(progress).length + 9;
+  const spacing2 = num / 4 + num;
+  em.phase.innerHTML = `${phase}<br><strong>${progress}%</strong>`;
+  em.ctext.innerHTML = phase.toUpperCase();
+  em.ctext.setAttribute("textLength", `${spacing.toFixed(2)}ch`);
+  em.ctext2.innerHTML = `ILLUM ${parseFloat(prop.fracillum)} • LUN ${progress}`;
+  em.ctext2.setAttribute("textLength", `${spacing2.toFixed(2)}ch`);
   const svg = prop.moon.find((entry) => entry.hasOwnProperty(phase));
   const ry = Object.values(svg)[0][2];
   const illum = ry === 1 ? calc_ry(phase, parseFloat(prop.fracillum)) : ry;
@@ -96,12 +101,9 @@ function parse(data, em) {
   em.rec.setAttribute("fill", Object.values(svg)[0][1]);
   em.ell.setAttribute("ry", illum);
   em.ell.setAttribute("fill", Object.values(svg)[0][3]);
-  em.angle.forEach((el) => {
-    el.setAttribute("transform", `rotate(${data.geometry.coordinates[1]})`);
-  });
-  const age = progress.days === 1 ? `${progress.days} day` : `${progress.days} days`;
-  em.stats.innerHTML = `<p>Lunar age<br><strong>${age}, ${progress.pct}%</strong><br>Illumination<br><strong>${prop.fracillum}</strong><br>Coordinates<br><strong>${data.geometry.coordinates[1].toFixed(2)}, ${data.geometry.coordinates[0].toFixed(2)}</strong></p>`;
+  em.angle.setAttribute("transform", `rotate(${geo[1]})`);
   schedule(prop.events, em);
+  em.footer.innerHTML += `<span><strong>🖈</strong>&ensp;${geo[1]}, ${geo[0]}</span>`.replace(/-/, "\u2212");
   em.container.classList.remove("hidden");
 }
 
@@ -228,17 +230,19 @@ function check_storage(em) {
 }
 
 function init() {
-  const now = new Date();
+  const now = new Date("2025-09-15");
   const hours = String(now.getHours()).padStart(2, "0");
   const minutes = String(now.getMinutes()).padStart(2, "0");
   const elements = {
     container: document.getElementById("container"),
+    angle: document.getElementById("angle"),
+    ctext: document.getElementById("ctext"),
+    ctext2: document.getElementById("ctext2"),
     ell: document.getElementById("ell"),
     rec: document.getElementById("rec"),
-    angle: document.querySelectorAll(".angle"),
     phase: document.getElementById("phase"),
-    stats: document.getElementById("stats"),
     events: document.getElementById("events"),
+    footer: document.querySelector("footer"),
     date: now.toLocaleDateString("en-ca"),
     time: `${hours}:${minutes}`,
     tz: -now.getTimezoneOffset() / 60,
