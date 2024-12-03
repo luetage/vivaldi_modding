@@ -59,7 +59,7 @@ async function get_data(url) {
         reject({
           success: false,
           error: error.message,
-          message: "cannot load data :/",
+          message: "Connection error",
         });
       });
   });
@@ -94,7 +94,7 @@ const parse = async (data) => {
       set(data);
     },
     () => {
-      console.error(`cannot load image ${data.url}`);
+      console.error(`Could not load image ${data.url}`);
       em.media.src = "icons/noimage.jpg";
       set(data);
     }

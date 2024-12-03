@@ -43,7 +43,10 @@ body {
   margin: 0;
 }
 #error {
-  text-align: center;
+  font-size: 0.8rem;
+  margin-block-start: 0.6rem;
+  margin-block-end: unset;
+  margin-left: 0.6rem;
 }
 #container {
   width: fit-content;

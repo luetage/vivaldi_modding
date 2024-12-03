@@ -57,6 +57,14 @@ body {
   user-select: none;
   overflow: hidden;
 }
+#error {
+  font-size: 0.8rem;
+  text-align: center;
+  margin-block-start: 1rem;
+  margin-block-end: unset;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 #reload {
   display: flex;
   position: fixed;
@@ -149,6 +157,9 @@ footer {
   display: none;
 }
 @media (min-height: 180px) {
+  #error {
+    text-align: start;
+  }
   #reload, #right, #phase {
     display: none;
   }

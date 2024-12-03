@@ -103,7 +103,7 @@ function parse(data, em) {
   em.ell.setAttribute("fill", Object.values(svg)[0][3]);
   em.angle.setAttribute("transform", `rotate(${geo[1]})`);
   schedule(prop.events, em);
-  em.coor.innerHTML = `<strong>&#x1F588;</strong> ${geo[1]}, ${geo[0]}`.replace(/-/, "\u2212");
+  em.coor.innerHTML = `<strong>&#x1F588;</strong> ${geo[1]}, ${geo[0]}`.replace(/-/g, "\u2212");
   em.container.classList.remove("hidden");
   em.coor.parentElement.style.opacity = 1;
 }
@@ -172,14 +172,14 @@ async function load_data(url) {
         resolve({
           success: true,
           data: data,
-          message: "data loaded",
+          message: "Data loaded",
         });
       })
       .catch((error) => {
         reject({
           success: false,
           error: error.message,
-          message: "cannot load data :/",
+          message: "Connection error",
         });
       });
   });
@@ -196,8 +196,8 @@ async function astro(lat, lon, em) {
       parse(sto, em);
     },
     (reject) => {
-      em.container.innerHTML = reject.message;
-      em.container.classList.remove("hidden");
+      em.error.innerHTML = reject.message;
+      em.error.classList.remove("hidden");
     }
   );
 }
@@ -215,14 +215,15 @@ async function loc(em) {
           astro(resolve.data.lat, resolve.data.lon, em);
       },
       (reject) => {
-        em.container.innerHTML = reject.message;
-        em.container.classList.remove("hidden");
+        em.error.innerHTML = reject.message;
+        em.error.classList.remove("hidden");
       }
     );
   }
 }
 
 function check_storage(em) {
+  em.error.classList.add("hidden");
   const saved = JSON.parse(localStorage.getItem("moon-phase"));
   if (saved !== null && saved.date === em.date) {
     console.info(saved);
@@ -235,6 +236,7 @@ function init() {
   const hours = String(now.getHours()).padStart(2, "0");
   const minutes = String(now.getMinutes()).padStart(2, "0");
   const elements = {
+    error: document.getElementById("error"),
     container: document.getElementById("container"),
     angle: document.getElementById("angle"),
     ctext: document.getElementById("ctext"),
