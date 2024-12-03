@@ -1,5 +1,5 @@
 // Astronomy Picture of the Day Dashboard Widget
-// version 2024.11.0
+// version 2024.12.0
 // Guide and updates ☛ https://forum.vivaldi.net/post/783627
 // ————————  ⁂  ————————
 
@@ -31,7 +31,7 @@ async function load_image(data) {
       image_url = video_thumb(data.url);
       break;
     default:
-      image_url = "noimage.jpg";
+      image_url = "icons/noimage.jpg";
   }
   return new Promise((resolve) => {
     em.media.onload = () => resolve(`image loaded ${image_url}`);
@@ -95,7 +95,7 @@ const parse = async (data) => {
     },
     () => {
       console.error(`cannot load image ${data.url}`);
-      em.media.src = "noimage.jpg";
+      em.media.src = "icons/noimage.jpg";
       set(data);
     }
   );

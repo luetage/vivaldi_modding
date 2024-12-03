@@ -1,5 +1,5 @@
 // Moon Phase Widget
-// version 2024.11.0
+// version 2024.12.0
 // Guide and updates ☛ https://forum.vivaldi.net/post/783627
 // ————————  ⁂  ————————
 
@@ -92,7 +92,7 @@ function parse(data, em) {
   em.phase.innerHTML = `${phase}<br><strong>${progress}%</strong>`;
   em.ctext.innerHTML = phase.toUpperCase();
   em.ctext.setAttribute("textLength", `${spacing.toFixed(2)}ch`);
-  em.ctext2.innerHTML = `ILLUM ${parseFloat(prop.fracillum)} • LUN ${progress}`;
+  em.ctext2.innerHTML = `ILLUM ${parseFloat(prop.fracillum)} &#x2022; LUN ${progress}`;
   em.ctext2.setAttribute("textLength", `${spacing2.toFixed(2)}ch`);
   const svg = prop.moon.find((entry) => entry.hasOwnProperty(phase));
   const ry = Object.values(svg)[0][2];
@@ -103,8 +103,9 @@ function parse(data, em) {
   em.ell.setAttribute("fill", Object.values(svg)[0][3]);
   em.angle.setAttribute("transform", `rotate(${geo[1]})`);
   schedule(prop.events, em);
-  em.footer.innerHTML += `<span><strong>🖈</strong>&ensp;${geo[1]}, ${geo[0]}</span>`.replace(/-/, "\u2212");
+  em.coor.innerHTML = `<strong>&#x1F588;</strong> ${geo[1]}, ${geo[0]}`.replace(/-/, "\u2212");
   em.container.classList.remove("hidden");
+  em.coor.parentElement.style.opacity = 1;
 }
 
 function edit(arr, obj) {
@@ -230,7 +231,7 @@ function check_storage(em) {
 }
 
 function init() {
-  const now = new Date("2025-09-15");
+  const now = new Date();
   const hours = String(now.getHours()).padStart(2, "0");
   const minutes = String(now.getMinutes()).padStart(2, "0");
   const elements = {
@@ -242,7 +243,7 @@ function init() {
     rec: document.getElementById("rec"),
     phase: document.getElementById("phase"),
     events: document.getElementById("events"),
-    footer: document.querySelector("footer"),
+    coor: document.getElementById("coor"),
     date: now.toLocaleDateString("en-ca"),
     time: `${hours}:${minutes}`,
     tz: -now.getTimezoneOffset() / 60,

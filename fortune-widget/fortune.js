@@ -1,5 +1,5 @@
 // Fortune Widget
-// version 2024.10.1
+// version 2024.12.0
 // Guide and updates ☛ https://forum.vivaldi.net/post/787840
 // ————————  ⁂  ————————
 

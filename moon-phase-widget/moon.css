@@ -1,6 +1,6 @@
 /*
 Moon Phase Widget
-version 2024.11.0
+version 2024.12.0
 Guide and updates ☛ https://forum.vivaldi.net/post/783627
 ————————  ⁂  ————————
 */
@@ -155,18 +155,17 @@ footer {
   #container {
     height: calc(100vh - 3.06rem);
   }
-  svg {
+  #angle {
     height: calc(100% - 1rem);
-    width: calc(100% - 1rem);
-    margin: 0.5rem;
   }
   text {
     fill: var(--colorFg);
   }
   footer {
     display: flex;
-    padding: 0.3rem 1rem 1rem;
+    opacity: 0;
     justify-content: space-between;
+    padding: 0.3rem 1rem 1rem;
     font-size: 0.8rem;
     background: var(--bgalt);
     color: var(--fgalt);
