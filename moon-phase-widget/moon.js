@@ -46,10 +46,10 @@ const lunation = {
   progress: (em) => {
     const ln = lunation.newmoon;
     for (let i = 0; i < ln.length; i++) {
-      if (em.timestamp >= ln[i] && em.timestamp < ln[i+1]) {
+      if (em.timestamp >= ln[i] && em.timestamp < ln[i + 1]) {
         const lunation = ln[i + 1] - ln[i];
         const frac = (em.timestamp - ln[i]) / lunation;
-        return Math.trunc(frac * 100)
+        return Math.trunc(frac * 100);
       }
     }
   },
@@ -92,7 +92,9 @@ function parse(data, em) {
   em.phase.innerHTML = `${phase}<br><strong>${progress}%</strong>`;
   em.ctext.innerHTML = phase.toUpperCase();
   em.ctext.setAttribute("textLength", `${spacing.toFixed(2)}ch`);
-  em.ctext2.innerHTML = `ILLUM ${parseFloat(prop.fracillum)} &#x2022; LUN ${progress}`;
+  em.ctext2.innerHTML = `ILLUM ${parseFloat(
+    prop.fracillum
+  )} &#x2022; LUN ${progress}`;
   em.ctext2.setAttribute("textLength", `${spacing2.toFixed(2)}ch`);
   const svg = prop.moon.find((entry) => entry.hasOwnProperty(phase));
   const ry = Object.values(svg)[0][2];
@@ -103,9 +105,9 @@ function parse(data, em) {
   em.ell.setAttribute("fill", Object.values(svg)[0][3]);
   em.angle.setAttribute("transform", `rotate(${geo[1]})`);
   schedule(prop.events, em);
-  em.coor.innerHTML = `<strong>&#x1F588;</strong> ${geo[1]}, ${geo[0]}`.replace(/-/g, "\u2212");
+  em.coor.innerHTML = `${geo[1]}, ${geo[0]}`.replace(/-/g, "\u2212");
+  em.coor.parentElement.parentElement.style.opacity = 1;
   em.container.classList.remove("hidden");
-  em.coor.parentElement.style.opacity = 1;
 }
 
 function edit(arr, obj) {

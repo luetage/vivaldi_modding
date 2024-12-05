@@ -61,7 +61,7 @@ body {
   font-size: 0.8rem;
   text-align: center;
   margin-block-start: 1rem;
-  margin-block-end: unset;
+  margin-block-end: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
 }
@@ -74,7 +74,6 @@ body {
   background-color: transparent;
   border-color: transparent;
   border-radius: var(--radius);
-  align-items: center;
   color: var(--fgalt);
 }
 #reload:hover {
@@ -139,8 +138,8 @@ li {
 .contain {
   position: relative;
 }
-.after,
-.before {
+.before,
+.after {
   position: absolute;
   color: var(--colorHighlightBg);
 }
@@ -160,14 +159,17 @@ footer {
   #error {
     text-align: start;
   }
-  #reload, #right, #phase {
+  #reload,
+  #right,
+  #phase {
     display: none;
   }
   #container {
     height: calc(100vh - 3.06rem);
   }
   #angle {
-    height: calc(100% - 1rem);
+    width: calc(100vw - 1rem);
+    margin: 0.3rem 0;
   }
   text {
     fill: var(--colorFg);
@@ -180,5 +182,9 @@ footer {
     font-size: 0.8rem;
     background: var(--bgalt);
     color: var(--fgalt);
+  }
+  #map-pin {
+    height: 0.8rem;
+    vertical-align: middle;
   }
 }

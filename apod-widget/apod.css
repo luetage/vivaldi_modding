@@ -45,8 +45,9 @@ body {
 #error {
   font-size: 0.8rem;
   margin-block-start: 0.6rem;
-  margin-block-end: unset;
+  margin-block-end: 1rem;
   margin-left: 0.6rem;
+  margin-right: 0.6rem
 }
 #container {
   width: fit-content;
@@ -78,11 +79,15 @@ a {
 summary {
   list-style: none;
 }
-summary::after {
-  content: " \25b6";
+summary svg {
+  width: 0.8em;
+  height: 0.8em;
+  stroke-width: 3.5;
+  transform: rotate(90deg);
+  vertical-align: middle;
 }
-details[open] summary::after {
-  content: " \25bc";
+details[open] summary svg {
+  transform: rotate(180deg);
 }
 #explanation {
   margin: 0.4rem auto 1.6rem;

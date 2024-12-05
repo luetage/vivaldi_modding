@@ -36,3 +36,7 @@ footer {
   padding: 0.8rem 0 1rem;
   user-select: none;
 }
+svg {
+  fill: var(--colorFg);
+  height: 1rem;
+}

@@ -17,9 +17,10 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
 <body>
   <p id="error" class="hidden"></p>
   <button id="reload" title="Reload">
-    <svg width="2.3ch" height="2.3ch" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M125.7 160l50.3 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L48 224c-17.7 0-32-14.3-32-32L16 64c0-17.7 14.3-32 32-32s32 14.3 32 32l0 51.2L97.6 97.6c87.5-87.5 229.3-87.5 316.8 0s87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3s-163.8-62.5-226.3 0L125.7 160z" />
+    <svg xmlns="http://www.w3.org/2000/svg" width="2.3ch" height="2.3ch" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="1 4 1 10 7 10"></polyline>
+      <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
     </svg>
   </button>
   <div id="container" class="hidden">
@@ -45,8 +46,8 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
         <circle id="outer" cx="0" cy="0" r="280" fill="none" stroke="currentColor" stroke-width="60"
           stroke-opacity="0.3" />
         <circle id="inner" cx="0" cy="0" r="250" fill="currentColor" mask="url(#cut)" opacity="0.8" />
-        <image href="icons/moon.webp" x="-250" y="-250" width="500" height="500" clip-path="url(#circle)" mask="url(#cut)"
-          opacity="0.3" pointer-events="none" />
+        <image href="icons/moon.webp" x="-250" y="-250" width="500" height="500" clip-path="url(#circle)"
+          mask="url(#cut)" opacity="0.3" pointer-events="none" />
       </svg>
       <p id="phase"></p>
     </div>
@@ -55,7 +56,15 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
     </div>
   </div>
   <footer>
-    <span>Data from aa.usno.navy.mil</span><span id="coor"></span>
+    <span>Data from aa.usno.navy.mil</span>
+    <span>
+      <svg id="map-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      <span id="coor"></span>
+    </span>
   </footer>
   <script src="moon.js"></script>
 </body>

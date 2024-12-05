@@ -40,9 +40,8 @@ body {
   width: 90vw;
 }
 svg circle {
-  r: 28px;
   opacity: 0.3;
 }
-.one {
+svg circle.one {
   opacity: 0.8;
 }

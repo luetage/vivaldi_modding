@@ -15,6 +15,7 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
 </head>
 
 <body>
+  <p id="error" class="hidden"></p>
   <div id="container" class="hidden">
     <h1><strong id="title"></strong></h1>
     <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank">
@@ -22,17 +23,28 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
     </a>
     <div id="text">
       <details>
-        <summary><strong>date </strong><span id="date" </span></summary>
+        <summary>
+          <strong>date </strong><span id="date"></span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          </svg>
+        </summary>
         <input id="set_date" type="date" min="1995-06-16" onclick="this.showPicker()" />
       </details>
       <div><strong>copyright </strong><span id="copyright"></span></div>
       <details>
-        <summary><strong>explanation</strong></summary>
+        <summary>
+          <strong>explanation</strong>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          </svg>
+        </summary>
         <p id="explanation"></p>
       </details>
     </div>
   </div>
-  <p id="error" class="hidden"></p>
   <script src="apod.js"></script>
 </body>
 
