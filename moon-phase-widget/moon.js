@@ -1,6 +1,6 @@
 // Moon Phase Widget
 // version 2024.12.0
-// Guide and updates ☛ https://forum.vivaldi.net/post/783627
+// Guide and updates ☛ https://forum.vivaldi.net/post/798319
 // ————————  ⁂  ————————
 
 "use strict";
