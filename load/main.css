@@ -120,3 +120,20 @@
 button.HUD {
   display: none;
 }
+
+/* extensions drop-down menu */
+.extensionIconPopupMenu > .toolbar {
+  overflow: hidden auto;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+.extensionIconPopupMenu .ExtensionDropdownIcon > button {
+  justify-content: flex-start;
+  padding: 0.5rem;
+}
+.extensionIconPopupMenu .ExtensionDropdownIcon > button::after {
+  content: attr(title);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
