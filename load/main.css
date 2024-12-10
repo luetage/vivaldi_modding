@@ -122,6 +122,9 @@ button.HUD {
 }
 
 /* extensions drop-down menu */
+.extensionIconPopupMenu {
+  --popupWidth: fit-content !important;
+}
 .extensionIconPopupMenu > .toolbar {
   overflow: hidden auto;
   flex-direction: column;

@@ -26047,7 +26047,7 @@ const data = [
   },
   {
     quote:
-      "Q:  What is purple and concord the world?\nA:  Alexander the Grape.",
+      "Q:  What is purple and conquered the world?\nA:  Alexander the Grape.",
   },
   {
     quote:
