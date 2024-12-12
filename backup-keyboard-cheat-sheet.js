@@ -2,7 +2,7 @@
 // version 2024.4.5
 // https://forum.vivaldi.net/post/745999
 // Writes the contents of the keyboard cheat sheet to your clipboard in markdown
-// format. Open keyboard cheat sheet popup, open user interface console, paste
+// format. Open user interface console, open keyboard cheat sheet popup, paste
 // code and hit Enter to execute.
 
 const sheet = document.querySelector(".keyboardShortcutsWrapper");
