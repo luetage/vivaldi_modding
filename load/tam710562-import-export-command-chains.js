@@ -153,6 +153,130 @@
         return !str ? str : str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
       },
     },
+    getFormData(formElement) {
+      if (!formElement || formElement.nodeName !== 'FORM') {
+        return;
+      }
+
+      const data = {};
+
+      function setOrPush(key, value, isOnly) {
+        if (data.hasOwnProperty(key) && isOnly !== true) {
+          if (!Array.isArray(data[key])) {
+            data[key] = data[key] != null ? [data[key]] : [];
+          }
+          if (value != null) {
+            data[key].push(value);
+          }
+        } else {
+          data[key] = value;
+        }
+      }
+
+      const inputElements = Array.from(formElement.elements).filter((field) => {
+        if (field.name) {
+          switch (field.nodeName) {
+            case 'INPUT':
+              switch (field.type) {
+                case 'button':
+                case 'image':
+                case 'reset':
+                case 'submit':
+                  return false;
+              }
+              break;
+            case 'BUTTON':
+              return false;
+          }
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      if (inputElements.length === 0) {
+        return;
+      }
+
+      inputElements.forEach((field) => {
+        if (field.name) {
+          switch (field.nodeName) {
+            case 'INPUT':
+              switch (field.type) {
+                case 'color':
+                case 'email':
+                case 'hidden':
+                case 'password':
+                case 'search':
+                case 'tel':
+                case 'text':
+                case 'time':
+                case 'url':
+                case 'month':
+                case 'week':
+                  setOrPush(field.name, field.value);
+                  break;
+                case 'checkbox':
+                  if (field.checked) {
+                    setOrPush(field.name, field.value || field.checked);
+                  } else {
+                    setOrPush(field.name, null);
+                  }
+                  break;
+                case 'radio':
+                  if (field.checked) {
+                    setOrPush(field.name, field.value || field.checked, true);
+                  } else {
+                    setOrPush(field.name, null, true);
+                  }
+                  break;
+                case 'date':
+                case 'datetime-local':
+                  const date = new Date(field.value);
+                  if (isFinite(date)) {
+                    date.setTime(d.getTime() + d.getTimezoneOffset() * 60000);
+                    setOrPush(field.name, date);
+                  } else {
+                    setOrPush(field.name, null);
+                  }
+                  break;
+                case 'file':
+                  setOrPush(field.name, field.files);
+                  break;
+                case 'number':
+                case 'range':
+                  if (field.value && isFinite(Number(field.value))) {
+                    setOrPush(field.name, Number(field.value));
+                  } else {
+                    setOrPush(field.name, null);
+                  }
+                  break;
+              }
+              break;
+            case 'TEXTAREA':
+              setOrPush(field.name, field.value);
+              break;
+            case 'SELECT':
+              switch (field.type) {
+                case 'select-one':
+                  setOrPush(field.name, field.value);
+                  break;
+                case 'select-multiple':
+                  Array.from(field.options).forEach((option) => {
+                    if (option.selected) {
+                      setOrPush(field.name, option.value);
+                    } else {
+                      setOrPush(field.name, null);
+                    }
+                  });
+                  break;
+              }
+              break;
+          }
+        }
+      });
+      return data;
+    },
     dialog(title, content, buttons = [], config) {
       let modalBg;
       let dialog;
@@ -189,7 +313,7 @@
 
       function closeDialog(isCancel) {
         if (isCancel === true && cancelEvent) {
-          cancelEvent.bind(this)();
+          cancelEvent.bind(this)(gnoh.getFormData(dialog));
         }
         if (modalBg) {
           modalBg.remove();
@@ -212,7 +336,7 @@
           click(event) {
             event.preventDefault();
             if (typeof clickEvent === 'function') {
-              clickEvent.bind(this)();
+              clickEvent.bind(this)(gnoh.getFormData(dialog));
             }
             if (button.closeDialog !== false) {
               closeDialog();

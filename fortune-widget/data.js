@@ -31814,7 +31814,7 @@ const data = [
   },
   {
     quote:
-      "The only justification for our concepts and systems of concepts is\nthat they serve to represent the complex of our experiences;\nbeyond this they have not legitimacy.",
+      "The only justification for our concepts and systems of concepts is\nthat they serve to represent the complex of our experiences;\nbeyond this they have no legitimacy.",
     author: "Einstein",
   },
   {
