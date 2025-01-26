@@ -1,5 +1,5 @@
 // Backup Search Engines
-// version 2022.4.0
+// version 2025.1.0
 // https://forum.vivaldi.net/post/277594
 // Adds functionality to backup and restore search engines in
 // vivaldi://settings/search.
@@ -35,6 +35,7 @@
 
   function exec(collection) {
     vivaldi.searchEngines.getTemplateUrls((engines) => {
+      console.info(engines);
       const oldDefaults = [
         engines.defaultImage,
         engines.defaultPrivate,
@@ -50,8 +51,9 @@
         collection.defaultSpeeddialsPrivate,
       ];
       engines.templateUrls.forEach((engine) => {
-        if (oldDefaults.indexOf(engine.id) === -1) {
-          vivaldi.searchEngines.removeTemplateUrl(engine.id);
+        console.info(engine.guid);
+        if (oldDefaults.indexOf(engine.guid) === -1) {
+          vivaldi.searchEngines.removeTemplateUrl(engine.guid);
         }
       });
       console.info("restoring search engines...");
@@ -59,9 +61,9 @@
       collection.templateUrls.forEach((collect) => {
         vivaldi.searchEngines.addTemplateUrl(collect, () => {
           console.info(` \u2022 ${collect.name}`);
-          if (newDefaults.indexOf(collect.id) > -1) {
+          if (newDefaults.indexOf(collect.guid) > -1) {
             const indeces = newDefaults
-              .map((e, i) => (e === collect.id ? i : ""))
+              .map((e, i) => (e === collect.guid ? i : ""))
               .filter(String);
             indeces.forEach((index) => {
               let ds;
