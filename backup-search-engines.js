@@ -35,7 +35,6 @@
 
   function exec(collection) {
     vivaldi.searchEngines.getTemplateUrls((engines) => {
-      console.info(engines);
       const oldDefaults = [
         engines.defaultImage,
         engines.defaultPrivate,
@@ -51,7 +50,6 @@
         collection.defaultSpeeddialsPrivate,
       ];
       engines.templateUrls.forEach((engine) => {
-        console.info(engine.guid);
         if (oldDefaults.indexOf(engine.guid) === -1) {
           vivaldi.searchEngines.removeTemplateUrl(engine.guid);
         }
