@@ -13,9 +13,9 @@
 #browser.linux input,
 #browser.linux select,
 #browser.linux textarea {
-  font-family: "Inter Variable", system-ui, sans-serif;
+  font-family: "Adwaita Sans", system-ui, sans-serif;
   /* round quotes and commas, lower-case L with tail, tabular numbers */
-  font-feature-settings: "ss03", "cv05", "tnum";
+  /* font-feature-settings: "ss03", "cv05", "tnum"; */
 }
 
 /* header */
