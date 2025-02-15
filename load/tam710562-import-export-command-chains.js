@@ -18,7 +18,7 @@
     },
     uuid: {
       check(id) {
-        return !/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(id);
+        return /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(id);
       },
       generate(ids) {
         let d = Date.now() + performance.now();
@@ -42,7 +42,7 @@
       merge(target, source) {
         let output = Object.assign({}, target);
         if (this.isObject(target) && this.isObject(source)) {
-          Object.keys(source).forEach(key => {
+          for (const key in source) {
             if (this.isObject(source[key])) {
               if (!(key in target))
                 Object.assign(output, { [key]: source[key] });
@@ -51,7 +51,7 @@
             } else {
               Object.assign(output, { [key]: source[key] });
             }
-          });
+          }
         }
         return output;
       },
@@ -105,22 +105,22 @@
           }
         }
       }
-      if (!!inner) {
+      if (inner) {
         if (!Array.isArray(inner)) {
           inner = [inner];
         }
-        for (let i = 0; i < inner.length; i++) {
-          if (inner[i].nodeName) {
-            el.append(inner[i]);
+        for (const element of inner) {
+          if (element.nodeName) {
+            el.append(element);
           } else {
-            el.append(this.createElementFromHTML(inner[i]));
+            el.append(this.createElementFromHTML(element));
           }
         }
       }
       if (typeof parent === 'string') {
         parent = document.querySelector(parent);
       }
-      if (!!parent) {
+      if (parent) {
         if (options.isPrepend) {
           parent.prepend(el);
         } else {
@@ -150,132 +150,8 @@
     },
     encode: {
       regex(str) {
-        return !str ? str : str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        return !str ? str : str.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
       },
-    },
-    getFormData(formElement) {
-      if (!formElement || formElement.nodeName !== 'FORM') {
-        return;
-      }
-
-      const data = {};
-
-      function setOrPush(key, value, isOnly) {
-        if (data.hasOwnProperty(key) && isOnly !== true) {
-          if (!Array.isArray(data[key])) {
-            data[key] = data[key] != null ? [data[key]] : [];
-          }
-          if (value != null) {
-            data[key].push(value);
-          }
-        } else {
-          data[key] = value;
-        }
-      }
-
-      const inputElements = Array.from(formElement.elements).filter((field) => {
-        if (field.name) {
-          switch (field.nodeName) {
-            case 'INPUT':
-              switch (field.type) {
-                case 'button':
-                case 'image':
-                case 'reset':
-                case 'submit':
-                  return false;
-              }
-              break;
-            case 'BUTTON':
-              return false;
-          }
-          return true;
-        } else {
-          return false;
-        }
-      });
-
-      if (inputElements.length === 0) {
-        return;
-      }
-
-      inputElements.forEach((field) => {
-        if (field.name) {
-          switch (field.nodeName) {
-            case 'INPUT':
-              switch (field.type) {
-                case 'color':
-                case 'email':
-                case 'hidden':
-                case 'password':
-                case 'search':
-                case 'tel':
-                case 'text':
-                case 'time':
-                case 'url':
-                case 'month':
-                case 'week':
-                  setOrPush(field.name, field.value);
-                  break;
-                case 'checkbox':
-                  if (field.checked) {
-                    setOrPush(field.name, field.value || field.checked);
-                  } else {
-                    setOrPush(field.name, null);
-                  }
-                  break;
-                case 'radio':
-                  if (field.checked) {
-                    setOrPush(field.name, field.value || field.checked, true);
-                  } else {
-                    setOrPush(field.name, null, true);
-                  }
-                  break;
-                case 'date':
-                case 'datetime-local':
-                  const date = new Date(field.value);
-                  if (isFinite(date)) {
-                    date.setTime(d.getTime() + d.getTimezoneOffset() * 60000);
-                    setOrPush(field.name, date);
-                  } else {
-                    setOrPush(field.name, null);
-                  }
-                  break;
-                case 'file':
-                  setOrPush(field.name, field.files);
-                  break;
-                case 'number':
-                case 'range':
-                  if (field.value && isFinite(Number(field.value))) {
-                    setOrPush(field.name, Number(field.value));
-                  } else {
-                    setOrPush(field.name, null);
-                  }
-                  break;
-              }
-              break;
-            case 'TEXTAREA':
-              setOrPush(field.name, field.value);
-              break;
-            case 'SELECT':
-              switch (field.type) {
-                case 'select-one':
-                  setOrPush(field.name, field.value);
-                  break;
-                case 'select-multiple':
-                  Array.from(field.options).forEach((option) => {
-                    if (option.selected) {
-                      setOrPush(field.name, option.value);
-                    } else {
-                      setOrPush(field.name, null);
-                    }
-                  });
-                  break;
-              }
-              break;
-          }
-        }
-      });
-      return data;
     },
     dialog(title, content, buttons = [], config) {
       let modalBg;
@@ -313,7 +189,7 @@
 
       function closeDialog(isCancel) {
         if (isCancel === true && cancelEvent) {
-          cancelEvent.bind(this)(gnoh.getFormData(dialog));
+          cancelEvent.bind(this)();
         }
         if (modalBg) {
           modalBg.remove();
@@ -336,7 +212,7 @@
           click(event) {
             event.preventDefault();
             if (typeof clickEvent === 'function') {
-              clickEvent.bind(this)(gnoh.getFormData(dialog));
+              clickEvent.bind(this)();
             }
             if (button.closeDialog !== false) {
               closeDialog();
@@ -397,7 +273,7 @@
       };
     },
     alert(message, okEvent) {
-      const buttonOkElement = Object.assign({}, this.constant.dialogButtons.submit, {
+      const buttonOkElement = this.object.merge(this.constant.dialogButtons.submit, {
         cancel: true,
       });
       if (typeof okEvent === 'function') {
@@ -465,6 +341,8 @@
   const icons = {
     import: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 15L17.55 9.54L16.13 8.13L13 11.25V2H11V11.25L7.88 8.13L6.46 9.55L12 15Z" /></svg>',
     export: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 12H4V17H20V12H22V17C22 18.11 21.11 19 20 19H4C2.9 19 2 18.11 2 17V12M12 2L6.46 7.46L7.88 8.88L11 5.75V15H13V5.75L16.13 8.88L17.55 7.45L12 2Z" /></svg>',
+    checkAll: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" /></svg>',
+    uncheckAll: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z" /></svg>',
   };
 
   const messageKey = {
@@ -522,6 +400,7 @@
     '.import-export-command-chains .editor::highlight(json-number) { color: var(--jsonNumber); }',
     '.import-export-command-chains .editor::highlight(json-bool) { color: var(--jsonBool); }',
     '.import-export-command-chains .editor::highlight(json-string) { color: var(--jsonString); }',
+    '.import-export-command-chains .export.master-detail { max-height: 335px; height: auto; }',
     '.import-export-command-chains .chained-command-item-value { background-color: var(--colorBgIntense); padding: 6px 12px; white-space: nowrap; overflow: auto; scrollbar-width: none; user-select: text; }',
   ], 'import-export-command-chains');
 
@@ -575,7 +454,7 @@
       return;
     }
 
-    const jsonNumbers = [...text.matchAll(/-?\d+\.?\d*((E|e)[\+]\d+)?/ig)].map((match) => {
+    const jsonNumbers = [...text.matchAll(/-?\d+\.?\d*((e)\+\d+)?/ig)].map((match) => {
       const range = new Range();
       range.setStart(element.firstChild, match.index);
       range.setEnd(element.firstChild, match.index + match[0].length);
@@ -616,14 +495,19 @@
   }
 
   function createEditor(attribute = {}, parent, inner, options) {
+    if (!attribute.events) {
+      attribute.events = {};
+    }
+
+    const inputEventOrigin = attribute.events.input;
+    attribute.events.input = function () {
+      inputEventOrigin?.apply(this, arguments);
+      setValue(this.textContent);
+    }
+
     const editor = gnoh.createElement('div', gnoh.object.merge({
       class: 'editor',
-      contentEditable: attribute.contentEditable === false ? false : 'plaintext-only',
-      events: {
-        input() {
-          setValue(this.textContent);
-        },
-      },
+      contentEditable: 'plaintext-only',
     }, attribute), parent, inner, options);
 
     function setValue(value) {
@@ -648,14 +532,16 @@
     })
   }
 
-  function fixLanguageImport(commandChain) {
-    commandChain.chain.forEach(chain => {
-      if (chain.param && typeof chain.param === 'string') {
-        chain.param = chain.param.replace(
-          new RegExp('{(' + placeholdersEn.map(p => gnoh.encode.regex(p)).join('|') + ')}', 'gi'),
-          (match, p1) => '{' + placeholdersCurrent[placeholdersEn.findIndex(p => p === p1)] + '}',
-        );
-      }
+  function fixLanguageImport(commandChains) {
+    commandChains.forEach((commandChain) => {
+      commandChain.chain.forEach(chain => {
+        if (chain.param && typeof chain.param === 'string') {
+          chain.param = chain.param.replace(
+            new RegExp('{(' + placeholdersEn.map(p => gnoh.encode.regex(p)).join('|') + ')}', 'gi'),
+            (match, p1) => '{' + placeholdersCurrent[placeholdersEn.findIndex(p => p === p1)] + '}',
+          );
+        }
+      });
     });
   }
 
@@ -670,21 +556,57 @@
     });
   }
 
-  async function showDialogImport(commandChainText) {
+  async function showDialogImport(commandChainsText) {
+    const buttonInputElement = gnoh.object.merge(gnoh.constant.dialogButtons.submit, {
+      label: langs.import,
+      disabled: true,
+      async click() {
+        await importCommandChains(JSON.parse(commandChainsText));
+        await reloadSetting();
+      },
+    });
+
+    const buttonPreviewElement = gnoh.object.merge(gnoh.constant.dialogButtons.submit, {
+      label: langs.preview,
+      disabled: true,
+      async click() {
+        await showDialogPreview(commandChainsText);
+      },
+    });
+
+    const buttonCancelElement = gnoh.object.merge(gnoh.constant.dialogButtons.cancel);
+
     const p1 = gnoh.createElement('p', {
       class: 'info',
       text: 'Import from code',
     });
 
-    const editor = createEditor();
+    const editor = createEditor({
+      events: {
+        input() {
+          commandChainsText = this.textContent.trim();
+          inputFile.value = '';
+
+          if (!commandChainsText || !checkCommandChains(commandChainsText)) {
+            buttonInputElement.element.disabled = true;
+            buttonPreviewElement.element.disabled = true;
+          } else {
+            buttonInputElement.element.disabled = false;
+            buttonPreviewElement.element.disabled = false;
+          }
+        }
+      }
+    });
 
     let p2 = null;
     let inputFile = null;
     const content = [p1, editor.editor];
 
-    if (commandChainText) {
+    if (commandChainsText) {
       editor.editor.contentEditable = false;
-      editor.setValue(commandChainText);
+      editor.setValue(commandChainsText);
+      buttonInputElement.disabled = false;
+      buttonPreviewElement.disabled = false;
     } else {
       p2 = gnoh.createElement('p', {
         class: 'info',
@@ -695,47 +617,24 @@
         name: 'file',
         type: 'file',
         accept: 'application/json',
+        events: {
+          async change() {
+            commandChainsText = await parseTextFile(this.files[0]);
+            editor.setValue('');
+
+            if (!commandChainsText || !checkCommandChains(commandChainsText)) {
+              buttonInputElement.element.disabled = true;
+              buttonPreviewElement.element.disabled = true;
+            } else {
+              buttonInputElement.element.disabled = false;
+              buttonPreviewElement.element.disabled = false;
+            }
+          }
+        }
       });
 
       content.push(p2, inputFile);
     }
-
-    const buttonInputElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
-      label: langs.import,
-      async click(data) {
-        if (editor.editor.textContent.trim()) {
-          commandChainText = editor.editor.textContent.trim();
-        } else if (data.file && data.file[0]) {
-          commandChainText = await parseTextFile(data.file[0]);
-        }
-
-        if (!commandChainText || !checkCommandChain(commandChainText)) {
-          gnoh.alert('Import failed');
-        } else {
-          await importCommandChain(JSON.parse(commandChainText));
-          await reloadSetting();
-        }
-      },
-    });
-
-    const buttonPreviewElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
-      label: langs.preview,
-      async click(data) {
-        if (editor.editor.textContent.trim()) {
-          commandChainText = editor.editor.textContent.trim();
-        } else if (data.file && data.file[0]) {
-          commandChainText = await parseTextFile(data.file[0]);
-        }
-
-        if (!commandChainText || !checkCommandChain(commandChainText)) {
-          gnoh.alert('Preview failed');
-        } else {
-          await showDialogPreview(commandChainText);
-        }
-      },
-    });
-
-    const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel);
 
     gnoh.dialog(
       'Import Command Chain',
@@ -752,29 +651,43 @@
     if (!key) {
       return;
     }
-    const commandChain = await getCommandChainByKey(key);
+    const commandList = await getCommandChains();
+    const commandChain = commandList.find(c => c.key === key);
     fixLanguageExport(commandChain);
-    const commandChainText = JSON.stringify(commandChain);
+    let commandChainText = JSON.stringify(commandChain);
+    let commandListChecked = {
+      [key]: commandChain,
+    };
 
-    const editor = createEditor({
-      contentEditable: false,
-      value: commandChainText,
-    });
-
-    const buttonCopyElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
+    const buttonCopyElement = gnoh.object.merge(gnoh.constant.dialogButtons.submit, {
       label: langs.copy,
       click: () => {
         navigator.clipboard.writeText(commandChainText);
       },
     });
 
-    const buttonExportElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
+    const buttonExportElement = gnoh.object.merge(gnoh.constant.dialogButtons.submit, {
       label: langs.export,
       click: () => {
-        const filename = commandChain.label.trim()
-          .replace(/\s+/g, '-').toLowerCase()
-          .replace(/[^\p{L}0-9-]/gu, '')
-          .replace(/^-+|-+$/g, '') || key;
+        const values = Object.values(commandListChecked);
+        let filename = '';
+
+        if (values.length > 1) {
+          const d = new Date();
+          const year = d.getFullYear();
+          const month = (d.getMonth() + 1).toString().padStart(2, '0');
+          const date = d.getDate().toString().padStart(2, '0');
+          const hour = d.getHours().toString().padStart(2, '0');
+          const minute = d.getMinutes().toString().padStart(2, '0');
+          const second = d.getSeconds().toString().padStart(2, '0');
+          const millisecond = d.getMilliseconds().toString().padStart(3, '0');
+          filename = `command-chains_${year}-${month}-${date}_${hour}${minute}${second}${millisecond}`;
+        } else {
+          filename = values[0].label.trim()
+            .replace(/\s+/g, '-').toLowerCase()
+            .replace(/[^\p{L}0-9-]/gu, '')
+            .replace(/(?:^-+)|(?:-+$)/g, '') || key;
+        }
 
         const commandChainUrl = URL.createObjectURL(new Blob([commandChainText], { type: 'application/json' }));
 
@@ -788,14 +701,142 @@
       },
     });
 
-    const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel);
+    const buttonCancelElement = gnoh.object.merge(gnoh.constant.dialogButtons.cancel);
+
+    const editor = createEditor({
+      contentEditable: false,
+      value: commandChainText,
+    });
+
+    const masterDetailWrapper = gnoh.createElement('div', {
+      class: 'export master-detail',
+    });
+
+    const master = gnoh.createElement('div', {
+      class: 'master master-layout-single',
+    }, masterDetailWrapper);
+
+    const masterDetail = gnoh.createElement('div', {
+      class: 'master-detail sortable-list',
+    }, master);
+
+    const masterItems = gnoh.createElement('div', {
+      class: 'master-items',
+      tabindex: 0,
+    }, masterDetail);
+
+    const checkboxes = [];
+
+    commandList.forEach(command => {
+      const item = gnoh.createElement('label', {
+        class: 'item',
+        tabindex: -1,
+        style: {
+          padding: '1px 6px',
+        },
+      }, masterItems, command.label);
+
+      const checkbox = gnoh.createElement('input', {
+        type: 'checkbox',
+        checked: command.key === key,
+        events: {
+          change: () => {
+            if (checkbox.checked) {
+              commandListChecked[command.key] = command;
+            } else {
+              delete commandListChecked[command.key];
+            }
+            const values = Object.values(commandListChecked);
+            if (values.length === 0) {
+              buttonCopyElement.element.disabled = true;
+              buttonExportElement.element.disabled = true;
+              commandChainText = '';
+            } else if (values.length === 1) {
+              buttonCopyElement.element.disabled = false;
+              buttonExportElement.element.disabled = false;
+              commandChainText = JSON.stringify(values[0]);
+            } else {
+              buttonCopyElement.element.disabled = false;
+              buttonExportElement.element.disabled = false;
+              commandChainText = JSON.stringify(values);
+            }
+            editor.setValue(commandChainText);
+          },
+        },
+      }, item, undefined, {
+        isPrepend: true,
+      });
+
+      checkboxes.push(checkbox);
+    });
+
+    const masterToolbar = gnoh.createElement('div', {
+      class: 'master-toolbar',
+    }, masterDetail);
+
+    const buttonToolbarExports = [
+      {
+        title: 'Check all',
+        html: icons.checkAll,
+        events: {
+          click: () => {
+            checkboxes.forEach(checkbox => checkbox.checked = true);
+            commandListChecked = commandList.reduce((previousValue, currentValue) => {
+              previousValue[currentValue.key] = currentValue;
+              return previousValue;
+            }, {});
+            const values = Object.values(commandListChecked);
+            if (values.length === 0) {
+              buttonCopyElement.element.disabled = true;
+              buttonExportElement.element.disabled = true;
+              commandChainText = '';
+            } else if (values.length === 1) {
+              buttonCopyElement.element.disabled = false;
+              buttonExportElement.element.disabled = false;
+              commandChainText = JSON.stringify(values[0]);
+            } else {
+              buttonCopyElement.element.disabled = false;
+              buttonExportElement.element.disabled = false;
+              commandChainText = JSON.stringify(values);
+            }
+            editor.setValue(commandChainText);
+          },
+        },
+      },
+      {
+        title: 'Uncheck all',
+        html: icons.uncheckAll,
+        events: {
+          click: () => {
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+            commandListChecked = {};
+            buttonCopyElement.element.disabled = true;
+            buttonExportElement.element.disabled = true;
+            commandChainText = '';
+            editor.setValue(commandChainText);
+          },
+        },
+      },
+    ];
+
+    buttonToolbarExports.forEach(button => {
+      const buttonToolbar = createButtonToolbar(button, masterToolbar);
+    });
+
+    const detail = gnoh.createElement('div', {
+      class: 'detail',
+    }, masterDetailWrapper);
+
+    const detailContent = gnoh.createElement('div', {
+      class: 'detail-content',
+    }, detail, [editor.editor]);
 
     gnoh.dialog(
       'Export Command Chain',
-      editor.editor,
+      masterDetailWrapper,
       [buttonCopyElement, buttonExportElement, buttonCancelElement],
       {
-        width: 500,
+        width: 750,
         class: 'import-export-command-chains',
       }
     );
@@ -839,48 +880,55 @@
     return chainedCommandItem;
   }
 
-  function createCommandChain(commandChain) {
-    const chainName = gnoh.createElement('div', {
-      class: 'chain-name',
-      text: commandChain.label,
-    });
+  function createCommandChains(commandChains) {
+    return commandChains.map((commandChain) => {
+      const chainName = gnoh.createElement('div', {
+        class: 'chain-name',
+        text: commandChain.label,
+      });
 
-    const chainedCommand = gnoh.createElement('div', {
-      class: 'ChainedCommand',
-    });
+      const chainedCommand = gnoh.createElement('div', {
+        class: 'ChainedCommand',
+      });
 
-    commandChain.chain.forEach((chain, index) => {
-      chainedCommand.append(createCommandChainItem(chain, index + 1));
-    });
+      commandChain.chain.forEach((chain, index) => {
+        chainedCommand.append(createCommandChainItem(chain, index + 1));
+      });
 
-    return [chainName, chainedCommand];
+      return [chainName, chainedCommand];
+    }).flat();
   }
 
-  async function showDialogPreview(commandChainText) {
-    if (!checkCommandChain(commandChainText)) {
+  async function showDialogPreview(commandChainsText) {
+    if (!checkCommandChains(commandChainsText)) {
       return;
     }
 
-    const commandChain = JSON.parse(commandChainText);
-    fixLanguageImport(commandChain);
+    let commandChains = JSON.parse(commandChainsText);
 
-    const chainedCommand = createCommandChain(commandChain);
+    if (!Array.isArray(commandChains)) {
+      commandChains = [commandChains];
+    }
 
-    const buttonInputElement = Object.assign({}, gnoh.constant.dialogButtons.submit, {
+    fixLanguageImport(commandChains);
+
+    const chainedCommand = createCommandChains(commandChains);
+
+    const buttonInputElement = gnoh.object.merge(gnoh.constant.dialogButtons.submit, {
       label: langs.import,
       async click() {
-        if (!commandChainText || !checkCommandChain(commandChainText)) {
+        if (!commandChainsText || !checkCommandChains(commandChainsText)) {
           gnoh.alert('Import failed');
         } else {
-          await importCommandChain(JSON.parse(commandChainText));
+          await importCommandChains(JSON.parse(commandChainsText));
           await reloadSetting();
         }
       },
     });
 
-    const buttonCancelElement = Object.assign({}, gnoh.constant.dialogButtons.cancel);
+    const buttonCancelElement = gnoh.object.merge(gnoh.constant.dialogButtons.cancel);
 
-    gnoh.dialog(
+    const dialog = gnoh.dialog(
       'Preview Command Chain',
       chainedCommand,
       [buttonInputElement, buttonCancelElement],
@@ -889,29 +937,34 @@
         class: 'import-export-command-chains',
       }
     );
+
+    dialog.modalBg.style.bottom = 0;
+    dialog.dialog.style.display = 'flex';
+    dialog.dialog.style.flexDirection = 'column';
+    dialog.dialog.style.maxHeight = '100%';
+    dialog.dialogContent.style.flex = '1';
   }
 
-  function checkCommandChain(commandChainText) {
-    let commandChain = null;
+  function checkCommandChains(commandChainsText) {
+    let commandChains = null;
     try {
-      commandChain = JSON.parse(commandChainText);
-      fixLanguageImport(commandChain);
+      commandChains = JSON.parse(commandChainsText);
     } catch (e) {
       return false;
     }
 
-    if (
-      commandChain.category !== 'CATEGORY_COMMAND_CHAIN'
-      || !Array.from(commandChain.chain)
-      || commandChain.chain.some(c => typeof c.key !== 'string' || gnoh.uuid.check(c.key))
-      || typeof commandChain.key !== 'string'
-      || typeof commandChain.label !== 'string'
-      || typeof commandChain.name !== 'string'
-    ) {
-      return false;
-    } else {
-      return true;
+    if (!Array.isArray(commandChains)) {
+      commandChains = [commandChains];
     }
+
+    return commandChains.every(
+      (commandChain) => commandChain.category === 'CATEGORY_COMMAND_CHAIN'
+        && Array.isArray(commandChain.chain)
+        && commandChain.chain.every(c => typeof c.key === 'string' && gnoh.uuid.check(c.key))
+        && typeof commandChain.key === 'string'
+        && typeof commandChain.label === 'string'
+        && typeof commandChain.name === 'string'
+    );
   }
 
   async function getCommandChains() {
@@ -928,17 +981,24 @@
     }
   }
 
-  async function importCommandChain(commandChain) {
-    fixLanguageImport(commandChain);
+  async function importCommandChains(commandChains) {
+    if (!Array.isArray(commandChains)) {
+      commandChains = [commandChains];
+    }
+
+    fixLanguageImport(commandChains);
 
     const commandList = await getCommandChains();
-    const index = commandList.findIndex(c => c.key === commandChain.key);
 
-    if (index === -1) {
-      commandList.push(commandChain);
-    } else {
-      commandList[index] = commandChain;
-    }
+    commandChains.forEach((commandChain) => {
+      const index = commandList.findIndex(c => c.key === commandChain.key);
+
+      if (index === -1) {
+        commandList.push(commandChain);
+      } else {
+        commandList[index] = commandChain;
+      }
+    })
 
     vivaldi.prefs.set({
       path: 'vivaldi.chained_commands.command_list',
@@ -996,18 +1056,43 @@
               showDialogImport(info.data);
               break;
             case 'check':
-              if (checkCommandChain(info.data)) {
-                const data = JSON.parse(info.data);
-                fixLanguageImport(data);
-                try {
-                  const commandChain = await getCommandChainByKey(data.key);
-                  if (JSON.stringify(commandChain) === JSON.stringify(data)) {
-                    sendResponse('installed');
-                  } else {
-                    sendResponse('update');
+              if (checkCommandChains(info.data)) {
+                let commandChains = JSON.parse(info.data);
+                if (!Array.isArray(commandChains)) {
+                  commandChains = [commandChains];
+                }
+
+                fixLanguageImport(commandChains);
+
+                const status = {
+                  installed: 0,
+                  update: 0,
+                  new: 0,
+                };
+
+                for (const commandChain of commandChains) {
+                  try {
+                    const commandChainOld = await getCommandChainByKey(commandChain.key);
+                    if (JSON.stringify(commandChainOld) === JSON.stringify(commandChain)) {
+                      status.installed++;
+                    } else {
+                      status.update++;
+                    }
+                  } catch {
+                    status.new++;
                   }
-                } catch {
-                  sendResponse('new');
+                }
+
+                switch (commandChains.length) {
+                  case status.installed:
+                    sendResponse('installed');
+                    break;
+                  case status.new:
+                    sendResponse('new');
+                    break;
+                  default:
+                    sendResponse('update');
+                    break;
                 }
               } else {
                 sendResponse('fail');
@@ -1065,7 +1150,7 @@
         }
         const commandList = await getCommandChains();
         const indexSelected = gnoh.element.getIndex(itemSelected);
-        return commandList[indexSelected] && commandList[indexSelected].key;
+        return commandList[indexSelected]?.key;
       }
 
       Object.values(buttons).forEach((button) => {
@@ -1134,24 +1219,28 @@
             }
 
             function updateButton(buttonElement, status) {
-              if (status === 'new') {
-                buttonElement.classList.add('btn-primary');
-                buttonElement.classList.remove('btn-secondary');
-                buttonElement.innerText = langs.install;
-                buttonElement.disabled = false;
-                buttonElement.addEventListener('click', onInstallClick);
-              } else if (status === 'update') {
-                buttonElement.classList.add('btn-primary');
-                buttonElement.classList.remove('btn-secondary');
-                buttonElement.innerText = langs.update;
-                buttonElement.disabled = false;
-                buttonElement.addEventListener('click', onInstallClick);
-              } else if (status === 'installed') {
-                buttonElement.classList.remove('btn-primary');
-                buttonElement.classList.add('btn-secondary');
-                buttonElement.innerText = langs.installed;
-                buttonElement.disabled = true;
-                buttonElement.removeEventListener('click', onInstallClick);
+              switch (status) {
+                case 'new':
+                  buttonElement.classList.add('btn-primary');
+                  buttonElement.classList.remove('btn-secondary');
+                  buttonElement.innerText = langs.install;
+                  buttonElement.disabled = false;
+                  buttonElement.addEventListener('click', onInstallClick);
+                  break;
+                case 'update':
+                  buttonElement.classList.add('btn-primary');
+                  buttonElement.classList.remove('btn-secondary');
+                  buttonElement.innerText = langs.update;
+                  buttonElement.disabled = false;
+                  buttonElement.addEventListener('click', onInstallClick);
+                  break;
+                case 'installed':
+                  buttonElement.classList.remove('btn-primary');
+                  buttonElement.classList.add('btn-secondary');
+                  buttonElement.innerText = langs.installed;
+                  buttonElement.disabled = true;
+                  buttonElement.removeEventListener('click', onInstallClick);
+                  break;
               }
             }
 
