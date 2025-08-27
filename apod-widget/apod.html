@@ -1,51 +1,46 @@
 <!--
 Astronomy Picture of the Day Dashboard Widget
-version 2024.12.0
+version 2025.7.0
 Guide and updates ☛ https://forum.vivaldi.net/post/783627
 ————————  ⁂  ————————
 -->
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <title>Astronomy Picture of the Day</title>
-  <meta name="content-type" content="text/html; charset=UTF-8" />
-  <link rel="icon" type="image/png" href="icons/favicon.png">
-  <link rel="stylesheet" href="apod.css">
-</head>
-
-<body>
-  <p id="error" class="hidden"></p>
-  <div id="container" class="hidden">
-    <h1><strong id="title"></strong></h1>
-    <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank">
-      <img id="media"></img>
-    </a>
-    <div id="text">
-      <details>
-        <summary>
-          <strong>date </strong><span id="date"></span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-          </svg>
-        </summary>
-        <input id="set_date" type="date" min="1995-06-16" onclick="this.showPicker()" />
-      </details>
-      <div><strong>copyright </strong><span id="copyright"></span></div>
-      <details>
-        <summary>
-          <strong>explanation</strong>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-          </svg>
-        </summary>
-        <p id="explanation"></p>
-      </details>
+  <head>
+    <title>Astronomy Picture of the Day</title>
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    <link rel="icon" type="image/png" href="icons/favicon.png">
+    <link rel="stylesheet" href="apod.css">
+  </head>
+  <body>
+    <p id="error" class="hidden"></p>
+    <div id="container" class="hidden">
+      <h1><strong id="title"></strong></h1>
+      <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank">
+        <img id="media">
+      </a>
+      <div id="text">
+        <details>
+          <summary>
+            <strong>date&#32;</strong><span id="date"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            </svg>
+          </summary>
+          <input id="set_date" type="date" min="1995-06-16" onclick="this.showPicker()">
+        </details>
+        <div><strong>copyright&#32;</strong><span id="copyright"></span></div>
+        <details>
+          <summary>
+            <strong>explanation</strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            </svg>
+          </summary>
+          <p id="explanation"></p>
+        </details>
+      </div>
     </div>
-  </div>
-  <script src="apod.js"></script>
-</body>
-
+    <script src="apod.js"></script>
+  </body>
 </html>

@@ -426,20 +426,24 @@
   const commands = await getCommands();
 
   async function getCommands() {
-    const response = await fetch(chrome.runtime.getURL('bundle.js'));
-    const bundleScript = await response.text();
-    const matches = Array.from(bundleScript.matchAll(/category\s*:\s*"([^"]+)",[\s\S]+?guid\s*:\s*"([^"]+)",[\s\S]+?\("(([^"]+)"\s*,\s*")?([^"]+)"\)/g));
-
     const commands = {};
-    matches.forEach(match => {
-      commands[match[2]] = {
-        category: match[1],
-        key: match[2],
-        message: match[5],
-        messageType: match[4],
-        label: gnoh.i18n.getMessage(match[5], match[4]),
-      };
-    });
+    try {
+      const response = await fetch(chrome.runtime.getURL('bundle.js'));
+      const bundleScript = await response.text();
+      const matches = Array.from(bundleScript.matchAll(/category\s*:\s*"([^"]+)",[\s\S]*?guid\s*:\s*"([^"]+)",[\s\S]*?\("(([^"]+)"\s*,\s*")?([^"]+)"\)/g));
+
+      matches.forEach(match => {
+        commands[match[2]] = {
+          category: match[1],
+          key: match[2],
+          message: match[5],
+          messageType: match[4],
+          label: gnoh.i18n.getMessage(match[5], match[4]),
+        };
+      });
+    } catch (error) {
+      console.error(error);
+    }
 
     return commands;
   }
@@ -960,7 +964,15 @@
     return commandChains.every(
       (commandChain) => commandChain.category === 'CATEGORY_COMMAND_CHAIN'
         && Array.isArray(commandChain.chain)
+<<<<<<< HEAD
         && commandChain.chain.every(c => typeof c.key === 'string' && gnoh.uuid.check(c.key))
+=======
+        && commandChain.chain.every(c =>
+          typeof c.key === 'string'
+          && (typeof c.label === 'undefined' || typeof c.label === 'string')
+          && (typeof c.name === 'undefined' || typeof c.name === 'string')
+        )
+>>>>>>> 33bf19d (update)
         && typeof commandChain.key === 'string'
         && typeof commandChain.label === 'string'
         && typeof commandChain.name === 'string'

@@ -22,7 +22,7 @@
       const getKeys = engines.templateUrls.map((e) => e.keyword);
       for (let i = 0; i < defaultsArray.length; i++) {
         const index = getKeys.lastIndexOf(defaultsArray[i][0]);
-        const id = engines.templateUrls[index].id.toString();
+        const id = engines.templateUrls[index].guid.toString();
         const ds = defaultsArray[i][1];
         vivaldi.searchEngines.setDefault(ds, id);
       }

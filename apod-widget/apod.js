@@ -1,5 +1,5 @@
 // Astronomy Picture of the Day Dashboard Widget
-// version 2024.12.0
+// version 2025.7.0
 // Guide and updates ☛ https://forum.vivaldi.net/post/783627
 // ————————  ⁂  ————————
 
@@ -34,8 +34,8 @@ async function load_image(data) {
       image_url = "icons/noimage.jpg";
   }
   return new Promise((resolve) => {
-    em.media.onload = () => resolve(`image loaded ${image_url}`);
-    em.media.src = image_url;
+    es.media.onload = () => resolve(`image loaded ${image_url}`);
+    es.media.src = image_url;
   });
 }
 
@@ -66,23 +66,23 @@ async function get_data(url) {
 }
 
 function set(data) {
-  em.title.innerHTML = data.title;
-  em.date.innerHTML = data.date;
-  em.set_date.value = data.date;
+  es.title.innerHTML = data.title;
+  es.date.innerHTML = data.date;
+  es.set_date.value = data.date;
   if ("copyright" in data) {
-    em.copyright.innerHTML = data.copyright.trim();
-    em.copyright.parentElement.classList.remove("hidden");
-  } else em.copyright.parentElement.classList.add("hidden");
-  em.explanation.innerHTML = data.explanation;
-  if (em.first_run === true) {
-    em.set_date.setAttribute("max", data.date);
-    em.container.classList.remove("hidden");
-    em.first_run = false;
+    es.copyright.innerHTML = data.copyright.trim();
+    es.copyright.parentElement.classList.remove("hidden");
+  } else es.copyright.parentElement.classList.add("hidden");
+  es.explanation.innerHTML = data.explanation;
+  if (es.first_run === true) {
+    es.set_date.setAttribute("max", data.date);
+    es.container.classList.remove("hidden");
+    es.first_run = false;
   } else {
     const mu = data.date.slice(2).replace(/-/g, "");
-    em.media.parentElement.setAttribute(
+    es.media.parentElement.setAttribute(
       "href",
-      `https://apod.nasa.gov/apod/ap${mu}.html`
+      `https://apod.nasa.gov/apod/ap${mu}.html`,
     );
   }
 }
@@ -95,17 +95,20 @@ const parse = async (data) => {
     },
     () => {
       console.error(`Could not load image ${data.url}`);
-      em.media.src = "icons/noimage.jpg";
+      es.media.src = "icons/noimage.jpg";
       set(data);
-    }
+    },
   );
 };
 
 const setup = async (data_url) => {
-  em.data_error.classList.add("hidden");
-  if (em.first_run === true) {
+  es.error.classList.add("hidden");
+  if (es.first_run === true) {
     const apod = JSON.parse(localStorage.getItem("apod"));
-    if (apod !== null && Date.now() - apod.timestamp < 7200000) {
+    if (
+      apod &&
+      (es.time < apod.next || es.time - apod.last_checked < 3600000)
+    ) {
       console.info(apod);
       parse(apod);
       return;
@@ -113,49 +116,54 @@ const setup = async (data_url) => {
   }
   await get_data(data_url).then(
     (resolve) => {
-      console.info(resolve);
-      if (em.first_run === true) {
+      if (es.first_run === true) {
         const storage = resolve.data;
-        storage.timestamp = Date.now();
+        storage.last_checked = es.time;
+        storage.next = new Date(storage.date).getTime() + 102600000;
         localStorage.setItem("apod", JSON.stringify(storage));
       }
+      console.info(resolve);
       parse(resolve.data);
     },
     (reject) => {
-      em.data_error.innerHTML = reject.message;
-      em.data_error.classList.remove("hidden");
-    }
+      es.error.innerHTML = reject.message;
+      es.error.classList.remove("hidden");
+    },
   );
 };
 
 const new_query = (event) => {
-  em.set_date.blur();
+  es.set_date.blur();
   const pick = event.target.value;
   const archive = `https://api.nasa.gov/planetary/apod?date=${pick}&api_key=${api_key}`;
   setup(archive);
 };
 
 function init() {
-  const elements = {
-    container: document.getElementById("container"),
-    title: document.getElementById("title"),
-    media: document.getElementById("media"),
-    text: document.getElementById("text"),
-    copyright: document.getElementById("copyright"),
-    explanation: document.getElementById("explanation"),
-    date: document.getElementById("date"),
-    set_date: document.getElementById("set_date"),
-    data_error: document.getElementById("error"),
+  const essentials = {
+    api_request: `https://api.nasa.gov/planetary/apod?api_key=${api_key}`,
     first_run: true,
+    time: Date.now(),
   };
-  elements.set_date.addEventListener("keydown", (e) => {
+  const elements = [
+    "container",
+    "copyright",
+    "date",
+    "error",
+    "explanation",
+    "media",
+    "set_date",
+    "text",
+    "title",
+  ];
+  elements.forEach((el) => (essentials[el] = document.getElementById(el)));
+  essentials.set_date.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") e.target.showPicker();
     else if (/^\d$/.test(e.key)) e.preventDefault();
   });
-  elements.set_date.addEventListener("change", new_query);
-  return elements;
+  essentials.set_date.addEventListener("change", new_query);
+  return essentials;
 }
 
-const api_request = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
-const em = init();
-setup(api_request);
+const es = init();
+setup(es.api_request);

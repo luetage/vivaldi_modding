@@ -10,6 +10,7 @@ of actively maintained mods. I do use these myself at the moment, so should you
 run into problems with any of them, please let me know by creating an issue, or
 by posting in the according topic on Vivaldi Forum.
 
+
 ## Actively maintained mods
 
 - [activate-tab-on-hover.js](activate-tab-on-hover.js)

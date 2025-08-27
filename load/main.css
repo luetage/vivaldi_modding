@@ -19,6 +19,9 @@
 }
 
 /* header */
+#header {
+  display: none;
+}
 .window-buttongroup {
   display: none !important;
 }
@@ -82,18 +85,12 @@
   fill: var(--colorHighlightFg);
 }
 
-/* status info */
-.StatusInfo .UrlFragments,
-.StatusInfo-Content {
-  color: var(--colorFgFaded);
-}
-
 /* panel container */
 #window-panel .vivaldi-tree .title.active::before {
   content: "⌑";
 }
 
-/* M3 */
+/* m3 */
 #mail_panel h1 {
   font-size: 0;
 }
@@ -102,13 +99,35 @@
   content: "M3";
 }
 
-/* clock feature */
-.ClockGraphic-Second-Hand {
-  fill: var(--colorHighlightBg);
+/* extensions drop-down menu */
+/* .extensionIconPopupMenu { */
+  /* --popupWidth: fit-content !important; */
+/* } */
+/* .extensionIconPopupMenu > .toolbar { */
+  /* overflow: hidden auto; */
+  /* flex-direction: column; */
+  /* flex-wrap: nowrap; */
+  /* align-items: stretch; */
+/* } */
+/* .extensionIconPopupMenu .ExtensionDropdownIcon > button { */
+  /* justify-content: flex-start; */
+  /* padding: 0.5rem; */
+/* } */
+/* .extensionIconPopupMenu .ExtensionDropdownIcon > button::after { */
+  /* content: attr(title); */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+/* } */
+
+/* vpn button */
+[name=VPNButton] svg {
+  color: var(--colormix);
 }
-.ClockPopup-Header,
-.ClockPopup-Passed {
-  display: none !important;
+
+/* status info */
+.StatusInfo .UrlFragments,
+.StatusInfo-Content {
+  color: var(--colorFgFaded);
 }
 
 /* startpage */
@@ -121,22 +140,3 @@ button.HUD {
   display: none;
 }
 
-/* extensions drop-down menu */
-.extensionIconPopupMenu {
-  --popupWidth: fit-content !important;
-}
-.extensionIconPopupMenu > .toolbar {
-  overflow: hidden auto;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: stretch;
-}
-.extensionIconPopupMenu .ExtensionDropdownIcon > button {
-  justify-content: flex-start;
-  padding: 0.5rem;
-}
-.extensionIconPopupMenu .ExtensionDropdownIcon > button::after {
-  content: attr(title);
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
