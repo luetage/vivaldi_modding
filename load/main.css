@@ -99,26 +99,6 @@
   content: "M3";
 }
 
-/* extensions drop-down menu */
-/* .extensionIconPopupMenu { */
-  /* --popupWidth: fit-content !important; */
-/* } */
-/* .extensionIconPopupMenu > .toolbar { */
-  /* overflow: hidden auto; */
-  /* flex-direction: column; */
-  /* flex-wrap: nowrap; */
-  /* align-items: stretch; */
-/* } */
-/* .extensionIconPopupMenu .ExtensionDropdownIcon > button { */
-  /* justify-content: flex-start; */
-  /* padding: 0.5rem; */
-/* } */
-/* .extensionIconPopupMenu .ExtensionDropdownIcon > button::after { */
-  /* content: attr(title); */
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
-/* } */
-
 /* vpn button */
 [name=VPNButton] svg {
   color: var(--colormix);
