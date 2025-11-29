@@ -62,6 +62,9 @@
 }
 
 /* addressfield */
+button[title="Content Blocker"] {
+  display: none;
+}
 .UrlFragment-Wrapper:not(.UrlFragment-Wrapper--ShouldHighlight) {
   --HighlightColor: var(--colorFg);
   --LowlightColor: var(--colorFg);
