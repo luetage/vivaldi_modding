@@ -1,7 +1,7 @@
 // Astronomy Picture of the Day Dashboard Widget
-// version 2025.7.0
-// Guide and updates ☛ https://forum.vivaldi.net/post/783627
-// ————————  ⁂  ————————
+// version 2026.1.0
+// Guide and updates → https://forum.vivaldi.net/post/783627
+// ———————— *** ————————
 
 "use strict";
 
