@@ -11,10 +11,11 @@ Guide and updates ☛ https://forum.vivaldi.net/post/783627
 html {
   container-type: normal;
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in oklab, var(--colorFg) 40%, transparent)
-    color-mix(in oklab, var(--colorBg) 95%, black);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "IBM Plex Sans",
-    Inter, Ubuntu, sans-serif;
+  scrollbar-color: color-mix(in oklch, var(--colorFg) 40%, transparent)
+    oklch(from var(--colorBg) calc(l - 0.03) c h);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "IBM Plex Sans", Inter,
+    Ubuntu, sans-serif;
   font-size: 100%;
   font-variant-numeric: "tabular-nums";
   font-feature-settings: "tnum";
@@ -22,30 +23,16 @@ html {
 }
 @container style(--isDarkTheme: 0) {
   body {
-    --premix: color-mix(in oklab, var(--colorFg) 40%, white);
-    --fgalt: color-mix(in oklab, var(--colorFg) 70%, white);
-    --bgalt: color-mix(in oklab, var(--colorBg) 97%, black);
-    --bgbtn: color-mix(in oklab, var(--colorBg) 97%, black);
-  }
-  #outer,
-  #phase strong {
-    color: color-mix(in oklab, var(--premix) 70%, var(--colorHighlightBg));
-  }
-  #inner {
-    color: color-mix(in oklab, var(--colorBg) 70%, var(--colorHighlightBg));
+    --fgalt: oklch(from var(--colorFg) calc(l + 0.2) c h );
+    --bgalt: oklch(from var(--colorBg) calc(l - 0.05) c h);
+    --bgbtn: oklch(from var(--colorBg) calc(l - 0.05) c h);
   }
 }
 @container style(--isDarkTheme: 1) {
   body {
-    --premix: color-mix(in oklab, var(--colorFg) 70%, black);
-    --fgalt: color-mix(in oklab, var(--colorFg) 80%, black);
-    --bgalt: color-mix(in oklab, var(--colorBg) 94%, black);
-    --bgbtn: color-mix(in oklab, var(--colorBg) 94%, white);
-  }
-  #outer,
-  #inner,
-  #phase strong {
-    color: color-mix(in hsl, var(--premix) 70%, var(--colorHighlightBg));
+    --fgalt: oklch(from var(--colorFg) calc(l - 0.2) c h);
+    --bgalt: oklch(from var(--colorBg) calc(l - 0.02) c h);
+    --bgbtn: oklch(from var(--colorBg) calc(l + 0.06) c h);
   }
 }
 body {
@@ -56,6 +43,11 @@ body {
   line-height: 1.2;
   user-select: none;
   overflow: hidden;
+}
+#outer,
+#inner,
+#phase strong {
+  color: color-mix(in oklch, var(--colorBg) 30%, var(--colorHighlightBg));
 }
 #error {
   font-size: 0.8rem;

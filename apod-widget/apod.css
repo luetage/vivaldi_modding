@@ -17,8 +17,8 @@ html {
     Inter, Ubuntu, sans-serif;
   font-size: 100%;
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in oklab, var(--colorFg) 40%, transparent)
-    color-mix(in oklab, var(--colorBg) 95%, black);
+  scrollbar-color: color-mix(in oklch, var(--colorFg) 40%, transparent)
+    oklch(from var(--colorBg) calc(l - 0.03) c h);
 }
 @container style(--isDarkTheme: 0) {
   input {

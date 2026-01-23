@@ -1,9 +1,8 @@
-#main {
-  --colormix: color-mix(
-    in hsl,
-    var(--colorFgFadedMost) 70%,
-    var(--colorHighlightBg)
-  );
+#main,
+#footer,
+#modal-bg,
+.button-popup {
+  --colorHighlightFg: var(--colorBg);
 }
 
 /* font */
@@ -79,7 +78,7 @@ button[title="Content Blocker"] {
   font-weight: bold;
 }
 #browser .BookmarkButton .bookmark-animated-fill {
-  fill: var(--colormix);
+  fill: var(--colorHighlightBg);
 }
 .permission-denied circle {
   fill: var(--colorHighlightBg);
@@ -103,8 +102,8 @@ button[title="Content Blocker"] {
 }
 
 /* vpn button */
-[name=VPNButton] svg {
-  color: var(--colormix);
+[name="VPNButton"] svg {
+  color: var(--colorHighlightBg);
 }
 
 /* status info */
@@ -122,4 +121,3 @@ button[title="Content Blocker"] {
 button.HUD {
   display: none;
 }
-
