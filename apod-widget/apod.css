@@ -98,7 +98,7 @@ details[open] summary svg {
 input {
   background: var(--colorBg);
   color: var(--colorFg) !important;
-  border: 0.15rem solid color-mix(in oklab, var(--colorFg) 60%, transparent);
+  border: 0.15rem solid color-mix(in oklch, var(--colorFg) 60%, transparent);
   border-radius: var(--radius);
   outline: none;
   margin: 0.28rem;
