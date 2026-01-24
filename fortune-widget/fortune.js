@@ -1,6 +1,6 @@
 // Fortune Widget
 // version 2026.1.0
-// Guide and updates → https://forum.vivaldi.net/post/783627
+// Guide and updates → https://forum.vivaldi.net/post/787840
 // ———————— *** ————————
 
 "use strict";
