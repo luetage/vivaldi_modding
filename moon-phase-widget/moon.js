@@ -227,8 +227,7 @@ async function loc(em) {
 function check_storage(em) {
   em.error.classList.add("hidden");
   const saved = JSON.parse(localStorage.getItem("moon-phase"));
-  if (saved !== null && saved.date === em.date) {
-    console.info(saved);
+  if (saved && saved.date === em.date) {
     parse(saved, em);
   } else loc(em);
 }

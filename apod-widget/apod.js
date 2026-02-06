@@ -105,10 +105,9 @@ const setup = async (data_url) => {
   es.error.classList.add("hidden");
   if (es.first_run === true) {
     const apod = JSON.parse(localStorage.getItem("apod"));
-    if (
-      apod &&
-      (es.time < apod.next || es.time - apod.last_checked < 3600000)
-    ) {
+    console.info(es.day);
+    console.info(apod.date);
+    if (apod && es.isodate === apod.date) {
       console.info(apod);
       parse(apod);
       return;
@@ -118,8 +117,6 @@ const setup = async (data_url) => {
     (resolve) => {
       if (es.first_run === true) {
         const storage = resolve.data;
-        storage.last_checked = es.time;
-        storage.next = new Date(storage.date).getTime() + 102600000;
         localStorage.setItem("apod", JSON.stringify(storage));
       }
       console.info(resolve);
@@ -143,7 +140,7 @@ function init() {
   const essentials = {
     api_request: `https://api.nasa.gov/planetary/apod?api_key=${api_key}`,
     first_run: true,
-    time: Date.now(),
+    isodate: new Date().toISOString().substring(0, 10),
   };
   const elements = [
     "container",

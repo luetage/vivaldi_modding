@@ -33,31 +33,11 @@
   .toolbar:has(.window-buttongroup.on-mainbar) {
   padding-left: unset;
 }
-.alt.disable-titlebar.address-top#browser:not(.tabs-top) .vivaldi {
-  top: unset;
-}
 #browser.linux.address-top .toolbar:has(.window-buttongroup.on-mainbar) {
   min-height: calc(35px / var(--uiZoomLevel));
 }
-#browser.linux.address-top
-  .toolbar:has(.window-buttongroup.on-mainbar)
-  .vivaldi {
-  height: 35px;
-  width: 34px;
-  margin: 0;
-  padding: 0;
-}
-#browser.linux.address-top
-  .toolbar:has(.window-buttongroup.on-mainbar)
-  .vivaldi
-  svg {
-  fill-opacity: 0.33;
-}
-#browser.linux.address-top
-  .toolbar:has(.window-buttongroup.on-mainbar)
-  .vivaldi
-  .expand-arrow {
-  display: none;
+.vivaldi-v svg {
+  fill-opacity: 0.5;
 }
 
 /* addressfield */

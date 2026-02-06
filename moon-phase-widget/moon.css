@@ -25,14 +25,12 @@ html {
   body {
     --fgalt: oklch(from var(--colorFg) calc(l + 0.2) c h );
     --bgalt: oklch(from var(--colorBg) calc(l - 0.05) c h);
-    --bgbtn: oklch(from var(--colorBg) calc(l - 0.05) c h);
   }
 }
 @container style(--isDarkTheme: 1) {
   body {
     --fgalt: oklch(from var(--colorFg) calc(l - 0.2) c h);
-    --bgalt: oklch(from var(--colorBg) calc(l - 0.02) c h);
-    --bgbtn: oklch(from var(--colorBg) calc(l + 0.06) c h);
+    --bgalt: oklch(from var(--colorBg) calc(l - 0.025) c h);
   }
 }
 body {
@@ -69,7 +67,7 @@ body {
   color: var(--fgalt);
 }
 #reload:hover {
-  background-color: var(--bgbtn);
+  background-color: var(--bgalt);
 }
 @keyframes rotate {
   to {
