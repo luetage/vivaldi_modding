@@ -105,8 +105,6 @@ const setup = async (data_url) => {
   es.error.classList.add("hidden");
   if (es.first_run === true) {
     const apod = JSON.parse(localStorage.getItem("apod"));
-    console.info(es.day);
-    console.info(apod.date);
     if (apod && es.isodate === apod.date) {
       console.info(apod);
       parse(apod);
