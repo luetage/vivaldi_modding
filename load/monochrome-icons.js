@@ -12,6 +12,7 @@
       "color: color-mix(in oklch, var(--colorBg) 80%, var(--colorHighlightBg));";
     const oklch = getComputedStyle(color).getPropertyValue("color");
     color.removeAttribute("style");
+    // get hue from oklch, rotate to counteract sepia filter
     const hue = (Number(oklch.match(/-?\d+(\.\d+)?/g)[2]) - 50).toFixed(2);
     console.info(`monochrome-icons hue-change: ${hue}°`);
     css.innerHTML = `
