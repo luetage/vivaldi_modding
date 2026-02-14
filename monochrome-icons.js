@@ -1,5 +1,5 @@
 // Monochrome icons
-// version 2026.1.0
+// version 2026.2.1
 // https://forum.vivaldi.net/post/791344
 // Makes web panel thumbnails monochrome depending on theme colors.
 
@@ -14,13 +14,20 @@
     color.removeAttribute("style");
     // get hue from oklch, rotate to counteract sepia filter
     const hue = (Number(oklch.match(/-?\d+(\.\d+)?/g)[2]) - 50).toFixed(2);
-    console.info(`monochrome-icons hue-change: ${hue}°`);
+    let filter;
+    if (!isNaN(hue)) {
+      console.info(`monochrome-icons hue-change: ${hue}°`);
+      filter = `sepia(1) hue-rotate(${hue}deg)`;
+    } else {
+      console.info("monochrome-icons grayscale mode");
+      filter = "grayscale(1)";
+    }
     css.innerHTML = `
       .button-toolbar-webpanel img {
-        filter: brightness(0.77) sepia(1) hue-rotate(${hue}deg);
+        filter: brightness(0.77) ${filter};
       }
       #browser.isblurred.dim-blurred .button-toolbar-webpanel img {
-        filter: brightness(0.77) sepia(1) hue-rotate(${hue}deg) opacity(0.65) !important;
+        filter: brightness(0.77) ${filter} opacity(0.65) !important;
       }
     `;
   }
