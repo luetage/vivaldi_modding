@@ -82,7 +82,7 @@ button[title="Content Blocker"] {
 }
 
 /* vpn button */
-[name="VPNButton"] svg {
+.protonVPN svg {
   color: var(--colorHighlightBg);
 }
 
