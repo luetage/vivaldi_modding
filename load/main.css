@@ -68,8 +68,8 @@ button[title="Content Blocker"] {
 }
 
 /* panel container */
-#window-panel .vivaldi-tree .title.active::before {
-  content: "⌑";
+#window-panel .vivaldi-tree .title.active {
+  text-decoration-style: dotted;
 }
 
 /* m3 */
