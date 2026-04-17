@@ -60,16 +60,10 @@ button[title="Content Blocker"] {
 #browser .BookmarkButton .bookmark-animated-fill {
   fill: var(--colorHighlightBg);
 }
-.permission-denied circle {
-  fill: var(--colorHighlightBg);
-}
-.permission-denied path {
-  fill: var(--colorHighlightFg);
-}
 
 /* panel container */
-#window-panel .vivaldi-tree .title.active {
-  text-decoration-style: dotted;
+#window-panel .vivaldi-tree .title.active::before {
+  content: "";
 }
 
 /* m3 */
@@ -84,12 +78,6 @@ button[title="Content Blocker"] {
 /* vpn button */
 .protonVPN svg {
   color: var(--colorHighlightBg);
-}
-
-/* status info */
-.StatusInfo .UrlFragments,
-.StatusInfo-Content {
-  color: var(--colorFgFaded);
 }
 
 /* startpage */
