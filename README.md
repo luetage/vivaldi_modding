@@ -1,4 +1,8 @@
-# Vivaldi Modding
+# ARCHIVED
+This repository has migrated to Codeberg → <https://codeberg.org/luetage/vivaldi-modding>
+No updates shall be made on Github.
+
+## Vivaldi Modding
 
 This repository is a collection of mods I have written for the [**Vivaldi web
 browser**][1]. Each file is a standalone modification which works on its own.
